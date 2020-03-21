@@ -1,0 +1,928 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Mock objects · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-hints/plugin-hints.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-katex/katex.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="design-for-testability.html" />
+    
+    
+    <link rel="prev" href="testing-pyramid.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" >
+            
+                <span>
+            
+                    
+                    Getting started with software testing
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="why-software-testing.html">
+            
+                <a href="why-software-testing.html">
+            
+                    
+                    Why software testing?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="testing-principles.html">
+            
+                <a href="testing-principles.html">
+            
+                    
+                    Principles of software testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="test-automation.html">
+            
+                <a href="test-automation.html">
+            
+                    
+                    Software testing automation
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" >
+            
+                <span>
+            
+                    
+                    Testing techniques
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="specification-based-testing.html">
+            
+                <a href="specification-based-testing.html">
+            
+                    
+                    Specification-based testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="boundary-testing.html">
+            
+                <a href="boundary-testing.html">
+            
+                    
+                    Boundary testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="structural-testing.html">
+            
+                <a href="structural-testing.html">
+            
+                    
+                    Structural-based testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="model-based-testing.html">
+            
+                <a href="model-based-testing.html">
+            
+                    
+                    Model-based testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="design-by-contracts.html">
+            
+                <a href="design-by-contracts.html">
+            
+                    
+                    Design-by-contracts and property-based testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" >
+            
+                <span>
+            
+                    
+                    Pragmatic software testing
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="testing-pyramid.html">
+            
+                <a href="testing-pyramid.html">
+            
+                    
+                    The testing pyramid
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.4.2" data-path="mocking.html">
+            
+                <a href="mocking.html">
+            
+                    
+                    Mock objects
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="design-for-testability.html">
+            
+                <a href="design-for-testability.html">
+            
+                    
+                    Design for testability
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="tdd.html">
+            
+                <a href="tdd.html">
+            
+                    
+                    Test-Driven Development
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="test-code-quality.html">
+            
+                <a href="test-code-quality.html">
+            
+                    
+                    Test code quality
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" >
+            
+                <span>
+            
+                    
+                    Automated software testing
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="mutation-testing.html">
+            
+                <a href="mutation-testing.html">
+            
+                    
+                    Mutation testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="fuzzing.html">
+            
+                <a href="fuzzing.html">
+            
+                    
+                    Fuzzing testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" >
+            
+                <span>
+            
+                    
+                    Testing in the enterprise
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" >
+            
+                <span>
+            
+                    
+                    Web testing (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" >
+            
+                <span>
+            
+                    
+                    Database testing (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" >
+            
+                <span>
+            
+                    
+                    Mobile testing (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" >
+            
+                <span>
+            
+                    
+                    Non-functional testing
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" >
+            
+                <span>
+            
+                    
+                    Security testing (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" >
+            
+                <span>
+            
+                    
+                    Performance testing (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.3" >
+            
+                <span>
+            
+                    
+                    Ethical testing (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" >
+            
+                <span>
+            
+                    
+                    Appendix
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.1" data-path="answers.html">
+            
+                <a href="answers.html">
+            
+                    
+                    Answers to the exercises
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >Mock objects</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="mock-objects">Mock Objects</h1>
+<p>When unit testing a piece of code, we want to test it in isolation.
+However, if the code requires some external dependency to run, e.g.,
+a connection to a database or a webservice, this can be a problem.
+We do not want to use this external component when we are just testing the piece of code that uses it. How can we do it? We can <strong>simulate the external component</strong>!
+For that, we will use <strong>mock objects</strong>.</p>
+<p>When we mock an object, we create a simulation of this object.
+To handle external dependencies, we mock (simulate) the class in the system that interacts with the dependency.
+Instead of doing the actual work of the external components, mock objects just return fake, hard-coded results.
+These return values can be configured inside of the test itself. We will see how it works in practice soon.</p>
+<p>The use of mock objects has some advantages.
+Returning these pre-configured values is way faster than accessing an external component.
+Simulating objects also gives us a lot more control.
+If we, for example, want to make sure the system keeps going even if one of its dependencies crashes, we can just tell the simulation to crash; think of how hard would it be to crash a database just to test if your system reacts to that well (although techniques such as <em>chaos monkey</em> have become really popular!).</p>
+<p>Mock objects are therefore widely used in software testing, mainly to increase testability.
+As we have discussed, external systems that the system under test relies on are often mocked to increase controllability and observability. We often mock:</p>
+<ul>
+<li>External components that might be hard to control, or to slow to be used in a unit test, such as databases and webservices.</li>
+<li>To simulate exceptions that are hard to trigger in the actual system.</li>
+<li>To control the behavior of complex third party libraries.</li>
+<li>To test how the different components interact (i.e., exchange messages) among each other.</li>
+</ul>
+<p>Implementation-wise, we follow some steps:</p>
+<ul>
+<li>We create a mock object.</li>
+<li>Once it has been created, we give it to the class that normally uses the concrete implementation of the mocked object.
+This class is now using the mocked object while the tests are executed.</li>
+<li>At first, the mock does not know how to do anything.
+So, before running the tests, we have to tell it exactly what to do when a certain method is called.</li>
+<li>We trigger the action on the class/method under test. During its execution, note that the mock replaces the external component.</li>
+<li>We make assertions on the mock object, often related to its execution.</li>
+</ul>
+<h2 id="mockito">Mockito</h2>
+<p>In Java the most used framework for mocking is Mockito (<a href="https://site.mockito.org" target="_blank">mockito.org</a>).
+To perform the steps we mentioned above, we use a couple of methods provided by Mockito:</p>
+<ul>
+<li><code>mock(&lt;class&gt;)</code>: creates a mock object of the given class. The class can be retrieved from any class by <code>&lt;ClassName&gt;.class</code>.</li>
+<li><code>when(&lt;mock&gt;.&lt;method&gt;).thenReturn(&lt;value&gt;)</code>: defines the behavior when the given method is called on the mock. In this case <code>&lt;value&gt;</code> will be returned.</li>
+<li><code>verify(&lt;mock&gt;).&lt;method&gt;</code>: asserts that the mock object was exercised in the expected way.</li>
+</ul>
+<p>Much more functionalities are described in <a href="https://javadoc.io/page/org.mockito/mockito-core/latest/org/mockito/Mockito.html" target="_blank">Mockito&apos;s documentation</a>.</p>
+<p>Suppose we have a method that filters invoices.
+These invoices are saved in a database and retrieved from the database by this function.
+The invoices are filtered on their price.
+All those above 100 are filtered.</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">InvoiceFilter</span> </span>{
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;Invoice&gt; <span class="hljs-title">filter</span><span class="hljs-params">()</span> </span>{
+
+        InvoiceDao invoiceDao = <span class="hljs-keyword">new</span> InvoiceDao();
+        List&lt;Invoice&gt; allInvoices = invoiceDao.all();
+
+        List&lt;Invoice&gt; filtered = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+
+        <span class="hljs-keyword">for</span>(Invoice inv : allInvoices) {
+            <span class="hljs-keyword">if</span>(inv.getValue() &lt; <span class="hljs-number">100.0</span>)
+                filtered.add(inv);
+        }
+
+        <span class="hljs-keyword">return</span> filtered;
+
+    }
+}
+</code></pre>
+<p>Without mocks, the test would need to insert some testing invoices in the database first:</p>
+<pre><code class="lang-java"><span class="hljs-meta">@Test</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">filterInvoicesTest</span><span class="hljs-params">()</span> </span>{
+  InvoiceDao dao = <span class="hljs-keyword">new</span> InvoiceDao();
+  Invoice i1 = <span class="hljs-keyword">new</span> Invoice(<span class="hljs-string">&quot;M&quot;</span>, <span class="hljs-number">20.0</span>);
+  Invoice i2 = <span class="hljs-keyword">new</span> Invoice(<span class="hljs-string">&quot;A&quot;</span>, <span class="hljs-number">300.0</span>);
+  dao.save(i1);
+  dao.save(i2);
+
+  InvoiceFilter f = <span class="hljs-keyword">new</span> InvoiceFilter(dao);
+  List&lt;Invoice&gt; result = f.filter();
+
+  assertEquals(<span class="hljs-number">1</span>, result.size());
+  assertEquals(i1, results.get(<span class="hljs-number">0</span>));
+  dao.close();
+}
+</code></pre>
+<p>And of course, clear the database afterwards. Otherwise the test will break in the second run, as there will be two invoices stored in the database! (The database stores data permanenty; so far, we never had to &apos;clean&apos; the objects; after all, they were always stored in-memory only.)</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/0WY7IWbANd8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+
+<p>Now instead of using the database, we want to replace it with a mock object.
+This way our test will be faster and we can more easily control what the Database-Access-Object returns.</p>
+<p>For that to happen, we first need to make sure we can inject the <code>InvoiceDao</code>
+to the <code>InvoiceFilter</code> class. Instead of instantiating it, we&apos;ll change the <code>InvoiceFilter</code> class to actually receive <code>InvoiceDao</code> via constructor. </p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">InvoiceFilter</span> </span>{
+
+    <span class="hljs-keyword">private</span> InvoiceDao dao;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">InvoiceFilter</span> <span class="hljs-params">(InvoiceDao dao)</span> </span>{
+        <span class="hljs-keyword">this</span>.dao = dao;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;Invoice&gt; <span class="hljs-title">filter</span><span class="hljs-params">()</span> </span>{
+
+        List&lt;Invoice&gt; allInvoices = dao.all();
+
+        List&lt;Invoice&gt; filtered = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+
+        <span class="hljs-keyword">for</span>(Invoice inv : allInvoices) {
+            <span class="hljs-keyword">if</span>(inv.getValue() &lt; <span class="hljs-number">100.0</span>)
+                filtered.add(inv);
+        }
+
+        <span class="hljs-keyword">return</span> filtered;
+
+    }
+}
+</code></pre>
+<p>Now, we can mock the <code>InvoiceDao</code> class and pass the mocked instance
+to the <code>InvoiceFilter</code>:</p>
+<pre><code class="lang-java"><span class="hljs-meta">@Test</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">filterInvoicesTest</span><span class="hljs-params">()</span> </span>{
+  InvoiceDao dao = mock(InvoiceDao.class);
+  Invoice i1 = <span class="hljs-keyword">new</span> Invoice(<span class="hljs-string">&quot;M&quot;</span>, <span class="hljs-number">20.0</span>);
+  Invoice i2 = <span class="hljs-keyword">new</span> Invoice(<span class="hljs-string">&quot;A&quot;</span>, <span class="hljs-number">300.0</span>);
+
+  List&lt;Invoice&gt; list = Arrays.asList(i1, i2);
+  when(dao.all()).thenReturn(list);
+
+  InvoiceFilter f = <span class="hljs-keyword">new</span> InvoiceFilter(dao);
+  List&lt;Invoice&gt; result = f.filter();
+
+  assertEquals(<span class="hljs-number">1</span>, result.size());
+  assertEquals(i1, results.get(<span class="hljs-number">0</span>));
+}
+</code></pre>
+<p>Note how we now have full control over the <code>InvoiceDao</code> class.
+The <code>InvoiceFilter</code> uses the <code>all()</code> method of the <code>InvoiceDao</code> to get the invoices.
+With the mock, we can easily give the two invoices that we want to test on (note how
+we are passing <code>i1</code> and <code>i2</code>.
+Note also how we do not have to keep a database running while executing the tests!</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/kptTWbeLZ3E" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/baunKy04deM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+
+
+<h2 id="more-about-mockito">More about Mockito</h2>
+<p><div class="alert alert-warning hints-alert"><div class="hints-icon"><i class="fa fa-wrench"></i></div><div class="hints-container"><p>TODO: Add one more example with Mockito here, using the verify()</p>
+</div></div></p>
+<p><div class="alert alert-warning hints-alert"><div class="hints-icon"><i class="fa fa-wrench"></i></div><div class="hints-container"><p>TODO: Add one more example with Mockito here, using the spy()</p>
+</div></div></p>
+<h2 id="dealing-with-static-methods">Dealing with static methods</h2>
+<p><div class="alert alert-warning hints-alert"><div class="hints-icon"><i class="fa fa-wrench"></i></div><div class="hints-container"><p>TODO: Discuss how to add an abstraction on top of a static method, so that testing becomes easier.</p>
+</div></div></p>
+<h2 id="dealing-with-apis-you-dont-control">Dealing with APIs you don&apos;t control</h2>
+<p><div class="alert alert-warning hints-alert"><div class="hints-icon"><i class="fa fa-wrench"></i></div><div class="hints-container"><p>TODO: Discuss how to add an abstraction on top of things you don&apos;t control, e.g., Clock.</p>
+</div></div></p>
+<h2 id="mocking-in-practice-when-to-mock">Mocking in practice: when to mock?</h2>
+<p><div class="alert alert-warning hints-alert"><div class="hints-icon"><i class="fa fa-wrench"></i></div><div class="hints-container"><p>TODO: Discuss here when to mock</p>
+</div></div></p>
+<p>Mocks are a useful tool when it comes to write real isolated unit tests.</p>
+<h2 id="exercises">Exercises</h2>
+<p><strong>Exercise 1.</strong>
+See the following class:</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OrderDeliveryBatch</span> </span>{
+
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">runBatch</span><span class="hljs-params">()</span> </span>{
+
+    OrderDao dao = <span class="hljs-keyword">new</span> OrderDao();
+    DeliveryStartProcess delivery = <span class="hljs-keyword">new</span> DeliveryStartProcess();
+
+    List&lt;Order&gt; orders = dao.paidButNotDelivered();
+
+    <span class="hljs-keyword">for</span> (Order order : orders) {
+      delivery.start(order);
+
+      <span class="hljs-keyword">if</span> (order.isInternational()) {
+        order.setDeliveryDate(<span class="hljs-string">&quot;5 days from now&quot;</span>);
+      } <span class="hljs-keyword">else</span> {
+        order.setDeliveryDate(<span class="hljs-string">&quot;2 days from now&quot;</span>);
+      }
+    }
+  }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OrderDao</span> </span>{
+  <span class="hljs-comment">// accesses a database</span>
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DeliveryStartProcess</span> </span>{
+  <span class="hljs-comment">// communicates with a third-party webservice</span>
+}
+</code></pre>
+<p>Which of the following Mockito lines would never appear in a test for the <code>OrderDeliveryBatch</code> class?</p>
+<ol>
+<li><code>OrderDao dao = Mockito.mock(OrderDao.class);</code></li>
+<li><code>Mockito.verify(delivery).start(order);</code> (assume <code>order</code> is an instance of <code>Order</code>)</li>
+<li><code>Mockito.when(dao.paidButNotDelivered()).thenReturn(list);</code> (assume <code>dao</code> is an instance of <code>OrderDao</code> and <code>list</code> is an instance of <code>List&lt;Order&gt;</code>)</li>
+<li><code>OrderDeliveryBatch batch = Mockito.mock(OrderDeliveryBatch.class);</code></li>
+</ol>
+<p><strong>Exercise 2.</strong>
+You are testing a system that triggers advanced events based on complex combinations of Boolean external conditions relating to the weather (outside temperature, amount of rain, wind, ...). 
+The system has been cleanly designed and consists of a set of cooperating classes that each have a single responsibility.
+You create a decision table for this logic, and decide to test it using mocks. Which is a valid test strategy?</p>
+<ol>
+<li>You use mocks to support observing the external conditions.</li>
+<li>You create mock objects to represent each variant you need to test.</li>
+<li>You use mocks to control the external conditions and to observe the event being triggered.</li>
+<li>You use mocks to control the triggered events.</li>
+</ol>
+<p><strong>Exercise 3.</strong>
+Below, we show the <code>InvoiceFilter</code> class. This class is responsible for returning all the invoices that have an amount smaller than 100.0. It makes use of the InvoiceDAO class, which is responsible for the communication with the database.</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">InvoiceFilter</span> </span>{
+
+    <span class="hljs-keyword">private</span> InvoiceDao invoiceDao;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">InvoiceFilter</span><span class="hljs-params">(InvoiceDao invoiceDao)</span> </span>{
+        <span class="hljs-keyword">this</span>.invoiceDao = invoiceDao;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;Invoice&gt; <span class="hljs-title">filter</span><span class="hljs-params">()</span> </span>{
+        List&lt;Invoice&gt; filtered = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+        List&lt;Invoice&gt; allInvoices = invoiceDao.all();
+
+        <span class="hljs-keyword">for</span>(Invoice inv : allInvoices) {
+            <span class="hljs-keyword">if</span>(inv.getValue() &lt; <span class="hljs-number">100.0</span>)
+                filtered.add(inv);
+        }
+
+        <span class="hljs-keyword">return</span> filtered;
+    }
+}
+</code></pre>
+<p>Which of the following statements is <strong>false</strong> about this class?</p>
+<ol>
+<li>Integration tests would help us achieve a 100% branch coverage, which is not possible solely via unit tests.</li>
+<li>Its implementation allows for dependency injection, which enables mocking.</li>
+<li>It is possible to write completely isolated unit tests for it by, e.g., using mocks.</li>
+<li>The InvoiceDao class (a direct dependency of the InvoiceFilter) itself should be tested by means of integration tests.</li>
+</ol>
+<p><strong>Exercise 4.</strong>
+Class A depends on a static method in another class B.
+Suppose you want to test class A, which approach(es) can you take to be able to test properly?</p>
+<ol>
+<li>Mock class B to control the behavior of the methods in class B.</li>
+<li><p>Refactor class A, so the outcome of the method of class B is now used as an parameter.</p>
+</li>
+<li><p>Only approach 1.</p>
+</li>
+<li>Neither.</li>
+<li>Only approach 2.</li>
+<li>Both.</li>
+</ol>
+<h2 id="references">References</h2>
+<ul>
+<li><p>Fowler, Martin. Mocks aren&apos;t stubs. <a href="https://martinfowler.com/articles/mocksArentStubs.html" target="_blank">https://martinfowler.com/articles/mocksArentStubs.html</a></p>
+</li>
+<li><p>Mockito&apos;s website: <a href="https://site.mockito.org" target="_blank">https://site.mockito.org</a></p>
+</li>
+</ul>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="testing-pyramid.html" class="navigation navigation-prev " aria-label="Previous page: The testing pyramid">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="design-for-testability.html" class="navigation navigation-next " aria-label="Next page: Design for testability">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Mock objects","level":"1.4.2","depth":2,"next":{"title":"Design for testability","level":"1.4.3","depth":2,"path":"design-for-testability.md","ref":"design-for-testability.md","articles":[]},"previous":{"title":"The testing pyramid","level":"1.4.1","depth":2,"path":"testing-pyramid.md","ref":"testing-pyramid.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","get-book"],"pluginsConfig":{"get-book":{"label":"Download book in PDF","url":"/sttp.pdf"},"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"mocking.md","mtime":"2020-03-21T17:43:12.279Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-03-21T17:44:33.756Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-get-book/plugin.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

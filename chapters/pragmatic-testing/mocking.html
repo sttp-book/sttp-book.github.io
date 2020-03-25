@@ -1025,61 +1025,83 @@ To that aim, let us create a <code>SAP</code> interface that represents the comm
   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">send</span><span class="hljs-params">(Invoice invoice)</span></span>;
 }
 </code></pre>
-<p>Let us <code>InvoiceFilter</code> can now receive and use this interface:</p>
-<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">InvoiceFilter</span> </span>{
+<p>We now need a class that will coordinate the process: retrieve the low valued invoices from the <code>InvoiceFilter</code>
+and pass them to the <code>SAP</code> service. Let us create a new <code>SAPInvoiceSender</code> class:</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SAPInvoiceSender</span> </span>{
 
-  <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> IssuedInvoices issuedInvoices;
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> InvoiceFilter filter;
   <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> SAP sap;
 
-  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">InvoiceFilter</span> <span class="hljs-params">(IssuedInvoices issuedInvoices, SAP sap)</span> </span>{
-    <span class="hljs-keyword">this</span>.issuedInvoices = issuedInvoices;
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">SAPInvoiceSender</span><span class="hljs-params">(InvoiceFilter filter, SAP sap)</span> </span>{
+    <span class="hljs-keyword">this</span>.filter = filter;
     <span class="hljs-keyword">this</span>.sap = sap;
   }
 
-  <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;Invoice&gt; <span class="hljs-title">lowValueInvoices</span><span class="hljs-params">()</span> </span>{
-    <span class="hljs-keyword">return</span> issuedInvoices.all().stream()
-      .filter(invoice -&gt; invoice.value &lt; <span class="hljs-number">100</span>)
-      .peek(invoice -&gt; sap.send(invoice))
-      .collect(toList());
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">sendLowValuedInvoices</span><span class="hljs-params">()</span> </span>{
+    filter
+      .lowValueInvoices()
+      .forEach(invoice -&gt; sap.send(invoice));
   }
 }
 </code></pre>
-<p>Our test suite already contains the <code>filterInvoices</code> test. We now need to add a test for this new
-SAP behavior. After the execution of the method under test, we 
-should expect that the <code>sap</code> mock received both the <code>mauricio</code>&apos;s and the <code>steve</code>&apos;s invoices, and
-that it did not receive <code>arie</code>&apos;s invoice.</p>
-<p>For that, we use Mockito&apos;s <code>verify()</code> method:</p>
-<pre><code class="lang-java"><span class="hljs-meta">@Test</span>
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">sendToSap</span><span class="hljs-params">()</span> </span>{
-  <span class="hljs-keyword">final</span> var mauricio = <span class="hljs-keyword">new</span> Invoice(<span class="hljs-string">&quot;Mauricio&quot;</span>, <span class="hljs-number">20</span>);
-  <span class="hljs-keyword">final</span> var steve = <span class="hljs-keyword">new</span> Invoice(<span class="hljs-string">&quot;Fred&quot;</span>, <span class="hljs-number">99</span>);
-  <span class="hljs-keyword">final</span> var arie = <span class="hljs-keyword">new</span> Invoice(<span class="hljs-string">&quot;Arie&quot;</span>, <span class="hljs-number">300</span>);
+<p>Let us know test the <code>SAPInvoiceSender</code> class.</p>
+<p>Note that, for this test, we now mock the <code>InvoiceFilter</code> class. After all, for the <code>SAPInvoiceSender</code>, 
+<code>InvoiceFilter</code> class is &quot;just a class that returns a list of invoices&quot;. As it is not the goal of the current test
+to test the filter itself, we should mock this class, as to facilitate the testing of the method under test</p>
+<p>After the execution of the method under test (<code>sendLowValuedInvoices()</code>), we 
+should expect that the <code>sap</code> mock received <code>mauricio</code>&apos;s, <code>steve</code>&apos;s, and <code>arie</code>s invoices.
+For that, we use Mockito&apos;s <code>verify()</code> method:</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SAPInvoiceSenderTest</span> </span>{
 
-  when(issuedInvoices.all()).thenReturn(asList(mauricio, arie, steve));
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> InvoiceFilter filter = mock(InvoiceFilter.class);
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> SAP sap = mock(SAP.class);
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> SAPInvoiceSender sender = <span class="hljs-keyword">new</span> SAPInvoiceSender(filter, sap);
 
-  filter.lowValueInvoices();
+  <span class="hljs-meta">@Test</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">sendToSap</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">final</span> var mauricio = <span class="hljs-keyword">new</span> Invoice(<span class="hljs-string">&quot;Mauricio&quot;</span>, <span class="hljs-number">20</span>);
+    <span class="hljs-keyword">final</span> var steve = <span class="hljs-keyword">new</span> Invoice(<span class="hljs-string">&quot;Steve&quot;</span>, <span class="hljs-number">99</span>);
+    <span class="hljs-keyword">final</span> var arie = <span class="hljs-keyword">new</span> Invoice(<span class="hljs-string">&quot;Arie&quot;</span>, <span class="hljs-number">300</span>);
 
-  verify(sap).send(mauricio);
-  verify(sap).send(steve);
-  verify(sap, never()).send(arie);
+    when(filter.lowValueInvoices()).thenReturn(asList(mauricio, steve));
+
+    sender.sendLowValuedInvoices();
+
+    verify(sap).send(mauricio);
+    verify(sap).send(steve);
+    verify(sap).send(arie);
+  }
 }
 </code></pre>
 <p>Note how we defined the expectations of the mock object. We &quot;knew&quot; exactly how the <code>InvoiceFilter</code> class
 had to interact with the mock. When the test is executed, Mockito will check whether these expectations were met, and fail
-the test if they were not. (If you want to test it, simply comment out the <code>map...</code> line in the <code>lowValueInvoices</code> and see
+the test if they were not. (If you want to test it, simply comment out the <code>forEach...</code> line in the <code>sendLowValuedInvoices</code> and see
 the test failing).</p>
 <p>This example illustrates the main difference between simply stubbing and mocking. Stubbing means simply returning hard-coded
 values for a given method call; mocking means not only defining what methods do, but also explicitly define how the interactions
 with the mock should be.</p>
-<p>Mockito actually enables us to define even more specific expectations. For example, see the code below:</p>
-<pre><code class="lang-java">verify(sap, atMost(<span class="hljs-number">2</span>)).send(any(Invoice.class));
-verify(sap, atMostOnce()).send(mauricio);
-verify(sap, atMostOnce()).send(steve);
-verify(sap, never()).send(arie);
+<p>Mockito actually enables us to define even more specific expectations. For example, see the expectations below:</p>
+<pre><code class="lang-java">verify(sap, times(<span class="hljs-number">3</span>)).send(any(Invoice.class));
+verify(sap, times(<span class="hljs-number">1</span>)).send(mauricio);
+verify(sap, times(<span class="hljs-number">1</span>)).send(steve);
+verify(sap, times(<span class="hljs-number">1</span>)).send(arie);
 </code></pre>
-<p>We expect the SAP mock to have its <code>send</code> method invoked only two times for any given <code>Invoice</code>. We then expect
-the <code>send</code> method to called once for the <code>mauricio</code> invoice, and once for the <code>steve</code> invoice. The fourth <code>verify</code> might
-be redundant, but explicitly shows that the method should never be called for <code>arie</code>.</p>
+<p>These ones are more restrictive than the ones we had before.
+We now expect the SAP mock to have its <code>send</code> method invoked precisely three times (for any given <code>Invoice</code>). We then expect
+the <code>send</code> method to called once for the <code>mauricio</code> invoice, once for the <code>steve</code> invoice, 
+and once for the <code>arie</code> invoice. We point the reader to Mockito&apos;s manual for more details on how to configure
+expectations.</p>
+<blockquote>
+<p>You might be asking yourself now: <em>Why did you not put this new SAP behavior inside of the
+existing <code>InvoiceFilter</code> class</em>?</p>
+<p>If we were do it, the <code>lowValueInvoices</code> method would then be both a &quot;command&quot; and a &quot;query&quot;.
+By &quot;query&quot;, we mean that the method returns data to the caller; but &quot;command&quot;, we mean that the method
+also perform an action in the system. Mixing both concepts in a single method is not a good idea, as it
+may confuse developers who will eventually call this method. How would they know this method had some
+extra side-effect, besides just returning the list of invoices?</p>
+<p>If you want to read more about it, search for <em>Command-Query Separation</em>, or CQS, a concept 
+devised by Bertrand Meyer.</p>
+</blockquote>
 <h2 id="how-to-stub-static-methods-or-with-apis-you-do-not-control">How to stub static methods (or with APIs you do not control)</h2>
 <p>Imagine the following requirement:</p>
 <blockquote>
@@ -1378,7 +1400,7 @@ We should not forget what we saw in the previous chapter. Apply boundary testing
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Mock objects","level":"5.1.2","depth":2,"next":{"title":"Design for testability","level":"5.1.3","depth":2,"path":"chapters/pragmatic-testing/design-for-testability.md","ref":"chapters/pragmatic-testing/design-for-testability.md","articles":[]},"previous":{"title":"The testing pyramid","level":"5.1.1","depth":2,"path":"chapters/pragmatic-testing/testing-pyramid.md","ref":"chapters/pragmatic-testing/testing-pyramid.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapters/pragmatic-testing/mocking.md","mtime":"2020-03-24T16:54:17.834Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-03-24T16:54:38.667Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Mock objects","level":"5.1.2","depth":2,"next":{"title":"Design for testability","level":"5.1.3","depth":2,"path":"chapters/pragmatic-testing/design-for-testability.md","ref":"chapters/pragmatic-testing/design-for-testability.md","articles":[]},"previous":{"title":"The testing pyramid","level":"5.1.1","depth":2,"path":"chapters/pragmatic-testing/testing-pyramid.md","ref":"chapters/pragmatic-testing/testing-pyramid.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapters/pragmatic-testing/mocking.md","mtime":"2020-03-25T09:50:18.624Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-03-25T09:51:29.664Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

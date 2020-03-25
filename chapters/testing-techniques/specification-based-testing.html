@@ -881,28 +881,24 @@ the following inputs will be used for the partitions:</p>
   <span class="hljs-meta">@Test</span>
   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">leapYearsNotCenturialTest</span><span class="hljs-params">()</span> </span>{
     <span class="hljs-keyword">boolean</span> leap = leapYear.isLeapYear(<span class="hljs-number">2016</span>);
-
     assertTrue(leap);
   }
 
   <span class="hljs-meta">@Test</span>
   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">leapYearsCenturialTest</span><span class="hljs-params">()</span> </span>{
     <span class="hljs-keyword">boolean</span> leap = leapYear.isLeapYear(<span class="hljs-number">2000</span>);
-
     assertTrue(leap);
   }
 
   <span class="hljs-meta">@Test</span>
   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">nonLeapYearsTest</span><span class="hljs-params">()</span> </span>{
     <span class="hljs-keyword">boolean</span> leap = leapYear.isLeapYear(<span class="hljs-number">39</span>);
-
     assertFalse(leap);
   }
 
   <span class="hljs-meta">@Test</span>
   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">nonLeapYearsCenturialTest</span><span class="hljs-params">()</span> </span>{
     <span class="hljs-keyword">boolean</span> leap = leapYear.isLeapYear(<span class="hljs-number">1900</span>);
-
     assertFalse(leap);
   }
 }
@@ -995,7 +991,24 @@ assuming we always use big bars before small bars. Return -1 if it is impossible
 <p>The input of the program is thus the number of small bars, the number of big bars,
 and the total amount of kilos to store.</p>
 </blockquote>
-<p>In this example, the partitions are less clear and it is essential to understand the problem fully
+<p>A possible implementation for this program is:</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ChocolateBars</span> </span>{
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> CANNOT_PACK_BAG = -<span class="hljs-number">1</span>;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">calculate</span><span class="hljs-params">(<span class="hljs-keyword">int</span> small, <span class="hljs-keyword">int</span> big, <span class="hljs-keyword">int</span> total)</span> </span>{
+        <span class="hljs-keyword">int</span> maxBigBoxes = total / <span class="hljs-number">5</span>;
+        <span class="hljs-keyword">int</span> bigBoxesWeCanUse = Math.min(maxBigBoxes, big);
+        total -= (bigBoxesWeCanUse * <span class="hljs-number">5</span>);
+
+        <span class="hljs-keyword">if</span>(small &lt; total)
+            <span class="hljs-keyword">return</span> CANNOT_PACK_BAG;
+        <span class="hljs-keyword">return</span> total;
+
+    }
+}
+</code></pre>
+<p>In this requirement, the partitions are less clear and it is essential to understand the problem fully
 in order to derive the partitions.</p>
 <p>The classes/partitions are:</p>
 <ul>
@@ -1011,8 +1024,37 @@ in order to derive the partitions.</p>
 <li><strong>Need only big bars</strong>. small = 5, big = 3, total = 10</li>
 <li><strong>Need Small + big bars</strong>. small = 5, big = 3, total = 17</li>
 <li><strong>Not enough bars</strong>. small = 1, big = 1, total = 10</li>
-<li><strong>Not from the specs</strong>: small = 4, big = 2, total = -1</li>
+<li><strong>Not from the specs</strong>: small = -1, big = -1, total = -1</li>
 </ul>
+<p>In JUnit code:</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ChocolateBarsTest</span> </span>{
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> ChocolateBars bars = <span class="hljs-keyword">new</span> ChocolateBars();
+    <span class="hljs-meta">@Test</span>
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">notEnoughBars</span><span class="hljs-params">()</span> </span>{
+        assertEquals(-<span class="hljs-number">1</span>, bars.calculate(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">10</span>));
+    }
+
+    <span class="hljs-meta">@Test</span>
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">onlyBigBars</span><span class="hljs-params">()</span> </span>{
+        assertEquals(<span class="hljs-number">0</span>, bars.calculate(<span class="hljs-number">5</span>, <span class="hljs-number">3</span>, <span class="hljs-number">10</span>));
+    }
+
+    <span class="hljs-meta">@Test</span>
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">bigAndSmallBars</span><span class="hljs-params">()</span> </span>{
+        assertEquals(<span class="hljs-number">2</span>, bars.calculate(<span class="hljs-number">5</span>, <span class="hljs-number">3</span>, <span class="hljs-number">17</span>));
+    }
+
+    <span class="hljs-meta">@Test</span>
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">onlySmallBars</span><span class="hljs-params">()</span> </span>{
+        assertEquals(<span class="hljs-number">3</span>, bars.calculate(<span class="hljs-number">4</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>));
+    }
+
+    <span class="hljs-meta">@Test</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">invalidValues</span><span class="hljs-params">()</span> </span>{
+      assertEquals(-<span class="hljs-number">1</span>, bars.calculate(-<span class="hljs-number">1</span>, -<span class="hljs-number">1</span>, -<span class="hljs-number">1</span>));
+    }
+}
+</code></pre>
 <p>This example shows why deriving good test cases becomes more challenging, 
 when the specifications are complex.</p>
 <center>
@@ -1219,7 +1261,7 @@ With a <code>find</code> program that finds occurrences of a pattern in a file, 
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Specification-based testing","level":"4.1.1","depth":2,"next":{"title":"Boundary testing","level":"4.1.2","depth":2,"path":"chapters/testing-techniques/boundary-testing.md","ref":"chapters/testing-techniques/boundary-testing.md","articles":[]},"previous":{"title":"Testing techniques","level":"4.1","depth":1,"path":"chapters/testing-techniques/README.md","ref":"chapters/testing-techniques/README.md","articles":[{"title":"Specification-based testing","level":"4.1.1","depth":2,"path":"chapters/testing-techniques/specification-based-testing.md","ref":"chapters/testing-techniques/specification-based-testing.md","articles":[]},{"title":"Boundary testing","level":"4.1.2","depth":2,"path":"chapters/testing-techniques/boundary-testing.md","ref":"chapters/testing-techniques/boundary-testing.md","articles":[]},{"title":"Structural-based testing","level":"4.1.3","depth":2,"path":"chapters/testing-techniques/structural-testing.md","ref":"chapters/testing-techniques/structural-testing.md","articles":[]},{"title":"Model-based testing","level":"4.1.4","depth":2,"path":"chapters/testing-techniques/model-based-testing.md","ref":"chapters/testing-techniques/model-based-testing.md","articles":[]},{"title":"Design-by-contracts and property-based testing","level":"4.1.5","depth":2,"path":"chapters/testing-techniques/design-by-contracts.md","ref":"chapters/testing-techniques/design-by-contracts.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapters/testing-techniques/specification-based-testing.md","mtime":"2020-03-24T10:06:23.058Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-03-25T14:06:03.643Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Specification-based testing","level":"4.1.1","depth":2,"next":{"title":"Boundary testing","level":"4.1.2","depth":2,"path":"chapters/testing-techniques/boundary-testing.md","ref":"chapters/testing-techniques/boundary-testing.md","articles":[]},"previous":{"title":"Testing techniques","level":"4.1","depth":1,"path":"chapters/testing-techniques/README.md","ref":"chapters/testing-techniques/README.md","articles":[{"title":"Specification-based testing","level":"4.1.1","depth":2,"path":"chapters/testing-techniques/specification-based-testing.md","ref":"chapters/testing-techniques/specification-based-testing.md","articles":[]},{"title":"Boundary testing","level":"4.1.2","depth":2,"path":"chapters/testing-techniques/boundary-testing.md","ref":"chapters/testing-techniques/boundary-testing.md","articles":[]},{"title":"Structural-based testing","level":"4.1.3","depth":2,"path":"chapters/testing-techniques/structural-testing.md","ref":"chapters/testing-techniques/structural-testing.md","articles":[]},{"title":"Model-based testing","level":"4.1.4","depth":2,"path":"chapters/testing-techniques/model-based-testing.md","ref":"chapters/testing-techniques/model-based-testing.md","articles":[]},{"title":"Design-by-contracts and property-based testing","level":"4.1.5","depth":2,"path":"chapters/testing-techniques/design-by-contracts.md","ref":"chapters/testing-techniques/design-by-contracts.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapters/testing-techniques/specification-based-testing.md","mtime":"2020-03-25T18:36:56.312Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-03-25T19:51:31.678Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

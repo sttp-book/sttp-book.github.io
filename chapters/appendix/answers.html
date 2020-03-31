@@ -767,8 +767,8 @@
 <li>Error, the human mistake that created the fault.</li>
 </ol>
 <p><strong>Exercise 2</strong></p>
-<p>The absence-or-error fallacy.
-While the software does not have a lot of bugs, it is not giving the user what they want.
+<p>The absence-of-errors fallacy.
+While the software does not have a lot of bugs, it is not giving the users what they want.
 In this case the verification was good, but they need work on the validation.</p>
 <p><strong>Exercise 3</strong></p>
 <p>Exhaustive testing is impossible.</p>
@@ -829,7 +829,7 @@ We end up with three partitions:<ul>
 <li>P2: Element already present in the set</li>
 <li>P3: NULL element.</li>
 </ul>
-<p>The specification clearly explicits the three different cases of the correct answer.</p>
+<p>The specification clearly makes the three different cases of the correct answer explicit.</p>
 <p><strong>Exercise 6</strong></p>
 <p>Option 4 is the incorrect one.
 This is a functional based technique. No need for source code.</p>
@@ -837,7 +837,7 @@ This is a functional based technique. No need for source code.</p>
 <p>Possible actions:</p>
 <ol>
 <li>We should treat pattern size &apos;empty&apos; as exceptional, and thus, test it just once.</li>
-<li>We should constraint the options in the &apos;occurences in a single line&apos; category to happen only if &apos;occurences in the file&apos; are either exactly one or more than one. % It does not make sense to have none occurences in a file and one pattern in a line.</li>
+<li>We should constrain the options in the &apos;occurrences in a single line&apos; category to happen only if &apos;occurrences in the file&apos; are either exactly one or more than one. % It does not make sense to have none occurrences in a file and one pattern in a line.</li>
 <li>We should treat &apos;pattern is improperly quoted&apos; as exceptional, and thus, test it just once.</li>
 </ol>
 <h2 id="boundary-testing">Boundary testing</h2>
@@ -867,10 +867,10 @@ Then the condition evaluates to true.</p>
 <p>Note that we require 7 test cases in total: <code>numberOfPoints &lt;= 570</code> and <code>numberOfLives &gt; 10</code> each have one on- and one off-point.
 <code>energyLevel == 5</code> is an equality, so we have two off-points and one on-point.
 This gives a total of 7 test cases.</p>
-<p>For one of the first two conditions we need two typical rows. \
-Let&apos;s rewrite the whole condition to: <code>(c1 &amp;&amp; c2) || c3</code>.</p>
-<p>To test <code>c1</code> we have to make <code>c2</code> true, otherwise the result will always be false. \
-The same goes for testing <code>c2</code> and then making <code>c1</code> true.</p>
+<p>For one of the first two conditions we need two typical rows.</p>
+<p>Let&apos;s rewrite the whole condition to: <code>(c1 &amp;&amp; c2) || c3</code>.</p>
+<p>To test <code>c1</code> we have to make <code>c2</code> true, otherwise the result will always be false.</p>
+<p>The same goes for testing <code>c2</code> and then making <code>c1</code> true.</p>
 <p>However, when testing <code>c3</code>, we need to make <code>(c1 &amp;&amp; c2)</code> false, otherwise the result will always be true.
 That is why, when testing <code>c3</code>, <code>c1</code> or <code>c2</code> has to be false, i.e. and out-point instead of an in-point.
 Therefore we use two different typical rows for the <code>numberOfLives</code> variable.
@@ -881,7 +881,7 @@ The same could have been done with two typical rows for the <code>numberOfPoints
 <p>on point = 1024, off point = 1025, in point = 1028, out point = 512</p>
 <p>The on point is the number precisely in the boundary = 1024. off point is the closest number to the boundary and has the opposite result of on point. In this case, 1024 makes the condition false, so the off point should make it true. 1025. In point makes conditions true, e.g., 1028. Out point makes the condition false, e.g., 512.</p>
 <p><strong>Exercise 7</strong></p>
-<p>We should always test the behavior of our program when any expected data actually does not exist (EXISTENCE).</p>
+<p>We should always test the behaviour of our program when any expected data actually does not exist (EXISTENCE).</p>
 <h2 id="structural-based-testing">Structural-based testing</h2>
 <p><strong>Exercise 1</strong></p>
 <p>Example of a test suite that achieves <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mn>0</mn><mn>0</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">100\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span><span class="mord mathrm">%</span></span></span></span> line coverage:</p>
@@ -967,10 +967,10 @@ To achieve <span class="katex"><span class="katex-mathml"><math><semantics><mrow
 <p>For the decision in line 1, we need to remove <code>null</code> and something else than <code>null</code>. This is done with the <code>removeElement</code> and <code>removeNull</code> tests.</p>
 <p>Then for the decision in line 2 the node that <code>remove</code> is looking at should not be null and null at least once in the tests.
 The node is <code>null</code> when the end of the list had been reached.
-That only happens when the element that shouls be removed is not in the list.
+That only happens when the element that should be removed is not in the list.
 Note that the decision in line 2 only gets executed when the element to remove is <code>null</code>.
 In the tests, this means that the element should be found and not found at least once. </p>
-<p>The decision in line 3 checks if the node thet the method is at now has the element that should be deleted.
+<p>The decision in line 3 checks if the node that the method is at now has the element that should be deleted.
 The tests should cover a case where the element is not the item that has to be removed and a case where the element is the item that should be removed.</p>
 <p>The decisions in lines 7 and 8 are the same as in lines 2 and 3 respectively.
 The only difference is that lines 7 and 8 will only be executed when the item to remove is not <code>null</code>.</p>
@@ -1030,7 +1030,7 @@ Finally another test to cover lines 14 and 15. This test will also automatically
 <p><strong>Exercise 12</strong></p>
 <p>Answer: 4.</p>
 <p>From the CFG we can see that there are 6 branches.
-We need at least one test to cover the true branch from teh decision in line 1.
+We need at least one test to cover the true branch from the decision in line 1.
 Then with another test we can cover false from L1 and false from L8.
 We add another test to cover false from the decision in line 10.
 Finally an additional test is needed to cover the true branch out of the decision in line 10.
@@ -1184,7 +1184,7 @@ To achieve this we add the FFF and TFF decision as test cases.</p>
 <p><strong>Exercise 12</strong></p>
 <p><img src="img/model-based-testing/exercises/solution-microwave-transitiontree.png" alt=""></p>
 <p><strong>Exercise 13</strong></p>
-<p>There will be one extra super state (ACTIVE), which will be a superstate of the existing WARMING and DEFROSTING states. The edges from ON to WARMING and DEFROSTING will remain.
+<p>There will be one extra super state (ACTIVE), which will be a super-state of the existing WARMING and DEFROSTING states. The edges from ON to WARMING and DEFROSTING will remain.
 The two (cancel and time out) outgoing edges from WARMING and DEFROSTING (four edges in total) will be replaced by two edges going out of the super ACTIVE state.
 So there will be two fewer transitions.</p>
 <p><strong>Exercise 14</strong></p>
@@ -1309,7 +1309,7 @@ So we have to add an assertion to the constructor that asserts that every value 
 <p>There is a problem in the <code>Square</code>&apos;s preconditions.
 For the <code>resetSize</code> method these are stronger than the <code>Rectangle</code>&apos;s preconditions.
 We do not just assert that the <code>width</code> and <code>height</code> should be larger than 0, but they should also be equal.
-This violates the Liskov&apos;s Substitution Principle.
+This violates Liskov&apos;s Substitution Principle.
 We cannot substitute a <code>Square</code> for a <code>Rectangle</code>, because we would not be able to have unequal width and height anymore.</p>
 <p><strong>Exercise 4</strong></p>
 <p>Making correct use of a class should never trigger a class invariant violation.
@@ -1317,9 +1317,9 @@ We are making correct use of the class, as otherwise it would have been a precon
 This means that there is a bug in the implementation of the library, which would have to be fixed.
 As this is outside your project, you typically cannot fix this problem.</p>
 <p><strong>Exercise 5</strong></p>
-<p>Just like the contracts we have a client and a server. \
-A 4xx code means that the client invoked the server in a wrong way, which corresponds to failing to adhere to a precondition. \
-A 5xx code means that the server was not able to handle the request of the client, which was correct.
+<p>Just like the contracts we have a client and a server.</p>
+<p>A 4xx code means that the client invoked the server in a wrong way, which corresponds to failing to adhere to a precondition.</p>
+<p>A 5xx code means that the server was not able to handle the request of the client, which was correct.
 This corresponds to failing to meet a postcondition.</p>
 <p><strong>Exercise 6</strong></p>
 <p>P&apos; should be equal or weaker than P, and Q&apos; should be equal or stronger than Q.</p>
@@ -1333,7 +1333,7 @@ This corresponds to failing to meet a postcondition.</p>
 <li>Integration</li>
 <li>Unit</li>
 <li>More reality (interchangeable with 6)</li>
-<li>More complexity (interchangeable ith 5)</li>
+<li>More complexity (interchangeable with 5)</li>
 </ol>
 <p>See the diagram in the Testing Pyramid section.</p>
 <p><strong>Exercise 2</strong></p>
@@ -1362,11 +1362,11 @@ See <a href="https://martinfowler.com/bliki/TestPyramid.html!" target="_blank">h
 <ol>
 <li>This line is required to create a mock for the <code>OrderDao</code> class.</li>
 <li>With this line we check that the methods calls start with <code>order</code> on a <code>delivery</code> mock we defined. The method is supposed to start each order that is paid but not delivered.</li>
-<li>With this line we define the behavior of the <code>paidButNotDelivered</code> method by telling the mock that it should return an earlier defined <code>list</code>.</li>
+<li>With this line we define the behaviour of the <code>paidButNotDelivered</code> method by telling the mock that it should return an earlier defined <code>list</code>.</li>
 <li>We would never see this happen in a test that is testing the <code>OrderDeliveryBatch</code> class. By mocking the class we do not use any of its implementation. But the implementation is the exact thing we want to test. In general we never mock the class under test.</li>
 </ol>
 <p><strong>Exercise 2</strong></p>
-<p>You need mocks to both control and observe the behavior of the (external) conditions you mocked.</p>
+<p>You need mocks to both control and observe the behaviour of the (external) conditions you mocked.</p>
 <p><strong>Exercise 3</strong></p>
 <p>Option 1 is the false one. We can definitely get to 100% branch coverage there with the help of mocks.</p>
 <p><strong>Exercise 4</strong></p>
@@ -1434,7 +1434,7 @@ We can give the <code>dao</code> and <code>delivery</code> in a parameter of the
 <p>The method and class lack controllability.
 We cannot change the values that <code>Calender</code> gives in the method because the <code>getInstance</code> method is static.
 Mockito cannot really mock static methods, which is why we tend to avoid using static methods.</p>
-<p>We can use depencency injection to make sure we can control the <code>today</code> object by using a mock.</p>
+<p>We can use dependency injection to make sure we can control the <code>today</code> object by using a mock.</p>
 <p><strong>Exercise 3</strong></p>
 <p>The correct answer is 1 and 3.</p>
 <p>As we discussed it is very important to keep the domain and infrastructure separated for the testability.
@@ -1480,7 +1480,7 @@ TDD literature says nothing about team integration.</p>
 <p><strong>Exercise 4</strong></p>
 <p>Flaky test.</p>
 <p><strong>Exercise 5</strong></p>
-<p>To avoid the flakiness, a developer could have mocked the random function. It does not make sense, the test is about testing the generator and its homogeinity; if we mock, the test looses its purposes.</p>
+<p>To avoid the flakiness, a developer could have mocked the random function. It does not make sense, the test is about testing the generator and its homogeneity; if we mock, the test looses its purposes.</p>
 <h2 id="mutation-testing">Mutation testing</h2>
 <p><strong>Exercise 1</strong></p>
 <p>Mutation testing.</p>
@@ -1523,7 +1523,7 @@ TDD literature says nothing about team integration.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Answers to the exercises","level":"9.1.1","depth":2,"next":{"title":"Change log","level":"9.1.2","depth":2,"path":"chapters/appendix/changelog.md","ref":"chapters/appendix/changelog.md","articles":[]},"previous":{"title":"Appendix","level":"9.1","depth":1,"ref":"","articles":[{"title":"Answers to the exercises","level":"9.1.1","depth":2,"path":"chapters/appendix/answers.md","ref":"chapters/appendix/answers.md","articles":[]},{"title":"Change log","level":"9.1.2","depth":2,"path":"chapters/appendix/changelog.md","ref":"chapters/appendix/changelog.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapters/appendix/answers.md","mtime":"2020-03-24T16:51:12.213Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-03-29T14:00:32.767Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Answers to the exercises","level":"9.1.1","depth":2,"next":{"title":"Change log","level":"9.1.2","depth":2,"path":"chapters/appendix/changelog.md","ref":"chapters/appendix/changelog.md","articles":[]},"previous":{"title":"Appendix","level":"9.1","depth":1,"ref":"","articles":[{"title":"Answers to the exercises","level":"9.1.1","depth":2,"path":"chapters/appendix/answers.md","ref":"chapters/appendix/answers.md","articles":[]},{"title":"Change log","level":"9.1.2","depth":2,"path":"chapters/appendix/changelog.md","ref":"chapters/appendix/changelog.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapters/appendix/answers.md","mtime":"2020-03-31T09:45:43.585Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-03-31T13:07:51.267Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

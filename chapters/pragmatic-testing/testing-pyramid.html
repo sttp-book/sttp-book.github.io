@@ -765,7 +765,7 @@
 However, most of requirements we tested via specification-based techniques had a single responsibility. Most of the source code
 we tested via structural-based techniques could fit in a single unit/class.</p>
 <p>A large software system, however, is composed of many of those units/responsibilities. Together, they compose
-the complex behavior of our software system. </p>
+the complex behaviour of our software system. </p>
 <p>In this chapter, we are going to discuss 
 the different <strong>test levels</strong> (i.e., unit, integration, and system), their advantages and disadvantages, and the trade-offs that a tester has to do in real-world testing.</p>
 <h2 id="unit-testing">Unit testing</h2>
@@ -837,7 +837,7 @@ but also making sure that the database has all the data that is required by that
 test case.
 This takes additional code that is needed just for automating the tests.</p>
 <p>Lastly, <strong>system tests tend to become flaky</strong>.
-A flaky test is a test that presents an erratic behavior: if you run it, it might pass,
+A flaky test is a test that presents an erratic behaviour: if you run it, it might pass,
 or it might fail. Flaky tests are an important problem for software development teams. 
 After all, having a test that might pass when there is a bug, or might fail when there is 
 no bug, harms the productivity of the development team. It is easy to imagine how
@@ -848,7 +848,7 @@ real-life scenarios; Tomcat decided to do a full garbage collection at
 that very second, for example). The test was not expecting it to happen, and thus,
 it failed. If the test is executed again, the web app might now take its usual time to respond,
 and now the test will pass. There are just too many uncertanties in a system test that
-can lead to unexpected behavior.</p>
+can lead to unexpected behaviour.</p>
 <p><div class="alert alert-success hints-alert"><div class="hints-icon"><i class="fa fa-mortar-board"></i></div><div class="hints-container"><p>We discuss <em>flaky tests</em> more formally later in the book.</p>
 </div></div></p>
 <center>
@@ -881,7 +881,7 @@ returns back. This is an example of an integration test.</p>
 multiple components of a system together, but not the whole system.
 These integration tests focus on the interaction between these few components of the system.
 Are they communicating correctly? What happens if component A sends message X to component B? 
-Do they still present correct behavior?</p>
+Do they still present correct behaviour?</p>
 <p>The advantage of integration tests is that, while not fully isolated, devising tests 
 just for a specific integration is easier than devising tests for all the components together. 
 As a consequence, the effort of writing such tests
@@ -945,7 +945,7 @@ If we think of enterprise/business systems, most of the business are about &quot
 some data into another&quot;. These business logics are often expressed by means of entity classes 
 (e.g., an <em>Invoice</em> class and a <em>Order</em> class) exchanging messages. Business logic often do
 not depend on external services. And thus, such business logics can be easily tested and fully exercised by means of unit tests. Unit tests will give testers a full control in terms of 
-the input data, as well as full observability in terms of asserting that the behavior was
+the input data, as well as full observability in terms of asserting that the behaviour was
 as expected.</li>
 </ul>
 <p>In here, a pragmatic comment would be that if you have a piece of code that deals
@@ -1169,7 +1169,7 @@ What is the main reason for the number of recommended system tests in the testin
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"The testing pyramid","level":"5.1.1","depth":2,"next":{"title":"Mock objects","level":"5.1.2","depth":2,"path":"chapters/pragmatic-testing/mocking.md","ref":"chapters/pragmatic-testing/mocking.md","articles":[]},"previous":{"title":"Pragmatic software testing","level":"5.1","depth":1,"path":"chapters/pragmatic-testing/README.md","ref":"chapters/pragmatic-testing/README.md","articles":[{"title":"The testing pyramid","level":"5.1.1","depth":2,"path":"chapters/pragmatic-testing/testing-pyramid.md","ref":"chapters/pragmatic-testing/testing-pyramid.md","articles":[]},{"title":"Mock objects","level":"5.1.2","depth":2,"path":"chapters/pragmatic-testing/mocking.md","ref":"chapters/pragmatic-testing/mocking.md","articles":[]},{"title":"Design for testability","level":"5.1.3","depth":2,"path":"chapters/pragmatic-testing/design-for-testability.md","ref":"chapters/pragmatic-testing/design-for-testability.md","articles":[]},{"title":"Test-driven development","level":"5.1.4","depth":2,"path":"chapters/pragmatic-testing/tdd.md","ref":"chapters/pragmatic-testing/tdd.md","articles":[]},{"title":"Test code quality and engineering","level":"5.1.5","depth":2,"path":"chapters/pragmatic-testing/test-code-quality.md","ref":"chapters/pragmatic-testing/test-code-quality.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapters/pragmatic-testing/testing-pyramid.md","mtime":"2020-03-24T12:06:47.374Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-03-29T14:00:32.767Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"The testing pyramid","level":"5.1.1","depth":2,"next":{"title":"Mock objects","level":"5.1.2","depth":2,"path":"chapters/pragmatic-testing/mocking.md","ref":"chapters/pragmatic-testing/mocking.md","articles":[]},"previous":{"title":"Pragmatic software testing","level":"5.1","depth":1,"path":"chapters/pragmatic-testing/README.md","ref":"chapters/pragmatic-testing/README.md","articles":[{"title":"The testing pyramid","level":"5.1.1","depth":2,"path":"chapters/pragmatic-testing/testing-pyramid.md","ref":"chapters/pragmatic-testing/testing-pyramid.md","articles":[]},{"title":"Mock objects","level":"5.1.2","depth":2,"path":"chapters/pragmatic-testing/mocking.md","ref":"chapters/pragmatic-testing/mocking.md","articles":[]},{"title":"Design for testability","level":"5.1.3","depth":2,"path":"chapters/pragmatic-testing/design-for-testability.md","ref":"chapters/pragmatic-testing/design-for-testability.md","articles":[]},{"title":"Test-driven development","level":"5.1.4","depth":2,"path":"chapters/pragmatic-testing/tdd.md","ref":"chapters/pragmatic-testing/tdd.md","articles":[]},{"title":"Test code quality and engineering","level":"5.1.5","depth":2,"path":"chapters/pragmatic-testing/test-code-quality.md","ref":"chapters/pragmatic-testing/test-code-quality.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapters/pragmatic-testing/testing-pyramid.md","mtime":"2020-03-31T09:45:43.606Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-03-31T13:07:51.267Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

@@ -774,7 +774,7 @@ the database part of the system. As we saw before, this might incur in higher te
 <p>Generically speaking: <strong>we want to unit test a component A, that depends on another component B. 
 The dependency on component B increases the costs of unit testing A.</strong></p>
 <p>This is where a <strong>mock object</strong> becomes handy. The idea is that we will create an 
-object that will mimic the behavior of component B
+object that will mimic the behaviour of component B
 (&quot;it looks like B, but it is not B&quot;).
 Given that we have full control over what this &quot;fake B component&quot; does, we can make it in such a way that
 unit testing A becomes less costly. In our example above, suppose that A is a plain-old Java class, B is a Data Access Object (and
@@ -782,7 +782,7 @@ thus, it communicates with the database). If we simulate B by, say, returning a 
 elements whenever the <code>findAllInvoices()</code>
 method is called, instead of going to the database, we remove the need for a database when testing A. 
 If this seems all too abstract, the source code we will show soon will clarify everything.</p>
-<p>The use of objects that simulate the behavior of other objects has advantages:</p>
+<p>The use of objects that simulate the behaviour of other objects has advantages:</p>
 <ul>
 <li>The first one is that we have way <strong>more control</strong>. We can easily tell these objects what to do, without the need
 for complicated setups. 
@@ -810,8 +810,7 @@ in business applications, where in many cases you need to fill a long list of pa
 just a few of them. Think of a unit test for a <code>Customer</code> class. Maybe this class depends on several other classes (<code>Address</code>, <code>Last Order</code>, etc). But a specific test case A wants to exercise the &quot;last order business rule&quot;, and does not care much about which Address this
 Customer has. In this case, a tester would then set up a dummy Address object and pass it to the Customer class.</p>
 </li>
-<li><p><strong>Fake objects</strong>: Fake objects have real working implementations of the class they simulate. However, they usually do the same task
-in a much simpler way. Imagine a fake database object that uses some sort of arraylist instead of a real database.</p>
+<li><p><strong>Fake objects</strong>: Fake objects have real working implementations of the class they simulate. However, they usually do the same task in a much simpler way. Imagine a fake database object that uses some sort of array list instead of a real database.</p>
 </li>
 <li><p><strong>Stubs</strong>: Stubs provide hard-coded answers to the calls that are called during the test. In the examples above, where we used the word &quot;simulation&quot;, we were actually talking about stub objects. Stubs do not know what to do if the test calls a method in which it was not programmed/setup for. </p>
 </li>
@@ -831,7 +830,7 @@ Mockito has a very simple API. Developers can setup stubs and/or define expectat
 <p>The most important methods one needs to know from Mockito are:</p>
 <ul>
 <li><code>mock(&lt;class&gt;)</code>: creates a mock object/stub of a given class. The class can be retrieved from any class by <code>&lt;ClassName&gt;.class</code>.</li>
-<li><code>when(&lt;mock&gt;.&lt;method&gt;).thenReturn(&lt;value&gt;)</code>: defines the behavior when the given method is called on the mock. In this case <code>&lt;value&gt;</code> will be returned.</li>
+<li><code>when(&lt;mock&gt;.&lt;method&gt;).thenReturn(&lt;value&gt;)</code>: defines the behaviour when the given method is called on the mock. In this case <code>&lt;value&gt;</code> will be returned.</li>
 <li><code>verify(&lt;mock&gt;).&lt;method&gt;</code>: asserts that the mock object was exercised in the expected way.</li>
 </ul>
 <p>Mockito is an extensive framework, and we point to reader to its <a href="https://javadoc.io/page/org.mockito/mockito-core/latest/org/mockito/Mockito.html" target="_blank">documentation</a>.</p>
@@ -895,7 +894,7 @@ and persist invoices in the database (see the many calls to <code>invoices.save(
 </code></pre>
 <p>This test is not even complete... We also need to reset the database after every test. Otherwise, 
 the test will break in its second run, as there will be now four invoices with an amount smaller than 100 stored in the database! 
-Remember that the database stores data permanenty. So far, we never had to &quot;clean our messes&quot; in a test code, as all the objects we have created were always stored in-memory only.</p>
+Remember that the database stores data permanently. So far, we never had to &quot;clean our messes&quot; in a test code, as all the objects we have created were always stored in-memory only.</p>
 <p><div class="alert alert-success hints-alert"><div class="hints-icon"><i class="fa fa-mortar-board"></i></div><div class="hints-container"><p>Did you notice the <code>assertThat...containsExactlyInAnyOrder</code>
 assertion we used? The assertion says it all: it makes sure that the list contains 
 exactly the objects we pass, and in any order.</p>
@@ -963,7 +962,7 @@ invokes <code>issuedInvoices.all()</code>. However, at this point, <code>issuedI
 the list with the three invoices. The method under test continues its execution, returns a new list with only
 the two invoices that are below 100, making the assertion to pass.</p>
 <p>Note that, besides making the test easier to write, the use of stubs also made the test class more cohesive. 
-The <code>InvoiceFilterTest</code> only tests the <code>InvoiceFilter</code> class. It does not test the behavior of the <code>IssueInvoices</code>
+The <code>InvoiceFilterTest</code> only tests the <code>InvoiceFilter</code> class. It does not test the u of the <code>IssueInvoices</code>
 class. Clearly, <code>IssueInvoices</code> deserves to be tested, but some place else, and by means of an integration test.</p>
 <p>Note that a cohesive test has less chances of failing because of something else. In the old version, the
 <code>filterInvoices</code> test could fail because of a bug in the <code>InvoiceFilter</code> class or because of a bug in the
@@ -1092,7 +1091,7 @@ the <code>send</code> method to called once for the <code>mauricio</code> invoic
 and once for the <code>arie</code> invoice. We point the reader to Mockito&apos;s manual for more details on how to configure
 expectations.</p>
 <blockquote>
-<p>You might be asking yourself now: <em>Why did you not put this new SAP behavior inside of the
+<p>You might be asking yourself now: <em>Why did you not put this new SAP u inside of the
 existing <code>InvoiceFilter</code> class</em>?</p>
 <p>If we were do it, the <code>lowValueInvoices</code> method would then be both a &quot;command&quot; and a &quot;query&quot;.
 By &quot;query&quot;, we mean that the method returns data to the caller; but &quot;command&quot;, we mean that the method
@@ -1212,8 +1211,7 @@ on the concrete implementation of <code>Clock</code>. For completeness, let us i
 is a common technique among developers.</p>
 <p>One might argue: <em>But won&apos;t that increase the overall complexity of my system? After all, it is one more
 abstraction to be maintained?</em> Yes. Indeed, complexity grows up whenever we add new abstractions in our software. And
-that is what we are doing here. However, the point is: does the easeness in testing the system that we get from adding this abstraction
-pays the off the cost of the increased complexity? Often, the answer is <em>yes, it does pay off</em>.</p>
+that is what we are doing here. However, the point is: does the ease in testing the system that we get from adding this abstraction pay off the cost of the increased complexity? Often, the answer is <em>yes, it does pay off</em>.</p>
 <h2 id="when-to-mockstub">When to mock/stub?</h2>
 <p>Mocks and stubs are a useful tool when it comes to ease the process of writing unit tests. However, as expected
 <em>mocking too much</em> might also be problem. We do not want to mock a dependency that should not be mocked.
@@ -1330,7 +1328,7 @@ Below, we show the <code>InvoiceFilter</code> class. This class is responsible f
 Class A depends on a static method in another class B.
 Suppose you want to test class A, which approach(es) can you take to be able to test properly?</p>
 <ol>
-<li>Mock class B to control the behavior of the methods in class B.</li>
+<li>Mock class B to control the u of the methods in class B.</li>
 <li><p>Refactor class A, so the outcome of the method of class B is now used as an parameter.</p>
 </li>
 <li><p>Only approach 1.</p>
@@ -1400,7 +1398,7 @@ We should not forget what we saw in the previous chapter. Apply boundary testing
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Mock objects","level":"5.1.2","depth":2,"next":{"title":"Design for testability","level":"5.1.3","depth":2,"path":"chapters/pragmatic-testing/design-for-testability.md","ref":"chapters/pragmatic-testing/design-for-testability.md","articles":[]},"previous":{"title":"The testing pyramid","level":"5.1.1","depth":2,"path":"chapters/pragmatic-testing/testing-pyramid.md","ref":"chapters/pragmatic-testing/testing-pyramid.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapters/pragmatic-testing/mocking.md","mtime":"2020-03-25T09:57:21.587Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-03-29T14:00:32.767Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Mock objects","level":"5.1.2","depth":2,"next":{"title":"Design for testability","level":"5.1.3","depth":2,"path":"chapters/pragmatic-testing/design-for-testability.md","ref":"chapters/pragmatic-testing/design-for-testability.md","articles":[]},"previous":{"title":"The testing pyramid","level":"5.1.1","depth":2,"path":"chapters/pragmatic-testing/testing-pyramid.md","ref":"chapters/pragmatic-testing/testing-pyramid.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapters/pragmatic-testing/mocking.md","mtime":"2020-03-31T09:45:43.594Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-03-31T13:07:51.267Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

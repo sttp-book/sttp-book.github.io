@@ -772,15 +772,15 @@ The production code and test code were completely separated.
 The test suite (consisting of the test classes) exercises and then observes the system under test to check whether it is acting correctly.
 If the system does something that is not expected by the test suite, the test suite fails.
 The code in the test suite is completely redundant.
-It does not add any behavior to the system.</p>
+It does not add any behaviour to the system.</p>
 <p>With self-testing, we &quot;move&quot; a bit of the test suite into the system itself.
 These assertions we insert into production code allows the system to check if it is running correctly by itself.
-We do not have to run the test suite, but instead the system can check (part of) its behavior during the normal execution of the system.
+We do not have to run the test suite, but instead the system can check (part of) its behaviour during the normal execution of the system.
 Like with the test suite, if anything is not acting as expected, an error will be thrown.
 In software testing the self-tests are used as an additional check in the system additional to the test suite.</p>
 <h3 id="assertions">Assertions</h3>
 <p>The simplest form of this self-testing is the <em>assertion</em>.
-An assertion is a boolean expression at a specific point in a program
+An assertion is a Boolean expression at a specific point in a program
 which will be true unless there is a bug in the program.
 In other words,
 an assertion basically says that a certain condition has to be true 
@@ -860,13 +860,13 @@ If there are no preconditions, i.e., no assumptions needed for the execution of 
 <p>In a Hoare Triple, the <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">A</span></span></span></span> can be a single statement or a whole program.
 We look at <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">A</span></span></span></span> as a method.
 Then <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi></mrow><annotation encoding="application/x-tex">P</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">P</span></span></span></span> and <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>Q</mi></mrow><annotation encoding="application/x-tex">Q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit">Q</span></span></span></span> are the pre- and postcondition of the method <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">A</span></span></span></span> respectively.
-Now we can write the Hoare Triple as: <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>{</mo><mi>p</mi><mi>r</mi><mi>e</mi><mi>c</mi><mi>o</mi><mi>n</mi><mi>d</mi><mi>i</mi><mi>t</mi><mi>i</mi><mi>o</mi><mi>n</mi><mi>s</mi><mo>}</mo><mtext>&#xA0;</mtext><mi>m</mi><mi>e</mi><mi>t</mi><mi>h</mi><mi>o</mi><mi>d</mi><mtext>&#xA0;</mtext><mo>{</mo><mi>p</mi><mi>o</mi><mi>s</mi><mi>t</mi><mi>c</mi><mi>o</mi><mi>n</mi><mi>d</mi><mi>i</mi><mi>t</mi><mi>i</mi><mi>o</mi><mi>n</mi><mi>s</mi><mo>}</mo></mrow><annotation encoding="application/x-tex">\{ preconditions \}\ method\ \{ postconditions \}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">{</span><span class="mord mathit">p</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">e</span><span class="mord mathit">c</span><span class="mord mathit">o</span><span class="mord mathit">n</span><span class="mord mathit">d</span><span class="mord mathit">i</span><span class="mord mathit">t</span><span class="mord mathit">i</span><span class="mord mathit">o</span><span class="mord mathit">n</span><span class="mord mathit">s</span><span class="mclose">}</span><span class="mord mathit"><span class="mspace">&#xA0;</span><span class="mord mathit">m</span></span><span class="mord mathit">e</span><span class="mord mathit">t</span><span class="mord mathit">h</span><span class="mord mathit">o</span><span class="mord mathit">d</span><span class="mopen"><span class="mspace">&#xA0;</span><span class="mopen">{</span></span><span class="mord mathit">p</span><span class="mord mathit">o</span><span class="mord mathit">s</span><span class="mord mathit">t</span><span class="mord mathit">c</span><span class="mord mathit">o</span><span class="mord mathit">n</span><span class="mord mathit">d</span><span class="mord mathit">i</span><span class="mord mathit">t</span><span class="mord mathit">i</span><span class="mord mathit">o</span><span class="mord mathit">n</span><span class="mord mathit">s</span><span class="mclose">}</span></span></span></span>.</p>
+Now we can write the Hoare Triple as: <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>{</mo><mrow><mi mathvariant="italic">p</mi><mi mathvariant="italic">r</mi><mi mathvariant="italic">e</mi><mi mathvariant="italic">c</mi><mi mathvariant="italic">o</mi><mi mathvariant="italic">n</mi><mi mathvariant="italic">d</mi><mi mathvariant="italic">i</mi><mi mathvariant="italic">t</mi><mi mathvariant="italic">i</mi><mi mathvariant="italic">o</mi><mi mathvariant="italic">n</mi><mi mathvariant="italic">s</mi></mrow><mo>}</mo><mtext>&#xA0;</mtext><mrow><mi mathvariant="italic">m</mi><mi mathvariant="italic">e</mi><mi mathvariant="italic">t</mi><mi mathvariant="italic">h</mi><mi mathvariant="italic">o</mi><mi mathvariant="italic">d</mi></mrow><mtext>&#xA0;</mtext><mo>{</mo><mrow><mi mathvariant="italic">p</mi><mi mathvariant="italic">o</mi><mi mathvariant="italic">s</mi><mi mathvariant="italic">t</mi><mi mathvariant="italic">c</mi><mi mathvariant="italic">o</mi><mi mathvariant="italic">n</mi><mi mathvariant="italic">d</mi><mi mathvariant="italic">i</mi><mi mathvariant="italic">t</mi><mi mathvariant="italic">i</mi><mi mathvariant="italic">o</mi><mi mathvariant="italic">n</mi><mi mathvariant="italic">s</mi></mrow><mo>}</mo></mrow><annotation encoding="application/x-tex">\{ \mathit{preconditions} \}\ \mathit{method}\ \{ \mathit{postconditions} \}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">{</span><span class="mord textstyle uncramped"><span class="mord mathit">p</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">e</span><span class="mord mathit">c</span><span class="mord mathit">o</span><span class="mord mathit">n</span><span class="mord mathit">d</span><span class="mord mathit">i</span><span class="mord mathit">t</span><span class="mord mathit">i</span><span class="mord mathit">o</span><span class="mord mathit">n</span><span class="mord mathit">s</span></span><span class="mclose">}</span><span class="mord textstyle uncramped"><span class="mspace">&#xA0;</span><span class="mord mathit">m</span><span class="mord mathit">e</span><span class="mord mathit">t</span><span class="mord mathit">h</span><span class="mord mathit">o</span><span class="mord mathit">d</span></span><span class="mopen"><span class="mspace">&#xA0;</span><span class="mopen">{</span></span><span class="mord textstyle uncramped"><span class="mord mathit">p</span><span class="mord mathit">o</span><span class="mord mathit">s</span><span class="mord mathit">t</span><span class="mord mathit">c</span><span class="mord mathit">o</span><span class="mord mathit">n</span><span class="mord mathit">d</span><span class="mord mathit">i</span><span class="mord mathit">t</span><span class="mord mathit">i</span><span class="mord mathit">o</span><span class="mord mathit">n</span><span class="mord mathit">s</span></span><span class="mclose">}</span></span></span></span>.</p>
 <h3 id="preconditions">Preconditions</h3>
 <p>When writing a method, each condition that needs to hold for the method to successfully execute can be a pre-condition.
 These pre-conditions can be turned into assertions.</p>
-<p>Suppose a class that keeps track of our favorite books.
+<p>Suppose a class that keeps track of our favourite books.
 Let&apos;s define some pre-conditions for the merge method.</p>
-<p>The method adds the given books to the list of favorite books and then sends some notification to, e.g., a phone.</p>
+<p>The method adds the given books to the list of favourite books and then sends some notification to, e.g., a phone.</p>
 <pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FavoriteBooks</span> </span>{
   List&lt;Book&gt; favorites;
 
@@ -884,7 +884,7 @@ This cannot be <code>null</code>, because then the <code>addAll</code> method wi
 It should also not be empty, because then we cannot add any books.
 Finally, adding books that we already have does not make sense, so the <code>books</code> should not all be present in the <code>favorites</code> already.</p>
 <p>Now we can take a look at the <code>favorites</code>.
-This also cannot be <code>null</code> because then we cannot call <code>addAll</code> on favorites.</p>
+This also cannot be <code>null</code> because then we cannot call <code>addAll</code> on favourites.</p>
 <p>This gives us 4 pre-conditions and, thus, 4 assertions in the method:</p>
 <pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FavoriteBooks</span> </span>{
   <span class="hljs-comment">// ...</span>
@@ -949,7 +949,7 @@ This means that the method <code>merge</code> has to handle empty <code>books</c
 In other words, the post-conditions formalize the effects that a method guarantees to have when it is done with its execution.</p>
 <p>The <code>merge</code> method of the previous examples does two things.
 It adds the new books to the <code>favorites</code> list.
-Let&apos;s turn this into a boolean expression, so we can formulate this as a post-condition.</p>
+Let&apos;s turn this into a Boolean expression, so we can formulate this as a post-condition.</p>
 <pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FavoriteBooks</span> </span>{
   <span class="hljs-comment">// ...</span>
 
@@ -975,7 +975,7 @@ In a test suite, we would probably mock the <code>pushNotification</code> and th
 <p>You also saw in the example that we could not really write assertions for
 some of post-conditions of the method. 
 Post-conditions (and pre-conditions for that matter) might not cover all the possible effects; however,
-hopefully they do cover a relevant subset of the possible behavior.</p>
+hopefully they do cover a relevant subset of the possible behaviour.</p>
 <h4 id="post-conditions-of-complex-methods">Post-conditions of complex methods</h4>
 <p>For complex methods, the post-conditions also become more complex.
 That&apos;s actually another reason for keeping the method simple.
@@ -1035,8 +1035,8 @@ An invariant is thus a condition that holds throughout the entire lifetime of a 
 <p>In terms of implementation, a simple way of using invariants is by creating a &quot;checker&quot; method.
 This method will go through the data structure/object/system and will assert whether the invariants hold.
 If an invariant does not hold, it will then throw an <code>AssertionError</code>.
-For simpler invariants, it is common to see a boolean method that checks the invariants of the structure/object/system.</p>
-<p>Suppose we have a binary tree datastructure.
+For simpler invariants, it is common to see a Boolean method that checks the invariants of the structure/object/system.</p>
+<p>Suppose we have a binary tree data structure.
 An invariant for this data structure would be that when a parent points to a child, then the child should point to this parent.</p>
 <p>We can make a method that checks if this representation is correct in the given binary tree.</p>
 <pre><code class="lang-java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">checkRep</span><span class="hljs-params">(BinaryTree tree)</span> </span>{
@@ -1067,7 +1067,7 @@ Moreover, methods can assume that, when they start, the class invariant holds.</
 However, the public method that invoked the private method should then fix this and end with the class invariant again being true.</p>
 <p>This is all formalized by Bertrand Meyer as: <em>&quot;The class variant indicates that a proposition P can be a class invariant if it holds after construction, and before and after any call to a public method assuming that the public methods are called with their preconditions being true.&quot;</em></p>
 <p>Of course, we want to know how to implement these class invariants.
-To implement simple class invariant in Java, we can use the boolean method that checks if the representation is okay.
+To implement simple class invariant in Java, we can use the Boolean method that checks if the representation is okay.
 We usually call this method <code>invariant</code>.
 We then assert the return value of this method after the constructor, and before and after each public method.
 In these public methods, the only pre-conditions and post-conditions that have to hold additionally are the ones that are not in the invariant.
@@ -1152,7 +1152,7 @@ In terms of strength, we now know that <span class="katex"><span class="katex-ma
 The implementation must do at least the same work as the interface, but it is allowed to do a bit more.
 Therefore, <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>Q</mi><mrow><mi mathvariant="normal">&#x2032;</mi></mrow></msup></mrow><annotation encoding="application/x-tex">Q&apos;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.751892em;"></span><span class="strut bottom" style="height:0.946332em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">Q</span><span class="msupsub"><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle uncramped mtight"><span class="mord scriptstyle uncramped mtight"><span class="mord mathrm mtight">&#x2032;</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span></span></span></span> should be <strong>stronger</strong> than (or as strong as) <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>Q</mi></mrow><annotation encoding="application/x-tex">Q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit">Q</span></span></span></span>.</p>
 <p>Finally, the interface guarantees that the invariant always holds.
-Then, the implementation should also guarentee that at least the interface&apos;s invariant holds.
+Then, the implementation should also guarantee that at least the interface&apos;s invariant holds.
 So, <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>I</mi><mrow><mi mathvariant="normal">&#x2032;</mi></mrow></msup></mrow><annotation encoding="application/x-tex">I&apos;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.751892em;"></span><span class="strut bottom" style="height:0.751892em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.07847em;">I</span><span class="msupsub"><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle uncramped mtight"><span class="mord scriptstyle uncramped mtight"><span class="mord mathrm mtight">&#x2032;</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span></span></span></span> should be <strong>stronger</strong> than (or as strong as) <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>I</mi></mrow><annotation encoding="application/x-tex">I</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.07847em;">I</span></span></span></span>.</p>
 <p>In short, using the notation of the UML diagram:</p>
 <ul>
@@ -1168,14 +1168,14 @@ So, <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup>
 
 
 <h3 id="liskov-substitution-principle">Liskov Substitution Principle</h3>
-<p>The subcontracting follows the general notion of behavioral subtyping, proposed by Barbara Liskov.
-The behavioral subtyping states that if we have a class <code>T</code> and this class has some sub-classes,
+<p>The subcontracting follows the general notion of behavioural subtyping, proposed by Barbara Liskov.
+The behavioural subtyping states that if we have a class <code>T</code> and this class has some sub-classes,
 the clients or users of class <code>T</code> should be able to choose any of <code>T</code>&apos;s sub-classes.
-This notion of behavioral subtyping is now known as the Liskov Substitution Principle (LSP).</p>
+This notion of behavioural subtyping is now known as the Liskov Substitution Principle (LSP).</p>
 <p>In other words, the LSP states that if you use a class, you should be able to replace this class by one of its subclasses.
 The sub-contracting we discussed earlier is just a formalization of this principle.
 Proper class hierarchies follow the Liskov Substitution Principle.
-Leep the LSP in mind when designing and implementating a software system.</p>
+Keep the LSP in mind when designing and implementing a software system.</p>
 <p>How can we test that our classes follow the LSP?
 To test the LSP, we have to make some test cases for the public methods of the super class and execute these tests with all its subclasses.
 We could just create the same tests to each of the subclasses&apos; test suites.
@@ -1205,11 +1205,11 @@ Therefore, we say that we use a <strong>parallel class hierarchy</strong> in our
 How do we make sure that the &quot;super test class&quot; executes its tests in the correct subclass?
 This depends on the test class that is executed and the subclass it is testing.
 If we have class <code>T</code>, with subclasses <code>A</code> and <code>B</code>, then when executing tests for <code>A</code> we need the test class of <code>T</code> to use an instance of <code>A</code>; when executing tests for <code>B</code>, we need the test class of <code>T</code> to use an instance of <code>B</code>.</p>
-<p>One way to achieve this behavior is by using the <em>Factory Method</em> design pattern,
+<p>One way to achieve this behaviour is by using the <em>Factory Method</em> design pattern,
 which works as follows:
 In the test class for the interface level (the &quot;super test class&quot;), we define an abstract method that returns an instance with the interface type.
 By making the method abstract, we force the test classes of the concrete implementations to override it.
-We return the instance of the specific subclass in the overriden method.
+We return the instance of the specific subclass in the overridden method.
 This instance is then used to execute the tests.</p>
 <p>We want to use the Factory Method design pattern in our tests for the <code>List</code>.
 We start by the interface level test class.
@@ -1260,7 +1260,7 @@ The test function then checks if the property holds using an assertion.
 For each of the generated input values, this assertion is checked. If we find an input value that makes the assertion to fail, we can affirm that the property does not hold.</p>
 <p>The first implementation of this idea was called QuickCheck and was originally developed for Haskell.
 Nowadays, most languages have an implementation of QuickCheck, including Java.
-The Java implementation we are going to use is made by Paul Holser and is available on his <a href="https://github.com/pholser/junit-quickcheck" target="_blank">github</a>.
+The Java implementation we are going to use is made by Paul Holser and is available on his <a href="https://github.com/pholser/junit-quickcheck" target="_blank">GitHub</a>.
 All implementations of QuickCheck follow the same idea, but we will focus on the Java implementation.</p>
 <p>How does it work?</p>
 <ul>
@@ -1273,14 +1273,14 @@ The arguments for these parameters will then be automatically generated by Quick
 Note that the existing generators are often not enough when we want to test one
 of our own classes; in these cases, we can create a custom generator which generates random values for this class.</p>
 </li>
-<li><p>Quickcheck handles the amount of generated inputs. After all, generating random values for the test input is tricky:
+<li><p>QuickCheck handles the amount of generated inputs. After all, generating random values for the test input is tricky:
 the generator might create too much data to efficiently handle while testing.</p>
 </li>
 <li><p>Finally, as soon as QuickCheck finds a value that breaks the property, it
 starts the shrinking process.
 Using random input values can result in very large inputs.
 For example lists that are very long or strings with a lot of characters.
-These inputs can be very hard to debug. Smaller inputs are preferrable when it comes to testing.
+These inputs can be very hard to debug. Smaller inputs are preferable when it comes to testing.
 When an input makes the property fail, QuickCheck tries to find shrink this input while it still makes the property fail.
 That way it gets the small part of the larger input that actually causes the problem.</p>
 </li>
@@ -1297,7 +1297,7 @@ We can use property-based testing and the QuickCheck&apos;s implementation to ma
   }
 }
 </code></pre>
-<p><code>concatenationLength</code> had the <code>Property</code> anotation, so QuickCheck will generate random values for <code>s1</code> and <code>s2</code> and execute the test with those values.</p>
+<p><code>concatenationLength</code> had the <code>Property</code> annotation, so QuickCheck will generate random values for <code>s1</code> and <code>s2</code> and execute the test with those values.</p>
 <p>Property-based testing changes the way we automate our tests.
 Usually, we just automate the execution of the tests.
 With property-based testing, by means of QuickCheck&apos;s implementation, we also automatically generate the inputs of the tests.</p>
@@ -1343,7 +1343,7 @@ See the code below:</p>
 Consider the piece of code in the previous example.
 Suppose we remove the last assertion (line 10), which states that the result can never be null.</p>
 <p>Are the existing preconditions of the <code>squareAt</code> method enough to ensure the property in the original line 10?
-What can we add to the class (other than the just removed postcondition) to guarentee this property?</p>
+What can we add to the class (other than the just removed postcondition) to guarantee this property?</p>
 <p><strong>Exercise 3.</strong>
 Your colleague works on a drawing application.
 He has created a Rectangle class.
@@ -1404,7 +1404,7 @@ What principle is violated, if any?
 Explain with the assertions shown in the code.</p>
 <p><strong>Exercise 4.</strong>
 You run your application with assertion checking enabled. 
-Unfortunately, it reports an assertion failure signaling a class invariant violation in one of the libraries your application makes use of.</p>
+Unfortunately, it reports an assertion failure signalling a class invariant violation in one of the libraries your application makes use of.</p>
 <p>Assume that the contract of the library in question is correct, and that all relevant preconditions are encoded in assertions as well.</p>
 <p>Can you fix this problem? 
 If so, how? 
@@ -1446,7 +1446,7 @@ Which of the following is a valid reason to use assertions in your code?</p>
 </li>
 <li><p>Meyer, B. (2002). Design by contract. Prentice Hall.</p>
 </li>
-<li><p>Liskov, B. H., &amp; Wing, J. M. (1994). A behavioral notion of subtyping. ACM Transactions on Programming Languages and Systems (TOPLAS), 16(6), 1811-1841.</p>
+<li><p>Liskov, B. H., &amp; Wing, J. M. (1994). A behavioural notion of subtyping. ACM Transactions on Programming Languages and Systems (TOPLAS), 16(6), 1811-1841.</p>
 </li>
 <li><p>&quot;Polymorphic Server Test&quot; in Binder, R. V. (1994). Object-oriented software testing. Communications of the ACM, 37(9), 28-30.</p>
 </li>
@@ -1494,7 +1494,7 @@ Which of the following is a valid reason to use assertions in your code?</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Design-by-contracts and property-based testing","level":"4.1.5","depth":2,"next":{"title":"Pragmatic software testing","level":"5.1","depth":1,"path":"chapters/pragmatic-testing/README.md","ref":"chapters/pragmatic-testing/README.md","articles":[{"title":"The testing pyramid","level":"5.1.1","depth":2,"path":"chapters/pragmatic-testing/testing-pyramid.md","ref":"chapters/pragmatic-testing/testing-pyramid.md","articles":[]},{"title":"Mock objects","level":"5.1.2","depth":2,"path":"chapters/pragmatic-testing/mocking.md","ref":"chapters/pragmatic-testing/mocking.md","articles":[]},{"title":"Design for testability","level":"5.1.3","depth":2,"path":"chapters/pragmatic-testing/design-for-testability.md","ref":"chapters/pragmatic-testing/design-for-testability.md","articles":[]},{"title":"Test-driven development","level":"5.1.4","depth":2,"path":"chapters/pragmatic-testing/tdd.md","ref":"chapters/pragmatic-testing/tdd.md","articles":[]},{"title":"Test code quality and engineering","level":"5.1.5","depth":2,"path":"chapters/pragmatic-testing/test-code-quality.md","ref":"chapters/pragmatic-testing/test-code-quality.md","articles":[]}]},"previous":{"title":"Model-based testing","level":"4.1.4","depth":2,"path":"chapters/testing-techniques/model-based-testing.md","ref":"chapters/testing-techniques/model-based-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapters/testing-techniques/design-by-contracts.md","mtime":"2020-03-22T11:59:34.592Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-03-29T14:00:32.767Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Design-by-contracts and property-based testing","level":"4.1.5","depth":2,"next":{"title":"Pragmatic software testing","level":"5.1","depth":1,"path":"chapters/pragmatic-testing/README.md","ref":"chapters/pragmatic-testing/README.md","articles":[{"title":"The testing pyramid","level":"5.1.1","depth":2,"path":"chapters/pragmatic-testing/testing-pyramid.md","ref":"chapters/pragmatic-testing/testing-pyramid.md","articles":[]},{"title":"Mock objects","level":"5.1.2","depth":2,"path":"chapters/pragmatic-testing/mocking.md","ref":"chapters/pragmatic-testing/mocking.md","articles":[]},{"title":"Design for testability","level":"5.1.3","depth":2,"path":"chapters/pragmatic-testing/design-for-testability.md","ref":"chapters/pragmatic-testing/design-for-testability.md","articles":[]},{"title":"Test-driven development","level":"5.1.4","depth":2,"path":"chapters/pragmatic-testing/tdd.md","ref":"chapters/pragmatic-testing/tdd.md","articles":[]},{"title":"Test code quality and engineering","level":"5.1.5","depth":2,"path":"chapters/pragmatic-testing/test-code-quality.md","ref":"chapters/pragmatic-testing/test-code-quality.md","articles":[]}]},"previous":{"title":"Model-based testing","level":"4.1.4","depth":2,"path":"chapters/testing-techniques/model-based-testing.md","ref":"chapters/testing-techniques/model-based-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapters/testing-techniques/design-by-contracts.md","mtime":"2020-03-31T09:45:43.638Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-03-31T13:07:51.267Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

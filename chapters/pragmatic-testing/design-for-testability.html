@@ -769,7 +769,7 @@ we have performed (we made the class to receive its dependencies via constructor
 Note, however, that this was not the case at the beginning of the chapter. We had to refactor the code for that to happen.</p>
 <p>Software systems are often not ready/prepared to be easily tested, as the classes in our previous chapter.
 And this is what this chapter is about: <strong>how to design and architect a software system in a way that it eases its testability.</strong></p>
-<p>Testability is related to the easeness of writing automated tests to the system, class, or method under test.
+<p>Testability is related to the ease of writing automated tests to the system, class, or method under test.
 We already know that automated tests are crucial for high-quality software; it is, therefore, essential that our code is testable.</p>
 <p>In this chapter, we&apos;ll discuss some design practices that increases
 the testability of our software systems (which we now refer to this idea as <strong>design for testability</strong>). More specifically:</p>
@@ -932,7 +932,7 @@ They know how the infrastructure works and how to communicate with it.</li>
 After all, if our core domain depends only on ports, we can easily stub/mock them.</p>
 <ul>
 <li>In the <strong>Domain-Driven Design</strong> work, by Eric Evans. Evans proposes that domain (the core of the system) to be
-isolated from the infrastructure layer. Besides all the design benefits that Erics cites in his book, testers benefit
+isolated from the infrastructure layer. Besides all the design benefits that Eric cites in his book, testers benefit
 from this separation, as it enables them to exercises parts of code without having to depend on heavy infrastructure.</li>
 </ul>
 <p>In practice, we observe that separating the infrastructure from domain is often challenging. The database example,
@@ -972,15 +972,15 @@ often imply in less dependencies (as you need less to compose the required funct
 <p>A non-cohesive class, on the other hand, tends to consume a great amount of testing effort from developers. You might notice
 that a non-cohesive class requires a great amount of test cases, and you often feel &quot;you are never done in testing it&quot;.
 Refactoring non-cohesive classes is therefore an important task when it comes to testability. 
-Common refactorings are splitting the non-cohesive class into several smaller-but-cohesive classes. Each small class would
-then be tested separately, and the class that combines them both might either rely on mock object to assert the correctness
+A common way to do this is by splitting the non-cohesive class into several smaller-but-cohesive classes. Each small class can
+then be tested separately, and the class that combines them both might either rely on mock objects to assert the correctness
 of the interactions among the dependencies and/or by means of an integration test.</p>
 <ul>
 <li><strong>Coupling and testability</strong>: Coupling is about the amount of classes that a class depends on. A highly coupled class requires several other 
 classes to do its work. As one could expect, coupling hurts testability. A tester trying to test a highly dependent class ends up
 having to test all its dependencies together. If the tester then decides to use stubs/mocks, the costs of setting them up will
 also be higher than it needed to be (just imagine yourself setting up 10 or 15 stubs/mocks to test a single class). Moreover, the
-number of test cases that would be required to achieve a mininum amount of coverage is too high, as each dependency probably
+number of test cases that would be required to achieve a minimum amount of coverage is too high, as each dependency probably
 brings together a whole set of requirements and conditions.</li>
 </ul>
 <p>Reducing coupling, however, is often tricky, and maybe one of the biggest challenges in software design. 
@@ -991,7 +991,7 @@ between D and E (let us call it DE), already reduces A&apos;s coupling. After al
 pushing responsibilities and dependencies to smaller classes and later connecting them via larger abstractions is the way to go.</p>
 <ul>
 <li><strong>Complex conditions and testability</strong>: We have seen in previous chapters that conditions that are very complex 
-(e.g., an <code>if</code> statement composed of multiple boolean operations) require great effort from testers. For example,<br>the number of tests one might devise after applying some boundary testing or condition+branch coverage criteria might be
+(e.g., an <code>if</code> statement composed of multiple Boolean operations) require great effort from testers. For example,<br>the number of tests one might devise after applying some boundary testing or condition+branch coverage criteria might be
 too high. </li>
 </ul>
 <p>Reducing the complexity of such conditions, by means of, e.g., breaking it into multiple smaller conditions, 
@@ -1102,13 +1102,13 @@ problems in their codebase:</p>
 <p>To increase the testability, the team has budget to work on two out of the four issues above.
 Which items should Sarah recommend them to tackle first?</p>
 <p>Note: All of the four issues should obviously be fixed.
-However, try to prioritize the two most important onces: Which influence the testability the most?</p>
+However, try to prioritize the two most important ones: Which influence the testability the most?</p>
 <p><strong>Exercise 4.</strong>
 Observability and controllability are two important concepts when it comes to software testing.
 The three developers below could benefit from improving either the observability or the controllability of the system/class under test.</p>
 <ol>
 <li>&quot;I can&apos;t really assert that the method under test worked well.&quot;</li>
-<li>&quot;I need to make sure this class starts with that boolean set to false, but I simply can&apos;t do it.&quot;</li>
+<li>&quot;I need to make sure this class starts with that Boolean set to false, but I simply can&apos;t do it.&quot;</li>
 <li>&quot;I just instantiated the mock object, but there&apos;s simply no way to inject it in the class.&quot;</li>
 </ol>
 <p>For each of the problems above: is it related to observability or controllability?</p>
@@ -1166,7 +1166,7 @@ The three developers below could benefit from improving either the observability
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Design for testability","level":"5.1.3","depth":2,"next":{"title":"Test-driven development","level":"5.1.4","depth":2,"path":"chapters/pragmatic-testing/tdd.md","ref":"chapters/pragmatic-testing/tdd.md","articles":[]},"previous":{"title":"Mock objects","level":"5.1.2","depth":2,"path":"chapters/pragmatic-testing/mocking.md","ref":"chapters/pragmatic-testing/mocking.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapters/pragmatic-testing/design-for-testability.md","mtime":"2020-03-25T13:44:37.235Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-03-29T14:00:32.767Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Design for testability","level":"5.1.3","depth":2,"next":{"title":"Test-driven development","level":"5.1.4","depth":2,"path":"chapters/pragmatic-testing/tdd.md","ref":"chapters/pragmatic-testing/tdd.md","articles":[]},"previous":{"title":"Mock objects","level":"5.1.2","depth":2,"path":"chapters/pragmatic-testing/mocking.md","ref":"chapters/pragmatic-testing/mocking.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapters/pragmatic-testing/design-for-testability.md","mtime":"2020-03-31T09:45:43.593Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-03-31T13:07:51.267Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

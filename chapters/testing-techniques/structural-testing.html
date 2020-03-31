@@ -761,13 +761,11 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="structural-based-testing">Structural-Based Testing</h1>
-<p>In a previous chapter, we discussed how to test software using requirements as the main artifact for guidance.
-In this chapter, we will use a different source of information to create tests: the source code itself.
-We can call the set of techniques that use the structure of the source code as a way to guide the testing, 
-<strong>structural-based testing</strong> techniques.</p>
-<p>Understanding structural-based testing techniques boils down to understand the different coverage criteria. These coverage criteria
-are highly related to test coverage, a concept that many developers know.
-By test coverage, we mean the amount (or percentage) of production code that is exercised by the tests.</p>
+<p>In a previous chapter, we discussed how to test software using requirements as the main element to guide the testing. 
+In this chapter, we will use the source code itself as a source of information to create tests. 
+We call the set of techniques that use the structure of the source code as a way to guide the testing <strong>structural-based testing</strong> techniques.</p>
+<p>Understanding structural-based testing techniques means understanding the different <em>coverage criteria</em>. These coverage criteria relate closely to <em>test coverage</em>, a concept that many developers know.</p>
+<p>By test coverage, we mean the amount (or percentage) of production code that is exercised by the tests.</p>
 <p>We will cover the following coverage criteria:</p>
 <ul>
 <li>Line coverage (and statement coverage)</li>
@@ -777,16 +775,41 @@ By test coverage, we mean the amount (or percentage) of production code that is 
 <li>Path coverage</li>
 <li>MC/DC coverage</li>
 </ul>
-<p>Watch a summary of one of our lectures in structural testing!</p>
+<p>Watch a summary of one of our lectures in structural testing:</p>
 <center>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/busfqNkpgKI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </center>
 
 
+<h2 id="why-do-we-need-structural-based-testing">Why do we need structural-based testing?</h2>
+<p>In a nutshell, for two reasons: 1) to systematically
+derive tests out of source code, 2) to know when to stop testing.</p>
+<p>As a tester, when performing specification-based testing, 
+your goal was clear: to derive classes out of the requirements specifications, and then to derive test cases for each of the
+classes. You were satisfied once all the classes and boundaries
+were systematically exercised.</p>
+<p>The same idea applies to structural testing. First, it gives
+us a systematic way to devise tests. As we will see, a tester
+might focus on testing all the lines of a program; or focus
+on the branches and conditions of the program. Different
+criteria produce different test cases. </p>
+<p>Second, to know
+when to stop. It is easy to imagine that the number of possible paths in a mildly complex piece of code is just too large, and exhaustive testing is impossible. Therefore, having a 
+clear criteria on when to stop helps testers in understanding
+the costs of their testing.</p>
 <h2 id="line-and-statement-coverage">Line (and statement) coverage</h2>
 <p>As the name suggests, when determining the line coverage, we look at the amount of lines of code that are covered by the tests (more specifically,
 by at least one test).</p>
-<p>See the following example: We consider a piece of code that returns the points of the person that wins a game of <a href="%22https:/en.wikipedia.org/wiki/Blackjack%22">Black jack</a>.</p>
+<p>See the following example: </p>
+<blockquote>
+<p><strong>Requirement</strong>: Black-jack</p>
+<p>The program receives the amount of points of two black jack players.
+The program must return the amount of points of the winner.
+In blackjack, whoever gets closer to 21 points wins. 
+If a player goes over 21 points,
+the player loses. If both player loses, the program must return 0.</p>
+</blockquote>
+<p>See the following implementation for the requirement above:</p>
 <pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BlackJack</span> </span>{
   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">play</span><span class="hljs-params">(<span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> right)</span> </span>{
 <span class="hljs-number">1</span>.  <span class="hljs-keyword">int</span> ln = left;
@@ -802,48 +825,42 @@ by at least one test).</p>
   }
 }
 </code></pre>
-<p>The <code>play(int left, int right)</code> method receives the amount of points of two players and returns the value like specified.
-Now let&apos;s make two tests for this method.</p>
+<p>Let us now devise and implement two test cases for this method:</p>
 <pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BlackJackTests</span> </span>{
   <span class="hljs-meta">@Test</span>
-  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">bothPlayersGoTooHigh</span><span class="hljs-params">()</span> </span>{
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">bothPlayersGoTooHigh</span><span class="hljs-params">()</span> </span>{
     <span class="hljs-keyword">int</span> result = <span class="hljs-keyword">new</span> BlackJack().play(<span class="hljs-number">30</span>, <span class="hljs-number">30</span>);
     assertThat(result).isEqualTo(<span class="hljs-number">0</span>);
   }
 
   <span class="hljs-meta">@Test</span>
-  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">leftPlayerWins</span><span class="hljs-params">()</span> </span>{
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">leftPlayerWins</span><span class="hljs-params">()</span> </span>{
     <span class="hljs-keyword">int</span> result = <span class="hljs-keyword">new</span> BlackJack().play(<span class="hljs-number">10</span>, <span class="hljs-number">9</span>);
     assertThat(result).isEqualTo(<span class="hljs-number">10</span>);
   }
 }
 </code></pre>
-<p>Try to follow each test method and mark which lines of the production code are exercised by it.
+<p>Follow the execution of each test method, and mark which lines of the production code are exercised by it.
 The first test executes lines 1-7, 9, and 10 as both values are higher than 21 and when the program arrives at line 7.
-<code>ln</code> equals <code>rn</code> so the statement <code>ln &gt; rn</code> is <code>false</code>.
-This means that 9 out of the 10 lines are covered and the line coverage is <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mrow><mn>9</mn></mrow><mrow><mn>1</mn><mn>0</mn></mrow></mfrac><mo>&#x22C5;</mo><mn>1</mn><mn>0</mn><mn>0</mn><mi mathvariant="normal">%</mi><mo>=</mo><mn>9</mn><mn>0</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">\frac{9}{10}\cdot100\% = 90\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.845108em;"></span><span class="strut bottom" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="base textstyle uncramped"><span class="mord reset-textstyle textstyle uncramped"><span class="mopen sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord scriptstyle cramped mtight"><span class="mord mathrm mtight">1</span><span class="mord mathrm mtight">0</span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.394em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle uncramped mtight"><span class="mord scriptstyle uncramped mtight"><span class="mord mathrm mtight">9</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span><span class="mclose sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span><span class="mbin">&#x22C5;</span><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span><span class="mord mathrm">%</span><span class="mrel">=</span><span class="mord mathrm">9</span><span class="mord mathrm">0</span><span class="mord mathrm">%</span></span></span></span> (after all, the test
-exercised 9 out of the 10 lines of that method).
-Line 8 is therefore the only line that the first test does not cover.
+This means that, after the <code>bothPlayersGoTooHigh</code> test, 9 out of the 10 lines are covered. Thus, line coverage is <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mrow><mn>9</mn></mrow><mrow><mn>1</mn><mn>0</mn></mrow></mfrac><mo>&#x22C5;</mo><mn>1</mn><mn>0</mn><mn>0</mn><mi mathvariant="normal">%</mi><mo>=</mo><mn>9</mn><mn>0</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">\frac{9}{10}\cdot100\% = 90\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.845108em;"></span><span class="strut bottom" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="base textstyle uncramped"><span class="mord reset-textstyle textstyle uncramped"><span class="mopen sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord scriptstyle cramped mtight"><span class="mord mathrm mtight">1</span><span class="mord mathrm mtight">0</span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.394em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle uncramped mtight"><span class="mord scriptstyle uncramped mtight"><span class="mord mathrm mtight">9</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span><span class="mclose sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span><span class="mbin">&#x22C5;</span><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span><span class="mord mathrm">%</span><span class="mrel">=</span><span class="mord mathrm">9</span><span class="mord mathrm">0</span><span class="mord mathrm">%</span></span></span></span>.</p>
+<p>Line 8 is therefore the only line that the first test does not cover.
 The second test, <code>leftPlayerWins</code>, complements the first test, and executes lines 1-3, 5, 7 and 8.
-So when we execute both of our tests, the line coverage is <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mn>0</mn><mn>0</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">100\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span><span class="mord mathrm">%</span></span></span></span>.</p>
-<p>More formally, we can compute line coverage 
-as: </p>
+Both tests together now achieve a line coverage of <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mn>0</mn><mn>0</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">100\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span><span class="mord mathrm">%</span></span></span></span>, as together they cover
+all the 10 different lines of the program.</p>
+<p>More formally, we can compute line coverage as: </p>
 <p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtext><mi mathvariant="normal">l</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">e</mi><mtext>&#xA0;</mtext><mi mathvariant="normal">c</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">v</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">g</mi><mi mathvariant="normal">e</mi></mtext><mo>=</mo><mfrac><mrow><mtext><mi mathvariant="normal">l</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">s</mi><mtext>&#xA0;</mtext><mi mathvariant="normal">c</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">v</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">d</mi></mtext></mrow><mrow><mtext><mi mathvariant="normal">l</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">s</mi><mtext>&#xA0;</mtext><mi mathvariant="normal">t</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi></mtext></mrow></mfrac><mo>&#x22C5;</mo><mn>1</mn><mn>0</mn><mn>0</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">\text{line coverage} = \frac{\text{lines covered}}{\text{lines total}} \cdot 100\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8801079999999999em;"></span><span class="strut bottom" style="height:1.2251079999999999em;vertical-align:-0.345em;"></span><span class="base textstyle uncramped"><span class="mord text textstyle uncramped"><span class="mord mathrm">line&#xA0;coverage</span></span><span class="mrel">=</span><span class="mord reset-textstyle textstyle uncramped"><span class="mopen sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord scriptstyle cramped mtight"><span class="mord text scriptstyle cramped mtight"><span class="mord mathrm mtight">lines&#xA0;total</span></span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.394em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle uncramped mtight"><span class="mord scriptstyle uncramped mtight"><span class="mord text scriptstyle uncramped mtight"><span class="mord mathrm mtight">lines&#xA0;covered</span></span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span><span class="mclose sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span><span class="mbin">&#x22C5;</span><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span><span class="mord mathrm">%</span></span></span></span></p>
-<p>Note: Defining what constitutes a line is up to the tester. One might count, for example, the method declaration as a code line. 
-We prefer not to count the method declaration line.</p>
 <center>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/rkLsvlPlOHc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </center>
 
 
 
-<h2 id="why-is-line-coverage-a-bit-problematic">Why is line coverage a bit problematic?</h2>
+<h2 id="why-is-line-coverage-problematic">Why is line coverage problematic?</h2>
 <p>Using lines of code as a way to determine line coverage is a simple and straightforward idea.
 However, counting the covered lines is not always a good way of calculating the coverage.
-The amount of lines in a piece of code is heavily dependent on the programmer that writes the code.
-In Java, for example, you can often write a whole method in just one line (for your future colleagues&apos; sake, please don&apos;t).
-In that case, the line coverage would always be <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mn>0</mn><mn>0</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">100\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span><span class="mord mathrm">%</span></span></span></span> if you test the method.</p>
-<p>We are again looking at Black Jack example.
+The number of lines in a piece of code depends on the 
+decisions taken by the programmer who writes the code. </p>
+<p>Let us look again at the Black Jack example.
 The <code>play</code> method can also be written in 6 lines, instead of 10:</p>
 <pre><code class="lang-java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">play</span><span class="hljs-params">(<span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> right)</span> </span>{
 <span class="hljs-number">1</span>.  <span class="hljs-keyword">int</span> ln = left;
@@ -854,15 +871,17 @@ The <code>play</code> method can also be written in 6 lines, instead of 10:</p>
 <span class="hljs-number">6</span>.  <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> rn;
 }
 </code></pre>
-<p>The same <code>leftPlayerWins</code> test covered <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mrow><mn>6</mn></mrow><mrow><mn>1</mn><mn>0</mn></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{6}{10}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.845108em;"></span><span class="strut bottom" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="base textstyle uncramped"><span class="mord reset-textstyle textstyle uncramped"><span class="mopen sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord scriptstyle cramped mtight"><span class="mord mathrm mtight">1</span><span class="mord mathrm mtight">0</span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.394em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle uncramped mtight"><span class="mord scriptstyle uncramped mtight"><span class="mord mathrm mtight">6</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span><span class="mclose sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span></span></span></span> lines in the first <code>play</code> method.
-Now, it covers lines 1-5, so <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mrow><mn>5</mn></mrow><mrow><mn>6</mn></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{5}{6}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.845108em;"></span><span class="strut bottom" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="base textstyle uncramped"><span class="mord reset-textstyle textstyle uncramped"><span class="mopen sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord scriptstyle cramped mtight"><span class="mord mathrm mtight">6</span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.394em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle uncramped mtight"><span class="mord scriptstyle uncramped mtight"><span class="mord mathrm mtight">5</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span><span class="mclose sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span></span></span></span> lines.
-The line coverage went up from <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>6</mn><mn>0</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">60\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">6</span><span class="mord mathrm">0</span><span class="mord mathrm">%</span></span></span></span> to <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>8</mn><mn>3</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">83\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">8</span><span class="mord mathrm">3</span><span class="mord mathrm">%</span></span></span></span>, while testing the same method with the same test.
-This is definitely not ideal.</p>
-<p>We need a better representation for source code. One that is independent of the developers&apos; personal
-code styles.</p>
-<p>Note: Some coverage tools measure coverage as statement level. Statements are the unique instructions that your
+<p>The <code>leftPlayerWins</code> test covered <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mrow><mn>6</mn></mrow><mrow><mn>1</mn><mn>0</mn></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{6}{10}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.845108em;"></span><span class="strut bottom" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="base textstyle uncramped"><span class="mord reset-textstyle textstyle uncramped"><span class="mopen sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord scriptstyle cramped mtight"><span class="mord mathrm mtight">1</span><span class="mord mathrm mtight">0</span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.394em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle uncramped mtight"><span class="mord scriptstyle uncramped mtight"><span class="mord mathrm mtight">6</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span><span class="mclose sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span></span></span></span> lines in the previous
+implementation of the <code>play</code> method.
+In this new implementation, it covers lines 1-5, or <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mrow><mn>5</mn></mrow><mrow><mn>6</mn></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{5}{6}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.845108em;"></span><span class="strut bottom" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="base textstyle uncramped"><span class="mord reset-textstyle textstyle uncramped"><span class="mopen sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord scriptstyle cramped mtight"><span class="mord mathrm mtight">6</span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.394em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle uncramped mtight"><span class="mord scriptstyle uncramped mtight"><span class="mord mathrm mtight">5</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span><span class="mclose sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span></span></span></span> lines.
+The line coverage went up from <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>6</mn><mn>0</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">60\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">6</span><span class="mord mathrm">0</span><span class="mord mathrm">%</span></span></span></span> to <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>8</mn><mn>3</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">83\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">8</span><span class="mord mathrm">3</span><span class="mord mathrm">%</span></span></span></span>, 
+while testing the same method with the same input.</p>
+<p>This urges for a better representation of source code. One that is 
+independent of the developers&apos; personal code styles.</p>
+<p><div class="alert alert-success hints-alert"><div class="hints-icon"><i class="fa fa-mortar-board"></i></div><div class="hints-container"><p>Some coverage tools measure coverage as statement level. Statements are the unique instructions that your
 JVM, for example, executes. This is a bit better, as splitting one line code in two would not make a difference, 
 but still not good enough.</p>
+</div></div></p>
 <center>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/iQECMbKLez0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </center>
@@ -871,19 +890,53 @@ but still not good enough.</p>
 
 
 <h2 id="blocks-and-control-flow-graph">Blocks and Control-Flow Graph</h2>
-<p>A Control-Flow Graph (or CFG) is an agnostic representation of a piece of code. 
-It consists of basic blocks, decision blocks, and arrows that connect these blocks.</p>
-<p>A basic block is composed of &quot;all statements that are executed together&quot;, with no if or for conditions that might
-create different branches in the code. Basic blocks are often represented with a square.
-A decision block, on the other hand, represents all the statements in the source
-code that can create different branches. Decision blocks are often represented as diamonds.</p>
-<p>We then connect the blocks according to the flow of the program. A basic block has always a single outgoing edge; a decision block has
+<p>A <strong>Control-Flow Graph</strong> (or CFG) is an agnostic representation of a piece of code. 
+It consists of <em>basic blocks</em>, <em>decision blocks</em>, and <em>arrows/edges</em> that connect these blocks.</p>
+<p>Let us use the Black Jack implementation to illustrate the difference between them:</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BlackJack</span> </span>{
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">play</span><span class="hljs-params">(<span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> right)</span> </span>{
+<span class="hljs-number">1</span>.  <span class="hljs-keyword">int</span> ln = left;
+<span class="hljs-number">2</span>.  <span class="hljs-keyword">int</span> rn = right;
+<span class="hljs-number">3</span>.  <span class="hljs-keyword">if</span> (ln &gt; <span class="hljs-number">21</span>)
+<span class="hljs-number">4</span>.    ln = <span class="hljs-number">0</span>;
+<span class="hljs-number">5</span>.  <span class="hljs-keyword">if</span> (rn &gt; <span class="hljs-number">21</span>)
+<span class="hljs-number">6</span>.    rn = <span class="hljs-number">0</span>;
+<span class="hljs-number">7</span>.  <span class="hljs-keyword">if</span> (ln &gt; rn)
+<span class="hljs-number">8</span>.    <span class="hljs-keyword">return</span> ln;
+<span class="hljs-number">9</span>.  <span class="hljs-keyword">else</span>
+<span class="hljs-number">10</span>.   <span class="hljs-keyword">return</span> rn;
+  }
+}
+</code></pre>
+<p>A basic block is composed of &quot;maximum number of statements that are executed together no matter what happens&quot;. Note how lines 1-2 are always executed together, as if they were a single block. Basic blocks are often represented with a square.</p>
+<p>At this moment, our control flow graph looks like the following:</p>
+<p><img src="img/structural-testing/examples/bj-p1.png" alt="Black Jack - CFG part 1"></p>
+<p>A decision block, on the other hand, represents all the statements in the source
+code that can create different branches. See line 3 (<code>if (ln &gt; 21)</code>). This <em>if</em>
+statement creates a decision moment in the appliction; after all, if it is evaluated
+as true, the program will do something, otherwise the program will do something else. Decision blocks are often represented as diamonds. This decision block happens right 
+after the basic block we created above, and thus, they are connected by means of
+an edge.</p>
+<p><img src="img/structural-testing/examples/bj-p2.png" alt="Black Jack - CFG part 2"></p>
+<p>Note that a basic block has always a single outgoing edge. A decision block, 
+on othe other hand, has
 always two outgoing edges (where you go in case of the decision being evaluated to true, and where you go in case the decision being evaluated
 to false).</p>
-<p>You can see an example of a CFG below.</p>
-<p>We write a program for the following problem:
-Given a sentence, you should count the number of words that end with either an &quot;s&quot; or an &quot;r&quot;.
+<p>In case of the decision block being evaluated to <code>true</code>, line 4 is executed, and the
+program continues to line 5.
+Otherwise, it proceeds straight to line 5, which is another decision block:</p>
+<p><img src="img/structural-testing/examples/bj-p3.png" alt="Black Jack - CFG part 3"></p>
+<p>If you repeat the approach up to the end of the program, you end up with the
+following CFG:</p>
+<p><img src="img/structural-testing/examples/bj-p4.png" alt="Black Jack - CFG part 4"></p>
+<p>Let us see an example of a more complex CFG:</p>
+<blockquote>
+<p><strong>Requirement</strong>: Counting words</p>
+<p>Given a sentence, the program should count the number of words 
+that end with either an &quot;s&quot; or an &quot;r&quot;.
 A word ends when a non-letter appears.</p>
+</blockquote>
+<p>A possible implementation for this program is:</p>
 <pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CountLetters</span> </span>{
   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">count</span><span class="hljs-params">(String str)</span> </span>{
 <span class="hljs-number">1</span>.  <span class="hljs-keyword">int</span> words = <span class="hljs-number">0</span>;
@@ -903,37 +956,42 @@ A word ends when a non-letter appears.</p>
 </code></pre>
 <p>The corresponding CFG:</p>
 <p><img src="img/structural-testing/examples/CFG-branch-example.svg" alt="Control flow graph example"></p>
-<p>Note that we split the for-loop into two blocks (variable initialization, and increment) and a decision.
-Every decision has one outgoing arrow for true and one for false, indicating what the program will do based on the condition.
-<code>return words;</code> does not have an outgoing arrow as the program stops after that statement.</p>
+<p>Note that we split the for-loop into three blocks: the variable initialization, the decision block, and the increment.</p>
 <p>Note how agnostic this CFG representation is. You can even build CFGs of program written in different
-languages. They might even look the same!</p>
-<p><div class="alert alert-warning hints-alert"><div class="hints-icon"><i class="fa fa-wrench"></i></div><div class="hints-container"><p>record a video explaining how to build CFGs</p>
-</div></div></p>
+languages. They might even look the same.</p>
 <h2 id="block-coverage">Block coverage</h2>
-<p>We can use blocks as a coverage criteria, in the same way we did with lines: instead of aiming at covering
+<p>With the control-flow graph in hands, we can use it to derive tests.
+A first idea would be to use <em>blocks</em> as a coverage criterion, in the same way we did with lines, but instead of aiming at covering
 100% of the lines, we aim at covering 100% of the blocks.</p>
-<p>The formula to measure block coverage is similar:</p>
+<p>The formula that measures block coverage is similar to
+the line coverage formula:</p>
 <p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtext><mi mathvariant="normal">b</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">k</mi><mtext>&#xA0;</mtext><mi mathvariant="normal">c</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">v</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">g</mi><mi mathvariant="normal">e</mi></mtext><mo>=</mo><mfrac><mrow><mtext><mi mathvariant="normal">b</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">k</mi><mi mathvariant="normal">s</mi><mtext>&#xA0;</mtext><mi mathvariant="normal">c</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">v</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">d</mi></mtext></mrow><mrow><mtext><mi mathvariant="normal">b</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">k</mi><mi mathvariant="normal">s</mi><mtext>&#xA0;</mtext><mi mathvariant="normal">t</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi></mtext></mrow></mfrac><mo>&#x22C5;</mo><mn>1</mn><mn>0</mn><mn>0</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">\text{block coverage} = \frac{\text{blocks covered}}{\text{blocks total}} \cdot 100\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8801079999999999em;"></span><span class="strut bottom" style="height:1.2251079999999999em;vertical-align:-0.345em;"></span><span class="base textstyle uncramped"><span class="mord text textstyle uncramped"><span class="mord mathrm">block&#xA0;coverage</span></span><span class="mrel">=</span><span class="mord reset-textstyle textstyle uncramped"><span class="mopen sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord scriptstyle cramped mtight"><span class="mord text scriptstyle cramped mtight"><span class="mord mathrm mtight">blocks&#xA0;total</span></span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.394em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle uncramped mtight"><span class="mord scriptstyle uncramped mtight"><span class="mord text scriptstyle uncramped mtight"><span class="mord mathrm mtight">blocks&#xA0;covered</span></span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span><span class="mclose sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span><span class="mbin">&#x22C5;</span><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span><span class="mord mathrm">%</span></span></span></span></p>
-<p>Note that blocks do not depend on how the developer wrote the code. Thus, we will not suffer from
-having different coverage numbers just because the developer wrote the code in a different way.</p>
+<p>Note that blocks do not depend on how the developer wrote the code. Thus, it does not suffer from
+having different coverage numbers due to different
+programming styles.</p>
 <p>For the <code>CountLetters</code> program, a test T1 = &quot;cats and dogs&quot; exercises all the blocks, and thus,
-reaches 100% block coverage.</p>
+reaches 100% block coverage (follow the input in the control-flow graph and see all the blocks being executed):</p>
+<pre><code class="lang-java"><span class="hljs-meta">@Test</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">multipleWords</span><span class="hljs-params">()</span> </span>{
+  <span class="hljs-keyword">int</span> words = <span class="hljs-keyword">new</span> CountLetters().count(<span class="hljs-string">&quot;cats|dogs&quot;</span>);
+  assertEquals(<span class="hljs-number">2</span>, words);
+}
+</code></pre>
 <h2 id="branchdecision-coverage">Branch/Decision coverage</h2>
-<p>Complex programs often use a lot of conditions (e.g. if-statements).
+<p>Complex programs often rely on lots of complex conditions (e.g. if-statements composed of many conditions).
 When testing these programs, aiming at 100% line or block coverage might not be enough to cover all the cases we want.
 We need a stronger criteria.</p>
-<p>Branch coverage works the same as line and statement coverage.
-This time, however, we do not count lines or blocks, but the number of possible decision outcomes our program has.
-Whenever you have a decision block, that decision block has two outcomes. We consider our test suite to achieve
-100% branch coverage (or decision coverage, as both terms mean the same) whenever we have tests exercising all the possible outcomes.</p>
+<p>Branch coverage (or decision coverage) works in the same way as line and statement coverage does, except with branch coverage, we count (or aim at covering) all the possible decision outcomes.</p>
+<p>A test suite will then achieve 100% branch (or decision) coverage, when tests exercise all the possible outcomes of
+decision blocks:</p>
 <p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtext><mi mathvariant="normal">b</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">h</mi><mtext>&#xA0;</mtext><mi mathvariant="normal">c</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">v</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">g</mi><mi mathvariant="normal">e</mi></mtext><mo>=</mo><mfrac><mrow><mtext><mi mathvariant="normal">d</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">n</mi><mtext>&#xA0;</mtext><mi mathvariant="normal">o</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">s</mi><mtext>&#xA0;</mtext><mi mathvariant="normal">c</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">v</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">d</mi></mtext></mrow><mrow><mtext><mi mathvariant="normal">d</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">n</mi><mtext>&#xA0;</mtext><mi mathvariant="normal">o</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">s</mi><mtext>&#xA0;</mtext><mi mathvariant="normal">t</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi></mtext></mrow></mfrac><mo>&#x22C5;</mo><mn>1</mn><mn>0</mn><mn>0</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">\text{branch coverage} = \frac{\text{decision outcomes covered}}{\text{decision outcomes total}} \cdot 100\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8801079999999999em;"></span><span class="strut bottom" style="height:1.2251079999999999em;vertical-align:-0.345em;"></span><span class="base textstyle uncramped"><span class="mord text textstyle uncramped"><span class="mord mathrm">branch&#xA0;coverage</span></span><span class="mrel">=</span><span class="mord reset-textstyle textstyle uncramped"><span class="mopen sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord scriptstyle cramped mtight"><span class="mord text scriptstyle cramped mtight"><span class="mord mathrm mtight">decision&#xA0;outcomes&#xA0;total</span></span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.394em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle uncramped mtight"><span class="mord scriptstyle uncramped mtight"><span class="mord text scriptstyle uncramped mtight"><span class="mord mathrm mtight">decision&#xA0;outcomes&#xA0;covered</span></span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span><span class="mclose sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span><span class="mbin">&#x22C5;</span><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span><span class="mord mathrm">%</span></span></span></span></p>
-<p>In practice, these decisions (or branches) are easy to find in a CFG.
-Each arrow with true of false (so each arrow going out of a decision) is a branch.</p>
-<p>Let&apos;s aim at 100% branch coverage for the <code>count</code> method above. </p>
+<p>Decisions (or branches) are easy to identify in a CFG. 
+Each arrow with true or false (i.e., both the arrows going out of a decision block) is a branch, and therefore, must be
+exercised.</p>
+<p>Let&apos;s aim at 100% branch coverage for the Count Letter&apos;s <code>count</code> implementation above: </p>
 <pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CountLettersTests</span> </span>{
   <span class="hljs-meta">@Test</span>
-  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">multipleMatchingWords</span><span class="hljs-params">()</span> </span>{
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">multipleMatchingWords</span><span class="hljs-params">()</span> </span>{
 
     <span class="hljs-keyword">int</span> words = <span class="hljs-keyword">new</span> CountLetters()
         .count(<span class="hljs-string">&quot;cats|dogs&quot;</span>);
@@ -942,7 +1000,7 @@ Each arrow with true of false (so each arrow going out of a decision) is a branc
   }
 
   <span class="hljs-meta">@Test</span>
-  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">lastWordDoesntMatch</span><span class="hljs-params">()</span> </span>{
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">lastWordDoesntMatch</span><span class="hljs-params">()</span> </span>{
 
     <span class="hljs-keyword">int</span> words = <span class="hljs-keyword">new</span> CountLetters()
         .count(<span class="hljs-string">&quot;cats|dog&quot;</span>);
@@ -951,55 +1009,75 @@ Each arrow with true of false (so each arrow going out of a decision) is a branc
   }
 }
 </code></pre>
-<p>The first test (by providing <code>cats|dogs</code> as input) covers all the branches in the left part of the CFG.
-At the right part, it covers the top false branch, because at some point <code>i</code> will be equals to <code>str.length()</code>.
-Then the word <code>dogs</code> ends with an <code>s</code>, so it also covers the true branch on the right side of the CFG.
+<ul>
+<li><p>The first test (by providing <code>cats|dogs</code> as input) covers all the branches in the left part of the CFG.
+The right part covers the top false branch, because at some point <code>i</code> will be equal to <code>str.length()</code>.
+The word <code>dogs</code> ends with an <code>s</code>, so it also covers the true branch on the right side of the CFG.
 This gives the test <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mrow><mn>5</mn></mrow><mrow><mn>6</mn></mrow></mfrac><mo>&#x22C5;</mo><mn>1</mn><mn>0</mn><mn>0</mn><mi mathvariant="normal">%</mi><mo>=</mo><mn>8</mn><mn>3</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">\frac{5}{6} \cdot 100\% = 83\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.845108em;"></span><span class="strut bottom" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="base textstyle uncramped"><span class="mord reset-textstyle textstyle uncramped"><span class="mopen sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord scriptstyle cramped mtight"><span class="mord mathrm mtight">6</span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.394em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle uncramped mtight"><span class="mord scriptstyle uncramped mtight"><span class="mord mathrm mtight">5</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span><span class="mclose sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span><span class="mbin">&#x22C5;</span><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span><span class="mord mathrm">%</span><span class="mrel">=</span><span class="mord mathrm">8</span><span class="mord mathrm">3</span><span class="mord mathrm">%</span></span></span></span> branch coverage.</p>
-<p>The only branch that is not covered is the false branch at the bottom right of the CFG.
+</li>
+<li><p>The only branch that is now not covered is the <em>false branch</em> at the bottom right of the CFG.
 This branch is executed when the last word does not end with an <code>r</code> or an <code>s</code>.
-The second test executes this branch (by giving the word <code>cats|dog</code>) so the two tests together have a branch/decision coverage of <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mn>0</mn><mn>0</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">100\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span><span class="mord mathrm">%</span></span></span></span>.</p>
+The second test executes this branch, by providing the word <code>cats|dog</code> as an input. Thus, the two tests together achieve a branch/decision coverage of <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mn>0</mn><mn>0</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">100\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span><span class="mord mathrm">%</span></span></span></span>.</p>
+</li>
+</ul>
+<p><div class="alert alert-success hints-alert"><div class="hints-icon"><i class="fa fa-mortar-board"></i></div><div class="hints-container"><p>In the video, we use <em>squares</em> to represent decision blocks. We did it just because otherwise the control flow graph would not fit in the video. When doing control flow graphs, please use <em>diamonds</em> to represent decision blocks.</p>
+</div></div></p>
 <center>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/XiWtG8PKH-A" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </center>
 
 
 
-
-<p><em>Note:</em> In the video, we use <em>squares</em> to represent decision blocks. We did it just because otherwise the control flow graph would not fit in the video. When doing control flow graphs, please use <em>diamonds</em> to represent decision blocks.</p>
 <h2 id="basic-condition-coverage">(Basic) condition coverage</h2>
-<p>Branch coverage gives two branches for each decision, no matter how complicated this decision is.
+<p>Branch coverage gives two branches for each decision, no matter how complicated or complex the decision is.
 When a decision gets complicated, i.e., it contains more than one condition like <code>a &gt; 10 &amp;&amp; b &lt; 20 &amp;&amp; c &lt; 10</code>, 
-branch coverage might not be enough to test all the possible outcomes of all these decisions. Look at this example:
-a test T1 (a=20, b=10, c=5) and a test T2 (a=5, b=10, c=5) already covers this decision block. However, look how many
-other possibilities we have for this branch to be evaluated to false (e.g., T3 (a=20, b=30, c=5), ...).</p>
-<p>When using condition coverage as criteria, we split the decisions into single conditions. 
-Instead of having one big decision block with the entire condition, we have multiple decision blocks, each one
-of one condition only. In practice, now we will exercise each condition separately, and not only the &quot;big decision block&quot;.</p>
-<p>As soon as you have the new CFG, it works the same as branch coverage. The formula is basically the same, but now we just have more
-decision outcomes to count: </p>
+branch coverage might not be enough to test all the possible outcomes of all these decisions. </p>
+<p>For example, suppose one aims at testing the decision
+above.
+A test T1 (a=20, b=10, c=5), which makes the decision block to be true, and a test T2 (a=5, b=10, c=5), which makes the decision block to be false, already fully cover this decision block, in terms of branch coverage. 
+However, these two tests do not cover all the
+possibilities/different combinations for this decision to be evaluated to false (e.g., T3 (a=20, b=30, c=5), etc).</p>
+<p>When using <em>condition coverage</em> as criteria, we split each
+existing condition in a decision block. 
+Instead of having one big decision block with the entire condition, we have multiple decision blocks, where each block
+contains only one condition. This means each of the single conditions will be tested separately, and not only the &quot;big decision block&quot;.</p>
+<p>It is common to then re-design the CFG and make sure each decision block is now composed of a single condition.
+With the same CFG in hands (and with it new edges to explore), it works the same as branch coverage. The formula is basically the same, but now there are more decision outcomes to count:</p>
 <p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtext><mi mathvariant="normal">c</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">n</mi><mtext>&#xA0;</mtext><mi mathvariant="normal">c</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">v</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">g</mi><mi mathvariant="normal">e</mi></mtext><mo>=</mo><mfrac><mrow><mtext><mi mathvariant="normal">c</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">s</mi><mtext>&#xA0;</mtext><mi mathvariant="normal">o</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">e</mi><mtext>&#xA0;</mtext><mi mathvariant="normal">c</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">v</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">d</mi></mtext></mrow><mrow><mtext><mi mathvariant="normal">c</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">s</mi><mtext>&#xA0;</mtext><mi mathvariant="normal">o</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">e</mi><mtext>&#xA0;</mtext><mi mathvariant="normal">t</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi></mtext></mrow></mfrac><mo>&#x22C5;</mo><mn>1</mn><mn>0</mn><mn>0</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">\text{condition coverage} = \frac{\text{conditions outcome covered}}{\text{conditions outcome total}} \cdot 100\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8801079999999999em;"></span><span class="strut bottom" style="height:1.2251079999999999em;vertical-align:-0.345em;"></span><span class="base textstyle uncramped"><span class="mord text textstyle uncramped"><span class="mord mathrm">condition&#xA0;coverage</span></span><span class="mrel">=</span><span class="mord reset-textstyle textstyle uncramped"><span class="mopen sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord scriptstyle cramped mtight"><span class="mord text scriptstyle cramped mtight"><span class="mord mathrm mtight">conditions&#xA0;outcome&#xA0;total</span></span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.394em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle uncramped mtight"><span class="mord scriptstyle uncramped mtight"><span class="mord text scriptstyle uncramped mtight"><span class="mord mathrm mtight">conditions&#xA0;outcome&#xA0;covered</span></span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span><span class="mclose sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span><span class="mbin">&#x22C5;</span><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span><span class="mord mathrm">%</span></span></span></span></p>
-<p>We achieve 100% condition coverage whenever all the outcomes of all the conditions in our program have been exercised.
+<p>We achieve 100% condition coverage when all of the outcomes of
+all the conditions in our program have been exercised.
 In other words, whenever all the conditions have been <code>true</code> and <code>false</code> at least once.</p>
-<p>Once again we look at the program that counts the words ending with an &quot;r&quot; or an &quot;s&quot;.
-Instead of branch coverage, we are interested in the condition coverage that the tests give.
-We start by building the more fine-grained CFG:</p>
+<p>Once again we look at the program that counts the words ending with an &quot;r&quot; or an &quot;s&quot;. Let us now focus on achieving
+100% (basic) condition coverage.</p>
+<p>We start by building a more granular CFG:</p>
 <p><img src="img/structural-testing/examples/CFG-condition-example.svg" alt="Control Flow Graph example with conditions"></p>
-<p>You can see that this new CFG has way more decision blocks than the previous one.</p>
-<p>The first test we wrote before now covers 7 conditions and the total amount of conditions is 12.
-So the condition coverage is now: <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mrow><mn>7</mn></mrow><mrow><mn>1</mn><mn>2</mn></mrow></mfrac><mo>&#x22C5;</mo><mn>1</mn><mn>0</mn><mn>0</mn><mi mathvariant="normal">%</mi><mo>=</mo><mn>5</mn><mn>8</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">\frac{7}{12} \cdot 100\% = 58\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.845108em;"></span><span class="strut bottom" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="base textstyle uncramped"><span class="mord reset-textstyle textstyle uncramped"><span class="mopen sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord scriptstyle cramped mtight"><span class="mord mathrm mtight">1</span><span class="mord mathrm mtight">2</span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.394em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle uncramped mtight"><span class="mord scriptstyle uncramped mtight"><span class="mord mathrm mtight">7</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span><span class="mclose sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span><span class="mbin">&#x22C5;</span><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span><span class="mord mathrm">%</span><span class="mrel">=</span><span class="mord mathrm">5</span><span class="mord mathrm">8</span><span class="mord mathrm">%</span></span></span></span>.
-This is significantly less than the <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>8</mn><mn>3</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">83\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">8</span><span class="mord mathrm">3</span><span class="mord mathrm">%</span></span></span></span> branch coverage, so we need more tests to get to 100% condition coverage.</p>
-<p>Condition coverage is an improvement over the branch coverage.
-However, we will try to do even better in the next section.</p>
+<p>You can see that this new CFG has more decision blocks than the previous one (six instead of three).</p>
+<p>The <code>multipleMatchingWords</code> test now covers 7 out of 12 different decision outcomes.
+Condition coverage is thus <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mrow><mn>7</mn></mrow><mrow><mn>1</mn><mn>2</mn></mrow></mfrac><mo>&#x22C5;</mo><mn>1</mn><mn>0</mn><mn>0</mn><mi mathvariant="normal">%</mi><mo>=</mo><mn>5</mn><mn>8</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">\frac{7}{12} \cdot 100\% = 58\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.845108em;"></span><span class="strut bottom" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="base textstyle uncramped"><span class="mord reset-textstyle textstyle uncramped"><span class="mopen sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord scriptstyle cramped mtight"><span class="mord mathrm mtight">1</span><span class="mord mathrm mtight">2</span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.394em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle uncramped mtight"><span class="mord scriptstyle uncramped mtight"><span class="mord mathrm mtight">7</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span><span class="mclose sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span><span class="mbin">&#x22C5;</span><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span><span class="mord mathrm">%</span><span class="mrel">=</span><span class="mord mathrm">5</span><span class="mord mathrm">8</span><span class="mord mathrm">%</span></span></span></span>.
+This is significantly less than the <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>8</mn><mn>3</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">83\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">8</span><span class="mord mathrm">3</span><span class="mord mathrm">%</span></span></span></span> branch coverage that we obtain from the same <code>multipleMatchingWords</code> test, 
+showing how many more tests one would need 
+to achieve 100% condition coverage.</p>
 <h2 id="condition--branch-coverage">Condition + Branch coverage</h2>
 <p>Let&apos;s think carefully about condition coverage. If we only focus on exercising the individual conditions themselves, but do not
 think of the overall decision, we might end up in a situation like the one below.</p>
-<p>Imagine a <code>if(a &gt; 10 &amp;&amp; b &gt; 20)</code> condition. A test <code>T1 = (20, 10)</code> makes the first condition <code>a &gt; 10</code> to be true, and the
+<p>Imagine the following program and its respective CFG:</p>
+<pre><code class="lang-java"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">hello</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b)</span> </span>{
+  <span class="hljs-keyword">if</span>(a &gt; <span class="hljs-number">10</span> &amp;&amp; b &gt; <span class="hljs-number">20</span>) {
+    System.out.println(<span class="hljs-string">&quot;Hello&quot;</span>);
+  } <span class="hljs-keyword">else</span> {
+    System.out.println(<span class="hljs-string">&quot;Hi&quot;</span>);
+  }
+}
+</code></pre>
+<p><img src="img/structural-testing/examples/cond_plus_branch.png" alt="Example of why condition+branch coverage is needed, when compared to basic condition coverage"></p>
+<p>A test <code>T1 = (20, 10)</code> makes the first condition <code>a &gt; 10</code> to be true, and the
 second condition <code>b &gt; 20</code> to be false. A test <code>T2 = (5, 30)</code> makes the first condition to be false, and the second condition to
-be true. Note that T1 and T2 together achieve 100% <strong>basic condition</strong> coverage; after all, both conditions have been exercised
-as true and false. However, the final outcome of the entire decision was also false! This means, we found a case where
-we achieved 100% basic condition coverage, but only 50% branch coverage! This is no good. This is way we called it
+be true. Note that T1 and T2 together achieve 100% <strong>basic condition</strong> coverage. After all, both <code>a</code> and <code>b</code> conditions have been exercised
+as true and false. </p>
+<p>However, the final outcome of the entire decision was false in both tests. Note that we actually never saw this program printing &quot;Hello&quot;. We found a case where
+we achieved 100% basic condition coverage, but only 50% branch coverage. This is not a smart testing strategy. This is why looking only at the conditions themselves while ignoring the overall outcome of the decision block is called
 <strong>basic condition coverage</strong>.</p>
-<p>In practice, whenever we use condition coverage, we actually do <strong>branch + condition coverage</strong>. In other words, we make sure
+<p>In practice, whenever we use condition coverage, we actually perform <strong>branch + condition coverage</strong>. In other words, we make sure
 that we achieve 100% condition coverage (i.e., all the outcomes of all conditions are exercised) and 100% branch coverage (all the outcomes
 of the decisions are exercised).</p>
 <p>From now on, whenever we mention <strong>condition coverage</strong>, we mean <strong>condition + branch coverage</strong>.</p>
@@ -1009,26 +1087,22 @@ of the decisions are exercised).</p>
 
 
 
-<p><div class="alert alert-warning hints-alert"><div class="hints-icon"><i class="fa fa-wrench"></i></div><div class="hints-container"><p>record a video showing, in a explicit way, the difference between basic condition coverage and full condition coverage</p>
-</div></div></p>
 <h2 id="path-coverage">Path coverage</h2>
-<p>Finally, with condition coverage, we looked at each condition individually. This gives us way more branches
-to generate tests. However, note that, although we are testing each condition to be evaluated to true and to false,
-this does not ensure that we are testing all the paths that a program can have.</p>
-<p>Path coverage does not consider the conditions individually; rather, it considers the (full) combination of the conditions in a decision.
-Each of these combinations is a path. You might see a path as a unique way to traverse the CFG.
-The calculation is the same as the other coverages: </p>
+<p>With branch+condition coverage, we looked at each condition and branch individually. Such criterion gives testers more branches to generate tests, especially when compared to the first criterion we discussed, line coverage.</p>
+<p>However, although we are testing each condition to be evaluated as true and false, this does not ensure testing of <em>all the paths</em> that a program can have.</p>
+<p>Path coverage does not consider the conditions individually. Rather, it considers the (full) combination of the conditions in a decision.
+Each of these combinations is a path. You might see a path as a unique way to traverse the CFG.</p>
+<p>The calculation is the same as the other coverages: </p>
 <p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtext><mi mathvariant="normal">p</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">h</mi><mtext>&#xA0;</mtext><mi mathvariant="normal">c</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">v</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">g</mi><mi mathvariant="normal">e</mi></mtext><mo>=</mo><mfrac><mrow><mtext><mi mathvariant="normal">p</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">h</mi><mi mathvariant="normal">s</mi><mtext>&#xA0;</mtext><mi mathvariant="normal">c</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">v</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">d</mi></mtext></mrow><mrow><mtext><mi mathvariant="normal">p</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">h</mi><mi mathvariant="normal">s</mi><mtext>&#xA0;</mtext><mi mathvariant="normal">t</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi></mtext></mrow></mfrac><mo>&#x22C5;</mo><mn>1</mn><mn>0</mn><mn>0</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">\text{path coverage} = \frac{\text{paths covered}}{\text{paths total}} \cdot 100\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.9322159999999999em;"></span><span class="strut bottom" style="height:1.4133239999999998em;vertical-align:-0.481108em;"></span><span class="base textstyle uncramped"><span class="mord text textstyle uncramped"><span class="mord mathrm">path&#xA0;coverage</span></span><span class="mrel">=</span><span class="mord reset-textstyle textstyle uncramped"><span class="mopen sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord scriptstyle cramped mtight"><span class="mord text scriptstyle cramped mtight"><span class="mord mathrm mtight">paths&#xA0;total</span></span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.44610799999999995em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle uncramped mtight"><span class="mord scriptstyle uncramped mtight"><span class="mord text scriptstyle uncramped mtight"><span class="mord mathrm mtight">paths&#xA0;covered</span></span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span><span class="mclose sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span><span class="mbin">&#x22C5;</span><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span><span class="mord mathrm">%</span></span></span></span></p>
-<p>See the following example.
-In this example we focus on a small piece of the <code>count</code> method:</p>
+<p>See the following example that focus on a small piece of the <code>count</code> method:</p>
 <pre><code class="lang-java"><span class="hljs-keyword">if</span> (!Character.isLetter(str.charAt(i)) 
         &amp;&amp; (last == <span class="hljs-string">&apos;s&apos;</span> || last == <span class="hljs-string">&apos;r&apos;</span>)) {
     words++;
 }
 </code></pre>
-<p>The decision of this if-statement contains three conditions and can be generalized to (A &amp;&amp; ( B || C)), with A = <code>!Character.isLetter(str.charAt(i))</code>, B = <code>last == &apos;s&apos;</code> and C = <code>last == &apos;r&apos;</code>.
-To get <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mn>0</mn><mn>0</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">100\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span><span class="mord mathrm">%</span></span></span></span> path coverage, we would have to test all the possible combinations of these three conditions.
-We construct a truth table to find the combinations:</p>
+<p>The decision in this if-statement contains three conditions and can be generalized to <code>(A &amp;&amp; ( B || C))</code>, with A = <code>!Character.isLetter(str.charAt(i))</code>, B = <code>last == &apos;s&apos;</code> and C = <code>last == &apos;r&apos;</code>.</p>
+<p>To get <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mn>0</mn><mn>0</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">100\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span><span class="mord mathrm">%</span></span></span></span> path coverage, we would have to test all the possible combinations of these three conditions.</p>
+<p>We make a truth table to find the combinations:</p>
 <table>
     <tr><th>Tests</th><th>A</th><th>B</th><th>C</th><th>Outcome</th></tr>
     <tr><td>1</td><td>T</td><td>T</td><td>T</td><td>T</td></tr>
@@ -1042,10 +1116,9 @@ We construct a truth table to find the combinations:</p>
 </table>
 
 <p>This means that, for full path coverage, we would need 8 tests just to cover this if-statement.
-That is quite a lot for just a single statement!</p>
-<p>By thinking about the path coverage of our test suite, we can come up of quite some good tests.
-The main issue is that achiving 100% path coverage might not always be feasible. The number of combinations
-might be too big!
+That is quite a lot for just a single statement.</p>
+<p>By aiming at achieving good path coverage of our program, testers can indeed come up with good tests.
+However, the main issue is that achieving 100% path coverage might not always be feasible or too costly.
 The amount of tests needed for full path coverage will grow exponentially with the amount of conditions in a decision.</p>
 <center>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/hpE-aZYulmk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -1054,19 +1127,17 @@ The amount of tests needed for full path coverage will grow exponentially with t
 
 
 <h2 id="mcdc-modified-conditiondecision-coverage">MC/DC (Modified Condition/Decision Coverage)</h2>
-<p>Modified condition/decision coverage (MC/DC from now on), looks at the combinations of conditions like path coverage does.
-However, instead of aiming at testing all the possible combinations, we take a certain selection process in order 
-to identify the &quot;important ones&quot;. Clearly, the goal of focusing on the important ones is to tackle the large amount
-of test cases that one needs to devise when aiming at 100% path coverage.</p>
-<p>The idea of MC/DC is to simply exercise each condition in a way that it can, independently of the other conditions,
-affect the outcome of the entire decision. This might sound a bit complicated, but the example will clarify it.
-And interestingly, if our conditions have only a binary outcome, which is our case here, as conditions
-either return true or false, the number of tests we will need for that is always &quot;only&quot; <code>N+1</code>, where <code>N</code> is the number of conditions in the program. 
-<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">N+1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.10903em;">N</span><span class="mbin">+</span><span class="mord mathrm">1</span></span></span></span> is definitely smaller than <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>N</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">N^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.10903em;">N</span><span class="msupsub"><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle uncramped mtight"><span class="mord mathrm mtight">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span></span></span></span>! </p>
-<p>Again, to devise a test suite that achieves 100% MC/DC coverage, we should select <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">N+1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.10903em;">N</span><span class="mbin">+</span><span class="mord mathrm">1</span></span></span></span> combinations of inputs where all the conditions
-can independently affect the outcome.</p>
-<p>Let&apos;s do it in a mechanical way. See the example below.</p>
-<p>Let&apos;s test the decision block we have in the previous example, with its corresponding truth table. Note how each row
+<p>Modified condition/decision coverage, or MC/DC, looks at the combinations of conditions like path coverage does.
+However, instead of aiming at testing all the possible combinations, we follow a process in order to identify the &quot;important&quot; combinations. The goal of focusing on these important combinations is to manage the large number of test cases that one needs to devise when aiming for 100% path coverage.</p>
+<p>The idea of MC/DC is to <em>exercise each condition 
+in a way that it can, independently of the other conditions,
+affect the outcome of the entire decision</em>. The example that is about to come will clarify it.</p>
+<p>Cost-wise, a relevant characteristic of MC/DC coverage is that, supposing that conditions only have binary outcomes (i.e., true or false), the number of tests required to achieve 100% MC/DC coverage is <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">N+1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.10903em;">N</span><span class="mbin">+</span><span class="mord mathrm">1</span></span></span></span>, where <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.10903em;">N</span></span></span></span> is the number of conditions in the decision. 
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">N+1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.10903em;">N</span><span class="mbin">+</span><span class="mord mathrm">1</span></span></span></span> is definitely smaller than <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mi>N</mi></msup></mrow><annotation encoding="application/x-tex">2^N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8413309999999999em;"></span><span class="strut bottom" style="height:0.8413309999999999em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathrm">2</span><span class="msupsub"><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle uncramped mtight"><span class="mord mathit mtight" style="margin-right:0.10903em;">N</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span></span></span></span>!</p>
+<p>Again, to devise a test suite that achieves 100% MC/DC coverage, we should devise <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">N+1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.10903em;">N</span><span class="mbin">+</span><span class="mord mathrm">1</span></span></span></span> test cases that, when combined, 
+exercise all the combinations independently from the others.</p>
+<p>The question is how to select such test cases. See the example below.</p>
+<p>Let&apos;s test the decision block from the previous example, <code>(A &amp;&amp; ( B || C))</code>, with its corresponding truth table. Note how each row
 represents a test <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>T</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">T_n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.13889em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord mathit mtight">n</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span></span></span></span>. In this case, tests go from 1 to 8, as we have 3 decisions, and <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mn>3</mn></msup></mrow><annotation encoding="application/x-tex">2^3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathrm">2</span><span class="msupsub"><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle uncramped mtight"><span class="mord mathrm mtight">3</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span></span></span></span> is 8:</p>
 <table>
     <tr><th>Tests</th><th>A</th><th>B</th><th>C</th><th>Outcome</th></tr>
@@ -1080,40 +1151,34 @@ represents a test <span class="katex"><span class="katex-mathml"><math><semantic
     <tr><td>8</td><td>F</td><td>F</td><td>F</td><td>F</td></tr>
 </table>
 
-<p>Our goal will be to select <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">N+1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.10903em;">N</span><span class="mbin">+</span><span class="mord mathrm">1</span></span></span></span>, in this case, <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>3</mn><mo>+</mo><mn>1</mn><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">3+1=4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">3</span><span class="mbin">+</span><span class="mord mathrm">1</span><span class="mrel">=</span><span class="mord mathrm">4</span></span></span></span>, tests.
-We go condition by condition.
+<p>Our goal will be to select <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">N+1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.10903em;">N</span><span class="mbin">+</span><span class="mord mathrm">1</span></span></span></span>, in this case, <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>3</mn><mo>+</mo><mn>1</mn><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">3+1=4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">3</span><span class="mbin">+</span><span class="mord mathrm">1</span><span class="mrel">=</span><span class="mord mathrm">4</span></span></span></span>, tests.</p>
+<p>Let us go condition by condition.
 In this case, we start with selecting the pairs of combinations (or tests) for condition A:</p>
 <ul>
-<li><p>In test 1: A, B and C are all true and the outcome is true as well. We should look for another test in this
-table, where the value of A is flipped in comparison to test 1, but all others (B and C) are the same. In this case,
-we should look for a row where A=False, B=True, C=True. We find it in test 5. Now, look at the outcome of test 5: it&apos;s false.
-This means we just found a pair of tests, T1 and T5, where A is the only condition that changed, and the outcome also changed.
-This means, we just found a pair of tests where A independently affect the outcome. Let&apos;s keep the pair {T1, T5} in our list of tests.</p>
+<li><p>In test 1: A, B and C are all true and the outcome is true as well. We now look for another test in this table, where the value of A is flipped in comparison to test 1, but the others (B and C) are the same. In this case, we should look for a row where A=False, B=True, C=True. We find this in test 5. When we look at the outcome of test 5, we find it is false.</p>
+<p>This means we just found a pair of tests, T1 and T5, where A is the only condition that changed, and the outcome also changed. In other words, a pair of tests where A independently influences the outcome. Let&apos;s keep the pair {T1, T5} in our list of tests.</p>
 </li>
 <li><p>Now we look at the next test.
 In test 2, A is again true, B is true, and C is false. We repeat the process: we search for a test where A is flipped
-in comparison to test 2, but B and C are the same (B=True, C=False).
-We find test 6.
-The outcome from test 6 (false) is not the same as the outcome of test 2 (true), so this means that the pair of tests {T2, T6} is also able
-to independently show how A can affect the final outcome.</p>
+in comparison to test 2, but B and C are the same (B=True, C=False).</p>
+<p>We find this in test 6. The outcome from test 6 (false) is not the same as the outcome of test 2 (true), so this means that the pair of tests {T2, T6} is also able to independently show how A can affect the final outcome.</p>
 </li>
-<li><p>We repeat the process for test 3. We will find that the pair {T3, T7} is also a good one.</p>
+<li><p>We repeat the process for test 3. We will find here that the pair {T3, T7} also independently test how the condition A affects the outcome.</p>
 </li>
-<li><p>We repeat the process for test 4 (A=True, B=False, C=False). Its pair is test 8 (A=False, B=False, C=False). However, note that
-the outcome of both tests is false. This means that the pair {T4, T8} does not really show how A can independently affect the outcome; after all,
-A is the only thing that changes, but the outcome is still the same...</p>
+<li><p>We repeat the process for test 4 (A=True, B=False, C=False). Its pair is test 8 (A=False, B=False, C=False). We note that
+the outcome of both tests is the same, i.e., false. This means that the pair {T4, T8} does not show how A can independently affect the overall outcome; after all,
+A is the only thing that changes in these two tests, but the outcome is still the same.</p>
 </li>
-<li><p>We now repeat it up to test 8. We will not find any other suitable pair. </p>
+<li><p>We do not find another suitable pairs when we repeat the process for tests 5, 6, 7 and 8.</p>
 </li>
-<li><p>Now that we are done with condition A, we can go to condition B. And we repeat the same process, but now flipping the input of B, and keeping
-A and C the same.</p>
+<li><p>Now that we have tested condition A, we move to condition B. We repeat the same process, but now we flip the input of B, and keep A and C the same.</p>
 </li>
 <li><p>For T1 (A=true, B=true, C=true), we search for a test where (A=true, B=false, C=true). We find test 3. However, the outcome is the same,
-so the pair {T1, T3} is not a good one to show the independence of B.</p>
+so the pair {T1, T3} does not show how B can independently affect the overall outcome.</p>
 </li>
-<li><p>You will only find the pair {T2, T4} for combition B.</p>
+<li><p>You will only find the pair {T2, T4} for condition B.</p>
 </li>
-<li><p>The final condition is C. Here also only one pair of combinations will work, which is {T3, T4}. (To practice, you should do the entire process!)</p>
+<li><p>The final condition is C. There is only one pair of combinations that will work, which is {T3, T4}. (You should carry out the entire process to practise how the process works!)</p>
 </li>
 <li><p>We now have all the pairs for each of the conditions:</p>
 <ul>
@@ -1122,23 +1187,22 @@ so the pair {T1, T3} is not a good one to show the independence of B.</p>
 <li>C: {3, 4}</li>
 </ul>
 </li>
-<li><p>Now we are ready to select the combinations that we want to test.
-For each condition (A, B, and C), we have to have at least one of the pairs. Moreover, we want to minimize the total amount of tests, and we know
-that we can do it with N+1 tests.</p>
+<li><p>To select the combinations that we want to test, we have to have at least one of the pairs for each condition (A, B, and C). We want to minimize the total amount of tests, and we know for a fact that we can achieve this with N+1 tests.</p>
 </li>
 <li><p>We do not have any choices with conditions B and C, as we only found one pair for each.
-This means that we have to test combinations 2, 3 and 4.</p>
+This means that we have to test combinations 2, 3, and 4.</p>
 </li>
-<li><p>Now we need to make sure to cover a pair of A.
-To do so we can either add combination 6 or 7. Both are good.
-Let&apos;s pick, for example, 6. (Note: You can indeed have more than one set of tests that achieve 100% MC/DC; all solutions are equally valid and good!)</p>
+<li><p>We need to find the appropriate pair of A. Note that any
+of them would fit. However, we want to reduce the total amount
+of tests in the test suite (and again, we know we only need 4 in this case).
+To do so we can either add tests 6 or 7. 
+We pick 6, randomly. You can indeed have more than one set of tests that achieve 100% MC/DC; all solutions are equally acceptable.</p>
 </li>
-<li><p>The combinations that we need for 100% MC/DC coverage are {2, 3, 4, 6}.
-These are only 4 combinations/tests we should focus.
-This is a lot better than the 8 tests we needed for the path coverage.</p>
+<li><p>Therefore, the tests that we need for 100% MC/DC coverage are {2, 3, 4, 6}.
+These are the only 4 tests we need.
+This is a indeed cheaper when compared to the 8 tests we would needed for the path coverage.</p>
 </li>
 </ul>
-<p>Indeed, in the example above, we saw that we need fewer tests when using MC/DC instead of path coverage.</p>
 <center>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/HzmnCVaICQ4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </center>
@@ -1146,39 +1210,36 @@ This is a lot better than the 8 tests we needed for the path coverage.</p>
 
 
 <h2 id="loop-boundary-adequacy">Loop boundary adequacy</h2>
-<p>What to do when we have loops? After all, whenever there is a loop, the block inside of the loop might be executed many
-times; this would make testing more complicated.</p>
-<p>Think of a <code>while(true)</code> loop. It can go forever. If we wanted to be rigorous about it, we would have to test the program
-where the loop block is executed one time, two times, three times, ... Imagine a <code>for(i = 0; i &lt; 10; i++)</code> loop with a <code>break</code> inside
-of the body. We would have to test what happens if the loop body executes one time, two times, three times, ..., up to ten times.
-It might be impossible to exhaustively test all the combinations!</p>
-<p>What trade-off can we make? And, more especifically, for unbounded loops, where we do not really know how many times it will
-be executed. We can define a <strong>loop boundary adequacy criteria</strong>:</p>
+<p>In terms of coverage criterion, what to do when we have loops? When there is a loop, the block inside of the loop might be executed many times, making testing more complicated.</p>
+<p>Think of a <code>while(true)</code> loop which can be unending. If we wanted to be rigorous about it, we would have to test the program where the loop block is executed one time, two times, three times, etc. Imagine a <code>for(i = 0; i &lt; 10; i++)</code> loop with a <code>break</code> inside of the body. We would have to test what happens if the loop body executes one time, two times, three times, ..., up to ten times.
+It might be impossible to test exhaustively all the combinations.</p>
+<p>How can we handle long lasting loops (a loop that runs for many iterations), or unbounded loops (where we do not know how many times it will be executed)? </p>
+<p>Given that exhaustive testing is impossible,
+testers often rely on the <strong>loop boundary adequacy criterion</strong>
+to decide when to stop testing a loop:</p>
 <p>A test suite satisfies this criterion if and only if for every loop:</p>
 <ul>
-<li>A test case exercises the loop zero times</li>
-<li>A test case exercises the loop once</li>
-<li>A test case exercises the loop multiple times</li>
+<li>A test case exercises the loop zero times;</li>
+<li>A test case exercises the loop once;</li>
+<li>A test case exercises the loop multiple times.</li>
 </ul>
-<p>Pragmatically speaking, the main challenge is devising tests where the loop is exercised multiple times. Devising tests that can 
-indeed explore the space efficiently requires a good understanding of the program itself. Our tip is for you to make a little use of
-specification-based techniques here. If you understand the specs, you might be able to devise good tests for the particular loop.</p>
-<p><div class="alert alert-warning hints-alert"><div class="hints-icon"><i class="fa fa-wrench"></i></div><div class="hints-container"><p>record a video about the loop boundary adequacy</p>
-</div></div></p>
+<p>The idea behind the criterion is to make sure the program
+is tested when the loop is never executed (does the program
+behave correctly when the loop is simply &apos;skipped&apos;?), when it only iterates once (as we empirically know that algorithms may not handle single cases correctly), and many times.</p>
+<p>Pragmatically speaking, the main challenge comes when devising
+the test case for the loop being executed multiple times.
+Should the test case force the loop to iterate for 2, 5, or 10 times?
+That requires a good understanding of the program/requirement itself. 
+Our suggestion for testers is to rely on specification-based techniques. With optimal understanding of the specs, one should be able to devise good tests for the particular loop.</p>
 <h2 id="criteria-subsumption">Criteria subsumption</h2>
-<p>You might have noticed that, the more criteria we studied, the more &quot;rigorous&quot; they became. We started our discussion
-with line coverage. Then we discussed branch coverage, and we noticed that we could generate more tests if we focused
-on branchs. Then, we discussed branch + condition coverage, and we noticed that we could generate even more tests
-if we also focused on the conditions. And we kept doing that up to here.</p>
-<p>There is indeed a relationship between all these criteria. Some strategies <strong>subsume</strong> other strategies.
-More formally, a strategy X subsumes strategy Y if all elements that Y exercises are also exercised by X. You can see in 
-the figure below how the relationship among all the coverage criteria we studied.</p>
-<p>You can see that, for example, branch coverage subsumes line coverage. This means that 100% of branch coverage always implies in 100% line coverage; however, 100% of line coverage does not imply in 100% branch coverage. 100% of branch + condition coverage imply in 100% branch coverage and 100% of line coverage.</p>
+<p>You might have noticed that the criteria we studied became more rigorous and demanding throughout this chapter.</p>
+<p>You might have noticed that, the more criteria we studied, the more &quot;rigorous&quot; they became. We started our discussion with line coverage. Then we discussed branch coverage, and we noticed that we could generate more tests if we focused on branches. Then, we discussed branch + condition coverage, and we noticed that we could generate even more tests, if we also focused on the conditions.</p>
+<p>There is a relationship between these criteria. Some strategies <strong>subsume</strong> other strategies. 
+So formally, a strategy X subsumes strategy Y if all elements that Y exercises are also exercised by X. You can see in the figure below the relationship between the coverage criteria we studied.</p>
 <p><img src="img/structural-testing/subsumption.png" alt="Criteria subsumption"></p>
-<p><div class="alert alert-warning hints-alert"><div class="hints-icon"><i class="fa fa-wrench"></i></div><div class="hints-container"><p>record a video about the criteria subsumption</p>
-</div></div></p>
+<p>For example, in the picture, one can see that branch coverage subsumes line coverage. This means that 100% of branch coverage always implies in 100% line coverage. However, 100% line coverage does not imply 100% branch coverage. Moreover, 100% of branch + condition coverage always implies 100% branch coverage and 100% line coverage.</p>
 <h2 id="more-examples-of-control-flow-graphs">More examples of Control-Flow Graphs</h2>
-<p>We can do Control-Flow Graphs for programs in any programming language. For example, see the piece of
+<p>We can devise control-flow graphs for programs in any programming language. For example, see the piece of
 Python code below:</p>
 <pre><code class="lang-python"><span class="hljs-comment"># random_ads is a list of ads.</span>
 <span class="hljs-comment"># an ad contains three attributes:</span>
@@ -1205,14 +1266,19 @@ Python code below:</p>
 </code></pre>
 <p>A CFG for this piece of code would look like:</p>
 <p><img src="img/structural-testing/examples/cfg-python.png" alt="CFG in Python"></p>
-<p><em>Study tip:</em> Note how we modelled the <code>for each</code> loop.</p>
-<h2 id="how-to-use-structural-testing-in-practice">How to use structural testing in practice</h2>
-<p>As a tester, you use the different coverage criteria to derive tests. If you decide that your goal is to achieve
-at least 80% branch + condition coverage, you derive tests until you reach it.</p>
-<p>Is there any advantage in using structural testing? We refer to two papers:</p>
+<p>We applied the same idea we have seen for Java programs in Python programs. The notion of basic and decision blocks are the same. A small difference to note is in the <code>for each</code> loop. Given that <code>for each</code> loops do not follow the standard format of the <code>for</code> loops, we modelled it differently: the <code>for each</code> loop is fully represented by a single decision block (i.e., no blocks for the increment, or condition). As with any decision blocks, it has two outcomes, true and false.</p>
+<h2 id="the-effectiveness-of-structural-testing">The effectiveness of structural testing</h2>
+<p>A common question among practitioners is whether
+structural testing or, in their words, test coverage,
+matters.</p>
+<p>While researchers have not yet found a magical coverage
+number that one should aim for, they have been finding
+interesting evidence pointing towards the benefits
+of perfoming structural testing.</p>
+<p>We quote two of these studies:</p>
 <ul>
 <li>Hutchins et al.: &quot;Within the limited domain of our experiments, test sets achieving coverage levels over 90% usually showed significantly better fault detection than randomly chosen test sets of the same size. In addition, significant improvements in the effectiveness of coverage-based tests usually occurred as coverage increased from 90% to 100%. However, the results also indicate that 100% code coverage alone is not a reliable indicator of the effectiveness of a test set.&quot;</li>
-<li>Namin and Andrews: &quot;Our experiments indicate that coverage is sometimes correlated with effectiveness when size is controlled for, and that using both size and coverage yields a more accurate prediction of effectiveness than size alone. This in turn suggests that both size and coverage are important to test suite effectiveness.&quot;</li>
+<li>Namin and Andrews: &quot;Our experiments indicate that coverage is sometimes correlated with effectiveness when [test suite] size is controlled for, and that using both size and coverage yields a more accurate prediction of effectiveness than [test suite] size alone. This in turn suggests that both size and coverage are important to test suite effectiveness.&quot;</li>
 </ul>
 <p>For interested readers, a extensive literature review on the topic can be found in
 Zhu, H., Hall, P. A., &amp; May, J. H. (1997). Software unit test coverage and adequacy. ACM computing surveys (csur), 29(4), 366-427.</p>
@@ -1314,10 +1380,10 @@ Given the source code of the <code>sameEnds</code> method. Which of the followin
 </ol>
 <hr>
 <p>Now consider this piece of code for the FizzBuzz problem.
-Given an <code>int n</code>, it returns the string form of the number followed by &quot;!&quot;.
-So the int 6 would yield &quot;6!&quot;.
-Except if the number is divisable by 3 it returns &quot;Fizz!&quot; and if it is divisable by 5 it returns &quot;Buzz!&quot;.
-If the number is divisable by both 3 and 5 it returns &quot;FuzzBuzz!&quot;
+Given an integer <code>n</code>, it returns the string form of the number followed by <code>&quot;!&quot;</code>.
+So the integer 6 would yield <code>&quot;6!&quot;</code>.
+Except if the number is divisible by 3 it returns &quot;Fizz!&quot; and if it is divisible by 5 it returns &quot;Buzz!&quot;.
+If the number is divisible by both 3 and 5 it returns &quot;FizzBuzz!&quot;
 Based on a <a href="https://codingbat.com/prob/p115243" target="_blank">CodingBat problem</a></p>
 <pre><code class="lang-java"><span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">fizzString</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span> </span>{
 <span class="hljs-number">1</span>.  <span class="hljs-keyword">if</span> (n % <span class="hljs-number">3</span> == <span class="hljs-number">0</span> &amp;&amp; n % <span class="hljs-number">5</span> == <span class="hljs-number">0</span>)
@@ -1387,7 +1453,7 @@ criterion if for every loop L:</p>
 </ol>
 <p><strong>Exercise 15.</strong>
 Consider the expression <code>((A and B) or C)</code>.
-If we aim to achieve 100\% \emph{Modified Condition / Decision Coverage} (MC/DC), the <strong>minimum</strong> set of tests we should select is:</p>
+If we aim to achieve 100\% <em>Modified Condition / Decision Coverage</em> (MC/DC), the <strong>minimum</strong> set of tests we should select is:</p>
 <ol>
 <li>{2, 3, 4, 6}</li>
 <li>{1, 3, 4, 6}</li>
@@ -1454,7 +1520,7 @@ If we aim to achieve 100\% \emph{Modified Condition / Decision Coverage} (MC/DC)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Structural-based testing","level":"4.1.3","depth":2,"next":{"title":"Model-based testing","level":"4.1.4","depth":2,"path":"chapters/testing-techniques/model-based-testing.md","ref":"chapters/testing-techniques/model-based-testing.md","articles":[]},"previous":{"title":"Boundary testing","level":"4.1.2","depth":2,"path":"chapters/testing-techniques/boundary-testing.md","ref":"chapters/testing-techniques/boundary-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapters/testing-techniques/structural-testing.md","mtime":"2020-03-22T15:19:43.119Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-03-29T14:00:32.767Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Structural-based testing","level":"4.1.3","depth":2,"next":{"title":"Model-based testing","level":"4.1.4","depth":2,"path":"chapters/testing-techniques/model-based-testing.md","ref":"chapters/testing-techniques/model-based-testing.md","articles":[]},"previous":{"title":"Boundary testing","level":"4.1.2","depth":2,"path":"chapters/testing-techniques/boundary-testing.md","ref":"chapters/testing-techniques/boundary-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapters/testing-techniques/structural-testing.md","mtime":"2020-03-31T13:07:43.876Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-03-31T13:07:51.267Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

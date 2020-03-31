@@ -763,14 +763,13 @@
                                 <h1 id="software-testing-automation-with-junit">Software testing automation (with JUnit)</h1>
 <p>Before we dive into the different testing techniques, let us first get used
 to software testing automation frameworks. In this book, we will use JUnit, as
-all the code we use as examples are written in Java. </p>
-<p>If you are using a different programming language in your daily work, note
-that testing frameworks in other languages offer similar functionalities.</p>
+all our code examples are written in Java. If you are using a different programming language in your daily work, note that testing frameworks in other languages offer similar functionalities.</p>
+<p>We will now introduce an example program and then use it to demonstrate how to write JUnit tests.</p>
 <blockquote>
 <p><strong>Requirement: Roman numerals</strong></p>
 <p>Implement a program that receives a string as a parameter
 containing a roman number and then converts it to an integer.</p>
-<p>In roman numeral, letters represent values:</p>
+<p>In roman numerals, letters represent values:</p>
 <ul>
 <li>I = 1</li>
 <li>V = 5</li>
@@ -784,7 +783,7 @@ containing a roman number and then converts it to an integer.</p>
 The letters should be ordered from the highest to the lowest value.
 For example <code>CCXVI</code> would be 216.</p>
 <p>Some numbers need to make use of a subtractive notation to be represented.
-Example: 9 is IX, 40 is XL, 14 is XIV.</p>
+Example: 9 is <code>IX</code>, 40 is <code>XL</code>, 14 is <code>XIV</code>.</p>
 </blockquote>
 <center>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/srJ91NRpT_w" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -792,8 +791,13 @@ Example: 9 is IX, 40 is XL, 14 is XIV.</p>
 
 
 
-<p>A possible implementation for the <em>Roman Numeral</em> is as follows:</p>
-<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RomanNumeral</span> </span>{
+<p>A possible implementation for the <em>Roman Numerals</em> requirement is as follows:</p>
+<pre><code class="lang-java"><span class="hljs-keyword">package</span> tudelft.roman;
+
+<span class="hljs-keyword">import</span> java.util.HashMap;
+<span class="hljs-keyword">import</span> java.util.Map;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RomanNumeral</span> </span>{
   <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Map&lt;Character, Integer&gt; map;
 
   <span class="hljs-keyword">static</span> {
@@ -830,57 +834,42 @@ test cases for the program.
 Use your experience as a developer to devise as many test cases as you can.
 To get you started, a few examples: </p>
 <ul>
-<li>T1=Just one letter, e.g., C should be equals to 100</li>
-<li>T2=Different letters combined, e.g., CLV = 155</li>
-<li>T3=Subtractive notation, e.g., CM = 900</li>
+<li>T1 = Just one letter, e.g., C should equal 100</li>
+<li>T2 = Different letters combined, e.g., CLV = 155</li>
+<li>T3 = Subtractive notation, e.g., CM = 900</li>
 </ul>
 <p>In future chapters, we will explore how to devise those test cases. The output
 of that stage will often be similar to the one above: a test case number,
 an explanation of what the test is about (we will later call it <em>class</em> or <em>partition</em>),
-and a concrete instance of an input that exercises the program in that way, together
-with the expected output.
-Once the &quot;manual task of devising test cases&quot; is done, we will then write them
-as automated test cases using JUnit. Let us now do it.</p>
+and a concrete instance of input that exercises the program in that way, together
+with the expected output.</p>
+<p>Once you are done with the &quot;manual task of devising test cases&quot;, you are ready to move on to the next section, which shows how to turn them into automated test cases using JUnit.</p>
 <h2 id="the-junit-framework">The JUnit Framework</h2>
-<p>Testing frameworks enable us to write test cases in a way that
-they can be easily executed by the machine. 
-In Java, the standard framework to write automated tests is JUnit, 
-and its most recent version is 5.x.</p>
+<p>Testing frameworks enable us to write test cases in a way that they can be easily executed by the machine. In Java, the standard framework to write automated tests is JUnit, and its most recent version is 5.x.</p>
 <p>The steps to create a JUnit class/test is often the following:</p>
 <ul>
-<li><p>Create a Java class under <code>/src/test/java</code> directory (or whatever test directory your project structure uses). As a convention, the name of the test class is similar to the name of the
-class under test. For example, a class that tests the <code>RomanNumeral</code> class is often called
-<code>RomanNumeralTest</code>. In terms of package structure, the test class also inherits the same
-package as the class under test. In our case, <code>tudelft.roman</code>.</p>
+<li><p>Create a Java class under <code>/src/test/java</code> directory (or whatever test directory your project structure uses). As a convention, the name of the test class is similar to the name of the class under test. For example, a class that tests the <code>RomanNumeral</code> class is often called <code>RomanNumeralTest</code>. In terms of package structure, the test class also inherits the same package as the class under test. In our case, <code>tudelft.roman</code>.</p>
 </li>
-<li><p>For each test case we devise for the program/class, we write a test method.
-A JUnit test method returns <code>void</code> and it is annotated with <code>@Test</code> (an annotation that
-comes from JUnit 5&apos;s <code>org.junit.jupiter.api.Test</code>).
-The name of the test method does not matter for JUnit, but it does matter to us. A best
-practice is to name the test after the case it tests. </p>
+<li><p>For each test case we devise for the program/class, we write a test method. A JUnit test method returns <code>void</code> and is annotated with <code>@Test</code> (an annotation that comes from JUnit 5&apos;s <code>org.junit.jupiter.api.Test</code>). The name of the test method does not matter to JUnit, but it does matter to us. A best practice is to name the test after the case it tests. </p>
 </li>
-<li><p>The test method instantiates the class under test and invokes the method under test. 
-The test method passes the previously defined input in the
-test case definition to the method/class. 
-The test method then stores the result of the method call (e.g., in a variable). </p>
+<li><p>The test method instantiates the class under test and invokes the method under test. The test method passes the previously defined input in the test case definition to the method/class. The test method then stores the result of the method call (e.g., in a variable).</p>
 </li>
-<li><p>The test method asserts that the output matches with that was expected. The expected
-output was defined during the test case definition phase. 
-To check the outcome with the expected value, we use assertions.
-A couple of useful assertions are:</p>
+<li><p>The test method asserts that the actual output matches the expected output. The expected output was defined during the test case definition phase. To check the outcome with the expected value, we use assertions. An assertion checks whether a certain expectation is met; if not, it throws an <code>AssertionError</code> and thereby causes the test to fail. A couple of useful assertions are:</p>
 <ul>
-<li><code>Assertions.assertEquals(expected, actual)</code>: Compares whether the expected and actual values are equal. The test fails otherwise. Be sure to pass the expected value as the first argument, and the actual value (the value that comes from the program under test) as second argument.
+<li><code>Assertions.assertEquals(expected, actual)</code>: Compares whether the expected and actual values are equal. The test fails otherwise. Be sure to pass the expected value as the first argument, and the actual value (the value that comes from the program under test) as the second argument.
 Otherwise the fail message of the test will not make sense.</li>
 <li><code>Assertions.assertTrue(condition)</code>: Passes if the condition evaluates to true, fails otherwise.</li>
 <li><code>Assertions.assertFalse(condition)</code>: Passes if the condition evaluates to false, fails otherwise.</li>
-<li>More assertions and additional arguments can be found in <a href="https://junit.org/junit5/docs/5.3.0/api/org/junit/jupiter/api/Assertions.html" target="_blank">JUnit&apos;s documentation</a>. To make easy use of the assertions and to import them all in one go, you can use <code>import static org.junit.jupiter.api.Assertions.*;</code>.</li>
+<li>More assertions and additional arguments can be found in <a href="https://junit.org/junit5/docs/current/api/org.junit.jupiter.api/org/junit/jupiter/api/Assertions.html" target="_blank">JUnit&apos;s documentation</a>. To make easy use of the assertions and to import them all in one go, you can use <code>import static org.junit.jupiter.api.Assertions.*;</code>.</li>
 </ul>
 </li>
 </ul>
-<p>The three tests cases we have devised can be automated as follows:</p>
-<pre><code class="lang-java"><span class="hljs-keyword">import</span> org.junit.jupiter.api.Test;
+<p>The three test cases we have devised can be automated as follows:</p>
+<pre><code class="lang-java"><span class="hljs-keyword">package</span> tudelft.roman;
 
 <span class="hljs-keyword">import</span> <span class="hljs-keyword">static</span> org.junit.jupiter.api.Assertions.*;
+
+<span class="hljs-keyword">import</span> org.junit.jupiter.api.Test;
 
 <span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RomanNumeralTest</span> </span>{
 
@@ -909,7 +898,7 @@ Otherwise the fail message of the test will not make sense.</li>
   }
 }
 </code></pre>
-<p>At this point, if you see other test cases (there are!), go ahead and implement them.</p>
+<p>At this point, if you see other possible test cases (there are!), go ahead and implement them.</p>
 <center>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/XS4-93Q4Zy8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </center>
@@ -923,7 +912,7 @@ code engineering.</p>
 <p>In the test code above, we create the <code>roman</code> object four times.
 Having a fresh clean instance of an object for each test method is a good idea, as 
 we do not want &quot;objects that might be already dirty&quot; (and thus, being the cause for the test to fail, and not because there was a bug in the code) in our test. </p>
-<p>However, duplicated code is something not desirable. The problem with duplicated test code
+<p>However, having duplicated code is not desirable. The problem with duplicated test code
 is the same as in production code: if there is a change to be made, the change has to be made
 in all the points where the duplicated code exists.</p>
 <p>In this example, we should try to isolate the line of code responsible for creating
@@ -976,11 +965,11 @@ We therefore can instantiate the <code>roman</code> object inside a method annot
 <p>We discuss test code quality in a more systematic way in a future 
 chapter.</p>
 <h2 id="tests-and-refactoring">Tests and refactoring</h2>
-<p>A more experience Java developer might be looking at our implementation of the
+<p>A more experienced Java developer might be looking at our implementation of the
 Roman Numeral problem and thinking that there are more elegant ways of implementing it.
 That is indeed true. <em>Software refactoring</em> is a constant activity in software
 development. </p>
-<p>However, how can one refactor the code and still make sure it presents the same behavior?
+<p>However, how can one refactor the code and still make sure it presents the same behaviour?
 Without automated tests, that might be a costly activity. Developers would have to perform
 manual tests after every single refactoring operation. Software refactoring activities benefit
 from extensive automated test suites, as developers can refactor their code and, in a matter
@@ -988,7 +977,7 @@ of seconds or minutes, get a clear feedback from the tests.</p>
 <p>See this new version of the <code>RomanNumeral</code> class, where we deeply refactored the code:</p>
 <ul>
 <li>We gave a better name to the method: we call it <code>asArabic()</code> now.</li>
-<li>We inlined the declaration of the Map , and used the <code>Map.of</code> utility method.</li>
+<li>We inlined the declaration of the Map, and used the <code>Map.of</code> utility method.</li>
 <li>We make use of an auxiliary array (<code>digits</code>) to get the current number inside the loop.</li>
 <li>We extracted a private method that decides whether it is a subtractive operation.</li>
 <li>We made use of the <code>var</code> keyword, as introduced in Java 10.</li>
@@ -1025,13 +1014,9 @@ of things can go wrong. Luckily, we now have an automated test suite that we can
 get some feedback.</p>
 <p>Let us also take the opportunity and improve our test code:</p>
 <ul>
-<li>Given that our goal was to isolate the single
-line of code that instantiated the class under test, instead of using the <code>@BeforeEach</code>, 
-we now instantiate it directly in the class. JUnit creates a new instance of the
-test class before each test (again, as a way to help developers in avoiding test cases that fail due to previous test executions). This allows us to mark the field as <code>final</code>.</li>
+<li>Given that our goal was to isolate the single line of code that instantiated the class under test, instead of using the <code>@BeforeEach</code>, we now instantiate it directly in the class. JUnit creates a new instance of the test class before each test (again, as a way to help developers in avoiding test cases that fail due to previous test executions). This allows us to mark the field as <code>final</code>.</li>
 <li>We inlined the method call and the assertion. Now tests are written in a single line.</li>
-<li>We give test methods better names. It is common to rename test methods; the more 
-we understand the problem, the more we can give good names to the test cases.</li>
+<li>We give test methods better names. It is common to rename test methods; the more we understand the problem, the more we can give good names to the test cases.</li>
 <li>We devised one more test case and added it to the test suite.</li>
 </ul>
 <pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RomanNumeralTest</span> </span>{
@@ -1073,38 +1058,31 @@ we understand the problem, the more we can give good names to the test cases.</l
 <p>Having an automated test suite brings several advantages to software
 development teams. Automated test suites:</p>
 <ul>
-<li><p><strong>Are less prone to obvious mistakes.</strong> Developers who perform manual testing several
-times a day might make mistakes, e.g., by forgetting to execute a test case,
-by mistakenly mark a test as passed when the software actually presented a faulty behavior, etc.</p>
+<li><p><strong>Are less prone to obvious mistakes.</strong> Developers who perform manual testing several times a day might make mistakes, e.g., by forgetting to execute a test case, by mistakenly marking a test as passed when the software actually exhibited faulty behaviour, etc.</p>
 </li>
-<li><p><strong>Execute tests faster than developers.</strong> The machine can run test cases way faster than developers can.
-Just imagine more complicated scenarios where the developers would have to type long sequences
-of inputs, verify the output at several different parts of the system. An automated test
-runs and gives feedback orders of magnitude faster than developers.</p>
+<li><p><strong>Execute tests faster than developers.</strong> The machine can run test cases way faster than developers can. Just imagine more complicated scenarios where the developers would have to type long sequences of inputs, verify the output at several different parts of the system. An automated test runs and gives feedback orders of magnitude faster than developers.</p>
 </li>
-<li><p><strong>Brings confidence during refactoring.</strong> As we just saw in the example,
-automated test suites enables developers to refactor their code more constantly. After all,
-developers know that they have a safety net; if something goes wrong, the test will fail.</p>
+<li><p><strong>Brings confidence during refactoring.</strong> As we just saw in the example, automated test suites enables developers to refactor their code more constantly. After all, developers know that they have a safety net; if something goes wrong, the test will fail.</p>
 </li>
 </ul>
-<p>Clearly, at first, one might argue that writing test code might feel 
-like a loss in productivity. After all,
-developers now have to not only write production code, but also test code. Developers now have
-to not only maintain test code, but also maintain test code. <em>This could not be more far from 
-the truth</em>. Once you master the tools and techniques, formalizing test cases as JUnit methods
+<p>Clearly, at first, one might argue that writing test code might feel like a loss in productivity. 
+After all, developers now have to not only write production code, but also test code.
+Developers now have to not only maintain production code, but also maintain test code.
+ <em>This could not be further from the truth</em>.
+ Once you master the tools and techniques, formalizing test cases as JUnit methods
 will actually save you time; imagine how many times you have executed the same 
 manual test over and over. How much time have you lost by doing 
-the same task repeteadly? </p>
-<p>Studies have shown that developers that write tests spend less time debugging their systems when compared to developers that do not (Janzen), that the
+the same task repeatedly? </p>
+<p>Studies have shown that developers who write tests spend less time debugging their systems when compared to developers who do not (Janzen), that the
 impact in productivity is not as significant as one would think (Maximilien and Williams), 
 and that bugs
-are fixed faster (Lui and Chen). Truth being told: 
-these experiments compared teams using Test-Driven Development (TDD) vs teams not
+are fixed faster (Lui and Chen). Truth be told: 
+these experiments compared teams using Test-Driven Development (TDD) against teams not
 using TDD, and not the existence of a test suite per se. Still, the presence of test code
-is the remarking characteristic that emerge from the TDD. Nevertheless, as a society,
+is the remarking characteristic that emerges from TDD. Nevertheless, as a society,
 we might not need more evidence on the benefits of test automation. If we look around,
 from small and big companies to big open source projects, they all rely on extensive
-test suites to ensure quality. <strong>Test (and test automation) pays off.</strong></p>
+test suites to ensure quality. <strong>Testing (and test automation) pays off.</strong></p>
 <h2 id="exercises">Exercises</h2>
 <p>The code implemented in this chapter can be found at the <code>roman</code> package in
 the <a href="https://github.com/sttp-book/code-examples/" target="_blank">code examples</a> repository.</p>
@@ -1114,7 +1092,7 @@ can for it, using JUnit.</p>
 <p>For now, do not worry about how to derive test cases. Just follow
 your intuition. </p>
 <p><strong>Exercise 2.</strong>
-Choose a problem from <a href="https://codingbat.com/java/Logic-2" target="_blank">Codebat</a>. Solve it.
+Choose a problem from <a href="https://codingbat.com/java/Logic-2" target="_blank">CodingBat</a>. Solve it.
 Then, write as many tests as you
 can for it, using JUnit.</p>
 <p>For now, do not worry about how to derive test cases. Just follow
@@ -1179,7 +1157,7 @@ your intuition. </p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Software testing automation","level":"3.1.3","depth":2,"next":{"title":"Testing techniques","level":"4.1","depth":1,"path":"chapters/testing-techniques/README.md","ref":"chapters/testing-techniques/README.md","articles":[{"title":"Specification-based testing","level":"4.1.1","depth":2,"path":"chapters/testing-techniques/specification-based-testing.md","ref":"chapters/testing-techniques/specification-based-testing.md","articles":[]},{"title":"Boundary testing","level":"4.1.2","depth":2,"path":"chapters/testing-techniques/boundary-testing.md","ref":"chapters/testing-techniques/boundary-testing.md","articles":[]},{"title":"Structural-based testing","level":"4.1.3","depth":2,"path":"chapters/testing-techniques/structural-testing.md","ref":"chapters/testing-techniques/structural-testing.md","articles":[]},{"title":"Model-based testing","level":"4.1.4","depth":2,"path":"chapters/testing-techniques/model-based-testing.md","ref":"chapters/testing-techniques/model-based-testing.md","articles":[]},{"title":"Design-by-contracts and property-based testing","level":"4.1.5","depth":2,"path":"chapters/testing-techniques/design-by-contracts.md","ref":"chapters/testing-techniques/design-by-contracts.md","articles":[]}]},"previous":{"title":"Principles of software testing","level":"3.1.2","depth":2,"path":"chapters/getting-started/testing-principles.md","ref":"chapters/getting-started/testing-principles.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapters/getting-started/test-automation.md","mtime":"2020-03-23T17:15:10.430Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-03-29T14:00:32.767Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Software testing automation","level":"3.1.3","depth":2,"next":{"title":"Testing techniques","level":"4.1","depth":1,"path":"chapters/testing-techniques/README.md","ref":"chapters/testing-techniques/README.md","articles":[{"title":"Specification-based testing","level":"4.1.1","depth":2,"path":"chapters/testing-techniques/specification-based-testing.md","ref":"chapters/testing-techniques/specification-based-testing.md","articles":[]},{"title":"Boundary testing","level":"4.1.2","depth":2,"path":"chapters/testing-techniques/boundary-testing.md","ref":"chapters/testing-techniques/boundary-testing.md","articles":[]},{"title":"Structural-based testing","level":"4.1.3","depth":2,"path":"chapters/testing-techniques/structural-testing.md","ref":"chapters/testing-techniques/structural-testing.md","articles":[]},{"title":"Model-based testing","level":"4.1.4","depth":2,"path":"chapters/testing-techniques/model-based-testing.md","ref":"chapters/testing-techniques/model-based-testing.md","articles":[]},{"title":"Design-by-contracts and property-based testing","level":"4.1.5","depth":2,"path":"chapters/testing-techniques/design-by-contracts.md","ref":"chapters/testing-techniques/design-by-contracts.md","articles":[]}]},"previous":{"title":"Principles of software testing","level":"3.1.2","depth":2,"path":"chapters/getting-started/testing-principles.md","ref":"chapters/getting-started/testing-principles.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapters/getting-started/test-automation.md","mtime":"2020-03-31T09:45:43.587Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-03-31T13:07:51.267Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

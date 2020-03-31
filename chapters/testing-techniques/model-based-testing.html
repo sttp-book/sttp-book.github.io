@@ -872,7 +872,7 @@ However, a costumer only gets the discount from one of the two.</p>
 </table>
 
 <p>Note that when auto-renewal is true, the loyal condition does not change the outcome anymore and vice versa.</p>
-<p><strong>Default behavior</strong>: Usually, <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.10903em;">N</span></span></span></span> conditions lead to <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mi>N</mi></msup></mrow><annotation encoding="application/x-tex">2^N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8413309999999999em;"></span><span class="strut bottom" style="height:0.8413309999999999em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathrm">2</span><span class="msupsub"><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle uncramped mtight"><span class="mord mathit mtight" style="margin-right:0.10903em;">N</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span></span></span></span> combinations or columns.
+<p><strong>Default behaviour</strong>: Usually, <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.10903em;">N</span></span></span></span> conditions lead to <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mi>N</mi></msup></mrow><annotation encoding="application/x-tex">2^N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8413309999999999em;"></span><span class="strut bottom" style="height:0.8413309999999999em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathrm">2</span><span class="msupsub"><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle uncramped mtight"><span class="mord mathit mtight" style="margin-right:0.10903em;">N</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span></span></span></span> combinations or columns.
 However, the number of columns that are specified in the decision table can be smaller.
 Even if we expand all the dc values.</p>
 <p>This is done by using a default action.
@@ -908,7 +908,7 @@ There are multiple ways to derive tests for a decision table:</p>
 <p>One more way to derive test cases from a decision table is by using the <strong>Modified Condition / Decision Coverage (MC/DC)</strong>. 
 This is a combination of the last two ways of deriving tests shown above.</p>
 <p>We have already discussed MC/DC in the Structural-Based Testing chapter.
-MC/DC has the two characteristics of All devisions and Each condition T/F with an additional characteristic that makes MC/DC special:</p>
+MC/DC has the two characteristics of All divisions and Each condition T/F with an additional characteristic that makes MC/DC special:</p>
 <ol>
 <li>Each condition is at least once true and once false in the test suite</li>
 <li>Each unique action should be tested at least once</li>
@@ -1027,21 +1027,21 @@ To avoid the code duplication that comes with this approach to implementing deci
 <h2 id="state-machines">State Machines</h2>
 <p>A state machine is a model that describes the software system by describing its states.
 A system often has multiple states and various transitions between these states.
-The state machine model uses these states and transitions to illustrate the system&apos;s behavior.</p>
+The state machine model uses these states and transitions to illustrate the system&apos;s behaviour.</p>
 <p>The main focus of a state machine is, as the name suggests, the states of a system.
 So it is useful to think about what a state actually is.
 The states in a state machine model describe where a program is in its execution.
 If we need X to happen before we can do Y, we can use a state.
 X would then cause the transition to this state.
 From the state we can do Y, as we know that in this state X has already happened.
-We can use as many states as we need to describe the system&apos;s behavior well.</p>
+We can use as many states as we need to describe the system&apos;s behaviour well.</p>
 <p>Besides states and transitions, a state machine has an initial state and events.
 The initial state is the state that the system starts in.
 From that state the system can transition to other states.
 Each transition is paired with an event.
 This event is usually one or two words that describe what has to happen to make the transition.</p>
 <p>There are some agreements on how to make the models.
-The notation we use is the Unified Modeling Language, UML.
+The notation we use is the Unified Modelling Language, UML.
 For the state diagrams that means we use the following symbols:</p>
 <ul>
 <li>State: <img src="img/model-based-testing/uml/state_symbol.svg" alt=""></li>
@@ -1073,7 +1073,7 @@ The notation for conditions and actions is as follows:</p>
 </ul>
 <p>When a user types the wrong password for four times in a row, the phone gets blocked.
 We use <code>n</code> in the model to represent the amount of failed attempts.
-Let us look at the conditional transitions that we need to model this behavior first.</p>
+Let us look at the conditional transitions that we need to model this behaviour first.</p>
 <p><img src="img/model-based-testing/examples/blocked_condition_machine.svg" alt=""></p>
 <p>When <code>n</code> (the number of failed unlock attempts) is smaller than 3, the phone stays in <code>LOCKED</code> state.
 However, when <code>n</code> is equal to 3, the phone goes to <code>BLOCKED</code>.
@@ -1104,8 +1104,8 @@ This way the state machine will be in the <code>BLOCKED</code> state when a wron
 An obvious error that can be made is a transition going to the wrong state.
 This will cause the system to act incorrectly, so we want the tests to catch such errors.
 Additionally, the conditions in conditional transitions and the actions in transition can be wrong.
-Finally, the behavior of a state should stay the same at all times.
-This means that moving from and to a state should not change the behavior of that state.</p>
+Finally, the behaviour of a state should stay the same at all times.
+This means that moving from and to a state should not change the behaviour of that state.</p>
 <p>For state machines, we have a couple of test coverages.
 In this chapter we go over three mainly used ways of defining test coverage:</p>
 <ul>
@@ -1296,7 +1296,7 @@ The transition is given by the state it is going out of, the event that triggers
 </table>
 
 <p>We can see that there is, for example, a transition from <code>UNLOCKED</code> to <code>LOCKED</code> when the event <code>lock button</code> is triggered.</p>
-<p>Now that we have the transition table, we have to decide the intended behavior for the cells that are empty.
+<p>Now that we have the transition table, we have to decide the intended behaviour for the cells that are empty.
 The default is to just ignore the event and stay in the same state.
 In some cases one might want the system to throw an exception.
 These decisions depend on the project and the customer&apos;s needs.</p>
@@ -1316,7 +1316,7 @@ These techniques combined give a good testing suite from a state machine.</p>
 
 <h3 id="super-states-and-regions">Super states and regions</h3>
 <p>So far, we looked at rather simple and small state machines.
-When the modeled system becomes large and complex, typically so does the state machine.
+When the modelled system becomes large and complex, typically so does the state machine.
 At some point the state machine will consist of a lot of states and transitions, which makes it unclear and impractical to work with.
 To resolve this issue and make a state machine more scalable we can use <strong>super states</strong> and <strong>regions</strong>.</p>
 <p><strong>Super state</strong>: A super state is a state that consists of a state machine.
@@ -1331,7 +1331,7 @@ A transition going out of the super state means that if the event on this transi
 A collapsed super state is just a normal state in the state machine.
 This state has the super state&apos;s name and the same incoming and outgoing transitions as the super state.</p>
 <p>With the super states and the collapsing of super states we can modularize and combine state machines.
-This allows us to shift the state machine&apos;s focus to different parts of the system&apos;s behavior.</p>
+This allows us to shift the state machine&apos;s focus to different parts of the system&apos;s behaviour.</p>
 <p>We can use a super state even in the small example of a phone&apos;s state machine.
 The two states <code>LOCKED</code> and <code>UNLOCKED</code> both represent the system in some sort of <code>ON</code> state.
 We can use this to create a super state called <code>ON</code>.</p>
@@ -1353,12 +1353,12 @@ This means that the system is in multiple states at once.</p>
 This causes the number of states and transitions to quickly explode.
 We will not cover how to expand the regions because of this reason.</p>
 <p>In general it is best to use small state machine and link these together using super states and regions.</p>
-<p>So far when the phone was <code>ON</code> we modeled the <code>LOCKED</code> and <code>UNLOCKED</code> state.
+<p>So far when the phone was <code>ON</code> we modelled the <code>LOCKED</code> and <code>UNLOCKED</code> state.
 When the phone is on, it drains the battery.
 The system keeps track of the level of the battery.
 Let&apos;s assume that our phone has two battery levels: low battery and normal battery.
 The draining of the battery and the transitions between the states of this battery runs in parallel to the phone being locked or unlocked.
-With parallel behavior like this, we can use the regions in our state machine model.
+With parallel behaviour like this, we can use the regions in our state machine model.
 the state machine looks like the following, with the new battery states and the regions:</p>
 <p><img src="img/model-based-testing/examples/phone_region.svg" alt="Region state machine example"></p>
 <p>You can see that we assumed the battery to start in the normal level state.
@@ -1390,10 +1390,10 @@ However, sometimes the state machine spans over multiple classes.
 In that case, you might not be able to easily identify the inspection and trigger methods.
 In this scenario, the state machines can even correspond to <em>end-to-end / system testing</em>.
 Here, the flow of the entire system is under test, from input to output.</p>
-<p>The system under test does not always provide a nice programing interface (API) to inspect the state or trigger the event for the transitions.
+<p>The system under test does not always provide a nice programming interface (API) to inspect the state or trigger the event for the transitions.
 A common example of such a system is a web application.
 In the end, the web application works through a browser.
-To access the state or to trigger the transitions you would then need to use a dedicated tool, like <a href="https://webdriver.io/" target="_blank">webdriver</a>.
+To access the state or to trigger the transitions you would then need to use a dedicated tool, like <a href="https://webdriver.io/" target="_blank">WebDriver</a>.
 Using such a dedicated tool directly is not ideal, as you would have to specify each individual click on the web page to trigger events.
 What we actually need is an abstraction layer on top of the system under test.
 This abstraction can just be a Java class, with the methods that we need to be able to test the system as its state machine.
@@ -1425,7 +1425,7 @@ Draw the transition tree of the following state machine:</p>
 <p>Use sensible naming for the states in your transition tree.</p>
 <p><strong>Exercise 5.</strong>
 With the transition tree you devised in the previous exercise and the state machine in that exercise.
-What is the transition coverage of a test that the following events: [order placed, order received, order fullfiled, order delivered]?</p>
+What is the transition coverage of a test that the following events: [order placed, order received, order fulfilled, order delivered]?</p>
 <p><strong>Exercise 6.</strong>
 Devise the decision table of the state machine that was given in the exercise above.
 Ignore the initial transition <code>Order placed</code>.</p>
@@ -1457,7 +1457,7 @@ Our product team defined the following rules:</p>
 <li>An administrator checks the content of the ad. If it follows all the rules, the ad then waits for payment. If the ad contains anything illegal, it then goes back to the very beginning.</li>
 <li>As soon as the company makes the payment, the ad becomes available to users.</li>
 <li>When the number of visualizations is reached, the ad is then considered done. At this moment, the company might consider running the campaign again, which moves the ad to wait for payment again. The company might also decide to simply end the campaign at that moment, which puts the ad in a finalized state.  </li>
-<li>While appearing for the users, if more than 10\% of the users complain about the ad, the ad is then marked as blocked. Cute Babies then gets in contact with the company. After understanding the case, the ad either starts to appear again for the users, or gets marked as innapropriate. An innapropriate ad will never be shown again to the users.</li>
+<li>While appearing for the users, if more than 10\% of the users complain about the ad, the ad is then marked as blocked. Cute Babies then gets in contact with the company. After understanding the case, the ad either starts to appear again for the users, or gets marked as inappropriate. An inappropriate ad will never be shown again to the users.</li>
 </ul>
 <p>Devise a state diagram that describes the life cycle of an ad.</p>
 <p><strong>Exercise 11.</strong>
@@ -1494,7 +1494,7 @@ See the requirement below:</p>
 As soon as a user uploads a photo, the aforementioned rules are applied. 
 The software then either says *&quot;Congratulations! Your picture was uploaded successfully&quot;*, or *&quot;Ooops, something went wrong!&quot;*&quot; (without any specific details about why it happened).
 </code></pre><p>Create a decision table that takes the three conditions and their respective outcomes into account. </p>
-<p><em>Note: conditions should be modeled as boolean decisions.</em></p>
+<p><em>Note: conditions should be modelled as Boolean decisions.</em></p>
 <p><strong>Exercise 15</strong>
 Twitter is a software system that enables users to share short messages within their friends. 
 Twitter&apos;s revenue model is ultimately based on advertisements (&quot;ads&quot;).
@@ -1503,7 +1503,7 @@ Twitter&apos;s system needs to decide when to serve ads to its users, and which 
 <ul>
 <li>If the user <em>U</em> has not been active during the past two weeks, she will not get to see add <em>A</em>;</li>
 <li>If the user <em>U</em> has already been served an ad during her last hour of activity, she will not get to see ad <em>A</em>;</li>
-<li>Furthermore, if the user <em>U</em> has over 1000 followers (an influencer), she will only get to see ad <em>A</em> if <em>A</em> is labeled as <em>highly-relevant</em> for <em>U</em>. Otherwise, user <em>U</em> will see <em>A</em> even if it is not <em>highly-relevant</em>.</li>
+<li>Furthermore, if the user <em>U</em> has over 1000 followers (an influencer), she will only get to see ad <em>A</em> if <em>A</em> is labelled as <em>highly-relevant</em> for <em>U</em>. Otherwise, user <em>U</em> will see <em>A</em> even if it is not <em>highly-relevant</em>.</li>
 </ul>
 <p>We can model this procedure in a decision table, in various ways.
 The complete table would have four conditions and 16 variants. We will try to create a more compact decision table. Note: We will use Boolean conditions only.</p>
@@ -1555,7 +1555,7 @@ The complete table would have four conditions and 16 variants. We will try to cr
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Model-based testing","level":"4.1.4","depth":2,"next":{"title":"Design-by-contracts and property-based testing","level":"4.1.5","depth":2,"path":"chapters/testing-techniques/design-by-contracts.md","ref":"chapters/testing-techniques/design-by-contracts.md","articles":[]},"previous":{"title":"Structural-based testing","level":"4.1.3","depth":2,"path":"chapters/testing-techniques/structural-testing.md","ref":"chapters/testing-techniques/structural-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapters/testing-techniques/model-based-testing.md","mtime":"2020-03-29T13:56:17.798Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-03-29T14:00:32.767Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Model-based testing","level":"4.1.4","depth":2,"next":{"title":"Design-by-contracts and property-based testing","level":"4.1.5","depth":2,"path":"chapters/testing-techniques/design-by-contracts.md","ref":"chapters/testing-techniques/design-by-contracts.md","articles":[]},"previous":{"title":"Structural-based testing","level":"4.1.3","depth":2,"path":"chapters/testing-techniques/structural-testing.md","ref":"chapters/testing-techniques/structural-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapters/testing-techniques/model-based-testing.md","mtime":"2020-03-31T09:45:43.640Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-03-31T13:07:51.267Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

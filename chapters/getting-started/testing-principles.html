@@ -761,44 +761,43 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="principles-of-software-testing">Principles of software testing</h1>
-<p>In this chapter, we first provide some terminology to the reader. Using the right
-terms help us in understanding each other better. We then discuss the differences
-between verification and validation. Finally, we discuss a few testing principles
+<p>In this chapter, we first define some terminology; using the right
+terms help us understand each other better. We then discuss the differences
+between <em>verification</em> and <em>validation</em>. Finally, we discuss some testing principles
 that will guide us (or, more specifically, force us to perform trade-offs whenever
 we choose a testing technique) throughout the book.</p>
 <h2 id="failure-fault-and-error">Failure, Fault and Error</h2>
 <p>It is common to hear different terms to indicate that a software system
 is not behaving as expected.
 Just to name a few: <em>error</em>, <em>mistake</em>, <em>defect</em>, <em>bug</em>, <em>fault</em>, and <em>failure</em>.
-As we should be able to describe the events that led to a software crash more precisely, 
+To describe the events that led to a software crash more precisely, 
 we need to agree on a certain vocabulary.
 For now, this comes down to three terms: <strong>failure</strong>, <strong>fault</strong>, and <strong>error</strong>.</p>
 <p>A <strong>failure</strong> is a component of the (software) system that is not behaving as expected.
 Failures are often visible to the end user.
-An example of a failure can be a mobile app that suddenly stopped working. 
-Or a news website that suddenly started to provide yesterday&apos;s news on the front page. 
+An example of a failure is a mobile app that stops working, or a 
+news website that starts to show yesterday&apos;s news on its front page. 
 The software system did something it was not supposed to do.</p>
 <p>Failures are generally caused by <em>faults</em>.
 <strong>Faults</strong> are also called <em>defects</em> or <em>bugs</em>.
 A fault is the flaw in the component of the system that caused the 
-system to behave incorrectly. A fault is usually highly technical and in many cases
-can be linked to the source code.
-For example, the fault was a <code>&gt;</code> that was in place, instead of <code>&gt;=</code> in an <code>if</code> condition.</p>
+system to behave incorrectly. A fault is technical and, in our world, usually refers to 
+source code, such as a comparison in an <code>if</code> statement that uses a <code>&lt;</code> instead of a <code>&gt;</code>. 
+A broken connection is an example of a hardware fault.</p>
 <blockquote>
 <p>Note that the existence of a fault in the source code does not necessarily lead to a failure.
 If the code containing the fault is never executed, it will never cause a failure.
-Failures only occur when the end user is using the system, when they 
-notice it not behaving as expected.</p>
+Failures only occur when the system is being used, when someone notices it not behaving as expected.</p>
 </blockquote>
-<p>Finally, we have the <strong>error</strong>, also called <strong>mistake</strong>.
+<p>Finally, we have an <strong>error</strong>, also called <em>mistake</em>.
 An error is the human action that caused the system to run not as expected.
-For example, a developer that has forgotten to implement a certain corner case because
-that was not clear enough in the requirement.</p>
-<p>In short: A mistake done by a developer often leads to fault in the source code that will
-eventually result in a failure.</p>
-<p>In the <em>Min-Max</em> code example of the previous chapter, the failure was the program returning
-a large number. The fault was due to a bad <code>if/else if</code> condition. The mistake was 
-caused by me not dealing properly with that corner case.</p>
+For example, a developer didn&apos;t cover an obscure condition because they misunderstood
+the requirement. Plugging a cable into the wrong socket is an example of a hardware mistake. </p>
+<p>In other words: a <em>mistake</em> by a developer can lead to a <em>fault</em> in the source code that will
+eventually result in a <em>failure</em>.</p>
+<p>In the <em>Min-Max</em> code example of the previous chapter: the Failure was the program returning
+a large number, the fault was a bad <code>if/else if</code> condition, and the Mistake was me not dealing 
+properly with that case.</p>
 <center>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/zAty8Rpg92I" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </center>
@@ -812,17 +811,22 @@ assessing the quality of a system. However, they do have a subtle difference,
 which can be quickly described by a single question:</p>
 <ul>
 <li><p><strong>Validation: Are we building the right software?</strong>
-Validation concerns the features that our software system offers, and the customer (i.e., for whom the system is made).
-Is the system under development, the system that users really want and/or need?
-Is the system actually useful? Validation techniques, thus, focus on understanding
-whether the software system is delivering the business values it should deliver. In this book,
-we only briefly cover validation techniques (see chapters on Continuous Experimentation and on Behavior-Driven Development).</p>
+Validation concerns the features that our software system offers, and the customer (i.e., for whom the system is made): </p>
+<ul>
+<li>is the system under development what the users really want and/or need?</li>
+<li>is the system actually useful? </li>
+</ul>
+<p>Validation techniques, thus, focus on understanding
+whether the software system is delivering the business values it should deliver. In this book, we only briefly cover validation techniques (see chapters on Continuous Experimentation and on Behavior-Driven Development).</p>
 </li>
+</ul>
+<ul>
 <li><p><strong>Verification: Are we building the system right?</strong> 
-Verification, on the other hand, 
-is about the system behaving as it is supposed to, according to the specification. 
-In simple words, this mostly means that the system behaves without any bugs.
-Note that this does not guarantee that the system is useful: a system might work beautifully, bug-free, but does not deliver the features that customers really need.</p>
+Verification, on the other hand, is about the system behaving as it 
+is supposed to, according to the specification. </p>
+<p>In simple words, this mostly means that the system behaves without any bugs.
+Note that this does not guarantee that the system is useful: a system might work 
+beautifully, bug-free, but  not deliver the features that customers really need.</p>
 </li>
 </ul>
 <p>Note how both <em>validation</em> and <em>verification</em> are fundamental for ensuring
@@ -839,62 +843,55 @@ if we want our systems to be well-tested, all we need to do is to keep adding mo
 <p>Indeed, a very important part of any software testing process is 
 to know <em>when to stop testing</em>.
 After all, resources (e.g., money, developers, infrastructure) are limited. Therefore,
-the goal should always be to maximize the number of bugs found while minimizing the 
+the goal should always be to maximize the number of bugs found while minimising the 
 amount of resources we had to spend in finding those bugs.
 Creating too few tests might leave us with a software system that does not behave as intended (i.e., <em>full of bugs</em>).
 On the other hand, creating tests after tests, without proper consideration might lead to ineffective tests (besides costing too much time and money).</p>
 <p>Given resource constraints, we highlight an important principle in 
-software testing: <strong>exhaustive testing is impossible</strong>. They might be impossible
+software testing: <strong>exhaustive testing is impossible</strong>. It might be impossible
 even if we had unlimited resources. Imagine a software system that has &quot;just&quot; 128 different
-flags (or configurations). Those flags can be set as either true or false (booleans) and
-they can configured in all the possible ways. The software system behaves differently,
-according to the combination that is set. This implies in testing all the possible
-configurations. A simple math shows us that 2 configurations for each of the 128
-different flags gives <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mn>1</mn></msup><mn>2</mn><mn>8</mn></mrow><annotation encoding="application/x-tex">2^128</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathrm">2</span><span class="msupsub"><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle uncramped mtight"><span class="mord mathrm mtight">1</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span><span class="mord mathrm">2</span><span class="mord mathrm">8</span></span></span></span> combinations that need to be tested. As a matter
+flags (or configuration settings). Those flags can be set to either true or false (Booleans) and
+they can be set independently from the others. The software system behaves differently
+according to the configured combination of flags. This implies that we need to test all the possible combinations. A simple calculation shows us that 2 possible values for each of the 128 different flags gives <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mrow><mn>1</mn><mn>2</mn><mn>8</mn></mrow></msup></mrow><annotation encoding="application/x-tex">2^{128}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathrm">2</span><span class="msupsub"><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle uncramped mtight"><span class="mord scriptstyle uncramped mtight"><span class="mord mathrm mtight">1</span><span class="mord mathrm mtight">2</span><span class="mord mathrm mtight">8</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span></span></span></span> combinations that need to be tested. As a matter
 of comparison, this number is higher than the estimated number of atoms in the universe.
-In other words, this software system has more possible combinations to be tested than
-we the universe has atoms.</p>
+In other words, this software system has more possible combinations to be tested than the universe has atoms.</p>
 <p>Given that exhaustive testing is impossible,
 software testers have to then prioritize the tests they will perform.</p>
 <p>When prioritizing the test cases, we note that <strong>bugs are not uniformly distributed</strong>.
 Empirically, we observe that some components in some software systems present more
 bugs than other components.</p>
-<p>Another crucial consequence of the fact that exhaustive testing is impossible, 
-as Dijkstra used to say, is that
-<strong>testing shows the presence of defects;
-however, testing does not show the absence of defects</strong>.
+<p>Another crucial consequence of the fact that exhaustive testing is impossible is that, 
+as Dijkstra used to say, <strong>program testing can be used to show the presence of bugs, but never to show their absence</strong>.
 In other words, while we might find more bugs by simply testing more, our test suites,
-however large it might be,
-will never ensure us that the software system is 100% bug-free. It will only ensure us
-that these cases we test for do behave as expected.</p>
+however large they might be,
+will never ensure that the software system is 100% bug-free. They will only ensure
+that the cases we test for behave as expected.</p>
 <p>To test our software we need a lot of variation in our tests.
-When testing a method we want variety in the inputs, for example, 
+For example, we want variety in the inputs when testing a method, 
 like we saw in the examples above.
 To test the software well, however, we also need variation in 
 the testing strategies that we apply.</p>
-<p>Moreover, calling a software fault a bug might indeed be a good analogy. Another 
-interesting empirical finding is that, if testers apply the same testing techniques over and over,
-at some point they will lose their efficacy. 
-This is described by what is known as the <strong>pesticide paradox</strong>: 
+<p>Indeed, an interesting empirical finding is that if testers apply the same testing techniques over and over, they will at some point lose their efficacy. 
+This is described by what is known as the <strong>pesticide paradox</strong> (which nicely refers to &quot;bugs&quot; as an equivalent term for software faults):
 <em>&quot;Every method you use to prevent or find bugs leaves a residue of 
 subtler bugs against which those methods are ineffectual.&quot;</em>
-In practice, this means that there is no single testing strategy 
+In practice, this means that no single testing strategy 
 can guarantee that the software under test is bug-free.
 A concrete example might be a team that solely relies on unit testing techniques.
 At some point, maybe all the bugs that can be captured at unit test level will be found
 by the team; however, the team might miss bugs that only occur at integration level.
 From the pesticide paradox, we thus conclude that testers have to use 
-different testing strategies to minimize the bugs left in the software.
+different testing strategies to minimize the number of bugs left in the software.
 When studying the various testing strategies that we present in this book, 
 keep in mind that combining them all might be a wise decision.</p>
 <p>The context also plays an important role in how one devises test cases.
 For example, devising test cases for a mobile app is very different 
-from devising test cases for a web application. Or for a rocket.
+from devising test cases for a web application, or for software used in a rocket.
 In other words: <strong>testing is context-dependent</strong>.</p>
 <p>Again, while this book mostly focuses on verification techniques, 
-let us not forget that having a low amount of bugs is not enough for a good software.
-As we have said before, a program that works flawlessly, but is of no use for its users, 
-is still not a good software.
+let us not forget that having a low amount of bugs is not enough for good software.
+As we have said before, a program that works flawlessly but is of no use for its users, 
+is still not a good program.
 That is a common fallacy (also known as the <strong>absence-of-errors fallacy</strong>) that software testers face when they decide to focus solely
 on verification and not so much on validation.</p>
 <center>
@@ -905,25 +902,24 @@ on verification and not so much on validation.</p>
 
 <h2 id="exercises">Exercises</h2>
 <p><strong>Exercise 1.</strong>
-Having a certain terminology helps testers to explain the problems they have with a program or in their software.</p>
+Having certain terminology helps testers to explain the problems they have with a program or in their software.</p>
 <p>Below is a small conversation.
-Fill each of the caps with: failure, fault, or error.</p>
+Fill in the blanks with one of the following terms: failure, fault, or error.</p>
 <ul>
 <li><strong>Mark</strong>: Hey, Jane, I just observed a (1) <em> </em> <em> </em> <em> </em> in our software: if the user has multiple surnames, our software doesn&apos;t allow them to sign in. </li>
-<li><strong>Jane</strong>: Oh, that&apos;s awful. Let me debug the code so that I can find the (2) <em> </em> <em> </em> <em> </em>.
-<em>(a few minutes later)</em></li>
-<li><strong>Jane</strong>: Mark, I found it! It was my (3) <em> </em> <em> </em> <em> </em>. I programmed that part, but never thought of this case.</li>
+<li><strong>Jane</strong>: Oh, that&apos;s awful. Let me debug the code so that I can find the (2) <em> </em> <em> </em> <em> </em>.</li>
+<li><strong>Jane</strong> <em>(a few minutes later):</em> Mark, I found it! It was my (3) <em> </em> <em> </em> <em> </em>. I programmed that part, but never thought of this case.</li>
 <li><strong>Mark</strong>: No worries, Jane! Thanks for fixing it!</li>
 </ul>
 <p><strong>Exercise 2.</strong>
-Kelly, a very experienced software tester, visits Books!, a social network focused on matching people based on books they read.
-Users do not report bugs so often; Books! developers have strong testing practices in place.
+Kelly, a very experienced software tester, visits <em>Books!</em>, a social network focused on matching people based on books they read.
+Users do not report bugs so often; <em>Books!</em> developers have strong testing practices in place.
 However, users do say that the software is not really delivering what it promises.</p>
 <p>What testing principle applies to this problem?</p>
 <p><strong>Exercise 3.</strong>
-Suzanne, a junior software testing, just joined a very large online payment company in the Netherlands. As a first task, Suzanne analyzed their past two years of bug reports.
-Suzanne observes that more than 50% of bugs have been happening in the &apos;International payments module. </p>
-<p>Suzanne then promises her manager that she will design test cases that will completely cover the &apos;International payments&apos; module, and thus, find 
+Suzanne, a junior software testing, just joined a very large online payment company in the Netherlands. As a first task, Suzanne analysed their past two years of bug reports.
+Suzanne observes that more than 50% of bugs have been happening in the <em>International payments</em> module. </p>
+<p>Suzanne then promises her manager that she will design test cases that will completely cover the <em>International payments</em> module, and thus, find 
 all the bugs.</p>
 <p>Which of the following testing principles might explain why this is <strong>not</strong> possible?</p>
 <ol>
@@ -935,7 +931,7 @@ all the bugs.</p>
 <p><strong>Exercise 4.</strong>
 John strongly believes in unit testing. In fact, this is the only type of testing he actually
 does at any project he&apos;s in. All the testing principles below, but one, might help in convincing John that he should also focus on different types of testing. </p>
-<p>Which of the following <strong>is the least related</strong> related to help John in moving away from his &apos;only unit testing&apos; approach?</p>
+<p>Which of the following <strong>is the least related</strong> when we want to convince John to move away from his &apos;only unit testing&apos; approach?</p>
 <ol>
 <li>Pesticide paradox. </li>
 <li>Tests are context-dependent.</li>
@@ -944,10 +940,7 @@ does at any project he&apos;s in. All the testing principles below, but one, mig
 </ol>
 <h2 id="references">References</h2>
 <ul>
-<li><ul>
 <li>Graham, D., Van Veenendaal, E., &amp; Evans, I. (2008). Foundations of software testing: ISTQB certification. Cengage Learning EMEA. Chapters 1, 2, 3.</li>
-</ul>
-</li>
 </ul>
 
                                 
@@ -992,7 +985,7 @@ does at any project he&apos;s in. All the testing principles below, but one, mig
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Principles of software testing","level":"3.1.2","depth":2,"next":{"title":"Software testing automation","level":"3.1.3","depth":2,"path":"chapters/getting-started/test-automation.md","ref":"chapters/getting-started/test-automation.md","articles":[]},"previous":{"title":"Why software testing?","level":"3.1.1","depth":2,"path":"chapters/getting-started/why-software-testing.md","ref":"chapters/getting-started/why-software-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapters/getting-started/testing-principles.md","mtime":"2020-03-27T16:09:25.830Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-03-29T14:00:32.767Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Principles of software testing","level":"3.1.2","depth":2,"next":{"title":"Software testing automation","level":"3.1.3","depth":2,"path":"chapters/getting-started/test-automation.md","ref":"chapters/getting-started/test-automation.md","articles":[]},"previous":{"title":"Why software testing?","level":"3.1.1","depth":2,"path":"chapters/getting-started/why-software-testing.md","ref":"chapters/getting-started/why-software-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapters/getting-started/testing-principles.md","mtime":"2020-03-31T09:51:44.337Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-03-31T13:07:51.267Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

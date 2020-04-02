@@ -338,7 +338,20 @@
                 <a href="../testing-techniques/design-by-contracts.html">
             
                     
-                    Design-by-contracts and property-based testing
+                    Design-by-contracts
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.6" data-path="../testing-techniques/property-based-testing.html">
+            
+                <a href="../testing-techniques/property-based-testing.html">
+            
+                    
+                    Property-based testing
             
                 </a>
             
@@ -463,7 +476,20 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="6.1.1" data-path="../intelligent-testing/mutation-testing.html">
+        <li class="chapter " data-level="6.1.1" >
+            
+                <span>
+            
+                    
+                    Random testing (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.2" data-path="../intelligent-testing/mutation-testing.html">
             
                 <a href="../intelligent-testing/mutation-testing.html">
             
@@ -476,7 +502,7 @@
             
         </li>
     
-        <li class="chapter " data-level="6.1.2" data-path="../intelligent-testing/fuzzing.html">
+        <li class="chapter " data-level="6.1.3" data-path="../intelligent-testing/fuzzing.html">
             
                 <a href="../intelligent-testing/fuzzing.html">
             
@@ -489,7 +515,7 @@
             
         </li>
     
-        <li class="chapter " data-level="6.1.3" >
+        <li class="chapter " data-level="6.1.4" >
             
                 <span>
             
@@ -817,7 +843,7 @@ Validation concerns the features that our software system offers, and the custom
 <li>is the system actually useful? </li>
 </ul>
 <p>Validation techniques, thus, focus on understanding
-whether the software system is delivering the business values it should deliver. In this book, we only briefly cover validation techniques (see chapters on Continuous Experimentation and on Behavior-Driven Development).</p>
+whether the software system is delivering the business value it should deliver. In this book, we only briefly cover validation techniques (see chapters on Continuous Experimentation and on Behaviour-Driven Development).</p>
 </li>
 </ul>
 <ul>
@@ -843,7 +869,7 @@ if we want our systems to be well-tested, all we need to do is to keep adding mo
 <p>Indeed, a very important part of any software testing process is 
 to know <em>when to stop testing</em>.
 After all, resources (e.g., money, developers, infrastructure) are limited. Therefore,
-the goal should always be to maximize the number of bugs found while minimising the 
+the goal should always be to maximise the number of bugs found while minimising the 
 amount of resources we had to spend in finding those bugs.
 Creating too few tests might leave us with a software system that does not behave as intended (i.e., <em>full of bugs</em>).
 On the other hand, creating tests after tests, without proper consideration might lead to ineffective tests (besides costing too much time and money).</p>
@@ -856,8 +882,8 @@ according to the configured combination of flags. This implies that we need to t
 of comparison, this number is higher than the estimated number of atoms in the universe.
 In other words, this software system has more possible combinations to be tested than the universe has atoms.</p>
 <p>Given that exhaustive testing is impossible,
-software testers have to then prioritize the tests they will perform.</p>
-<p>When prioritizing the test cases, we note that <strong>bugs are not uniformly distributed</strong>.
+software testers have to then prioritise the tests they will perform.</p>
+<p>When prioritising the test cases, we note that <strong>bugs are not uniformly distributed</strong>.
 Empirically, we observe that some components in some software systems present more
 bugs than other components.</p>
 <p>Another crucial consequence of the fact that exhaustive testing is impossible is that, 
@@ -881,7 +907,7 @@ A concrete example might be a team that solely relies on unit testing techniques
 At some point, maybe all the bugs that can be captured at unit test level will be found
 by the team; however, the team might miss bugs that only occur at integration level.
 From the pesticide paradox, we thus conclude that testers have to use 
-different testing strategies to minimize the number of bugs left in the software.
+different testing strategies to minimise the number of bugs left in the software.
 When studying the various testing strategies that we present in this book, 
 keep in mind that combining them all might be a wise decision.</p>
 <p>The context also plays an important role in how one devises test cases.
@@ -889,7 +915,7 @@ For example, devising test cases for a mobile app is very different
 from devising test cases for a web application, or for software used in a rocket.
 In other words: <strong>testing is context-dependent</strong>.</p>
 <p>Again, while this book mostly focuses on verification techniques, 
-let us not forget that having a low amount of bugs is not enough for good software.
+let us not forget that having a low number of bugs is not enough for good software.
 As we have said before, a program that works flawlessly but is of no use for its users, 
 is still not a good program.
 That is a common fallacy (also known as the <strong>absence-of-errors fallacy</strong>) that software testers face when they decide to focus solely
@@ -985,7 +1011,7 @@ does at any project he&apos;s in. All the testing principles below, but one, mig
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Principles of software testing","level":"3.1.2","depth":2,"next":{"title":"Software testing automation","level":"3.1.3","depth":2,"path":"chapters/getting-started/test-automation.md","ref":"chapters/getting-started/test-automation.md","articles":[]},"previous":{"title":"Why software testing?","level":"3.1.1","depth":2,"path":"chapters/getting-started/why-software-testing.md","ref":"chapters/getting-started/why-software-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapters/getting-started/testing-principles.md","mtime":"2020-03-31T09:51:44.337Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-03-31T13:07:51.267Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Principles of software testing","level":"3.1.2","depth":2,"next":{"title":"Software testing automation","level":"3.1.3","depth":2,"path":"chapters/getting-started/test-automation.md","ref":"chapters/getting-started/test-automation.md","articles":[]},"previous":{"title":"Why software testing?","level":"3.1.1","depth":2,"path":"chapters/getting-started/why-software-testing.md","ref":"chapters/getting-started/why-software-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapters/getting-started/testing-principles.md","mtime":"2020-04-02T13:33:35.271Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-02T14:32:11.587Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

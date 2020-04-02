@@ -338,7 +338,20 @@
                 <a href="design-by-contracts.html">
             
                     
-                    Design-by-contracts and property-based testing
+                    Design-by-contracts
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.6" data-path="property-based-testing.html">
+            
+                <a href="property-based-testing.html">
+            
+                    
+                    Property-based testing
             
                 </a>
             
@@ -463,7 +476,20 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="6.1.1" data-path="../intelligent-testing/mutation-testing.html">
+        <li class="chapter " data-level="6.1.1" >
+            
+                <span>
+            
+                    
+                    Random testing (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.2" data-path="../intelligent-testing/mutation-testing.html">
             
                 <a href="../intelligent-testing/mutation-testing.html">
             
@@ -476,7 +502,7 @@
             
         </li>
     
-        <li class="chapter " data-level="6.1.2" data-path="../intelligent-testing/fuzzing.html">
+        <li class="chapter " data-level="6.1.3" data-path="../intelligent-testing/fuzzing.html">
             
                 <a href="../intelligent-testing/fuzzing.html">
             
@@ -489,7 +515,7 @@
             
         </li>
     
-        <li class="chapter " data-level="6.1.3" >
+        <li class="chapter " data-level="6.1.4" >
             
                 <span>
             
@@ -761,11 +787,7 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="specification-based-testing">Specification-Based Testing</h1>
-<p>In this chapter, we explore <strong>specification-based testing</strong> techniques.
-These use the <em>requirements</em> (often written as text; think of user stories
-and/or UML use cases) 
-of the program as input
-for testing.</p>
+<p>In this chapter, we explore <strong>specification-based testing</strong> techniques. These use the <em>requirements</em> of the program (often written as text; think of user stories and/or UML use cases) as input for testing.</p>
 <p>In simple terms, we devise a set
 of inputs, where each input tackles one part (or <em>partition</em>)
 of the program.</p>
@@ -778,18 +800,16 @@ as <strong>black box testing</strong>.</p>
 There are different cases in which the program is executed 
 and its execution often depends on various factors, such as the input
 to the program.</p>
-<p>Let&apos;s use a small program as an example. The specification below talks
-about a program that decides
-whether a year is leap or not. </p>
+<p>Let&apos;s use a small program as an example. The specification below talks about a program that decides whether a given year is a leap year or not. </p>
 <blockquote>
 <p><strong>Requirement: Leap year</strong></p>
-<p>Given a specific year as an input, the program should return <em>true</em> if the 
-the provided year is leap and false if it is not.</p>
+<p>Given a specific year as an input, the program should return <em>true</em> if 
+the provided year is a leap year and <em>false</em> if it is not.</p>
 <p>A year is a leap year if:</p>
 <ul>
 <li>the year is divisible by 4;</li>
-<li>the year is not divisible by 100;</li>
-<li>exceptions are years that are divisible by 400, which are also leap years.</li>
+<li>and the year is not divisible by 100;</li>
+<li>except when the year is divisible by 400 (because then it is still a leap year)</li>
 </ul>
 </blockquote>
 <p>To find a good set of test cases, often referred to as a <em>test suite</em>,
@@ -818,12 +838,9 @@ following classes/partitions:</p>
 <h2 id="equivalence-partitioning">Equivalence partitioning</h2>
 <p>The partitions above are not test cases that we can implement directly because
 each partition might be instantiated by an infinite number of inputs. For example,
-for the partition &quot;year not divisible by 4&quot;, there are infinite options of numbers
-which are not divisible by 4 that we could use as concrete inputs
-to the program.
-It is impractical to test all of these numbers.
-So how do we know which concrete input to instantiate for each
-of the partitions?</p>
+for the partition &quot;year not divisible by 4&quot;, there are infinitely many numbers
+that are not divisible by 4 which we could use as concrete inputs to the program.
+So how do we know which concrete input to instantiate for each of the partitions?</p>
 <p>As we discussed earlier, each partition exercises the program in a certain way.
 In other words, all input values from one specific partition will make the program
 behave in the same way.
@@ -906,7 +923,7 @@ the following inputs will be used for the partitions:</p>
 <p>Note that each test method covers one of the partitions and the naming of the method refers to the partition it covers.</p>
 <p>For those who are learning JUnit: Note that the <code>setup</code> method is executed 
 before each test, thanks to the <code>BeforeEach</code> annotation.
-It creates the <code>LeapYear</code>.
+For each test, it creates a <code>LeapYear</code> object.
 This is then used by the tests to execute the method under test.
 In each test we first determine the result of the method.
 After the method returns a value, we assert that this is the expected value.</p>
@@ -917,12 +934,11 @@ After the method returns a value, we assert that this is the expected value.</p>
 
 
 <h2 id="category-partition-method">Category-Partition Method</h2>
-<p>So far we derived partitions by just looking at the specification of the program.
+<p>So far we have derived partitions by just looking at the specification of the program.
 We basically used our experience and knowledge to derive the test cases.
 We now go over a more systematic way of deriving these partitions: the <strong>Category-Partition</strong> method.</p>
-<p>The method gives us 1) a systematic way of deriving test cases, based on the characteristics of the input parameters, 2) minimize the amount of tests
-to a feasible amount.</p>
-<p>We set out now the steps of this method and then we illustrate the process with an example.</p>
+<p>The method gives us a systematic way of deriving test cases, based on the characteristics of the input parameters. It also brings down the number of tests to a feasible number.</p>
+<p>We now set out the steps of this method and then we illustrate the process with an example.</p>
 <ol>
 <li>Identify the parameters, or the input of the program. For example, the parameters your classes and methods receive.</li>
 <li><p>Derive characteristics of each parameter. For example, an <code>int year</code> should be a positive integer number between 0 and infinite. </p>
@@ -931,9 +947,9 @@ to a feasible amount.</p>
 <li>Others might not be found from specifications. For example, an input cannot be <code>null</code> if the method does not handle that well.</li>
 </ul>
 </li>
-<li><p>Add constraints in order to minimize the test suite.</p>
+<li><p>Add constraints in order to minimise the test suite.</p>
 <ul>
-<li>Identify invalid combinations. For example, some characteristics might not be able to be combined with other characteristics.</li>
+<li>Identify invalid combinations. For some characteristics it might not be possible to combine them with other characteristics.</li>
 <li>Exceptional behaviour does not always have to be combined with all the different values of the other inputs. For example, trying a single <code>null</code> input might be enough to test that corner case.</li>
 </ul>
 </li>
@@ -943,9 +959,9 @@ to a feasible amount.</p>
 <p>Let&apos;s apply the technique in the following program:</p>
 <blockquote>
 <p><strong>Requirement: Christmas discount</strong></p>
-<p>The system should give 25% discount on the cart when it is Christmas.
+<p>The system should give a 25% discount on the cart when it is Christmas.
 The method has two input parameters: the total price of the products in the cart, and the date.
-When it is not Christmas it just returns the original price, otherwise it applies the discount.</p>
+When it is not Christmas it just returns the original price; otherwise it applies the discount.</p>
 </blockquote>
 <p>Following the category-partition method:</p>
 <ol>
@@ -961,8 +977,7 @@ When it is not Christmas it just returns the original price, otherwise it applie
 <li>The price can be a positive number, or in certain circumstances it may be 0. Technically the price can also be a negative number. This is an exceptional case, as you cannot pay a negative amount.</li>
 </ul>
 </li>
-<li><p>The amount of characteristics and parameters is not too large in this case.
-As the negative price is an exceptional case, we can test this with just one combination, instead of with a date that is Christmas and a date that is not Christmas.</p>
+<li><p>The number of characteristics and parameters is not too large in this case. As the negative price is an exceptional case, we can test this with just one combination, instead of with a date that is Christmas and a date that is not Christmas.</p>
 </li>
 <li><p>We combine the other characteristics to get the following test cases:</p>
 <ul>
@@ -989,7 +1004,7 @@ There are small bars (1 kilo each) and big bars (5 kilos each).
 We should calculate the number of small bars to use, 
 assuming we always use big bars before small bars. Return -1 if it is impossible.</p>
 <p>The input of the program is thus the number of small bars, the number of big bars,
-and the total amount of kilos to store.</p>
+and the total number of kilos to store.</p>
 </blockquote>
 <p>A possible implementation for this program is:</p>
 <pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ChocolateBars</span> </span>{
@@ -1014,7 +1029,7 @@ in order to derive the partitions.</p>
 <ul>
 <li><strong>Need only small bars</strong>. A solution that only uses the provided small bars.</li>
 <li><strong>Need only big bars</strong>. A solution that only uses the provided big bars.</li>
-<li><strong>Need Small + big bars</strong>. A solution that has to use both small and big bars.</li>
+<li><strong>Need small + big bars</strong>. A solution that has to use both small and big bars.</li>
 <li><strong>Not enough bars</strong>. A case in which it is impossible, because there are not enough bars.</li>
 <li><strong>Not from the specs</strong>: An exceptional case.</li>
 </ul>
@@ -1022,7 +1037,7 @@ in order to derive the partitions.</p>
 <ul>
 <li><strong>Need only small bars</strong>. small = 4, big = 2, total = 3</li>
 <li><strong>Need only big bars</strong>. small = 5, big = 3, total = 10</li>
-<li><strong>Need Small + big bars</strong>. small = 5, big = 3, total = 17</li>
+<li><strong>Need small + big bars</strong>. small = 5, big = 3, total = 17</li>
 <li><strong>Not enough bars</strong>. small = 1, big = 1, total = 10</li>
 <li><strong>Not from the specs</strong>: small = -1, big = -1, total = -1</li>
 </ul>
@@ -1206,7 +1221,7 @@ With a <code>find</code> program that finds occurrences of a pattern in a file, 
 <li>Occurrences in the file: none, exactly one, more than one.</li>
 <li>Occurrences in a single line, assuming line contains the pattern: one, more than one.</li>
 </ul>
-<p>However, the number of combinations is now too high. What actions could we take to reduce the number of combinations?</p>
+<p>However, the number of combinations is too high now. What actions could we take to reduce the number of combinations?</p>
 <h2 id="references">References</h2>
 <ul>
 <li><p>Graham, D., Van Veenendaal, E., &amp; Evans, I. (2008). Foundations of software testing: ISTQB certification. Cengage Learning EMEA. Chapter 4.</p>
@@ -1261,7 +1276,7 @@ With a <code>find</code> program that finds occurrences of a pattern in a file, 
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Specification-based testing","level":"4.1.1","depth":2,"next":{"title":"Boundary testing","level":"4.1.2","depth":2,"path":"chapters/testing-techniques/boundary-testing.md","ref":"chapters/testing-techniques/boundary-testing.md","articles":[]},"previous":{"title":"Testing techniques","level":"4.1","depth":1,"path":"chapters/testing-techniques/README.md","ref":"chapters/testing-techniques/README.md","articles":[{"title":"Specification-based testing","level":"4.1.1","depth":2,"path":"chapters/testing-techniques/specification-based-testing.md","ref":"chapters/testing-techniques/specification-based-testing.md","articles":[]},{"title":"Boundary testing","level":"4.1.2","depth":2,"path":"chapters/testing-techniques/boundary-testing.md","ref":"chapters/testing-techniques/boundary-testing.md","articles":[]},{"title":"Structural-based testing","level":"4.1.3","depth":2,"path":"chapters/testing-techniques/structural-testing.md","ref":"chapters/testing-techniques/structural-testing.md","articles":[]},{"title":"Model-based testing","level":"4.1.4","depth":2,"path":"chapters/testing-techniques/model-based-testing.md","ref":"chapters/testing-techniques/model-based-testing.md","articles":[]},{"title":"Design-by-contracts and property-based testing","level":"4.1.5","depth":2,"path":"chapters/testing-techniques/design-by-contracts.md","ref":"chapters/testing-techniques/design-by-contracts.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapters/testing-techniques/specification-based-testing.md","mtime":"2020-03-31T09:45:43.642Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-03-31T13:07:51.267Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Specification-based testing","level":"4.1.1","depth":2,"next":{"title":"Boundary testing","level":"4.1.2","depth":2,"path":"chapters/testing-techniques/boundary-testing.md","ref":"chapters/testing-techniques/boundary-testing.md","articles":[]},"previous":{"title":"Testing techniques","level":"4.1","depth":1,"path":"chapters/testing-techniques/README.md","ref":"chapters/testing-techniques/README.md","articles":[{"title":"Specification-based testing","level":"4.1.1","depth":2,"path":"chapters/testing-techniques/specification-based-testing.md","ref":"chapters/testing-techniques/specification-based-testing.md","articles":[]},{"title":"Boundary testing","level":"4.1.2","depth":2,"path":"chapters/testing-techniques/boundary-testing.md","ref":"chapters/testing-techniques/boundary-testing.md","articles":[]},{"title":"Structural-based testing","level":"4.1.3","depth":2,"path":"chapters/testing-techniques/structural-testing.md","ref":"chapters/testing-techniques/structural-testing.md","articles":[]},{"title":"Model-based testing","level":"4.1.4","depth":2,"path":"chapters/testing-techniques/model-based-testing.md","ref":"chapters/testing-techniques/model-based-testing.md","articles":[]},{"title":"Design-by-contracts","level":"4.1.5","depth":2,"path":"chapters/testing-techniques/design-by-contracts.md","ref":"chapters/testing-techniques/design-by-contracts.md","articles":[]},{"title":"Property-based testing","level":"4.1.6","depth":2,"path":"chapters/testing-techniques/property-based-testing.md","ref":"chapters/testing-techniques/property-based-testing.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapters/testing-techniques/specification-based-testing.md","mtime":"2020-04-02T13:33:35.276Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-02T14:32:11.587Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

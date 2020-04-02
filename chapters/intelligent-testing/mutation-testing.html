@@ -68,8 +68,6 @@
     <link rel="next" href="fuzzing.html" />
     
     
-    <link rel="prev" href="./" />
-    
 
     </head>
     <body>
@@ -338,7 +336,20 @@
                 <a href="../testing-techniques/design-by-contracts.html">
             
                     
-                    Design-by-contracts and property-based testing
+                    Design-by-contracts
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.6" data-path="../testing-techniques/property-based-testing.html">
+            
+                <a href="../testing-techniques/property-based-testing.html">
+            
+                    
+                    Property-based testing
             
                 </a>
             
@@ -463,7 +474,20 @@
             <ul class="articles">
                 
     
-        <li class="chapter active" data-level="6.1.1" data-path="mutation-testing.html">
+        <li class="chapter " data-level="6.1.1" >
+            
+                <span>
+            
+                    
+                    Random testing (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="6.1.2" data-path="mutation-testing.html">
             
                 <a href="mutation-testing.html">
             
@@ -476,7 +500,7 @@
             
         </li>
     
-        <li class="chapter " data-level="6.1.2" data-path="fuzzing.html">
+        <li class="chapter " data-level="6.1.3" data-path="fuzzing.html">
             
                 <a href="fuzzing.html">
             
@@ -489,7 +513,7 @@
             
         </li>
     
-        <li class="chapter " data-level="6.1.3" >
+        <li class="chapter " data-level="6.1.4" >
             
                 <span>
             
@@ -863,7 +887,7 @@ In this case, the input values and test oracle of the <code>testGetValuesDiffere
 
 
 <h2 id="hypotheses-for-mutation-testing">Hypotheses for Mutation Testing</h2>
-<p>We are now ready to generalize the idea.
+<p>We are now ready to generalise the idea.
 The idea of mutation testing is to <strong>assess the quality of the test suite</strong>.
 This is done by manipulating the source code a bit and running the tests with this manipulated source code.
 If we have a good test suite, at least one of the tests will fail on this changed (buggy) code.
@@ -1122,7 +1146,7 @@ If none of the tests in our test suite fails when executed against the mutant, t
 <p>This process is illustrated in the diagram below:</p>
 <p><img src="img/mutation-testing/mutation_analysis_process.png" alt="Mutation Testing Process"></p>
 <p>When performing mutation testing, we count the number of mutants our test suite killed and the number of mutants that were still alive.
-By counting the amount of each of these mutant groups, we can give a value to the quality of our test suite.</p>
+By counting the number of each of these mutant groups, we can give a value to the quality of our test suite.</p>
 <p>We define the <strong>Mutation Score</strong> as:</p>
 <p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtext><mi mathvariant="normal">M</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">n</mi><mtext>&#xA0;</mtext><mi mathvariant="normal">s</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mtext>&#xA0;</mtext></mtext><mo>=</mo><mfrac><mrow><mtext><mi mathvariant="normal">k</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">d</mi><mtext>&#xA0;</mtext><mi mathvariant="normal">m</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">s</mi></mtext></mrow><mrow><mtext><mi mathvariant="normal">m</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">s</mi></mtext></mrow></mfrac></mrow><annotation encoding="application/x-tex">\text{Mutation score } = \frac{\text{killed mutants}}{\text{mutants}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8801079999999999em;"></span><span class="strut bottom" style="height:1.2251079999999999em;vertical-align:-0.345em;"></span><span class="base textstyle uncramped"><span class="mord text textstyle uncramped"><span class="mord mathrm">Mutation&#xA0;score&#xA0;</span></span><span class="mrel">=</span><span class="mord reset-textstyle textstyle uncramped"><span class="mopen sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord scriptstyle cramped mtight"><span class="mord text scriptstyle cramped mtight"><span class="mord mathrm mtight">mutants</span></span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.394em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle uncramped mtight"><span class="mord scriptstyle uncramped mtight"><span class="mord text scriptstyle uncramped mtight"><span class="mord mathrm mtight">killed&#xA0;mutants</span></span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span><span class="mclose sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span></span></span></span></p>
 <p>Computing this mutation score is what we call <strong>mutation analysis</strong>. More formally: <strong>Mutation analysis</strong> means assessing the quality of a test suite, by computing its mutation score.</p>
@@ -1180,7 +1204,7 @@ Because <code>index</code> will never be negative, the <code>==</code> operator 
 We do not want to take the equivalent mutants into account, as there is nothing wrong with the tests when they do not kill these mutants.</p>
 <p>The new formula becomes:</p>
 <p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtext><mi mathvariant="normal">M</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">n</mi><mtext>&#xA0;</mtext><mi mathvariant="normal">s</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi></mtext><mo>=</mo><mfrac><mrow><mtext><mi mathvariant="normal">k</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">d</mi><mtext>&#xA0;</mtext><mi mathvariant="normal">m</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">s</mi></mtext></mrow><mrow><mtext><mi mathvariant="normal">n</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">-</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">q</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">v</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">t</mi><mtext>&#xA0;</mtext><mi mathvariant="normal">m</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">s</mi></mtext></mrow></mfrac></mrow><annotation encoding="application/x-tex">\text{Mutation score} = \frac{\text{killed mutants}}{\text{non-equivalent mutants}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8801079999999999em;"></span><span class="strut bottom" style="height:1.3612159999999998em;vertical-align:-0.481108em;"></span><span class="base textstyle uncramped"><span class="mord text textstyle uncramped"><span class="mord mathrm">Mutation&#xA0;score</span></span><span class="mrel">=</span><span class="mord reset-textstyle textstyle uncramped"><span class="mopen sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord scriptstyle cramped mtight"><span class="mord text scriptstyle cramped mtight"><span class="mord mathrm mtight">non-equivalent&#xA0;mutants</span></span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.394em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle uncramped mtight"><span class="mord scriptstyle uncramped mtight"><span class="mord text scriptstyle uncramped mtight"><span class="mord mathrm mtight">killed&#xA0;mutants</span></span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span><span class="mclose sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span></span></span></span></p>
-<p>For the denominator, we just count the amount of non-equivalent mutants, instead of all the mutants.
+<p>For the denominator, we just count the number of non-equivalent mutants, instead of all the mutants.
 To compute this new mutation score automatically, we would need a way to automatically determine whether a mutant is an equivalent mutant.
 Unfortunately, we cannot do this automatically.
 <strong>Detecting equivalent mutations is an undecidable problem</strong>. We can never be sure that a mutant behaves the same as the original program for every possible input.</p>
@@ -1218,7 +1242,7 @@ Based on some observations, they came up with a couple of heuristics.</p>
 <ul>
 <li><p>The first observation is that a test case can never kill a mutant if it does not cover the statement that changed (also known as the <em>reachability condition</em>).
 Based on this observation, we only have to run the test cases that cover the changed statement.
-This reduces the amount of test cases to run and, with that, the execution time.
+This reduces the number of test cases to run and, with that, the execution time.
 Furthermore, once a test case kills a mutant, we do not have to run the other test cases anymore.
 This is because the test suite needs at least one test case that kills the mutant.
 The exact number of test cases killing the mutant does not really matter.</p>
@@ -1295,12 +1319,8 @@ Finally, you can also see more detailed results in the source code and check whi
 
             
                 
-                <a href="./" class="navigation navigation-prev " aria-label="Previous page: Intelligent testing">
-                    <i class="fa fa-angle-left"></i>
-                </a>
                 
-                
-                <a href="fuzzing.html" class="navigation navigation-next " aria-label="Next page: Fuzzing testing">
+                <a href="fuzzing.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Fuzzing testing">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -1311,7 +1331,7 @@ Finally, you can also see more detailed results in the source code and check whi
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Mutation testing","level":"6.1.1","depth":2,"next":{"title":"Fuzzing testing","level":"6.1.2","depth":2,"path":"chapters/intelligent-testing/fuzzing.md","ref":"chapters/intelligent-testing/fuzzing.md","articles":[]},"previous":{"title":"Intelligent testing","level":"6.1","depth":1,"path":"chapters/intelligent-testing/README.md","ref":"chapters/intelligent-testing/README.md","articles":[{"title":"Mutation testing","level":"6.1.1","depth":2,"path":"chapters/intelligent-testing/mutation-testing.md","ref":"chapters/intelligent-testing/mutation-testing.md","articles":[]},{"title":"Fuzzing testing","level":"6.1.2","depth":2,"path":"chapters/intelligent-testing/fuzzing.md","ref":"chapters/intelligent-testing/fuzzing.md","articles":[]},{"title":"Search-based software testing (soon)","level":"6.1.3","depth":2,"ref":"","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapters/intelligent-testing/mutation-testing.md","mtime":"2020-03-31T09:45:43.590Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-03-31T13:07:51.267Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Mutation testing","level":"6.1.2","depth":2,"next":{"title":"Fuzzing testing","level":"6.1.3","depth":2,"path":"chapters/intelligent-testing/fuzzing.md","ref":"chapters/intelligent-testing/fuzzing.md","articles":[]},"previous":{"title":"Random testing (soon)","level":"6.1.1","depth":2,"ref":"","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapters/intelligent-testing/mutation-testing.md","mtime":"2020-04-02T13:33:35.272Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-02T14:32:11.587Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

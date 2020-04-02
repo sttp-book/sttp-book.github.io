@@ -338,7 +338,20 @@
                 <a href="design-by-contracts.html">
             
                     
-                    Design-by-contracts and property-based testing
+                    Design-by-contracts
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.6" data-path="property-based-testing.html">
+            
+                <a href="property-based-testing.html">
+            
+                    
+                    Property-based testing
             
                 </a>
             
@@ -463,7 +476,20 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="6.1.1" data-path="../intelligent-testing/mutation-testing.html">
+        <li class="chapter " data-level="6.1.1" >
+            
+                <span>
+            
+                    
+                    Random testing (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.2" data-path="../intelligent-testing/mutation-testing.html">
             
                 <a href="../intelligent-testing/mutation-testing.html">
             
@@ -476,7 +502,7 @@
             
         </li>
     
-        <li class="chapter " data-level="6.1.2" data-path="../intelligent-testing/fuzzing.html">
+        <li class="chapter " data-level="6.1.3" data-path="../intelligent-testing/fuzzing.html">
             
                 <a href="../intelligent-testing/fuzzing.html">
             
@@ -489,7 +515,7 @@
             
         </li>
     
-        <li class="chapter " data-level="6.1.3" >
+        <li class="chapter " data-level="6.1.4" >
             
                 <span>
             
@@ -798,13 +824,13 @@ when to stop. It is easy to imagine that the number of possible paths in a mildl
 clear criteria on when to stop helps testers in understanding
 the costs of their testing.</p>
 <h2 id="line-and-statement-coverage">Line (and statement) coverage</h2>
-<p>As the name suggests, when determining the line coverage, we look at the amount of lines of code that are covered by the tests (more specifically,
+<p>As the name suggests, when determining the line coverage, we look at the number of lines of code that are covered by the tests (more specifically,
 by at least one test).</p>
 <p>See the following example: </p>
 <blockquote>
 <p><strong>Requirement</strong>: Black-jack</p>
-<p>The program receives the amount of points of two black jack players.
-The program must return the amount of points of the winner.
+<p>The program receives the number of points of two black jack players.
+The program must return the number of points of the winner.
 In blackjack, whoever gets closer to 21 points wins. 
 If a player goes over 21 points,
 the player loses. If both player loses, the program must return 0.</p>
@@ -913,13 +939,13 @@ It consists of <em>basic blocks</em>, <em>decision blocks</em>, and <em>arrows/e
 <p><img src="img/structural-testing/examples/bj-p1.png" alt="Black Jack - CFG part 1"></p>
 <p>A decision block, on the other hand, represents all the statements in the source
 code that can create different branches. See line 3 (<code>if (ln &gt; 21)</code>). This <em>if</em>
-statement creates a decision moment in the appliction; after all, if it is evaluated
+statement creates a decision moment in the application; after all, if it is evaluated
 as true, the program will do something, otherwise the program will do something else. Decision blocks are often represented as diamonds. This decision block happens right 
 after the basic block we created above, and thus, they are connected by means of
 an edge.</p>
 <p><img src="img/structural-testing/examples/bj-p2.png" alt="Black Jack - CFG part 2"></p>
 <p>Note that a basic block has always a single outgoing edge. A decision block, 
-on othe other hand, has
+on the other hand, has
 always two outgoing edges (where you go in case of the decision being evaluated to true, and where you go in case the decision being evaluated
 to false).</p>
 <p>In case of the decision block being evaluated to <code>true</code>, line 4 is executed, and the
@@ -956,7 +982,7 @@ A word ends when a non-letter appears.</p>
 </code></pre>
 <p>The corresponding CFG:</p>
 <p><img src="img/structural-testing/examples/CFG-branch-example.svg" alt="Control flow graph example"></p>
-<p>Note that we split the for-loop into three blocks: the variable initialization, the decision block, and the increment.</p>
+<p>Note that we split the for-loop into three blocks: the variable initialisation, the decision block, and the increment.</p>
 <p>Note how agnostic this CFG representation is. You can even build CFGs of program written in different
 languages. They might even look the same.</p>
 <h2 id="block-coverage">Block coverage</h2>
@@ -1100,7 +1126,7 @@ Each of these combinations is a path. You might see a path as a unique way to tr
     words++;
 }
 </code></pre>
-<p>The decision in this if-statement contains three conditions and can be generalized to <code>(A &amp;&amp; ( B || C))</code>, with A = <code>!Character.isLetter(str.charAt(i))</code>, B = <code>last == &apos;s&apos;</code> and C = <code>last == &apos;r&apos;</code>.</p>
+<p>The decision in this if-statement contains three conditions and can be generalised to <code>(A &amp;&amp; ( B || C))</code>, with A = <code>!Character.isLetter(str.charAt(i))</code>, B = <code>last == &apos;s&apos;</code> and C = <code>last == &apos;r&apos;</code>.</p>
 <p>To get <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mn>0</mn><mn>0</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">100\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span><span class="mord mathrm">%</span></span></span></span> path coverage, we would have to test all the possible combinations of these three conditions.</p>
 <p>We make a truth table to find the combinations:</p>
 <table>
@@ -1119,7 +1145,7 @@ Each of these combinations is a path. You might see a path as a unique way to tr
 That is quite a lot for just a single statement.</p>
 <p>By aiming at achieving good path coverage of our program, testers can indeed come up with good tests.
 However, the main issue is that achieving 100% path coverage might not always be feasible or too costly.
-The amount of tests needed for full path coverage will grow exponentially with the amount of conditions in a decision.</p>
+The number of tests needed for full path coverage will grow exponentially with the number of conditions in a decision.</p>
 <center>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/hpE-aZYulmk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </center>
@@ -1187,7 +1213,7 @@ so the pair {T1, T3} does not show how B can independently affect the overall ou
 <li>C: {3, 4}</li>
 </ul>
 </li>
-<li><p>To select the combinations that we want to test, we have to have at least one of the pairs for each condition (A, B, and C). We want to minimize the total amount of tests, and we know for a fact that we can achieve this with N+1 tests.</p>
+<li><p>To select the combinations that we want to test, we have to have at least one of the pairs for each condition (A, B, and C). We want to minimise the total number of tests, and we know for a fact that we can achieve this with N+1 tests.</p>
 </li>
 <li><p>We do not have any choices with conditions B and C, as we only found one pair for each.
 This means that we have to test combinations 2, 3, and 4.</p>
@@ -1274,7 +1300,7 @@ matters.</p>
 <p>While researchers have not yet found a magical coverage
 number that one should aim for, they have been finding
 interesting evidence pointing towards the benefits
-of perfoming structural testing.</p>
+of performing structural testing.</p>
 <p>We quote two of these studies:</p>
 <ul>
 <li>Hutchins et al.: &quot;Within the limited domain of our experiments, test sets achieving coverage levels over 90% usually showed significantly better fault detection than randomly chosen test sets of the same size. In addition, significant improvements in the effectiveness of coverage-based tests usually occurred as coverage increased from 90% to 100%. However, the results also indicate that 100% code coverage alone is not a reliable indicator of the effectiveness of a test set.&quot;</li>
@@ -1340,7 +1366,7 @@ Consider the decision <code>(A or C) and B</code> with the corresponding decisio
     <tr><td>8</td><td>F</td><td>F</td><td>F</td><td>F</td></tr>
 </table>
 
-<p>What is the set with the minimum amount of tests needed for <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mn>0</mn><mn>0</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">100\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span><span class="mord mathrm">%</span></span></span></span> MC/DC (Modified Condition / Decision Coverage)?</p>
+<p>What is the set with the minimum number of tests needed for <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mn>0</mn><mn>0</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">100\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span><span class="mord mathrm">%</span></span></span></span> MC/DC (Modified Condition / Decision Coverage)?</p>
 <hr>
 <p>For the next three exercises use the code below.
 This method returns the longest substring that appears at both the beginning and end of the string without overlapping.
@@ -1520,7 +1546,7 @@ If we aim to achieve 100\% <em>Modified Condition / Decision Coverage</em> (MC/D
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Structural-based testing","level":"4.1.3","depth":2,"next":{"title":"Model-based testing","level":"4.1.4","depth":2,"path":"chapters/testing-techniques/model-based-testing.md","ref":"chapters/testing-techniques/model-based-testing.md","articles":[]},"previous":{"title":"Boundary testing","level":"4.1.2","depth":2,"path":"chapters/testing-techniques/boundary-testing.md","ref":"chapters/testing-techniques/boundary-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapters/testing-techniques/structural-testing.md","mtime":"2020-03-31T13:07:43.876Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-03-31T13:07:51.267Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Structural-based testing","level":"4.1.3","depth":2,"next":{"title":"Model-based testing","level":"4.1.4","depth":2,"path":"chapters/testing-techniques/model-based-testing.md","ref":"chapters/testing-techniques/model-based-testing.md","articles":[]},"previous":{"title":"Boundary testing","level":"4.1.2","depth":2,"path":"chapters/testing-techniques/boundary-testing.md","ref":"chapters/testing-techniques/boundary-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapters/testing-techniques/structural-testing.md","mtime":"2020-04-02T13:33:35.277Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-02T14:32:11.587Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

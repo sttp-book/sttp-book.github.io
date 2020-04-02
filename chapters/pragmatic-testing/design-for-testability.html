@@ -338,7 +338,20 @@
                 <a href="../testing-techniques/design-by-contracts.html">
             
                     
-                    Design-by-contracts and property-based testing
+                    Design-by-contracts
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.6" data-path="../testing-techniques/property-based-testing.html">
+            
+                <a href="../testing-techniques/property-based-testing.html">
+            
+                    
+                    Property-based testing
             
                 </a>
             
@@ -463,7 +476,20 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="6.1.1" data-path="../intelligent-testing/mutation-testing.html">
+        <li class="chapter " data-level="6.1.1" >
+            
+                <span>
+            
+                    
+                    Random testing (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.2" data-path="../intelligent-testing/mutation-testing.html">
             
                 <a href="../intelligent-testing/mutation-testing.html">
             
@@ -476,7 +502,7 @@
             
         </li>
     
-        <li class="chapter " data-level="6.1.2" data-path="../intelligent-testing/fuzzing.html">
+        <li class="chapter " data-level="6.1.3" data-path="../intelligent-testing/fuzzing.html">
             
                 <a href="../intelligent-testing/fuzzing.html">
             
@@ -489,7 +515,7 @@
             
         </li>
     
-        <li class="chapter " data-level="6.1.3" >
+        <li class="chapter " data-level="6.1.4" >
             
                 <span>
             
@@ -948,7 +974,7 @@ with the database), it would depend on an abstraction/interface. </p>
 <p>By devising interfaces that represent the abstract interaction that domains and infrastructure classes will have with each other,
 the developer ends up better separating the concerns, reducing the coupling between both layers, and devising simpler 
 flows of interactions between both layers.</p>
-<p>The dependency inversion principle (note the <em>inversion</em> and not <em>injection</em>) help us in formalizing
+<p>The dependency inversion principle (note the <em>inversion</em> and not <em>injection</em>) help us in formalising
 these concepts:</p>
 <ul>
 <li>High-level modules should not depend on low-level modules. Both should depend on abstractions (e.g. interfaces).</li>
@@ -970,13 +996,13 @@ Cohesive classes tend to be easier to test. After all, less responsibilities imp
 often imply in less dependencies (as you need less to compose the required functionality) which implies in less testing costs.</li>
 </ul>
 <p>A non-cohesive class, on the other hand, tends to consume a great amount of testing effort from developers. You might notice
-that a non-cohesive class requires a great amount of test cases, and you often feel &quot;you are never done in testing it&quot;.
+that a non-cohesive class requires a great number of test cases, and you often feel &quot;you are never done in testing it&quot;.
 Refactoring non-cohesive classes is therefore an important task when it comes to testability. 
 A common way to do this is by splitting the non-cohesive class into several smaller-but-cohesive classes. Each small class can
 then be tested separately, and the class that combines them both might either rely on mock objects to assert the correctness
 of the interactions among the dependencies and/or by means of an integration test.</p>
 <ul>
-<li><strong>Coupling and testability</strong>: Coupling is about the amount of classes that a class depends on. A highly coupled class requires several other 
+<li><strong>Coupling and testability</strong>: Coupling is about the number of classes that a class depends on. A highly coupled class requires several other 
 classes to do its work. As one could expect, coupling hurts testability. A tester trying to test a highly dependent class ends up
 having to test all its dependencies together. If the tester then decides to use stubs/mocks, the costs of setting them up will
 also be higher than it needed to be (just imagine yourself setting up 10 or 15 stubs/mocks to test a single class). Moreover, the
@@ -1102,7 +1128,7 @@ problems in their codebase:</p>
 <p>To increase the testability, the team has budget to work on two out of the four issues above.
 Which items should Sarah recommend them to tackle first?</p>
 <p>Note: All of the four issues should obviously be fixed.
-However, try to prioritize the two most important ones: Which influence the testability the most?</p>
+However, try to prioritise the two most important ones: Which influence the testability the most?</p>
 <p><strong>Exercise 4.</strong>
 Observability and controllability are two important concepts when it comes to software testing.
 The three developers below could benefit from improving either the observability or the controllability of the system/class under test.</p>
@@ -1166,7 +1192,7 @@ The three developers below could benefit from improving either the observability
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Design for testability","level":"5.1.3","depth":2,"next":{"title":"Test-driven development","level":"5.1.4","depth":2,"path":"chapters/pragmatic-testing/tdd.md","ref":"chapters/pragmatic-testing/tdd.md","articles":[]},"previous":{"title":"Mock objects","level":"5.1.2","depth":2,"path":"chapters/pragmatic-testing/mocking.md","ref":"chapters/pragmatic-testing/mocking.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapters/pragmatic-testing/design-for-testability.md","mtime":"2020-03-31T09:45:43.593Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-03-31T13:07:51.267Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Design for testability","level":"5.1.3","depth":2,"next":{"title":"Test-driven development","level":"5.1.4","depth":2,"path":"chapters/pragmatic-testing/tdd.md","ref":"chapters/pragmatic-testing/tdd.md","articles":[]},"previous":{"title":"Mock objects","level":"5.1.2","depth":2,"path":"chapters/pragmatic-testing/mocking.md","ref":"chapters/pragmatic-testing/mocking.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapters/pragmatic-testing/design-for-testability.md","mtime":"2020-04-02T13:33:35.272Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-02T14:32:11.587Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

@@ -338,7 +338,20 @@
                 <a href="../testing-techniques/design-by-contracts.html">
             
                     
-                    Design-by-contracts and property-based testing
+                    Design-by-contracts
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.6" data-path="../testing-techniques/property-based-testing.html">
+            
+                <a href="../testing-techniques/property-based-testing.html">
+            
+                    
+                    Property-based testing
             
                 </a>
             
@@ -463,7 +476,20 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="6.1.1" data-path="../intelligent-testing/mutation-testing.html">
+        <li class="chapter " data-level="6.1.1" >
+            
+                <span>
+            
+                    
+                    Random testing (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.2" data-path="../intelligent-testing/mutation-testing.html">
             
                 <a href="../intelligent-testing/mutation-testing.html">
             
@@ -476,7 +502,7 @@
             
         </li>
     
-        <li class="chapter " data-level="6.1.2" data-path="../intelligent-testing/fuzzing.html">
+        <li class="chapter " data-level="6.1.3" data-path="../intelligent-testing/fuzzing.html">
             
                 <a href="../intelligent-testing/fuzzing.html">
             
@@ -489,7 +515,7 @@
             
         </li>
     
-        <li class="chapter " data-level="6.1.3" >
+        <li class="chapter " data-level="6.1.4" >
             
                 <span>
             
@@ -799,7 +825,7 @@ often cohesive and small, easing the job of the tester.</p>
 <ul>
 <li><p><strong>The lack of &quot;reality&quot;</strong>.
 A software system is rarely composed of a single class.
-The large amount of classes in a system and the interaction between these classes can make the system to behave differently in its real application than in the unit tests.
+The large number of classes in a system and the interaction between these classes can cause the system to behave differently in its real application than in the unit tests.
 Hence, unit tests do not perfectly represent the real execution of a software system.</p>
 </li>
 <li><p>Another disadvantage that follows from this is that <strong>some bugs simply cannot be caught at unit test level</strong>. Different types of bugs only happen in the integration of the different components (which we are not exercising in a pure unit test).</p>
@@ -847,7 +873,7 @@ more than usual (due to small variations we often do not control in
 real-life scenarios; Tomcat decided to do a full garbage collection at 
 that very second, for example). The test was not expecting it to happen, and thus,
 it failed. If the test is executed again, the web app might now take its usual time to respond,
-and now the test will pass. There are just too many uncertanties in a system test that
+and now the test will pass. There are just too many uncertainties in a system test that
 can lead to unexpected behaviour.</p>
 <p><div class="alert alert-success hints-alert"><div class="hints-icon"><i class="fa fa-mortar-board"></i></div><div class="hints-container"><p>We discuss <em>flaky tests</em> more formally later in the book.</p>
 </div></div></p>
@@ -905,7 +931,7 @@ web services, file reads and writes.</p>
 
 <h2 id="the-testing-pyramid">The Testing Pyramid</h2>
 <p>We discussed three different test levels: unit, system, and integration. 
-A question that a pragmatic software developer might be asking themself is:
+A question that pragmatic software developers might be asking themselves is:
 <em>How much should I do of each?</em></p>
 <p>Testers have to decide whether to invest more in unit testing or in system testing. Or to 
 decide which components should be tested via unit testing and which components
@@ -921,17 +947,17 @@ is the so-called <strong>testing pyramid</strong>.</p>
 Note that the more you go to the top of the diagram, the more
 real the test is (as we discuss, system tests are more real than unit tests); 
 however, the more complex it is to devise it.</p>
-<p><strong>How much should we do of each then?</strong> The common practice in industry is also represented in the diagram. The size of the pyramid slice represents the the amount of test one would want of each test level. </p>
+<p><strong>How much should we do of each then?</strong> The common practice in industry is also represented in the diagram. The size of the pyramid slice represents the number of tests one would want of each test level. </p>
 <p>Unit test is at the bottom of the pyramid, and has the largest area of them all. This means 
 that testers should favour unit testing.
 The reasons for this have been discussed before: they are fast, require less effort 
 to be written, and gives developers easier control.</p>
 <p>Going up in the diagram, we see that the next level is integration tests. The area
-is a bit smalle, indicating that, in practice, we should do integration tests &quot;a bit less&quot;
+is a bit smaller, indicating that, in practice, we should do integration tests &quot;a bit less&quot;
 than unit tests.
 Given the extra effort that integration tests require,
 testers should make sure to write tests only for the integrations they indeed need.
-The diagram continues, showing that testers should then favor system tests a bit less than
+The diagram continues, showing that testers should then favour system tests a bit less than
 integration tests, and even less manual tests.</p>
 <p>It is really clear that this diagram has a focus in <strong>costs</strong>. Unit tests are cheaper than
 system tests (and manual tests), and thus, they should be preferred.</p>
@@ -979,7 +1005,7 @@ impact? These are the ones where the tester should focus on system tests.</li>
 Manual testing has lots of disadvantages, but sometimes impossible to avoid. However,
 even in cases where automation is fully possible, manual exploratory testing can
 be useful. 
-The wikipedia page on <a href="https://en.wikipedia.org/wiki/Exploratory_testing" target="_blank">Exploratory Testing</a>
+The Wikipedia page on <a href="https://en.wikipedia.org/wiki/Exploratory_testing" target="_blank">Exploratory Testing</a>
 is well written and we point the reader to it.</li>
 </ul>
 <p>On the other hand, those who apply the <em>testing pyramid</em> try to avoid 
@@ -990,7 +1016,7 @@ should put more effort in manual testing (!!).</p>
 <p>At this point, we do not have to explain why fully relying on manual testing is a bad.
 Unfortunately, it is common to see development teams 
 mostly relying on manual tests in their quality assurance processes. 
-Often, these teams also have a small amount of system tests. Not because they 
+Often, these teams also have a small number of system tests. Not because they 
 believe on the efficiency of system tests, but because the system was so badly 
 designed, that unit and integration tests are just impossible to be done.
 We will discuss design for testability in future chapters.</p>
@@ -1002,12 +1028,12 @@ We will discuss design for testability in future chapters.</p>
 
 <h2 id="a-remark-on-the-testing-pyramid">A remark on the testing pyramid</h2>
 <p>We have no scientific evidence that the testing pyramid or, the idea
-of prioritizing design for testability and focusing on unit tests, is efficient.
+of prioritising design for testability and focusing on unit tests, is efficient.
 However, the software development community of practice has been relying on it
 for years and companies, from small to large sizes, have been advocating it.</p>
 <p>That being said, in our point of view, the testing pyramid approach is viable
 in most of enterprise / business systems. Imagine an <a href="https://en.wikipedia.org/wiki/Enterprise_resource_planning" target="_blank">ERP</a> or a <a href="https://en.wikipedia.org/wiki/Customer_relationship_management" target="_blank">CRM</a> system. Most business rules there can be expressed
-by classes/units exchanging messages and tranforming data. Unit tests will then pay off
+by classes/units exchanging messages and transforming data. Unit tests will then pay off
 as testers can easily gain control and observability of the actions of the system.</p>
 <p>However, in many other systems, unit testing might not be enough. Imagine the
 development of a 
@@ -1078,7 +1104,7 @@ an integration test for this class?</p>
 <li>Reset the database state before each test.</li>
 <li>Apply the correct schema to the database under test.</li>
 <li>Assert that any database constraints are met.</li>
-<li>Set the transaction autocommit to true.</li>
+<li>Set the transaction auto-commit to true.</li>
 </ol>
 <p><strong>Exercise 4.</strong>
 A newly developed product started off with some basic unit tests but later on decided to only add integration tests and system tests for the new code that was written. This was because a user interacts with the system as a whole and therefore these types of tests were considered more valuable. Thus, unit tests became less prevalent, whereby integration tests and system tests became a more crucial part of the test suite. This transition can be described as:</p>
@@ -1169,7 +1195,7 @@ What is the main reason for the number of recommended system tests in the testin
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"The testing pyramid","level":"5.1.1","depth":2,"next":{"title":"Mock objects","level":"5.1.2","depth":2,"path":"chapters/pragmatic-testing/mocking.md","ref":"chapters/pragmatic-testing/mocking.md","articles":[]},"previous":{"title":"Pragmatic software testing","level":"5.1","depth":1,"path":"chapters/pragmatic-testing/README.md","ref":"chapters/pragmatic-testing/README.md","articles":[{"title":"The testing pyramid","level":"5.1.1","depth":2,"path":"chapters/pragmatic-testing/testing-pyramid.md","ref":"chapters/pragmatic-testing/testing-pyramid.md","articles":[]},{"title":"Mock objects","level":"5.1.2","depth":2,"path":"chapters/pragmatic-testing/mocking.md","ref":"chapters/pragmatic-testing/mocking.md","articles":[]},{"title":"Design for testability","level":"5.1.3","depth":2,"path":"chapters/pragmatic-testing/design-for-testability.md","ref":"chapters/pragmatic-testing/design-for-testability.md","articles":[]},{"title":"Test-driven development","level":"5.1.4","depth":2,"path":"chapters/pragmatic-testing/tdd.md","ref":"chapters/pragmatic-testing/tdd.md","articles":[]},{"title":"Test code quality and engineering","level":"5.1.5","depth":2,"path":"chapters/pragmatic-testing/test-code-quality.md","ref":"chapters/pragmatic-testing/test-code-quality.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapters/pragmatic-testing/testing-pyramid.md","mtime":"2020-03-31T09:45:43.606Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-03-31T13:07:51.267Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"The testing pyramid","level":"5.1.1","depth":2,"next":{"title":"Mock objects","level":"5.1.2","depth":2,"path":"chapters/pragmatic-testing/mocking.md","ref":"chapters/pragmatic-testing/mocking.md","articles":[]},"previous":{"title":"Pragmatic software testing","level":"5.1","depth":1,"path":"chapters/pragmatic-testing/README.md","ref":"chapters/pragmatic-testing/README.md","articles":[{"title":"The testing pyramid","level":"5.1.1","depth":2,"path":"chapters/pragmatic-testing/testing-pyramid.md","ref":"chapters/pragmatic-testing/testing-pyramid.md","articles":[]},{"title":"Mock objects","level":"5.1.2","depth":2,"path":"chapters/pragmatic-testing/mocking.md","ref":"chapters/pragmatic-testing/mocking.md","articles":[]},{"title":"Design for testability","level":"5.1.3","depth":2,"path":"chapters/pragmatic-testing/design-for-testability.md","ref":"chapters/pragmatic-testing/design-for-testability.md","articles":[]},{"title":"Test-driven development","level":"5.1.4","depth":2,"path":"chapters/pragmatic-testing/tdd.md","ref":"chapters/pragmatic-testing/tdd.md","articles":[]},{"title":"Test code quality and engineering","level":"5.1.5","depth":2,"path":"chapters/pragmatic-testing/test-code-quality.md","ref":"chapters/pragmatic-testing/test-code-quality.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapters/pragmatic-testing/testing-pyramid.md","mtime":"2020-04-02T13:33:35.274Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-02T14:32:11.587Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

@@ -338,7 +338,20 @@
                 <a href="design-by-contracts.html">
             
                     
-                    Design-by-contracts and property-based testing
+                    Design-by-contracts
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.6" data-path="property-based-testing.html">
+            
+                <a href="property-based-testing.html">
+            
+                    
+                    Property-based testing
             
                 </a>
             
@@ -463,7 +476,20 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="6.1.1" data-path="../intelligent-testing/mutation-testing.html">
+        <li class="chapter " data-level="6.1.1" >
+            
+                <span>
+            
+                    
+                    Random testing (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.2" data-path="../intelligent-testing/mutation-testing.html">
             
                 <a href="../intelligent-testing/mutation-testing.html">
             
@@ -476,7 +502,7 @@
             
         </li>
     
-        <li class="chapter " data-level="6.1.2" data-path="../intelligent-testing/fuzzing.html">
+        <li class="chapter " data-level="6.1.3" data-path="../intelligent-testing/fuzzing.html">
             
                 <a href="../intelligent-testing/fuzzing.html">
             
@@ -489,7 +515,7 @@
             
         </li>
     
-        <li class="chapter " data-level="6.1.3" >
+        <li class="chapter " data-level="6.1.4" >
             
                 <span>
             
@@ -791,7 +817,7 @@ Developers can use the decision tables to derive tests that verify the correct i
 </table>
 
 <p>For now, the table contains all the combinations of conditions explicitly.
-Later we will look at ways to reduce the amount of combinations present in the table 
+Later we will look at ways to reduce the number of combinations present in the table 
 (and, thus, reducing the test of costing all the combinations).</p>
 <p>The chosen conditions should always be independent from one another.
 In this type of decision tables, the order of the conditions also do not matter, 
@@ -900,9 +926,9 @@ A default action means that if a combination of condition outcomes is not presen
 <p>We can derive tests based on the decision tables, such that we test whether the expected logic is implemented correctly.
 There are multiple ways to derive tests for a decision table:</p>
 <ul>
-<li><strong>All explicit variants:</strong> Derive one test case for each column. The amount of tests is the amount of columns in the decision table.</li>
+<li><strong>All explicit variants:</strong> Derive one test case for each column. The number of tests is the number of columns in the decision table.</li>
 <li><strong>All possible variants:</strong> Derive a test case for each possible combination of condition values. For <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.10903em;">N</span></span></span></span> conditions this leads to <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mi>N</mi></msup></mrow><annotation encoding="application/x-tex">2^N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8413309999999999em;"></span><span class="strut bottom" style="height:0.8413309999999999em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathrm">2</span><span class="msupsub"><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle uncramped mtight"><span class="mord mathit mtight" style="margin-right:0.10903em;">N</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span></span></span></span> test cases. Often, this approach is unrealistic because of the exponential relation between the number of conditions and the number of test cases.</li>
-<li><strong>Every unique outcome / All decisions:</strong> One test case for each unique outcome or action. The amount of tests depends on the actions in the decision table.</li>
+<li><strong>Every unique outcome / All decisions:</strong> One test case for each unique outcome or action. The number of tests depends on the actions in the decision table.</li>
 <li><strong>Each condition T/F:</strong> Make sure that each condition is true and false at least once in the test suite. This often results in two tests: All conditions true and all conditions false.</li>
 </ul>
 <p>One more way to derive test cases from a decision table is by using the <strong>Modified Condition / Decision Coverage (MC/DC)</strong>. 
@@ -914,7 +940,7 @@ MC/DC has the two characteristics of All divisions and Each condition T/F with a
 <li>Each unique action should be tested at least once</li>
 <li>Each condition should individually determine the action or outcome</li>
 </ol>
-<p>The third point is realized by making two test cases for each condition.
+<p>The third point is realised by making two test cases for each condition.
 In these two test cases, the condition under test should have a different value, the outcome should be different, and the other conditions should have the same value in both test cases.
 This way the condition that is under test individually influences the outcome, as the other conditions stay the same and therefore do not influence the outcome.</p>
 <p>By choosing the test cases efficiently, MC/DC needs less tests than all variants, while still exercising the important parts of the system.
@@ -988,7 +1014,7 @@ configurations at the moment of instantiation, preventing instances of
 </div></div></p>
 <p>As you can see in the example above, the different tests for the different combinations are very similar.
 The tests do the exact same thing, but just with different values.
-To avoid the code duplication that comes with this approach to implementing decision table tests, we can use parameterized tests (as we have done before):</p>
+To avoid the code duplication that comes with this approach to implementing decision table tests, we can use parameterised tests (as we have done before):</p>
 <pre><code class="lang-java"><span class="hljs-meta">@ParameterizedTest</span>
 <span class="hljs-meta">@CsvSource</span>({
   <span class="hljs-string">&quot;true, true, false, 30&quot;</span>,   <span class="hljs-comment">// v2</span>
@@ -1072,7 +1098,7 @@ The notation for conditions and actions is as follows:</p>
 <li>Action: <img src="img/model-based-testing/uml/action_symbol.svg" alt=""></li>
 </ul>
 <p>When a user types the wrong password for four times in a row, the phone gets blocked.
-We use <code>n</code> in the model to represent the amount of failed attempts.
+We use <code>n</code> in the model to represent the number of failed attempts.
 Let us look at the conditional transitions that we need to model this behaviour first.</p>
 <p><img src="img/model-based-testing/examples/blocked_condition_machine.svg" alt=""></p>
 <p>When <code>n</code> (the number of failed unlock attempts) is smaller than 3, the phone stays in <code>LOCKED</code> state.
@@ -1141,10 +1167,10 @@ These combinations of transitions are called paths.</p>
 While this looks like a good objective, the number of paths will most likely be too high.
 Take a state machine that has a loop, i.e., a transition from state X to Y and a transition from state Y to X.
 When creating paths we can keep going back and forth these two states.
-This leads to an infinite amount of paths.
+This leads to an infinite number of paths.
 Obviously, we cannot test all the paths. We will need to take a different approach.</p>
 <p>The idea is that when using paths to derive test cases, we want each loop to be executed once.
-This way we have a finite amount of paths to create test cases for.
+This way we have a finite number of paths to create test cases for.
 We derive these tests by using a transition tree, which spans the graph of the state machine.
 Such a transition tree is created as follows:</p>
 <ol>
@@ -1187,7 +1213,7 @@ Looking at the state machine this gives the events <code>home</code>, <code>long
 In the test we would assert that the system is in <code>OFF</code>, then trigger <code>home</code>, assert that the system is in <code>LOCKED</code>, trigger <code>long lock button</code> and finally assert that the system is in <code>OFF</code>.</p>
 <p>The tests for the other three paths can be derived in similar fashion.</p>
 <p>Using the transition tree, each loop that is in the state machine is executed once.
-Now the amount of tests are manageable, while testing most of the important paths in the state machine.</p>
+Now the number of tests is manageable, while testing most of the important paths in the state machine.</p>
 <center>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/pvFPzvp5Dk0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </center>
@@ -1304,7 +1330,7 @@ These decisions depend on the project and the customer&apos;s needs.</p>
 Usually, we want the system to remain in its current state when we trigger an event that has an empty cell in the transition table.
 To test for all possible sneak paths, we create a test case for each empty cell in the transition table.
 The test will first bring the system to the state corresponding to the empty cell&apos;s row (you can use the transition table to find a suitable path), then triggers the event that corresponds to the empty cell&apos;s column, and finally the test asserts that the system is in the same state as before triggering the event.
-The amount of &apos;sneak path tests&apos; is the amount of empty cells in the transition table.</p>
+The number of &apos;sneak path tests&apos; is the number of empty cells in the transition table.</p>
 <p>With these tests we can verify both existing and non-existing paths.
 These techniques combined give a good testing suite from a state machine.</p>
 <center>
@@ -1330,7 +1356,7 @@ A transition going out of the super state means that if the event on this transi
 <p>We can choose to show the super state fully or we can collapse it.
 A collapsed super state is just a normal state in the state machine.
 This state has the super state&apos;s name and the same incoming and outgoing transitions as the super state.</p>
-<p>With the super states and the collapsing of super states we can modularize and combine state machines.
+<p>With the super states and the collapsing of super states we can modularise and combine state machines.
 This allows us to shift the state machine&apos;s focus to different parts of the system&apos;s behaviour.</p>
 <p>We can use a super state even in the small example of a phone&apos;s state machine.
 The two states <code>LOCKED</code> and <code>UNLOCKED</code> both represent the system in some sort of <code>ON</code> state.
@@ -1456,7 +1482,7 @@ Our product team defined the following rules:</p>
 <li>The company provides information about the ad. More specifically, the company defines an image, a description, and how many times it should appear. When all these information is set, the ad then needs to wait for approval.</li>
 <li>An administrator checks the content of the ad. If it follows all the rules, the ad then waits for payment. If the ad contains anything illegal, it then goes back to the very beginning.</li>
 <li>As soon as the company makes the payment, the ad becomes available to users.</li>
-<li>When the number of visualizations is reached, the ad is then considered done. At this moment, the company might consider running the campaign again, which moves the ad to wait for payment again. The company might also decide to simply end the campaign at that moment, which puts the ad in a finalized state.  </li>
+<li>When the number of visualisations is reached, the ad is then considered done. At this moment, the company might consider running the campaign again, which moves the ad to wait for payment again. The company might also decide to simply end the campaign at that moment, which puts the ad in a finalised state.  </li>
 <li>While appearing for the users, if more than 10\% of the users complain about the ad, the ad is then marked as blocked. Cute Babies then gets in contact with the company. After understanding the case, the ad either starts to appear again for the users, or gets marked as inappropriate. An inappropriate ad will never be shown again to the users.</li>
 </ul>
 <p>Devise a state diagram that describes the life cycle of an ad.</p>
@@ -1544,7 +1570,7 @@ The complete table would have four conditions and 16 variants. We will try to cr
                 </a>
                 
                 
-                <a href="design-by-contracts.html" class="navigation navigation-next " aria-label="Next page: Design-by-contracts and property-based testing">
+                <a href="design-by-contracts.html" class="navigation navigation-next " aria-label="Next page: Design-by-contracts">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -1555,7 +1581,7 @@ The complete table would have four conditions and 16 variants. We will try to cr
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Model-based testing","level":"4.1.4","depth":2,"next":{"title":"Design-by-contracts and property-based testing","level":"4.1.5","depth":2,"path":"chapters/testing-techniques/design-by-contracts.md","ref":"chapters/testing-techniques/design-by-contracts.md","articles":[]},"previous":{"title":"Structural-based testing","level":"4.1.3","depth":2,"path":"chapters/testing-techniques/structural-testing.md","ref":"chapters/testing-techniques/structural-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapters/testing-techniques/model-based-testing.md","mtime":"2020-03-31T09:45:43.640Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-03-31T13:07:51.267Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Model-based testing","level":"4.1.4","depth":2,"next":{"title":"Design-by-contracts","level":"4.1.5","depth":2,"path":"chapters/testing-techniques/design-by-contracts.md","ref":"chapters/testing-techniques/design-by-contracts.md","articles":[]},"previous":{"title":"Structural-based testing","level":"4.1.3","depth":2,"path":"chapters/testing-techniques/structural-testing.md","ref":"chapters/testing-techniques/structural-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapters/testing-techniques/model-based-testing.md","mtime":"2020-04-02T13:33:35.276Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-02T14:32:11.587Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Design-by-contracts and property-based testing · GitBook</title>
+        <title>Design-by-contracts · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -65,7 +65,7 @@
     <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="../pragmatic-testing/" />
+    <link rel="next" href="property-based-testing.html" />
     
     
     <link rel="prev" href="model-based-testing.html" />
@@ -338,7 +338,20 @@
                 <a href="design-by-contracts.html">
             
                     
-                    Design-by-contracts and property-based testing
+                    Design-by-contracts
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.6" data-path="property-based-testing.html">
+            
+                <a href="property-based-testing.html">
+            
+                    
+                    Property-based testing
             
                 </a>
             
@@ -463,7 +476,20 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="6.1.1" data-path="../intelligent-testing/mutation-testing.html">
+        <li class="chapter " data-level="6.1.1" >
+            
+                <span>
+            
+                    
+                    Random testing (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.2" data-path="../intelligent-testing/mutation-testing.html">
             
                 <a href="../intelligent-testing/mutation-testing.html">
             
@@ -476,7 +502,7 @@
             
         </li>
     
-        <li class="chapter " data-level="6.1.2" data-path="../intelligent-testing/fuzzing.html">
+        <li class="chapter " data-level="6.1.3" data-path="../intelligent-testing/fuzzing.html">
             
                 <a href="../intelligent-testing/fuzzing.html">
             
@@ -489,7 +515,7 @@
             
         </li>
     
-        <li class="chapter " data-level="6.1.3" >
+        <li class="chapter " data-level="6.1.4" >
             
                 <span>
             
@@ -745,7 +771,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="../.." >Design-by-contracts and property-based testing</a>
+        <a href="../.." >Design-by-contracts</a>
     </h1>
 </div>
 
@@ -760,9 +786,9 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="design-by-contracts-and-property-based-testing">Design by Contracts and Property-Based Testing</h1>
-<p>Can the production code test itself?
-In this chapter, we&apos;ll discuss what design by contracts and
+                                <h1 id="design-by-contracts">Design by Contracts</h1>
+<p><em>Can code test itself?</em>
+In this chapter, we discuss what design by contracts and
 property-based testing are.</p>
 <h2 id="self-testing">Self Testing</h2>
 <p>A self testing system is, in principle, a system that tests itself.
@@ -773,17 +799,17 @@ The test suite (consisting of the test classes) exercises and then observes the 
 If the system does something that is not expected by the test suite, the test suite fails.
 The code in the test suite is completely redundant.
 It does not add any behaviour to the system.</p>
-<p>With self-testing, we &quot;move&quot; a bit of the test suite into the system itself.
+<p>With self-testing, we &quot;move&quot; part of the test suite into the system itself.
 These assertions we insert into production code allows the system to check if it is running correctly by itself.
-We do not have to run the test suite, but instead the system can check (part of) its behaviour during the normal execution of the system.
+We do not have to run the test suite, but instead the system can check (part of) its behaviour during its normal execution.
 Like with the test suite, if anything is not acting as expected, an error will be thrown.
-In software testing the self-tests are used as an additional check in the system additional to the test suite.</p>
+In software testing, the self-tests are used as an additional check in the system additional to the test suite.</p>
 <h3 id="assertions">Assertions</h3>
 <p>The simplest form of this self-testing is the <em>assertion</em>.
 An assertion is a Boolean expression at a specific point in a program
 which will be true unless there is a bug in the program.
 In other words,
-an assertion basically says that a certain condition has to be true 
+an assertion states that a certain condition has to be true 
 at the time the assertion is executed.</p>
 <p>In Java, to make an assertion we use the <code>assert</code> keyword:</p>
 <pre><code class="lang-java"><span class="hljs-keyword">assert</span> &lt;condition&gt; : <span class="hljs-string">&quot;&lt;message&gt;&quot;</span>;
@@ -792,7 +818,8 @@ at the time the assertion is executed.</p>
 If it is, nothing happens.
 The program just continues its execution as everything is according to plan.
 However, if the <code>&lt;condition&gt;</code> yields false, the <code>assert</code> throws an <code>AssertionError</code>.</p>
-<p>We have implemented a class representing a stack, we just show the <code>pop</code> method:</p>
+<p>Let us walk through an example.
+Suppose an implementation of a Stack, which we just show the <code>pop</code> method:</p>
 <pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyStack</span> </span>{
   <span class="hljs-function"><span class="hljs-keyword">public</span> Element <span class="hljs-title">pop</span><span class="hljs-params">()</span> </span>{
     <span class="hljs-function"><span class="hljs-keyword">assert</span> <span class="hljs-title">count</span><span class="hljs-params">()</span> &gt; 0 : &quot; The stack does not have any elements to pop.&quot;
@@ -804,24 +831,19 @@ However, if the <code>&lt;condition&gt;</code> yields false, the <code>assert</c
 }
 </code></pre>
 <p>In this method, we check if a condition holds at the start: the stack should have at least one element.
-Then, after the actual method we check whether the count is now one lower than before popping.</p>
-<p>These conditions are also known as pre- and postconditions.
+Then, after the actual method, we check whether the count is now one lower than before popping.</p>
+<p>These conditions are also known as <em>pre- and postconditions</em>.
 We cover these in the following section.</p>
-<p><em>Note</em>: The assertion&apos;s message is optional, but can be very helpful 
+<p><div class="alert alert-success hints-alert"><div class="hints-icon"><i class="fa fa-mortar-board"></i></div><div class="hints-container"><p>The assertion&apos;s message is optional, but can be very helpful 
 for debugging.
 Always include a message that describes what is going wrong if the assertion is failing.</p>
+</div></div></p>
 <p>In Java, asserts can be enabled or disabled.
 If the asserts are disabled, they will never throw an <code>AssertionError</code> even if their conditions are false.
 Java&apos;s default configuration is to disable the assertions.</p>
 <p>To enable the asserts we have to run Java with a special argument in one of these two ways: <code>java -enableassertions</code> or <code>java -ea</code>.
 When using Maven or IntelliJ, the assertions are enabled automatically when running tests.
 With Eclipse or Gradle, we have to enable it ourselves.</p>
-<p>When running the system with assertions enabled, 
-we increase the fault sensitivity of the system, i.e., the system
-becomes more sensible to faults.
-This might seem undesirable, but when executing tests, 
-we want the tests to fail.
-After all, if a test fail, we just found another fault in the system that we can then fix before deploying it to final users.</p>
 <center>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Tnm0qwsEiyU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </center>
@@ -829,16 +851,16 @@ After all, if a test fail, we just found another fault in the system that we can
 
 
 <p>Note how assertions play the role of test oracles here, but in a slightly
-different way. Just to remember, oracles inform us
+different way. Just to remember: oracles inform us
 whether the software behaved correctly.</p>
 <p>So far, we only used &quot;value comparison&quot; as oracle. Given an input that
 we devised, we knew what output to expect. For example, in a program that
-returns the square root of a number, given n=4, the value we expect as output
-is 2.
+returns the square root of a number, given <code>n=4</code>, the value we expect as output
+is <code>2</code>.
 Instead of focusing on a specific instances, like we did so far, property checks, like the ones we are going to see in the remaining of this chapter, are more general rules (properties) that we assert on our code. For example, a program that, given <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span></span></span></span>, returns <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>n</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">n^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">n</span><span class="msupsub"><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle uncramped mtight"><span class="mord mathrm mtight">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span></span></span></span>, has a property that it should never return a negative number.</p>
 <p>Assertions also serve as an extra safety measure.
 If it is crucial that a system runs correctly, we can use the asserts to add some additional testing during the system&apos;s execution.</p>
-<p>However, we note that assertions do not replace unit tests.
+<p>We note that assertions do not replace unit tests.
 Assertions are often of a more general nature.
 We still need the specific cases in the unit tests. A combination of
 both is what we desire.</p>
@@ -850,9 +872,8 @@ both is what we desire.</p>
 
 <h2 id="pre--and-postconditions">Pre- and Postconditions</h2>
 <p>We briefly mentioned pre- and postcondition in an example.
-Now it is time to formalize the idea and see how to create good pre- and postconditions and their influence on the code that we are writing.</p>
-<p>Tony Hoare pioneered reasoning about programs with assertions.
-He proposed the now so-called <strong>Hoare Triples</strong>.
+Let us formalise the idea and see how to create good pre- and postconditions and their influence on the code that we are writing.</p>
+<p>Tony Hoare pioneered reasoning about programs with assertions, proposing what is now called <strong>Hoare Triples</strong>.
 A Hoare Triple consists of a set of preconditions <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>{</mo><mi>P</mi><mo>}</mo></mrow><annotation encoding="application/x-tex">\{ P \}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">{</span><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mclose">}</span></span></span></span>, a program <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">A</span></span></span></span> and a set of postconditions <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>{</mo><mi>Q</mi><mo>}</mo></mrow><annotation encoding="application/x-tex">\{ Q \}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">{</span><span class="mord mathit">Q</span><span class="mclose">}</span></span></span></span>
 We can express the Hoare Triple as follows: <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>{</mo><mi>P</mi><mo>}</mo><mtext>&#xA0;</mtext><mi>A</mi><mtext>&#xA0;</mtext><mo>{</mo><mi>Q</mi><mo>}</mo></mrow><annotation encoding="application/x-tex">\{ P \}\ A\ \{ Q \}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">{</span><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mclose">}</span><span class="mord mathit"><span class="mspace">&#xA0;</span><span class="mord mathit">A</span></span><span class="mopen"><span class="mspace">&#xA0;</span><span class="mopen">{</span></span><span class="mord mathit">Q</span><span class="mclose">}</span></span></span></span>.
 This can be read as: if we know that <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi></mrow><annotation encoding="application/x-tex">P</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">P</span></span></span></span> holds, and we execute <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">A</span></span></span></span>, then, we end up in a state where <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>Q</mi></mrow><annotation encoding="application/x-tex">Q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit">Q</span></span></span></span> holds.
@@ -861,12 +882,12 @@ If there are no preconditions, i.e., no assumptions needed for the execution of 
 We look at <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">A</span></span></span></span> as a method.
 Then <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi></mrow><annotation encoding="application/x-tex">P</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">P</span></span></span></span> and <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>Q</mi></mrow><annotation encoding="application/x-tex">Q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit">Q</span></span></span></span> are the pre- and postcondition of the method <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">A</span></span></span></span> respectively.
 Now we can write the Hoare Triple as: <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>{</mo><mrow><mi mathvariant="italic">p</mi><mi mathvariant="italic">r</mi><mi mathvariant="italic">e</mi><mi mathvariant="italic">c</mi><mi mathvariant="italic">o</mi><mi mathvariant="italic">n</mi><mi mathvariant="italic">d</mi><mi mathvariant="italic">i</mi><mi mathvariant="italic">t</mi><mi mathvariant="italic">i</mi><mi mathvariant="italic">o</mi><mi mathvariant="italic">n</mi><mi mathvariant="italic">s</mi></mrow><mo>}</mo><mtext>&#xA0;</mtext><mrow><mi mathvariant="italic">m</mi><mi mathvariant="italic">e</mi><mi mathvariant="italic">t</mi><mi mathvariant="italic">h</mi><mi mathvariant="italic">o</mi><mi mathvariant="italic">d</mi></mrow><mtext>&#xA0;</mtext><mo>{</mo><mrow><mi mathvariant="italic">p</mi><mi mathvariant="italic">o</mi><mi mathvariant="italic">s</mi><mi mathvariant="italic">t</mi><mi mathvariant="italic">c</mi><mi mathvariant="italic">o</mi><mi mathvariant="italic">n</mi><mi mathvariant="italic">d</mi><mi mathvariant="italic">i</mi><mi mathvariant="italic">t</mi><mi mathvariant="italic">i</mi><mi mathvariant="italic">o</mi><mi mathvariant="italic">n</mi><mi mathvariant="italic">s</mi></mrow><mo>}</mo></mrow><annotation encoding="application/x-tex">\{ \mathit{preconditions} \}\ \mathit{method}\ \{ \mathit{postconditions} \}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">{</span><span class="mord textstyle uncramped"><span class="mord mathit">p</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">e</span><span class="mord mathit">c</span><span class="mord mathit">o</span><span class="mord mathit">n</span><span class="mord mathit">d</span><span class="mord mathit">i</span><span class="mord mathit">t</span><span class="mord mathit">i</span><span class="mord mathit">o</span><span class="mord mathit">n</span><span class="mord mathit">s</span></span><span class="mclose">}</span><span class="mord textstyle uncramped"><span class="mspace">&#xA0;</span><span class="mord mathit">m</span><span class="mord mathit">e</span><span class="mord mathit">t</span><span class="mord mathit">h</span><span class="mord mathit">o</span><span class="mord mathit">d</span></span><span class="mopen"><span class="mspace">&#xA0;</span><span class="mopen">{</span></span><span class="mord textstyle uncramped"><span class="mord mathit">p</span><span class="mord mathit">o</span><span class="mord mathit">s</span><span class="mord mathit">t</span><span class="mord mathit">c</span><span class="mord mathit">o</span><span class="mord mathit">n</span><span class="mord mathit">d</span><span class="mord mathit">i</span><span class="mord mathit">t</span><span class="mord mathit">i</span><span class="mord mathit">o</span><span class="mord mathit">n</span><span class="mord mathit">s</span></span><span class="mclose">}</span></span></span></span>.</p>
-<h3 id="preconditions">Preconditions</h3>
+<h3 id="pre-conditions">Pre-conditions</h3>
 <p>When writing a method, each condition that needs to hold for the method to successfully execute can be a pre-condition.
 These pre-conditions can be turned into assertions.</p>
-<p>Suppose a class that keeps track of our favourite books.
-Let&apos;s define some pre-conditions for the merge method.</p>
-<p>The method adds the given books to the list of favourite books and then sends some notification to, e.g., a phone.</p>
+<p>Suppose a class that keeps track of one&apos;s favourite books.
+Let us define some pre-conditions for the <code>merge</code> method.
+The method adds the given books to the list of favourite books and then sends some notification to, e.g., a phone.</p>
 <pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FavoriteBooks</span> </span>{
   List&lt;Book&gt; favorites;
 
@@ -878,13 +899,13 @@ Let&apos;s define some pre-conditions for the merge method.</p>
   }
 }
 </code></pre>
-<p>When creating pre-conditions, we have to think about what needs to hold to let the method execute.
+<p>When creating pre-conditions, testers have to think about what needs to hold to let the method execute.
 We can focus on the parameter <code>books</code> first.
-This cannot be <code>null</code>, because then the <code>addAll</code> method will throw a <code>NullPointerException</code>.
-It should also not be empty, because then we cannot add any books.
-Finally, adding books that we already have does not make sense, so the <code>books</code> should not all be present in the <code>favorites</code> already.</p>
-<p>Now we can take a look at the <code>favorites</code>.
-This also cannot be <code>null</code> because then we cannot call <code>addAll</code> on favourites.</p>
+It cannot be <code>null</code>, because then the <code>addAll</code> method will throw a <code>NullPointerException</code>.
+It should also not be empty, because then no books will be added to the favourites.
+Finally, there has to be at least a single book that is not yet in the favourites list.</p>
+<p>Now let us take a look at <code>favorites</code>.
+This also cannot be <code>null</code> because then it is not possible to call <code>addAll</code> on favourites.</p>
 <p>This gives us 4 pre-conditions and, thus, 4 assertions in the method:</p>
 <pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FavoriteBooks</span> </span>{
   <span class="hljs-comment">// ...</span>
@@ -900,13 +921,12 @@ This also cannot be <code>null</code> because then we cannot call <code>addAll</
   }
 }
 </code></pre>
-<h4 id="weakening-preconditions">Weakening preconditions</h4>
-<p>The amount of assumptions made before a method can be executed (and, with that, the amount of pre-conditions) is a design choice.</p>
-<p>One might want to weaken the pre-conditions, so that the method accepts/is able to handle more situations.
+<p>The number of assumptions made before a method can be executed (and, with that, the number of pre-conditions) is a design choice.</p>
+<p>One might want to <em>weaken the pre-conditions</em>, so that the method accepts/is able to handle more situations.
 To that aim, we can remove a pre-condition as the method itself can handle the situation where the pre-condition would be false.
 This makes the method more generally applicable, but is also increases its complexity.
 The method always has to check some extra things to handle the cases that could had been pre-conditions.
-Finding the balance between the amount of preconditions and complexity of the method is part of designing the system.</p>
+Finding the balance between the number of preconditions and complexity of the method is part of designing the system.</p>
 <p>We can remove some of the pre-conditions of the <code>merge</code> method by adding some if-statements to the method.
 First, we can try to remove the <code>!books.isEmpty()</code> assertions.
 This means that the method <code>merge</code> has to handle empty <code>books</code> lists itself.</p>
@@ -925,7 +945,7 @@ This means that the method <code>merge</code> has to handle empty <code>books</c
   }
 }
 </code></pre>
-<p>By generalizing the <code>merge</code> method, we have removed one of the pre-conditions.</p>
+<p>By generalising the <code>merge</code> method, we have removed one of the pre-conditions.</p>
 <p>We can even remove the <code>!favorites.containsAll(books)</code> assertion by adding some more functionality to the method.</p>
 <pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FavoriteBooks</span> </span>{
   <span class="hljs-comment">// ...</span>
@@ -943,10 +963,10 @@ This means that the method <code>merge</code> has to handle empty <code>books</c
   }
 }
 </code></pre>
-<p>Note that, although we increased the complexity of method by removing some of its pre-conditions and dealing with these cases in the implementation, the method now is also easier to be called by clients. After all, the method has less pre-conditions to be called.</p>
+<p>Note that, although we increased the complexity of method by removing some of its pre-conditions and dealing with these cases in the implementation, the method is now also easier to be called by clients. After all, the method has less pre-conditions to be called.</p>
 <h3 id="post-conditions">Post-conditions</h3>
 <p>The pre-conditions of a method hold when the method is called. At the end of the method, its <strong>post-conditions</strong> should hold.
-In other words, the post-conditions formalize the effects that a method guarantees to have when it is done with its execution.</p>
+In other words, the post-conditions formalise the effects that a method guarantees to have when it is done with its execution.</p>
 <p>The <code>merge</code> method of the previous examples does two things.
 It adds the new books to the <code>favorites</code> list.
 Let&apos;s turn this into a Boolean expression, so we can formulate this as a post-condition.</p>
@@ -969,23 +989,16 @@ Let&apos;s turn this into a Boolean expression, so we can formulate this as a po
 }
 </code></pre>
 <p>The other effect of the method is the notification that is sent.
-Unfortunately, we cannot easily formalize it as a post-condition.
+Unfortunately, we cannot easily formalise it as a post-condition.
 In a test suite, we would probably mock the <code>pushNotification</code> and then use <code>Mockito.verify</code> to verify that <code>booksAdded</code> was called.</p>
-<p>It is important to realise that these post-conditions only have to hold if the preconditions held when the method was called. In other words, if the method&apos;s pre-conditions were not fully satisfied, the method might not guarantee its post-conditions.</p>
+<p>It is important to realise that these post-conditions only have to hold if the preconditions held when the method was called. <strong>In other words, if the method&apos;s pre-conditions were not fully satisfied, the method might not guarantee its post-conditions.</strong></p>
 <p>You also saw in the example that we could not really write assertions for
 some of post-conditions of the method. 
 Post-conditions (and pre-conditions for that matter) might not cover all the possible effects; however,
 hopefully they do cover a relevant subset of the possible behaviour.</p>
-<h4 id="post-conditions-of-complex-methods">Post-conditions of complex methods</h4>
 <p>For complex methods, the post-conditions also become more complex.
-That&apos;s actually another reason for keeping the method simple.
-If a method has multiple return statements, it is good to think if these are actually needed.
-Maybe it is possible to combine them to one return statement with a general post-condition.
-Otherwise, the post-condition essentially becomes a disjunction of propositions.
-Each return statement forms a possible post-condition (proposition) and the method guarantees that one of these post-conditions is met.</p>
-<p>We have a method body that has three conditions and three different return statements.
-This also gives us three post-conditions.
-The placing of these post-conditions now becomes quite important, so the whole method is becoming rather complex with the postconditions.</p>
+That is actually another reason for keeping the method simple.
+Suppose a method with multiple return points. That might require the developer to define different post-conditions for each of its different outcomes:</p>
 <pre><code class="lang-java"><span class="hljs-keyword">if</span> (A) {
   <span class="hljs-comment">// ...</span>
   <span class="hljs-keyword">if</span> (B) {
@@ -1002,15 +1015,22 @@ The placing of these post-conditions now becomes quite important, so the whole m
 <span class="hljs-keyword">assert</span> PC3;
 <span class="hljs-keyword">return</span> ...;
 </code></pre>
-<p>Now if <code>A</code> and <code>B</code> are true, post-condition 1 should hold.
+<p>The method above has three conditions and three different return statements.
+This also gives us three post-conditions.
+In the example, if <code>A</code> and <code>B</code> are true, post-condition 1 should hold.
 If <code>A</code> is true and <code>B</code> is false, postcondition 2 should hold.
 Finally, if <code>A</code> is false, postcondition 3 should hold.</p>
-<h4 id="how-weak-pre-conditions-affect-the-post-conditions">How weak pre-conditions affect the post-conditions?</h4>
+<p>The placing of these post-conditions now becomes quite important, so the whole method is becoming rather complex with the postconditions.
+Refactoring the method so that it has just a single return statement
+with a general post-condition is advisable.
+Otherwise, the post-condition essentially becomes a disjunction of propositions.
+Each return statement forms a possible post-condition (proposition) and the method guarantees that one of these post-conditions is met.</p>
+<h3 id="how-weak-pre-conditions-affect-the-post-conditions">How weak pre-conditions affect the post-conditions?</h3>
 <p>Based on what we saw about pre- and post-conditions, we can come up with a few
 rules:</p>
 <ul>
-<li><p>The weaker your pre-condition, the more situations your method
-is able to handle, and the less thinking your client needs to do.
+<li><p>The weaker the pre-condition, the more situations a method
+is able to handle, and the less thinking the client needs to do.
 However, with weak pre-conditions, the method will always have to do
 the checking.</p>
 </li>
@@ -1065,15 +1085,12 @@ The class invariant should also hold after each public method invocation.
 Moreover, methods can assume that, when they start, the class invariant holds.</p>
 <p>A private method invoked by a public method can leave the object with the class invariant being false.
 However, the public method that invoked the private method should then fix this and end with the class invariant again being true.</p>
-<p>This is all formalized by Bertrand Meyer as: <em>&quot;The class variant indicates that a proposition P can be a class invariant if it holds after construction, and before and after any call to a public method assuming that the public methods are called with their preconditions being true.&quot;</em></p>
-<p>Of course, we want to know how to implement these class invariants.
-To implement simple class invariant in Java, we can use the Boolean method that checks if the representation is okay.
+<p>This is all formalised by Bertrand Meyer as: <em>&quot;The class variant indicates that a proposition P can be a class invariant if it holds after construction, and before and after any call to a public method assuming that the public methods are called with their preconditions being true.&quot;</em></p>
+<p>To implement simple class invariant in Java, we can use the Boolean method that checks if the representation is okay.
 We usually call this method <code>invariant</code>.
 We then assert the return value of this method after the constructor, and before and after each public method.
-In these public methods, the only pre-conditions and post-conditions that have to hold additionally are the ones that are not in the invariant.
-When handling more complicated invariants, we can split the invariant into more methods.
-Then we use these methods in the <code>invariant</code> method.</p>
-<p>We return to the <code>FavoriteBooks</code> with the <code>merge</code> method.
+In these public methods, the only pre-conditions and post-conditions that have to hold additionally are the ones that are not in the invariant.</p>
+<p>Let us return to the <code>FavoriteBooks</code> with the <code>merge</code> method.
 We had a pre-condition saying that <code>favorites != null</code>.
 Given that this should always be true, we can turn it into a class variant.
 Additionally, we can add the condition that <code>pushNotification != null</code>.</p>
@@ -1118,6 +1135,9 @@ Additionally, we can add the condition that <code>pushNotification != null</code
 <p>Note that the <code>invariant</code> method checks the two conditions.
 We call <code>invariant</code> before and after <code>merge</code> and we only assert the pre- and post-conditions that are not covered in the <code>invariant</code> method.
 We also assert the result of the <code>invariant</code> method at the end of the constructor.</p>
+<p><div class="alert alert-success hints-alert"><div class="hints-icon"><i class="fa fa-mortar-board"></i></div><div class="hints-container"><p>When handling more complicated invariants, we can split the invariant into more methods.
+Then we use these methods in the <code>invariant</code> method.</p>
+</div></div></p>
 <center>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/T5kwU91W07s" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </center>
@@ -1125,9 +1145,8 @@ We also assert the result of the <code>invariant</code> method at the end of the
 
 
 <h2 id="design-by-contracts">Design by Contracts</h2>
-<p>Suppose a client system and a server system. The client makes use of the API
-of of the server. 
-The client and server are bound by a contract.
+<p>Suppose a client system and a server system. The client makes use of the server&apos;s API. 
+The client and server are bound by a <em>contract</em>.
 The server does its job as long as its methods are used properly by the client.
 This relates strongly to the pre- and post-conditions that we discussed earlier.
 The client has to use the server&apos;s methods in a way that their preconditions hold.
@@ -1148,8 +1167,8 @@ Now, what happens to these conditions when we create another implementation of t
 After all, the interface is the only thing the client sees of the system.
 The implementation cannot add any pre-conditions to the server&apos;s preconditions.
 In terms of strength, we now know that <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>P</mi><mrow><mi mathvariant="normal">&#x2032;</mi></mrow></msup></mrow><annotation encoding="application/x-tex">P&apos;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.751892em;"></span><span class="strut bottom" style="height:0.751892em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle uncramped mtight"><span class="mord scriptstyle uncramped mtight"><span class="mord mathrm mtight">&#x2032;</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span></span></span></span> has to be <strong>weaker</strong> than (or as weak as) <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi></mrow><annotation encoding="application/x-tex">P</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">P</span></span></span></span>.</p>
-<p>The postcondition work the other way around.
-The implementation must do at least the same work as the interface, but it is allowed to do a bit more.
+<p>The postcondition works the other way around.
+The implementation must do at least the same work as the interface, but is allowed to do a bit more.
 Therefore, <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>Q</mi><mrow><mi mathvariant="normal">&#x2032;</mi></mrow></msup></mrow><annotation encoding="application/x-tex">Q&apos;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.751892em;"></span><span class="strut bottom" style="height:0.946332em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">Q</span><span class="msupsub"><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle uncramped mtight"><span class="mord scriptstyle uncramped mtight"><span class="mord mathrm mtight">&#x2032;</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span></span></span></span> should be <strong>stronger</strong> than (or as strong as) <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>Q</mi></mrow><annotation encoding="application/x-tex">Q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit">Q</span></span></span></span>.</p>
 <p>Finally, the interface guarantees that the invariant always holds.
 Then, the implementation should also guarantee that at least the interface&apos;s invariant holds.
@@ -1171,9 +1190,9 @@ So, <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup>
 <p>The subcontracting follows the general notion of behavioural subtyping, proposed by Barbara Liskov.
 The behavioural subtyping states that if we have a class <code>T</code> and this class has some sub-classes,
 the clients or users of class <code>T</code> should be able to choose any of <code>T</code>&apos;s sub-classes.
-This notion of behavioural subtyping is now known as the Liskov Substitution Principle (LSP).</p>
+This notion of behavioural subtyping is now known as the <strong>Liskov Substitution Principle (LSP)</strong>.</p>
 <p>In other words, the LSP states that if you use a class, you should be able to replace this class by one of its subclasses.
-The sub-contracting we discussed earlier is just a formalization of this principle.
+The sub-contracting we discussed earlier is just a formalisation of this principle.
 Proper class hierarchies follow the Liskov Substitution Principle.
 Keep the LSP in mind when designing and implementing a software system.</p>
 <p>How can we test that our classes follow the LSP?
@@ -1199,10 +1218,10 @@ List is an interface, so the <code>ListTest</code> should be abstract.
 We cannot instantiate a <code>List</code> itself, so we should not be able to execute the <code>ListTest</code> without a test class corresponding to one of List&apos;s subclasses.
 <code>ListTest</code> contains all the common tests of <code>ArrayListTest</code> and <code>LinkedListTest</code>.
 <code>ArrayListTest</code> and <code>LinkedListTest</code> can contain their specific tests.</p>
-<p>In the example, you can see that the hierarchy of the test classes is similar to the hierarchy of the classes they test.
+<p>In the example, one can see that the hierarchy of the test classes is similar to the hierarchy of the classes they test.
 Therefore, we say that we use a <strong>parallel class hierarchy</strong> in our test classes.</p>
-<p>Now we have one problem.
-How do we make sure that the &quot;super test class&quot; executes its tests in the correct subclass?
+<p>Implementation-wise,
+how do we make sure that the &quot;super test class&quot; executes its tests in the correct subclass?
 This depends on the test class that is executed and the subclass it is testing.
 If we have class <code>T</code>, with subclasses <code>A</code> and <code>B</code>, then when executing tests for <code>A</code> we need the test class of <code>T</code> to use an instance of <code>A</code>; when executing tests for <code>B</code>, we need the test class of <code>T</code> to use an instance of <code>B</code>.</p>
 <p>One way to achieve this behaviour is by using the <em>Factory Method</em> design pattern,
@@ -1229,7 +1248,7 @@ Here, we define the abstract method that gives us a List.</p>
 }
 </code></pre>
 <p>Then, for this example, we create a class to test the <code>ArrayList</code>.
-We have to override the createList method and we can define any tests specific for the <code>ArrayList</code>.</p>
+We have to override the <code>createList</code> method and we can define any tests specific for the <code>ArrayList</code>.</p>
 <pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ArrayListTest</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ListTest</span> </span>{
 
   <span class="hljs-meta">@Override</span>
@@ -1245,79 +1264,6 @@ Because the <code>createList()</code> method returns an <code>ArrayList</code>, 
 <center>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/GQ5NTiigkb0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </center>
-
-
-
-<h2 id="property-based-testing">Property-Based Testing</h2>
-<p>We briefly mentioned property checks.
-There, we used the properties in assertions.
-We can also use the properties for test case generation instead of just assertions.</p>
-<p>Given that these properties should always hold, we can test them with any input that we like.
-We typically make use of a generator to try a high number of different inputs,
-without the need of writing them all ourselves.</p>
-<p>These generators often create a series of random input values for a test function.
-The test function then checks if the property holds using an assertion.
-For each of the generated input values, this assertion is checked. If we find an input value that makes the assertion to fail, we can affirm that the property does not hold.</p>
-<p>The first implementation of this idea was called QuickCheck and was originally developed for Haskell.
-Nowadays, most languages have an implementation of QuickCheck, including Java.
-The Java implementation we are going to use is made by Paul Holser and is available on his <a href="https://github.com/pholser/junit-quickcheck" target="_blank">GitHub</a>.
-All implementations of QuickCheck follow the same idea, but we will focus on the Java implementation.</p>
-<p>How does it work?</p>
-<ul>
-<li>First, we define properties.
-Similar to defining test methods, we use an annotation on a method with an assertion to define a property: <code>@Property</code>.
-QuickCheck includes a number of generators for various types.
-For example, Strings, Integers, Lists, Dates, etc.</li>
-<li><p>To generate values, we can simply add some parameters to the annotated method.
-The arguments for these parameters will then be automatically generated by QuickCheck.
-Note that the existing generators are often not enough when we want to test one
-of our own classes; in these cases, we can create a custom generator which generates random values for this class.</p>
-</li>
-<li><p>QuickCheck handles the amount of generated inputs. After all, generating random values for the test input is tricky:
-the generator might create too much data to efficiently handle while testing.</p>
-</li>
-<li><p>Finally, as soon as QuickCheck finds a value that breaks the property, it
-starts the shrinking process.
-Using random input values can result in very large inputs.
-For example lists that are very long or strings with a lot of characters.
-These inputs can be very hard to debug. Smaller inputs are preferable when it comes to testing.
-When an input makes the property fail, QuickCheck tries to find shrink this input while it still makes the property fail.
-That way it gets the small part of the larger input that actually causes the problem.</p>
-</li>
-</ul>
-<p>As an example:
-a property of Strings is that if we add two strings together, the length of the result should be the same as the sum of the lengths of the two strings summed.
-We can use property-based testing and the QuickCheck&apos;s implementation to make tests for this property.</p>
-<pre><code class="lang-java"><span class="hljs-meta">@Runwith</span>(JUnitQuickcheck.class)
-<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PropertyTest</span> </span>{
-
-  <span class="hljs-meta">@Property</span>
-  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">concatenationLength</span><span class="hljs-params">(String s1, String s2)</span> </span>{
-    assertEquals(s1.length() + s2.length(), (s1 + s2).length())
-  }
-}
-</code></pre>
-<p><code>concatenationLength</code> had the <code>Property</code> annotation, so QuickCheck will generate random values for <code>s1</code> and <code>s2</code> and execute the test with those values.</p>
-<p>Property-based testing changes the way we automate our tests.
-Usually, we just automate the execution of the tests.
-With property-based testing, by means of QuickCheck&apos;s implementation, we also automatically generate the inputs of the tests.</p>
-<h3 id="property-based-testing-and-ai">Property-based testing and AI</h3>
-<p>A lot of today&apos;s research goes into a AI for software testing is about generating good input values for the tests.
-We try to apply artificial intelligence to find inputs that exercise an important parts of the system.</p>
-<p>While the research&apos;s results are very promising, there still exist difficulties with this test approach.
-The main problem is that if the AI generates random inputs, how do we know for sure that the outcome is correct, i.e., how do we know that the problem behaved correctly for that random value?
-With the unit test we made so far we manually took certain inputs, thought about the correct outcome, and made the assertion to expect that outcome.
-When generating random inputs, we cannot think about the outcome every time.
-The pre- and postconditions, contracts, and properties we discussed in this chapter can help us solve the problem.
-By well-defining the system in these terms, we can use them as oracles in the test cases.
-The properties always have to be true, so we can use them in all the randomly generated test cases.</p>
-<p>We will discuss more about AI techniques in a future chapter.</p>
-<center>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/7kB6JaSH9p8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</center>
-
-
-
 
 
 
@@ -1483,7 +1429,7 @@ Which of the following is a valid reason to use assertions in your code?</p>
                 </a>
                 
                 
-                <a href="../pragmatic-testing/" class="navigation navigation-next " aria-label="Next page: Pragmatic software testing">
+                <a href="property-based-testing.html" class="navigation navigation-next " aria-label="Next page: Property-based testing">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -1494,7 +1440,7 @@ Which of the following is a valid reason to use assertions in your code?</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Design-by-contracts and property-based testing","level":"4.1.5","depth":2,"next":{"title":"Pragmatic software testing","level":"5.1","depth":1,"path":"chapters/pragmatic-testing/README.md","ref":"chapters/pragmatic-testing/README.md","articles":[{"title":"The testing pyramid","level":"5.1.1","depth":2,"path":"chapters/pragmatic-testing/testing-pyramid.md","ref":"chapters/pragmatic-testing/testing-pyramid.md","articles":[]},{"title":"Mock objects","level":"5.1.2","depth":2,"path":"chapters/pragmatic-testing/mocking.md","ref":"chapters/pragmatic-testing/mocking.md","articles":[]},{"title":"Design for testability","level":"5.1.3","depth":2,"path":"chapters/pragmatic-testing/design-for-testability.md","ref":"chapters/pragmatic-testing/design-for-testability.md","articles":[]},{"title":"Test-driven development","level":"5.1.4","depth":2,"path":"chapters/pragmatic-testing/tdd.md","ref":"chapters/pragmatic-testing/tdd.md","articles":[]},{"title":"Test code quality and engineering","level":"5.1.5","depth":2,"path":"chapters/pragmatic-testing/test-code-quality.md","ref":"chapters/pragmatic-testing/test-code-quality.md","articles":[]}]},"previous":{"title":"Model-based testing","level":"4.1.4","depth":2,"path":"chapters/testing-techniques/model-based-testing.md","ref":"chapters/testing-techniques/model-based-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapters/testing-techniques/design-by-contracts.md","mtime":"2020-03-31T09:45:43.638Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-03-31T13:07:51.267Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Design-by-contracts","level":"4.1.5","depth":2,"next":{"title":"Property-based testing","level":"4.1.6","depth":2,"path":"chapters/testing-techniques/property-based-testing.md","ref":"chapters/testing-techniques/property-based-testing.md","articles":[]},"previous":{"title":"Model-based testing","level":"4.1.4","depth":2,"path":"chapters/testing-techniques/model-based-testing.md","ref":"chapters/testing-techniques/model-based-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapters/testing-techniques/design-by-contracts.md","mtime":"2020-04-02T14:22:41.433Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-02T14:32:11.587Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

@@ -338,7 +338,20 @@
                 <a href="../testing-techniques/design-by-contracts.html">
             
                     
-                    Design-by-contracts and property-based testing
+                    Design-by-contracts
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.6" data-path="../testing-techniques/property-based-testing.html">
+            
+                <a href="../testing-techniques/property-based-testing.html">
+            
+                    
+                    Property-based testing
             
                 </a>
             
@@ -463,7 +476,20 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="6.1.1" data-path="../intelligent-testing/mutation-testing.html">
+        <li class="chapter " data-level="6.1.1" >
+            
+                <span>
+            
+                    
+                    Random testing (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.2" data-path="../intelligent-testing/mutation-testing.html">
             
                 <a href="../intelligent-testing/mutation-testing.html">
             
@@ -476,7 +502,7 @@
             
         </li>
     
-        <li class="chapter " data-level="6.1.2" data-path="../intelligent-testing/fuzzing.html">
+        <li class="chapter " data-level="6.1.3" data-path="../intelligent-testing/fuzzing.html">
             
                 <a href="../intelligent-testing/fuzzing.html">
             
@@ -489,7 +515,7 @@
             
         </li>
     
-        <li class="chapter " data-level="6.1.3" >
+        <li class="chapter " data-level="6.1.4" >
             
                 <span>
             
@@ -867,7 +893,7 @@ are also part of the FIRST principles.</p>
 <li><a href="https://www.youtube.com/watch?v=2Q1O8XBVbZQ" target="_blank">Inspiring</a>: passing the tests should inspire confidence</li>
 <li><a href="https://www.youtube.com/watch?v=CAttTEUE9HM" target="_blank">Writable</a>: tests should be cheap to write relative to the cost of the code being tested.</li>
 <li><a href="https://www.youtube.com/watch?v=bDaFPACTjj8" target="_blank">Readable</a>: tests should be comprehensible for reader, invoking the motivation for writing this particular test.</li>
-<li><a href="https://www.youtube.com/watch?v=5LOdKDqdWYU" target="_blank">Behavioral</a>: tests should be sensitive to changes in the behaviour of the code under test. If the behaviour changes, the test result should change.</li>
+<li><a href="https://www.youtube.com/watch?v=5LOdKDqdWYU" target="_blank">Behavioural</a>: tests should be sensitive to changes in the behaviour of the code under test. If the behaviour changes, the test result should change.</li>
 <li><a href="https://www.youtube.com/watch?v=bvRRbWbQwDU" target="_blank">Structure-insensitive</a>: tests should not change their result if the structure of the code changes.</li>
 <li><a href="https://www.youtube.com/watch?v=YQlmP08dj6g" target="_blank">Automated</a>: tests should run without human intervention.</li>
 <li><a href="https://www.youtube.com/watch?v=8lTfrCtPPNE" target="_blank">Specific</a>: if a test fails, the cause of the failure should be obvious.</li>
@@ -891,7 +917,7 @@ list can be found in the xUnit Test Patterns book, by Meszaros.</p>
 It is not surprising that code duplication might also happen in test code, 
 as it is very common in production code.
 Tests are often similar in structure. You might have noticed it in several of the code
-examples throughout this book. We even made use of JUnit&apos;s Parameterized Tests feature
+examples throughout this book. We even made use of JUnit&apos;s Parameterised Tests feature
 to reduce some of the duplication.
 A less attentive developer might end up writing duplicated code 
 (copying and pasting often happens in real life) instead of putting
@@ -903,7 +929,7 @@ a duplication.
 In practice, it is easy to skip one of these places, ending up with 
 problematic test code.
 Note that the effects are similar to the effects of code duplication in production code.</p>
-<p>We suggest developers to ruthelessly refactor their test code. The extraction of a duplicated
+<p>We suggest developers to ruthlessly refactor their test code. The extraction of a duplicated
 code to private methods or external classes is often a good solution for the problem.</p>
 <p><strong>Assertion Roulette</strong>:
 Assertions are the first thing a developer looks at when a test is failing.
@@ -914,19 +940,17 @@ assertions themselves, or why they are failing.</p>
 <p>There are several reasons for the smell to happen. Some features or business rules
 are simply too complex and require a complex set of assertions to ensure their behaviour.
 Suddenly, developers end up writing complex assert instructions that are not easy to
-understand. In such cases, we recommend developers to 1) write their own customized
+understand. In such cases, we recommend developers to 1) write their own customised
 assert instructions that abstract away part of the complexity of the assertion code itself,
 2) when expressing it in code it not enough, write code comments that quickly explain, in natural language, what those assertions are about.</p>
-<p>Interestingly, a common best practice that is often found in the test best practice literature 
-is the &quot;one assertion per method&quot; strategy. While forcing developers to have just a single
-assertion per test method is too extremist,<br>the idea of minimizing, as much as possible, the amount of assertions in a test method is valid.</p>
+<p>Interestingly, a common best practice that is often found in the test best practice literature is the &quot;one assertion per method&quot; strategy. While forcing developers to have just a single assertion per test method is too extremist, the idea of minimising the number of assertions in a test method is valid.</p>
 <p>Note that a high number of simple assertions in a single test might be as harmful as a complex
-set of assertions. In such cases, we provide a similar recommendation: write a customized
+set of assertions. In such cases, we provide a similar recommendation: write a customised
 assertion instruction to abstract away the need for long sequences of assertions.</p>
 <p>Empirically, we also observe that the number of assertions in a test is often large, because
 developers tend to write more than one test case in a single test method. We also have done
 that in this book (see the boundary testing chapter, where we test both sides of the boundary
-in a single test method). However, parcimony is fundamental. Splitting up a large test method
+in a single test method). However, parsimony is fundamental. Splitting up a large test method
 that contains multiple test cases might reduce the cognitive load required by the developer
 to understand it.</p>
 <p><strong>Resource Optimism</strong>:
@@ -955,11 +979,11 @@ making sure that tests are being run in the correct environment.</p>
 The war is an analogy for when two tests are &quot;fighting&quot; for the same resources.
 One can observe a test run war when tests start to fail as soon as more than one developer
 runs their test suites.
-Imagine a test suite that uses to a centralized database. When developer A runs the test, the test changes the state of the database. At the same time, 
+Imagine a test suite that uses to a centralised database. When developer A runs the test, the test changes the state of the database. At the same time, 
 developer 2 runs the same test, which also goes to the same database. 
 Thus, both tests are touching the same database at the same time. 
 This unexpected situation might make the test to fail.</p>
-<p><em>Isolation</em> is key to avoid this test smell. In the example of a centralized database,
+<p><em>Isolation</em> is key to avoid this test smell. In the example of a centralised database,
 one solution would be make sure each developer has its own instance of a database. That would
 avoid the fight for the same resource. (Related to this example, we discuss more about 
 database testing in a specific chapter).</p>
@@ -986,11 +1010,11 @@ Making sure that the fixture of a test is as specific and cohesive as possible h
 developers in comprehending the essence of a test (which is often highly relevant when
 the test starts fail).</p>
 <p>Build patterns, with the focus of building test data, 
-might help developers in avoiding such a smell. More especifically, 
+might help developers in avoiding such a smell. More specifically, 
 the <strong><a href="http://www.natpryce.com/articles/000714.html" target="_blank">Test Data Builder</a></strong> is
 a often used design pattern in test code of enterprise applications (we give an example
 of a Test Data Builder later in this chapter). Such applications
-often have to deal with the creation of complex sets of interelated 
+often have to deal with the creation of complex sets of interrelated 
 business entities, which can easily
 lead developers to write general fixtures.</p>
 <p><strong>Indirect tests</strong> and <strong>eager tests</strong>:
@@ -1113,7 +1137,7 @@ difference between a good and a bad test case. While we have discussed how to de
 good test cases (and thus, good assertions), choosing the right implementation strategy
 for writing the assertion can impact the maintenance of the test on the long run.
 The wrong choice of an assertion instruction might give developers less information
-about the failure, difficulting the debugging process.</p>
+about the failure, making the debugging process more difficult.</p>
 <p>Imagine a very simplistic implementation of a <code>Cart</code> that receives products
 to be inserted into it. Products can not be repeated. A simple implementation might be:</p>
 <pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Cart</span> </span>{
@@ -1161,7 +1185,7 @@ Actual   :&lt;false&gt;
 </code></pre><p>The error message does not explicitly show the difference in the values. In this
 simple example, it might seem that it is not too important, but take this to more 
 complicated test cases. In the real world, a developer would have to add some debugging
-code (System.out.printlns) to print the actual value that was produced by the method.</p>
+code (<code>System.out.println</code>s) to print the actual value that was produced by the method.</p>
 <p>The test could help the developer by giving as much information as possible. To that aim,
 choosing the right assertions is important, as they tend to give more information. 
 In this case, the use of an <code>assertEquals</code> is a better fit:</p>
@@ -1349,13 +1373,13 @@ in the methods (note that methods return <code>this</code>).</p>
     }
 }
 </code></pre>
-<p>Developers should feel free to customize their builders as much as they want. A common
+<p>Developers should feel free to customise their builders as much as they want. A common
 trick is to make the builder to build a &quot;common&quot; version of the class, without requiring
 the call of all the setup methods. This way, a developer can do:</p>
 <pre><code class="lang-java">var invoice = <span class="hljs-keyword">new</span> InvoiceBuilder().build();
 </code></pre>
 <p>In such case, the <code>build</code> method, without any setup, will always build an invoice
-for a person, with a value of 500.0, and having NL as country (see the initialized
+for a person, with a value of 500.0, and having NL as country (see the initialised
 values in the <code>InvoiceBuilder</code>). </p>
 <p>Other developers might even give the build several shortcut methods that build other
 &quot;common&quot; fixtures for the class. For example, the following methods could very much 
@@ -1393,7 +1417,7 @@ is buggy, or because it is simply flaky. From the social side, the excessive
 presence of flaky tests make developers to lose their confidence in their test
 suites, little by little. The lack of confidence might lead them to deploy their
 systems even though the tests are red (after all, they might be broken just because
-of flakyness, and not because the system is misbehaving).</p>
+of flakiness, and not because the system is misbehaving).</p>
 <p>The prevalence, and thus, the impact of flaky tests in the software development
 world has been increasing over time. Companies like Google and Facebook as well
 as software engineering researchers have been
@@ -1432,7 +1456,7 @@ With the decision table you can find a probable cause for the flakiness of your 
 <ul>
 <li>Luo, Q., Hariri, F., Eloussi, L., &amp; Marinov, D. (2014, November). An empirical analysis of flaky tests. In Proceedings of the 22nd ACM SIGSOFT International Symposium on Foundations of Software Engineering (pp. 643-653). ACM. 
 Authors&apos; version: <a href="http://mir.cs.illinois.edu/~eloussi2/publications/fse14.pdf" target="_blank">http://mir.cs.illinois.edu/~eloussi2/publications/fse14.pdf</a></li>
-<li>Bell, J., Legunsen, O., Hilton, M., Eloussi, L., Yung, T., &amp; Marinov, D. (2018, May). D e F laker: automatically detecting flaky tests. In Proceedings of the 40th International Conference on Software Engineering (pp. 433-444). ACM. 
+<li>Bell, J., Legunsen, O., Hilton, M., Eloussi, L., Yung, T., &amp; Marinov, D. (2018, May). DeFlaker: automatically detecting flaky tests. In Proceedings of the 40th International Conference on Software Engineering (pp. 433-444). ACM. 
 Authors&apos; version: <a href="http://mir.cs.illinois.edu/legunsen/pubs/BellETAL18DeFlaker.pdf" target="_blank">http://mir.cs.illinois.edu/legunsen/pubs/BellETAL18DeFlaker.pdf</a></li>
 <li>Lam, W., Oei, R., Shi, A., Marinov, D., &amp; Xie, T. (2019, April). iDFlakies: A Framework for Detecting and Partially Classifying Flaky Tests. In 2019 12th IEEE Conference on Software Testing, Validation and Verification (ICST) (pp. 312-322). IEEE. 
 Authors&apos; version: <a href="http://taoxie.cs.illinois.edu/publications/icst19-idflakies.pdf" target="_blank">http://taoxie.cs.illinois.edu/publications/icst19-idflakies.pdf</a></li>
@@ -1606,7 +1630,7 @@ In the code below, we show an actual test from Apache Commons Lang, a very popul
 <li>Fowler, M. Eradicating Non-Determinism in Tests. Link: <a href="https://martinfowler.com/articles/nonDeterminism.html" target="_blank">https://martinfowler.com/articles/nonDeterminism.html</a>, 2011.</li>
 <li>Bavota, G., Qusef, A., Oliveto, R., De Lucia, A., &amp; Binkley, D. (2012, September). An empirical analysis of the distribution of unit test smells and their impact on software maintenance. In 2012 28th IEEE International Conference on Software Maintenance (ICSM) (pp. 56-65). IEEE.</li>
 <li>Luo, Q., Hariri, F., Eloussi, L., &amp; Marinov, D. (2014, November). An empirical analysis of flaky tests. In Proceedings of the 22nd ACM SIGSOFT International Symposium on Foundations of Software Engineering (pp. 643-653). ACM. </li>
-<li>Bell, J., Legunsen, O., Hilton, M., Eloussi, L., Yung, T., &amp; Marinov, D. (2018, May). D e F laker: automatically detecting flaky tests. In Proceedings of the 40th International Conference on Software Engineering (pp. 433-444). ACM. </li>
+<li>Bell, J., Legunsen, O., Hilton, M., Eloussi, L., Yung, T., &amp; Marinov, D. (2018, May). DeFlaker: automatically detecting flaky tests. In Proceedings of the 40th International Conference on Software Engineering (pp. 433-444). ACM. </li>
 <li>Lam, W., Oei, R., Shi, A., Marinov, D., &amp; Xie, T. (2019, April). iDFlakies: A Framework for Detecting and Partially Classifying Flaky Tests. In 2019 12th IEEE Conference on Software Testing, Validation and Verification (ICST) (pp. 312-322). IEEE. </li>
 </ul>
 
@@ -1652,7 +1676,7 @@ In the code below, we show an actual test from Apache Commons Lang, a very popul
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Test code quality and engineering","level":"5.1.5","depth":2,"next":{"title":"Intelligent testing","level":"6.1","depth":1,"path":"chapters/intelligent-testing/README.md","ref":"chapters/intelligent-testing/README.md","articles":[{"title":"Mutation testing","level":"6.1.1","depth":2,"path":"chapters/intelligent-testing/mutation-testing.md","ref":"chapters/intelligent-testing/mutation-testing.md","articles":[]},{"title":"Fuzzing testing","level":"6.1.2","depth":2,"path":"chapters/intelligent-testing/fuzzing.md","ref":"chapters/intelligent-testing/fuzzing.md","articles":[]},{"title":"Search-based software testing (soon)","level":"6.1.3","depth":2,"ref":"","articles":[]}]},"previous":{"title":"Test-driven development","level":"5.1.4","depth":2,"path":"chapters/pragmatic-testing/tdd.md","ref":"chapters/pragmatic-testing/tdd.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapters/pragmatic-testing/test-code-quality.md","mtime":"2020-03-31T09:45:43.598Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-03-31T13:07:51.267Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Test code quality and engineering","level":"5.1.5","depth":2,"next":{"title":"Intelligent testing","level":"6.1","depth":1,"path":"chapters/intelligent-testing/README.md","ref":"chapters/intelligent-testing/README.md","articles":[{"title":"Random testing (soon)","level":"6.1.1","depth":2,"ref":"","articles":[]},{"title":"Mutation testing","level":"6.1.2","depth":2,"path":"chapters/intelligent-testing/mutation-testing.md","ref":"chapters/intelligent-testing/mutation-testing.md","articles":[]},{"title":"Fuzzing testing","level":"6.1.3","depth":2,"path":"chapters/intelligent-testing/fuzzing.md","ref":"chapters/intelligent-testing/fuzzing.md","articles":[]},{"title":"Search-based software testing (soon)","level":"6.1.4","depth":2,"ref":"","articles":[]}]},"previous":{"title":"Test-driven development","level":"5.1.4","depth":2,"path":"chapters/pragmatic-testing/tdd.md","ref":"chapters/pragmatic-testing/tdd.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapters/pragmatic-testing/test-code-quality.md","mtime":"2020-04-02T13:33:35.274Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-02T14:32:11.587Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

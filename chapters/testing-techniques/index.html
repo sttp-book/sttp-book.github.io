@@ -671,19 +671,6 @@
             
         </li>
     
-        <li class="chapter " data-level="8.1.3" >
-            
-                <span>
-            
-                    
-                    Ethical testing (soon)
-            
-                </span>
-            
-
-            
-        </li>
-    
 
             </ul>
             
@@ -701,6 +688,64 @@
                 <span>
             
                     
+                    Software Quality
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="9.1.1" >
+            
+                <span>
+            
+                    
+                    Code reviews
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.1.2" >
+            
+                <span>
+            
+                    
+                    Code metrics
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.1.3" >
+            
+                <span>
+            
+                    
+                    Ethics and testing (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="9.2" >
+            
+                <span>
+            
+                    
                     Appendix
             
                 </span>
@@ -710,7 +755,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="9.1.1" data-path="../appendix/answers.html">
+        <li class="chapter " data-level="9.2.1" data-path="../appendix/answers.html">
             
                 <a href="../appendix/answers.html">
             
@@ -723,7 +768,7 @@
             
         </li>
     
-        <li class="chapter " data-level="9.1.2" data-path="../appendix/changelog.html">
+        <li class="chapter " data-level="9.2.2" data-path="../appendix/changelog.html">
             
                 <a href="../appendix/changelog.html">
             
@@ -832,7 +877,9 @@ software development process. </p>
 </li>
 <li><p><strong>Model-based testing</strong>: We will leverage more formal documentation such as state machines and decision tables to derive tests. </p>
 </li>
-<li><p><strong>Design-by-contracts and property-based testing</strong>: We will devise explicit contracts to methods and classes to ensure that they behave correctly when these contracts are (and are not) met.</p>
+<li><p><strong>Design-by-contracts</strong>: We will devise explicit contracts to methods and classes to ensure that they behave correctly when these contracts are (and are not) met.</p>
+</li>
+<li><p><strong>Property-based testing</strong>: We will learn how to derive properties of the system (similar to contracts) and use them to automatically generate test cases.</p>
 </li>
 </ul>
 <center>
@@ -889,7 +936,7 @@ software development process. </p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Testing techniques","level":"4.1","depth":1,"next":{"title":"Specification-based testing","level":"4.1.1","depth":2,"path":"chapters/testing-techniques/specification-based-testing.md","ref":"chapters/testing-techniques/specification-based-testing.md","articles":[]},"previous":{"title":"Software testing automation","level":"3.1.3","depth":2,"path":"chapters/getting-started/test-automation.md","ref":"chapters/getting-started/test-automation.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapters/testing-techniques/README.md","mtime":"2020-04-02T10:07:19.453Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-02T14:32:11.587Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Testing techniques","level":"4.1","depth":1,"next":{"title":"Specification-based testing","level":"4.1.1","depth":2,"path":"chapters/testing-techniques/specification-based-testing.md","ref":"chapters/testing-techniques/specification-based-testing.md","articles":[]},"previous":{"title":"Software testing automation","level":"3.1.3","depth":2,"path":"chapters/getting-started/test-automation.md","ref":"chapters/getting-started/test-automation.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapters/testing-techniques/README.md","mtime":"2020-04-02T16:22:12.813Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-02T16:24:54.697Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

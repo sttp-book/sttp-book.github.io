@@ -837,15 +837,15 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="mutation-testing">Mutation testing</h1>
-<p>How do we know if we tested enough?
-For example, in the structural-based testing chapter, we discussed line coverage, branch coverage, and MC/DC.
-In the model-based testing chapter, we discussing transition coverage and path coverage.
-All these <strong>adequacy criteria</strong> measure how much of the program is exercised 
+<p><em>How do we know if we tested enough?</em>
+In the structural-based testing chapter, we discussed line coverage, branch coverage, and MC/DC.
+In the model-based testing chapter, we discussed transition coverage and path coverage.
+All these <em>adequacy criteria</em> measure how much of the program is exercised 
 by the tests we devised.</p>
-<p>However, these criteria alone might not enough to determine the 
+<p>However, these criteria alone might not be enough to determine the 
 quality of the test cases.
-In practice, we can exercise a large part of the system, while testing very little.</p>
-<p>Suppose a simple class with a single method:</p>
+In practice, we can exercise large parts of the system, while testing very little.</p>
+<p>Suppose a class with a single method:</p>
 <pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Division</span> </span>{
   <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span>[] getValues(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b) {
     <span class="hljs-keyword">if</span> (b == <span class="hljs-number">0</span>) {
@@ -869,13 +869,13 @@ In practice, we can exercise a large part of the system, while testing very litt
   <span class="hljs-keyword">int</span>[] values = Division.getValues(<span class="hljs-number">1</span>, <span class="hljs-number">0</span>);
 }
 </code></pre>
-<p>These tests gets us to 100% branch coverage.
+<p>These tests give us 100% branch coverage.
 However, you probably also noticed that something is missing in these tests: 
 <strong>the assertions</strong>! These tests will never fail!</p>
 <h2 id="fault-detection-capability">Fault Detection Capability</h2>
 <p>Let&apos;s discuss one more adequacy criterion: the <strong>fault detection capability</strong>.
 It indicates the test&apos;s capability to reveal faults in the system under test.
-The more faults a test can detect, in other words, the more faults a test fails on, the higher its fault detection capability.
+The more faults a test can detect or, in other words, the more faults a test fails on, the higher its fault detection capability.
 Using this criterion, we can indicate the quality of our test suite in a better way than with just the coverage metrics we have so far.</p>
 <p>The fault detection capability does not just regard the amount of production code executed, but also the assertions made in the test cases.
 For a test to be adequate according to this criterion, it has to have a meaningful <strong>test oracle</strong> (i.e., meaningful assertions).</p>
@@ -883,6 +883,7 @@ For a test to be adequate according to this criterion, it has to have a meaningf
 In mutation testing, we change small parts of the code, and check if the tests can find the introduced fault.</p>
 <p>In the previous example, we made a test suite that was not adequate at all, according to the fault detection capability.
 As there were no assertions, the tests would never find any faults in the code.</p>
+<p>Tests with assertions check if the result of the method is what we expect. We have a <strong>test oracle</strong> now.</p>
 <pre><code class="lang-java"><span class="hljs-meta">@Test</span>
 <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testGetValues</span><span class="hljs-params">()</span> </span>{
   <span class="hljs-keyword">int</span>[] values = Division.getValues(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>);
@@ -896,7 +897,6 @@ As there were no assertions, the tests would never find any faults in the code.<
   assertNull(values);
 }
 </code></pre>
-<p>Tests with assertions check if the result of the method is what we expect. We have a <strong>test oracle</strong> now.</p>
 <p>To see how the values in a test case influence the fault detection capability, let&apos;s create two tests, where the denominator is not 0.</p>
 <pre><code class="lang-java"><span class="hljs-meta">@Test</span>
 <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testGetValuesOnes</span><span class="hljs-params">()</span> </span>{
@@ -913,7 +913,8 @@ As there were no assertions, the tests would never find any faults in the code.<
 }
 </code></pre>
 <p>For the fault detection capability, we want to see if the tests catch any faults that could be in the code.</p>
-<p>This means we have to go back to the source code and introduce an error:</p>
+<p>This means we have to go back to the source code and introduce an error. 
+We replace the division by a multiplication; a clear bug:</p>
 <pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Division</span> </span>{
   <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span>[] getValues(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b) {
     <span class="hljs-keyword">if</span> (b == <span class="hljs-number">0</span>) {
@@ -926,7 +927,6 @@ As there were no assertions, the tests would never find any faults in the code.<
   }
 }
 </code></pre>
-<p>We replace the division by a multiplication; a clear bug.</p>
 <p>If we run our tests with the buggy code, we see that the test with the values 1 and 1 (the <code>testGetValuesOnes()</code> test) still passes, but the other test (the <code>testGetValuesDifferent()</code>) fails.
 This indicates that the second test has a higher fault detection capability.</p>
 <p>Even though both tests exercise the method in the same way and execute the same lines, we see a difference in the fault detection capability.
@@ -939,12 +939,11 @@ In this case, the input values and test oracle of the <code>testGetValuesDiffere
 
 
 <h2 id="hypotheses-for-mutation-testing">Hypotheses for Mutation Testing</h2>
-<p>We are now ready to generalise the idea.
-The idea of mutation testing is to <strong>assess the quality of the test suite</strong>.
-This is done by manipulating the source code a bit and running the tests with this manipulated source code.
-If we have a good test suite, at least one of the tests will fail on this changed (buggy) code.
+<p>The idea of mutation testing is to <strong>assess the quality of the test suite</strong>.
+This is done by manipulating bits of the source code and running the tests with this manipulated source code.
+If we have a good test suite, at least one of the tests will fail on this changed (i.e., buggy) code.
 Following this procedure, we get a sense of the fault error capability of our test suite.</p>
-<p>In mutation testing we use <strong>mutants</strong>.
+<p>In mutation testing, we use <strong>mutants</strong>.
 The mutants are the defects, or faults, that we introduce in the source code and then use to determine the quality of the test suite.</p>
 <p>A big question regarding the mutants is what their size should be.
 We can change single operations, whole lines or even multiple lines of code.
@@ -963,12 +962,12 @@ In other words, test cases that detect simple faults, will also detect complex f
 <p>Based on these two hypotheses, we can determine the size 
 that the mutants should have.
 Realistically, following the competent programmer hypothesis, 
-the faults in actual code will be small.
+the faults in the actual code will be small.
 This indicates that the mutants&apos; size should be small as well.
 Considering the coupling effect, test cases that detect 
 small errors, will also be able to detect larger, more complex errors.</p>
 <h2 id="terminology">Terminology</h2>
-<p>To talk about mutation testing in a depth way, let&apos;s define some terms:</p>
+<p>To talk about mutation testing in a depth way, let us define some terms:</p>
 <ul>
 <li><strong>Mutant</strong>: Given a program <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi></mrow><annotation encoding="application/x-tex">P</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">P</span></span></span></span>, a mutant called <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>P</mi><mrow><mi mathvariant="normal">&#x2032;</mi></mrow></msup></mrow><annotation encoding="application/x-tex">P&apos;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.751892em;"></span><span class="strut bottom" style="height:0.751892em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle uncramped mtight"><span class="mord scriptstyle uncramped mtight"><span class="mord mathrm mtight">&#x2032;</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span></span></span></span> is obtained by introducing a <em>syntactic change</em> to <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi></mrow><annotation encoding="application/x-tex">P</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">P</span></span></span></span>. A mutant is killed if a test fails when executed with the mutant.</li>
 <li><strong>Syntactic Change</strong>: A small <em>change</em> in the code. Such a small change should make the code still valid, i.e., the code can still compile and run.</li>
@@ -996,7 +995,7 @@ small errors, will also be able to detect larger, more complex errors.</p>
   }
 }
 </code></pre>
-<p>We have a small test suite for this method as well.</p>
+<p>We have a test suite for this method as well:</p>
 <pre><code class="lang-java"><span class="hljs-meta">@Test</span>
 <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testInvert</span><span class="hljs-params">()</span></span>{
   Fraction f = <span class="hljs-keyword">new</span> Fraction(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>);
@@ -1024,8 +1023,8 @@ small errors, will also be able to detect larger, more complex errors.</p>
   assertThrows(ArithmeticException.class, () -&gt; f.invert());
 }
 </code></pre>
-<p>We have two tests for some corner cases that throw an exception, and two more &quot;happy path&quot; tests.
-Now, we want to determine the quality of our test suite, using mutation testing.</p>
+<p>We have two tests for corner cases that throw an exception, and two more &quot;happy path&quot; tests.
+Now, let us determine the quality of our test suite, using mutation testing.</p>
 <p>First, we have to create a <em>mutant</em> by applying a <em>syntactic change</em> to the original method.
 Keep in mind that, because of the two hypotheses, we want the syntactic change to be small: one operation/variable should be enough.
 Moreover, the syntactic change is a <em>change</em>, hence it should mimic mistakes that could be made by a programmer.</p>
@@ -1046,6 +1045,7 @@ Instead of <code>-numerator</code> we just say <code>numerator</code>.</p>
 <span class="hljs-number">4</span>.    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ArithmeticException(<span class="hljs-string">&quot;...&quot;</span>);
     }
 <span class="hljs-number">5</span>.  <span class="hljs-keyword">if</span> (numerator &lt; <span class="hljs-number">0</span>) {
+      <span class="hljs-comment">// the change was introduced here</span>
 <span class="hljs-number">6</span>.    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Fraction(-denominator, numerator);
     }
 <span class="hljs-number">7</span>.  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Fraction(denominator, numerator);
@@ -1080,8 +1080,8 @@ Instead of <code>numerator == 0</code>, in our new mutant we make it <code>numer
 <p>We see that, again, the test suite catches this error.
 The test <code>testInvertZero()</code> will fail, as it expects an exception, but none is thrown in the mutant.</p>
 <h2 id="automation">Automation</h2>
-<p>Manually writing the mutations of our programs takes a lot of time, 
-and we probably would only think of the cases that are already tested.
+<p>Manually writing the mutations of our programs might take a lot of time. 
+Moreover, we probably would only think of the cases that are already tested.
 Like with test execution, we want to <strong>automate the mutation process</strong>.
 There are various tools that automatically generate mutants for mutant testing, but they all use the same methodology.</p>
 <p>First we need mutation operators.
@@ -1187,8 +1187,6 @@ For now, you should at least have an idea what mutation operators are, how they 
 
 
 <h2 id="mutation-analysis-and-testing">Mutation Analysis and Testing</h2>
-<p>Now that the concept of mutation testing and how to make it is clear,
-let&apos;s look at how we can use mutation testing in practice.</p>
 <p>Our goal is to use mutation testing to determine the quality of our test suite.
 We have seen that we first have to create the mutants and that it is best to do this in an automated way with the help of mutant operators.
 Then, we run the test suite against the created mutants with an execution engine.
@@ -1201,26 +1199,26 @@ If none of the tests in our test suite fails when executed against the mutant, t
 By counting the number of each of these mutant groups, we can give a value to the quality of our test suite.</p>
 <p>We define the <strong>Mutation Score</strong> as:</p>
 <p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtext><mi mathvariant="normal">M</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">n</mi><mtext>&#xA0;</mtext><mi mathvariant="normal">s</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mtext>&#xA0;</mtext></mtext><mo>=</mo><mfrac><mrow><mtext><mi mathvariant="normal">k</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">d</mi><mtext>&#xA0;</mtext><mi mathvariant="normal">m</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">s</mi></mtext></mrow><mrow><mtext><mi mathvariant="normal">m</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">s</mi></mtext></mrow></mfrac></mrow><annotation encoding="application/x-tex">\text{Mutation score } = \frac{\text{killed mutants}}{\text{mutants}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8801079999999999em;"></span><span class="strut bottom" style="height:1.2251079999999999em;vertical-align:-0.345em;"></span><span class="base textstyle uncramped"><span class="mord text textstyle uncramped"><span class="mord mathrm">Mutation&#xA0;score&#xA0;</span></span><span class="mrel">=</span><span class="mord reset-textstyle textstyle uncramped"><span class="mopen sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord scriptstyle cramped mtight"><span class="mord text scriptstyle cramped mtight"><span class="mord mathrm mtight">mutants</span></span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.394em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle uncramped mtight"><span class="mord scriptstyle uncramped mtight"><span class="mord text scriptstyle uncramped mtight"><span class="mord mathrm mtight">killed&#xA0;mutants</span></span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span><span class="mclose sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span></span></span></span></p>
-<p>Computing this mutation score is what we call <strong>mutation analysis</strong>. More formally: <strong>Mutation analysis</strong> means assessing the quality of a test suite, by computing its mutation score.</p>
+<p>Computing this mutation score is what we call <strong>mutation analysis</strong>. More formally, mutation analysis means assessing the quality of a test suite, by computing its mutation score.</p>
 <p>When the mutation score is low, we might want to change or add new test cases in our test suite.
 This is called <strong>mutation testing</strong>.
 Again, the definition:
-<strong>Mutation testing</strong> means improving the quality of the test suite using mutants (by adding and/or changing test cases).</p>
+mutation testing means improving the quality of the test suite using mutants (by adding and/or changing test cases).</p>
 <p>These concepts are very related to each other.
 To do mutation testing, you have to compute the mutation score first.
 This then indicates whether the test suite should be changed.
 If the mutation score is low, there are a lot of mutants that are not killed by the test suite.
 Then, it is indeed our job to improve the test suite.</p>
 <h3 id="equivalent-mutants">Equivalent Mutants</h3>
-<p>Calculating the mutation score is, in practice, challenging. Why?
+<p>Calculating the mutation score is, in practice, challenging.
 The mutation score increases when less mutants are alive.
 This suggests that the best scenario is to have all the mutants killed by the test suite.
 While this is indeed the best scenario, it is often unrealistic.
 Some of the mutants are impossible to kill and will then always stay alive.</p>
-<p>The mutants that cannot be killed are called equivalent mutants.
+<p>Mutants that cannot be killed are called equivalent mutants.
 An <strong>equivalent mutant</strong> is a mutant that always behaves as the original program.
 If the mutant behaves like the normal code, it will always give the same output as the original program for any given input.
-Of course, this makes this mutant (which is basically the same program as the one under test) impossible to be killed by the tests.</p>
+Clearly, this makes this mutant (which is basically the same program as the one under test) impossible to be killed by the tests.</p>
 <p>Here, the equivalence is related to the definition of program equivalence.
 Program equivalence roughly means that two programs are functionally equivalent when they produce the same output for every possible input.
 This is also the equivalence between the normal code and an equivalent mutant.</p>
@@ -1258,8 +1256,8 @@ We do not want to take the equivalent mutants into account, as there is nothing 
 <p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtext><mi mathvariant="normal">M</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">n</mi><mtext>&#xA0;</mtext><mi mathvariant="normal">s</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi></mtext><mo>=</mo><mfrac><mrow><mtext><mi mathvariant="normal">k</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">d</mi><mtext>&#xA0;</mtext><mi mathvariant="normal">m</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">s</mi></mtext></mrow><mrow><mtext><mi mathvariant="normal">n</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">-</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">q</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">v</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">t</mi><mtext>&#xA0;</mtext><mi mathvariant="normal">m</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">s</mi></mtext></mrow></mfrac></mrow><annotation encoding="application/x-tex">\text{Mutation score} = \frac{\text{killed mutants}}{\text{non-equivalent mutants}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8801079999999999em;"></span><span class="strut bottom" style="height:1.3612159999999998em;vertical-align:-0.481108em;"></span><span class="base textstyle uncramped"><span class="mord text textstyle uncramped"><span class="mord mathrm">Mutation&#xA0;score</span></span><span class="mrel">=</span><span class="mord reset-textstyle textstyle uncramped"><span class="mopen sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord scriptstyle cramped mtight"><span class="mord text scriptstyle cramped mtight"><span class="mord mathrm mtight">non-equivalent&#xA0;mutants</span></span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.394em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle uncramped mtight"><span class="mord scriptstyle uncramped mtight"><span class="mord text scriptstyle uncramped mtight"><span class="mord mathrm mtight">killed&#xA0;mutants</span></span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span><span class="mclose sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span></span></span></span></p>
 <p>For the denominator, we just count the number of non-equivalent mutants, instead of all the mutants.
 To compute this new mutation score automatically, we would need a way to automatically determine whether a mutant is an equivalent mutant.
-Unfortunately, we cannot do this automatically.
-<strong>Detecting equivalent mutations is an undecidable problem</strong>. We can never be sure that a mutant behaves the same as the original program for every possible input.</p>
+Unfortunately, we cannot do this automatically,
+as <strong>detecting equivalent mutations is an undecidable problem</strong>. We can never be sure that a mutant behaves the same as the original program for every possible input.</p>
 <h2 id="application">Application</h2>
 <p>Mutation testing sounds like a great way to analyse and improve our test suites.
 The question is, however, if we can actually use mutation testing in practice.
@@ -1271,8 +1269,8 @@ In other words, the more mutants a test suite detects, the more real faults the 
 Even more interesting is that this correlation is independent from the coverage.
 Furthermore, the correlation between mutant detection and fault detection is higher than the correlation between statement coverage and fault detection.
 So, the mutation score provides a better measure for the fault detection capability than the test coverage.</p>
-<h3 id="cost">Cost</h3>
-<p>Of course, mutation testing is not without its costs.
+<h2 id="the-costs-of-mutation-testing">The costs of mutation testing</h2>
+<p>Mutation testing is not without its costs.
 We have to generate the mutants, possibly remove the equivalent mutants, and execute the tests with each mutant.
 In fact, mutation testing is quite expensive, i.e., it takes a long time to perform.</p>
 <p>Let&apos;s assume we want to do some mutation testing.
@@ -1288,7 +1286,6 @@ For the mutation testing, we decide to generate on average 20 mutants per class.
 <p>We will have to execute the entire test suite of a class on each of the mutants.
 Per class, we need <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn><mn>0</mn><mo>&#x22C5;</mo><mn>1</mn><mn>0</mn><mo>&#x22C5;</mo><mn>0</mn><mi mathvariant="normal">.</mi><mn>2</mn><mo>=</mo><mn>4</mn><mn>0</mn></mrow><annotation encoding="application/x-tex">20 \cdot 10 \cdot 0.2 = 40</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">2</span><span class="mord mathrm">0</span><span class="mbin">&#x22C5;</span><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mbin">&#x22C5;</span><span class="mord mathrm">0</span><span class="mord mathrm">.</span><span class="mord mathrm">2</span><span class="mrel">=</span><span class="mord mathrm">4</span><span class="mord mathrm">0</span></span></span></span> seconds.
 In total, the mutation testing will take <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>3</mn><mn>0</mn><mn>0</mn><mo>&#x22C5;</mo><mn>4</mn><mn>0</mn><mo>=</mo><mn>1</mn><mn>2</mn><mn>0</mn><mn>0</mn><mn>0</mn></mrow><annotation encoding="application/x-tex">300 \cdot 40 = 12000</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">3</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span><span class="mbin">&#x22C5;</span><span class="mord mathrm">4</span><span class="mord mathrm">0</span><span class="mrel">=</span><span class="mord mathrm">1</span><span class="mord mathrm">2</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span></span></span></span> seconds, or 3 hours and 20 minutes.</p>
-<p>Indeed mutation testing can take a very long time.</p>
 <p>Because of this cost, researchers have tried to find ways to make mutation testing faster for a long time.
 Based on some observations, they came up with a couple of heuristics.</p>
 <ul>
@@ -1300,9 +1297,9 @@ This is because the test suite needs at least one test case that kills the mutan
 The exact number of test cases killing the mutant does not really matter.</p>
 </li>
 <li><p>A second observation is that mutants generated by the same operator and injected at the same location are likely to be coupled to the same type of fault.
-This means that when we use a certain mutation operator (Arithmetic Operator Replacement, for example) and we replace the same statement with this mutant operator, we get two mutants that represent the same fault in the code.
+This means that when we use a certain mutation operator (e.g., Arithmetic Operator Replacement) and we replace the same statement with this mutant operator, we get two mutants that represent the same fault in the code.
 It is then highly likely that if the test suite kills one of the mutants, it will also kill the others.
-An heuristic that follows from this observation is to run the test suite against a subset of all the less mutants (a technique also known as <em>do fewer</em>).
+An heuristic that follows from this observation is to run the test suite against a subset of the mutants (a technique also known as <em>do fewer</em>).
 Obviously, when we run the test suite against a smaller number of mutations, the overall testing will take less time.
 The simplest way of selecting the subset of mutants is by means of random sampling.
 As the name suggests, we just pick random mutants to consider.
@@ -1383,7 +1380,7 @@ Finally, you can also see more detailed results in the source code and check whi
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Mutation testing","level":"6.1.2","depth":2,"next":{"title":"Fuzzing testing","level":"6.1.3","depth":2,"path":"chapters/intelligent-testing/fuzzing.md","ref":"chapters/intelligent-testing/fuzzing.md","articles":[]},"previous":{"title":"Random testing (soon)","level":"6.1.1","depth":2,"ref":"","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapters/intelligent-testing/mutation-testing.md","mtime":"2020-04-02T13:33:35.272Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-03T14:06:21.852Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Mutation testing","level":"6.1.2","depth":2,"next":{"title":"Fuzzing testing","level":"6.1.3","depth":2,"path":"chapters/intelligent-testing/fuzzing.md","ref":"chapters/intelligent-testing/fuzzing.md","articles":[]},"previous":{"title":"Random testing (soon)","level":"6.1.1","depth":2,"ref":"","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapters/intelligent-testing/mutation-testing.md","mtime":"2020-04-03T14:30:11.181Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-03T14:30:27.465Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

@@ -4,7 +4,7 @@
  
  
 We just learned how the use of mocks and stubs can help developers in being highly productive and efficient in writing test code.
-In our previous chapter, it was easy to pass an `IssuedInvoices` stub to the `InvoiceFilter` class. The refactoring operation we performed (where we made the class to receive its dependencies via constructors) facilitates the testing of the `InvoiceFilter` class.
+In our previous chapter, it was easy to pass an `IssuedInvoices` stub to the `InvoiceFilter` class. The refactoring operation we performed (where we made the class receive its dependencies via constructors) facilitated the testing of the `InvoiceFilter` class.
 Note, however, that this was not the case in the beginning of that chapter. We had to refactor the code for that to happen.
  
 Software systems are often not ready/prepared to be tested, as seen in the classes in our previous chapter.
@@ -33,7 +33,7 @@ We will illustrate what dependency injection is by means of this analogy:
 > However, another approach is to say that, while we still need a hammer when someone asks us to perform the task, instead of getting the hammer ourselves, we get it from the person that wants us to do the task.
  
 We can do the same when managing the dependencies in our systems.
-Simply put, instead of the class instantiating dependency itself,
+Simply put, instead of the class instantiating the dependency itself,
 the class asks for the dependency (via constructor or a setter, for example).
  
 But let's revisit how we applied this idea in the previous chapter.
@@ -51,7 +51,7 @@ public class InvoiceFilter {
 }
 ```
  
-In our analogy, the `InvoiceFilter` (the worker) instantiates itself (searches for) the `IssuedInvoices` (hammer) class. 
+In our analogy, the `InvoiceFilter` (the worker) itself instantiates (searches for) the `IssuedInvoices` (hammer) class. 
 With an implementation like this, there is no easy way to pass any mocks to the `InvoiceFilter`.
 Any test code we devise will necessarily use a concrete instance of `IssuedInvoices`. As we know, `IssuedInvoices` goes to a database, which is something we have been trying to avoid.
 Thus, we cannot control the way the `IssuedInvoice` operates, at least for testing purposes.
@@ -159,11 +159,11 @@ We can make the following observations about the code above:
 testing the "low value invoices" rule. As we have seen many times already, this will incur higher costs.
 * This new version of the `InvoiceFilter` class is definitely more complex than our previous version and complex code are more prone to defects.
  
-Our previous version was indeed better. It was more cohesive and simpler. More importantly it also had a clear separation between domain code and infrastructure code. This is what software developers should always do when they design systems in order to ensure these two responsibilities are  separated from each other.
+Our previous version was indeed better. It was more cohesive and simpler. More importantly it also had a clear separation between domain code and infrastructure code. This is what software developers should always do when they design systems in order to ensure these two responsibilities are separated from each other.
  
 This idea of separating infrastructure and domain is explored in the following literature:
  
-* In the **Ports and Adapters** (also called the **Hexagonal Architecture**) idea, as proposed by Alistair Cockburn, it is shown that the domain (business logic) depends on "Ports", rather than directly on the infrastructure.
+* In the **Ports and Adapters** (also called the **Hexagonal Architecture**) idea, as proposed by Alistair Cockburn, the domain (business logic) depends on "Ports", rather than directly on the infrastructure.
 These ports are interfaces that define what the infrastructure is able to do.
 These ports are completely separated from the implementation of the infrastructure.
 The "adapters", on the other hand, are very close to the infrastructure.
@@ -177,7 +177,7 @@ In the schema below, you can see that the ports are part of the domain.
 Ports and Adapters help us a lot with the testability of our code.
 If our core domain depends only on ports, we can easily stub/mock them.
  
-* In the **Domain-Driven Design** work, Eric Evans proposes that domain (the core of the system) will be isolated from the infrastructure layer. Besides all the design benefits that Eric cites in his book, testers benefit from this separation, as it enables them to exercise parts of code without having to depend on heavy infrastructure.
+* In his **Domain-Driven Design** work, Eric Evans proposes that the domain (the core of the system) will be isolated from the infrastructure layer. Besides all the design benefits that Eric cites in his book, testers benefit from this separation, as it enables them to exercise parts of code without having to depend on heavy infrastructure.
  
 In practice, we observe that separating the infrastructure from domain is often challenging. The database example, where we move all the code to another class is rather a simplistic one. When building software, we often rely on different libraries and frameworks that are often opinionated and require you to follow certain design decisions that might not be ideal, from a testability perspective. It is the duty of a developer to be able to abstract these problems, making sure that the domain concerns are always separated from the infrastructure concerns.
  
@@ -203,14 +203,14 @@ The dependency inversion principle (note the _inversion_ and not _injection_) he
 We end this chapter with a couple of practical tips that will help you to devise testable systems/classes:
  
 - **Cohesion and testability**: cohesive classes are classes that do only one thing.
-Cohesive classes tend to be easier to test. This is because less responsibilities imply less test cases and less responsibilities often imply less dependencies (as you need less to compose the required functionality) which in turn incurs less testing costs.
+Cohesive classes tend to be easier to test. This is because fewer responsibilities imply fewer test cases and fewer responsibilities often imply fewer dependencies (as you need fewer to compose the required functionality) which in turn incurs lower testing costs.
  
 On the other hand, a non-cohesive class tends to consume a large amount of testing effort from developers. You might notice that a non-cohesive class requires so many test cases, that you often feel like "the testing is never-ending".
  
 Refactoring non-cohesive classes is therefore an important task when it comes to testability. A common way to do this is by splitting the non-cohesive class into several smaller-but-cohesive classes. Each small class can then be tested separately, and the class that combines them  might rely either on mock objects to assert the correctness of the interactions among the dependencies or on an integration test (or both).
  
 - **Coupling and testability**: Coupling refers to the number of classes that a class depends on. A highly coupled class requires several other
-classes to do its work and therefore, coupling decreases testability. A tester trying to test a highly dependent class ends up having to test all its dependencies together. If the tester then decides to use stubs/mocks, the costs of setting them up will also be higher than it needed to be (just imagine yourself setting up 10 or 15 stubs/mocks to test a single class). Moreover, the number of test cases that would be required to achieve a minimum amount of coverage is too high, as each dependency probably brings together a whole set of requirements and conditions.
+classes to do its work. Coupling decreases testability. A tester trying to test a highly dependent class ends up having to test all its dependencies together. If the tester then decides to use stubs/mocks, the costs of setting them up will also be higher than it needed to be (just imagine yourself setting up 10 or 15 stubs/mocks to test a single class). Moreover, the number of test cases that would be required to achieve a minimum amount of coverage is too high, as each dependency probably brings together a whole set of requirements and conditions.
  
 Reducing coupling, however, is often tricky, and maybe one of the biggest challenges in software design.
 A common coupling-related refactoring is to group dependencies together into a higher and meaningful abstraction.
@@ -223,7 +223,7 @@ too high.
 Reducing the complexity of such conditions, for example by breaking it into multiple smaller conditions, will not reduce the overall complexity of the problem, but will "spread" it.
  
 - **Private methods and testability**: A common question among developers is whether to test private methods or not.
-In principle, testers should test private methods only through their public methods. However, testers often feel the urge to test a particular private method in isolation. One common cause for this feeling is the lack of cohesion or the complexity of this private method. In other words, this method does something so different to the public method, and/or its task is so complex, that it has to be tested separately. This is a good example of when "the test speaks to the developer" (a common saying among Test-Driven Developers) and/or its task is so complex, that it has to be tested separately. 
+In principle, testers should test private methods only through their public methods. However, testers often feel the urge to test a particular private method in isolation. One common cause for this feeling is the lack of cohesion or the complexity of this private method. In other words, this method does something so different to the public method, and/or its task is so complex, that it has to be tested separately. This is a good example of when "the test speaks to the developer" (a common saying among Test-Driven Developers).
  
 In terms of the design this might mean that this private method does not belong in its current place. A common refactoring is to extract this method, maybe to a new brand new class. There, the former private method, now a public method, can be tested normally by the developer. The original class, where the private method used to be, should now depend on this new class.
  

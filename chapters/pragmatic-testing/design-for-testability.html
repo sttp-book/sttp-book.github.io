@@ -841,7 +841,7 @@
                                 <h1 id="design-for-testability">Design for Testability</h1>
 <h2 id="introduction">Introduction</h2>
 <p>We just learned how the use of mocks and stubs can help developers in being highly productive and efficient in writing test code.
-In our previous chapter, it was easy to pass an <code>IssuedInvoices</code> stub to the <code>InvoiceFilter</code> class. The refactoring operation we performed (where we made the class to receive its dependencies via constructors) facilitates the testing of the <code>InvoiceFilter</code> class.
+In our previous chapter, it was easy to pass an <code>IssuedInvoices</code> stub to the <code>InvoiceFilter</code> class. The refactoring operation we performed (where we made the class receive its dependencies via constructors) facilitated the testing of the <code>InvoiceFilter</code> class.
 Note, however, that this was not the case in the beginning of that chapter. We had to refactor the code for that to happen.</p>
 <p>Software systems are often not ready/prepared to be tested, as seen in the classes in our previous chapter.
 And so this chapter will show <strong>how to design and build a software system in a way that increases testability.</strong></p>
@@ -868,7 +868,7 @@ When we are asked to do this task, we find the hammer by ourselves and once we h
 However, another approach is to say that, while we still need a hammer when someone asks us to perform the task, instead of getting the hammer ourselves, we get it from the person that wants us to do the task.</p>
 </blockquote>
 <p>We can do the same when managing the dependencies in our systems.
-Simply put, instead of the class instantiating dependency itself,
+Simply put, instead of the class instantiating the dependency itself,
 the class asks for the dependency (via constructor or a setter, for example).</p>
 <p>But let&apos;s revisit how we applied this idea in the previous chapter.
 Let&apos;s assume that the <code>InvoiceFilter</code> was implemented as follows:</p>
@@ -882,7 +882,7 @@ Let&apos;s assume that the <code>InvoiceFilter</code> was implemented as follows
 
 }
 </code></pre>
-<p>In our analogy, the <code>InvoiceFilter</code> (the worker) instantiates itself (searches for) the <code>IssuedInvoices</code> (hammer) class. 
+<p>In our analogy, the <code>InvoiceFilter</code> (the worker) itself instantiates (searches for) the <code>IssuedInvoices</code> (hammer) class. 
 With an implementation like this, there is no easy way to pass any mocks to the <code>InvoiceFilter</code>.
 Any test code we devise will necessarily use a concrete instance of <code>IssuedInvoices</code>. As we know, <code>IssuedInvoices</code> goes to a database, which is something we have been trying to avoid.
 Thus, we cannot control the way the <code>IssuedInvoice</code> operates, at least for testing purposes.
@@ -976,10 +976,10 @@ Let us go back to our <code>InvoiceFilter</code> example with it now containing 
 testing the &quot;low value invoices&quot; rule. As we have seen many times already, this will incur higher costs.</li>
 <li>This new version of the <code>InvoiceFilter</code> class is definitely more complex than our previous version and complex code are more prone to defects.</li>
 </ul>
-<p>Our previous version was indeed better. It was more cohesive and simpler. More importantly it also had a clear separation between domain code and infrastructure code. This is what software developers should always do when they design systems in order to ensure these two responsibilities are  separated from each other.</p>
+<p>Our previous version was indeed better. It was more cohesive and simpler. More importantly it also had a clear separation between domain code and infrastructure code. This is what software developers should always do when they design systems in order to ensure these two responsibilities are separated from each other.</p>
 <p>This idea of separating infrastructure and domain is explored in the following literature:</p>
 <ul>
-<li>In the <strong>Ports and Adapters</strong> (also called the <strong>Hexagonal Architecture</strong>) idea, as proposed by Alistair Cockburn, it is shown that the domain (business logic) depends on &quot;Ports&quot;, rather than directly on the infrastructure.
+<li>In the <strong>Ports and Adapters</strong> (also called the <strong>Hexagonal Architecture</strong>) idea, as proposed by Alistair Cockburn, the domain (business logic) depends on &quot;Ports&quot;, rather than directly on the infrastructure.
 These ports are interfaces that define what the infrastructure is able to do.
 These ports are completely separated from the implementation of the infrastructure.
 The &quot;adapters&quot;, on the other hand, are very close to the infrastructure.
@@ -991,7 +991,7 @@ They know how the infrastructure works and how to communicate with it.</li>
 <p>Ports and Adapters help us a lot with the testability of our code.
 If our core domain depends only on ports, we can easily stub/mock them.</p>
 <ul>
-<li>In the <strong>Domain-Driven Design</strong> work, Eric Evans proposes that domain (the core of the system) will be isolated from the infrastructure layer. Besides all the design benefits that Eric cites in his book, testers benefit from this separation, as it enables them to exercise parts of code without having to depend on heavy infrastructure.</li>
+<li>In his <strong>Domain-Driven Design</strong> work, Eric Evans proposes that the domain (the core of the system) will be isolated from the infrastructure layer. Besides all the design benefits that Eric cites in his book, testers benefit from this separation, as it enables them to exercise parts of code without having to depend on heavy infrastructure.</li>
 </ul>
 <p>In practice, we observe that separating the infrastructure from domain is often challenging. The database example, where we move all the code to another class is rather a simplistic one. When building software, we often rely on different libraries and frameworks that are often opinionated and require you to follow certain design decisions that might not be ideal, from a testability perspective. It is the duty of a developer to be able to abstract these problems, making sure that the domain concerns are always separated from the infrastructure concerns.</p>
 <p><div class="alert alert-success hints-alert"><div class="hints-icon"><i class="fa fa-mortar-board"></i></div><div class="hints-container"><p>You see developers vouching for domain objects not to depend on concrete implementations of the infrastructure code, but rather, to depend solely on abstractions. In our example, the <code>InvoiceFilter</code> domain object, instead of depending on a concrete implementation of <code>IssuedInvoices</code> (one that right now contains SQL code and knows how to communicate with the database), it would depend on an abstraction/interface.</p>
@@ -1013,13 +1013,13 @@ If our core domain depends only on ports, we can easily stub/mock them.</p>
 <p>We end this chapter with a couple of practical tips that will help you to devise testable systems/classes:</p>
 <ul>
 <li><strong>Cohesion and testability</strong>: cohesive classes are classes that do only one thing.
-Cohesive classes tend to be easier to test. This is because less responsibilities imply less test cases and less responsibilities often imply less dependencies (as you need less to compose the required functionality) which in turn incurs less testing costs.</li>
+Cohesive classes tend to be easier to test. This is because fewer responsibilities imply fewer test cases and fewer responsibilities often imply fewer dependencies (as you need fewer to compose the required functionality) which in turn incurs lower testing costs.</li>
 </ul>
 <p>On the other hand, a non-cohesive class tends to consume a large amount of testing effort from developers. You might notice that a non-cohesive class requires so many test cases, that you often feel like &quot;the testing is never-ending&quot;.</p>
 <p>Refactoring non-cohesive classes is therefore an important task when it comes to testability. A common way to do this is by splitting the non-cohesive class into several smaller-but-cohesive classes. Each small class can then be tested separately, and the class that combines them  might rely either on mock objects to assert the correctness of the interactions among the dependencies or on an integration test (or both).</p>
 <ul>
 <li><strong>Coupling and testability</strong>: Coupling refers to the number of classes that a class depends on. A highly coupled class requires several other
-classes to do its work and therefore, coupling decreases testability. A tester trying to test a highly dependent class ends up having to test all its dependencies together. If the tester then decides to use stubs/mocks, the costs of setting them up will also be higher than it needed to be (just imagine yourself setting up 10 or 15 stubs/mocks to test a single class). Moreover, the number of test cases that would be required to achieve a minimum amount of coverage is too high, as each dependency probably brings together a whole set of requirements and conditions.</li>
+classes to do its work. Coupling decreases testability. A tester trying to test a highly dependent class ends up having to test all its dependencies together. If the tester then decides to use stubs/mocks, the costs of setting them up will also be higher than it needed to be (just imagine yourself setting up 10 or 15 stubs/mocks to test a single class). Moreover, the number of test cases that would be required to achieve a minimum amount of coverage is too high, as each dependency probably brings together a whole set of requirements and conditions.</li>
 </ul>
 <p>Reducing coupling, however, is often tricky, and maybe one of the biggest challenges in software design.
 A common coupling-related refactoring is to group dependencies together into a higher and meaningful abstraction.
@@ -1032,7 +1032,7 @@ too high. </li>
 <p>Reducing the complexity of such conditions, for example by breaking it into multiple smaller conditions, will not reduce the overall complexity of the problem, but will &quot;spread&quot; it.</p>
 <ul>
 <li><strong>Private methods and testability</strong>: A common question among developers is whether to test private methods or not.
-In principle, testers should test private methods only through their public methods. However, testers often feel the urge to test a particular private method in isolation. One common cause for this feeling is the lack of cohesion or the complexity of this private method. In other words, this method does something so different to the public method, and/or its task is so complex, that it has to be tested separately. This is a good example of when &quot;the test speaks to the developer&quot; (a common saying among Test-Driven Developers) and/or its task is so complex, that it has to be tested separately. </li>
+In principle, testers should test private methods only through their public methods. However, testers often feel the urge to test a particular private method in isolation. One common cause for this feeling is the lack of cohesion or the complexity of this private method. In other words, this method does something so different to the public method, and/or its task is so complex, that it has to be tested separately. This is a good example of when &quot;the test speaks to the developer&quot; (a common saying among Test-Driven Developers).</li>
 </ul>
 <p>In terms of the design this might mean that this private method does not belong in its current place. A common refactoring is to extract this method, maybe to a new brand new class. There, the former private method, now a public method, can be tested normally by the developer. The original class, where the private method used to be, should now depend on this new class.</p>
 <ul>
@@ -1185,7 +1185,7 @@ Three developers could benefit from improving either the observability or the co
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Design for testability","level":"5.1.3","depth":2,"next":{"title":"Test-driven development","level":"5.1.4","depth":2,"path":"chapters/pragmatic-testing/tdd.md","ref":"chapters/pragmatic-testing/tdd.md","articles":[]},"previous":{"title":"Mock objects","level":"5.1.2","depth":2,"path":"chapters/pragmatic-testing/mock-objects.md","ref":"chapters/pragmatic-testing/mock-objects.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapters/pragmatic-testing/design-for-testability.md","mtime":"2020-04-08T15:28:19.114Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-08T15:38:03.110Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Design for testability","level":"5.1.3","depth":2,"next":{"title":"Test-driven development","level":"5.1.4","depth":2,"path":"chapters/pragmatic-testing/tdd.md","ref":"chapters/pragmatic-testing/tdd.md","articles":[]},"previous":{"title":"Mock objects","level":"5.1.2","depth":2,"path":"chapters/pragmatic-testing/mock-objects.md","ref":"chapters/pragmatic-testing/mock-objects.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapters/pragmatic-testing/design-for-testability.md","mtime":"2020-04-08T15:59:42.722Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-08T16:02:30.777Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

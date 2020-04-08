@@ -19,10 +19,12 @@ In this chapter, we'll discuss some design practices that increase the testabili
 * The separation between domain and infrastructure code;
 * Implementation-level tips.
 
+TODO: Re-enable video
 
+<!--
 {% set video_id = "iVJNaG3iqrQ" %}
 {% include "/includes/youtube.md" %}
- 
+ -->
  
 ## Dependency injection
  

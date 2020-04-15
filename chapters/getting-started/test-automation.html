@@ -1,0 +1,1268 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Software testing automation · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-hints/plugin-hints.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-katex/katex.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+        <link rel="stylesheet" href="../../assets/css/website.css">
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../testing-techniques/" />
+    
+    
+    <link rel="prev" href="testing-principles.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../preface/authors.html">
+            
+                <a href="../preface/authors.html">
+            
+                    
+                    Authors
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../preface/acknowledgements.html">
+            
+                <a href="../preface/acknowledgements.html">
+            
+                    
+                    Acknowledgements
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../preface/use.html">
+            
+                <a href="../preface/use.html">
+            
+                    
+                    Using this book
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../preface/contribute.html">
+            
+                <a href="../preface/contribute.html">
+            
+                    
+                    Contribute to this book
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../preface/license.html">
+            
+                <a href="../preface/license.html">
+            
+                    
+                    License
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../preface/structure.html">
+            
+                <a href="../preface/structure.html">
+            
+                    
+                    Structure of the book
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Getting started with software testing
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1.1" data-path="why-software-testing.html">
+            
+                <a href="why-software-testing.html">
+            
+                    
+                    Why software testing?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.2" data-path="testing-principles.html">
+            
+                <a href="testing-principles.html">
+            
+                    
+                    Principles of software testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="3.1.3" data-path="test-automation.html">
+            
+                <a href="test-automation.html">
+            
+                    
+                    Software testing automation
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" data-path="../testing-techniques/">
+            
+                <a href="../testing-techniques/">
+            
+                    
+                    Testing techniques
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1.1" data-path="../testing-techniques/specification-based-testing.html">
+            
+                <a href="../testing-techniques/specification-based-testing.html">
+            
+                    
+                    Specification-based testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.2" data-path="../testing-techniques/boundary-testing.html">
+            
+                <a href="../testing-techniques/boundary-testing.html">
+            
+                    
+                    Boundary testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.3" data-path="../testing-techniques/structural-testing.html">
+            
+                <a href="../testing-techniques/structural-testing.html">
+            
+                    
+                    Structural testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.4" data-path="../testing-techniques/model-based-testing.html">
+            
+                <a href="../testing-techniques/model-based-testing.html">
+            
+                    
+                    Model-based testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.5" data-path="../testing-techniques/design-by-contracts.html">
+            
+                <a href="../testing-techniques/design-by-contracts.html">
+            
+                    
+                    Design-by-contracts
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.6" data-path="../testing-techniques/property-based-testing.html">
+            
+                <a href="../testing-techniques/property-based-testing.html">
+            
+                    
+                    Property-based testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="5.1" data-path="../pragmatic-testing/">
+            
+                <a href="../pragmatic-testing/">
+            
+                    
+                    Pragmatic software testing
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1.1" data-path="../pragmatic-testing/testing-pyramid.html">
+            
+                <a href="../pragmatic-testing/testing-pyramid.html">
+            
+                    
+                    The testing pyramid
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.2" data-path="../pragmatic-testing/mock-objects.html">
+            
+                <a href="../pragmatic-testing/mock-objects.html">
+            
+                    
+                    Mock objects
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.3" data-path="../pragmatic-testing/design-for-testability.html">
+            
+                <a href="../pragmatic-testing/design-for-testability.html">
+            
+                    
+                    Design for testability
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.4" data-path="../pragmatic-testing/tdd.html">
+            
+                <a href="../pragmatic-testing/tdd.html">
+            
+                    
+                    Test-driven development
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.5" data-path="../pragmatic-testing/test-code-quality.html">
+            
+                <a href="../pragmatic-testing/test-code-quality.html">
+            
+                    
+                    Test code quality and engineering
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="6.1" data-path="../intelligent-testing/">
+            
+                <a href="../intelligent-testing/">
+            
+                    
+                    Intelligent testing
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="6.1.1" data-path="../intelligent-testing/random-testing.html">
+            
+                <a href="../intelligent-testing/random-testing.html">
+            
+                    
+                    Random testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.2" data-path="../intelligent-testing/mutation-testing.html">
+            
+                <a href="../intelligent-testing/mutation-testing.html">
+            
+                    
+                    Mutation testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.3" data-path="../intelligent-testing/fuzzing.html">
+            
+                <a href="../intelligent-testing/fuzzing.html">
+            
+                    
+                    Fuzzing testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.4" data-path="../intelligent-testing/sbst.html">
+            
+                <a href="../intelligent-testing/sbst.html">
+            
+                    
+                    Search-based software testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="7.1" data-path="../testing-into-context/">
+            
+                <a href="../testing-into-context/">
+            
+                    
+                    Testing in the context
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="7.1.1" data-path="../testing-into-context/web-testing.html">
+            
+                <a href="../testing-into-context/web-testing.html">
+            
+                    
+                    Web testing (soon)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.1.2" >
+            
+                <span>
+            
+                    
+                    Database testing (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.1.3" >
+            
+                <span>
+            
+                    
+                    Mobile testing (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.1.4" >
+            
+                <span>
+            
+                    
+                    Continuous experimentation (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.1.5" >
+            
+                <span>
+            
+                    
+                    Embedded software testing (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="8.1" data-path="../non-functional-testing/">
+            
+                <a href="../non-functional-testing/">
+            
+                    
+                    Non-functional testing
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.1.1" data-path="../non-functional-testing/security-testing.html">
+            
+                <a href="../non-functional-testing/security-testing.html">
+            
+                    
+                    Security testing (soon)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.2" >
+            
+                <span>
+            
+                    
+                    Performance testing (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="9.1" >
+            
+                <span>
+            
+                    
+                    Software Quality
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="9.1.1" >
+            
+                <span>
+            
+                    
+                    Code reviews (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.1.2" >
+            
+                <span>
+            
+                    
+                    Code metrics (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.1.3" >
+            
+                <span>
+            
+                    
+                    Ethics and testing (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="10.1" >
+            
+                <span>
+            
+                    
+                    Appendix
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="10.1.1" data-path="../appendix/answers.html">
+            
+                <a href="../appendix/answers.html">
+            
+                    
+                    Answers to the exercises
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="10.1.2" data-path="../appendix/changelog.html">
+            
+                <a href="../appendix/changelog.html">
+            
+                    
+                    Change log
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >Software testing automation</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="software-testing-automation-with-junit">Software testing automation (with JUnit)</h1>
+<p>Before we dive into the different testing techniques, let us first get used
+to software testing automation frameworks. In this book, we will use JUnit, as
+all our code examples are written in Java. If you are using a different programming language in your daily work, note that testing frameworks in other languages offer similar functionalities.</p>
+<p>We will now introduce an example program and then use it to demonstrate how to write JUnit tests. The code implemented in this chapter can be found at the <code>roman</code> package in the <a href="https://github.com/sttp-book/code-examples/" target="_blank">code examples</a> repository.</p>
+<blockquote>
+<p><strong>Requirement: Roman numerals</strong></p>
+<p>Implement a program that receives a string as a parameter
+containing a roman number and then converts it to an integer.</p>
+<p>In roman numerals, letters represent values:</p>
+<ul>
+<li>I = 1</li>
+<li>V = 5</li>
+<li>X = 10</li>
+<li>L = 50</li>
+<li>C = 100</li>
+<li>D = 500</li>
+<li>M = 1000</li>
+</ul>
+<p>Letters can be combined to form numbers.
+The letters should be ordered from the highest to the lowest value.
+For example <code>CCXVI</code> would be 216.</p>
+<p>Some numbers need to make use of a subtractive notation to be represented.
+Example: 9 is <code>IX</code>, 40 is <code>XL</code>, 14 is <code>XIV</code>.</p>
+</blockquote>
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/srJ91NRpT_w" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+
+
+
+<p>A possible implementation for the <em>Roman Numerals</em> requirement is as follows:</p>
+<pre><code class="lang-java"><span class="hljs-keyword">package</span> tudelft.roman;
+
+<span class="hljs-keyword">import</span> java.util.HashMap;
+<span class="hljs-keyword">import</span> java.util.Map;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RomanNumeral</span> </span>{
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Map&lt;Character, Integer&gt; map;
+
+  <span class="hljs-keyword">static</span> {
+    map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();
+    map.put(<span class="hljs-string">&apos;I&apos;</span>, <span class="hljs-number">1</span>);
+    map.put(<span class="hljs-string">&apos;V&apos;</span>, <span class="hljs-number">5</span>);
+    map.put(<span class="hljs-string">&apos;X&apos;</span>, <span class="hljs-number">10</span>);
+    map.put(<span class="hljs-string">&apos;L&apos;</span>, <span class="hljs-number">50</span>);
+    map.put(<span class="hljs-string">&apos;C&apos;</span>, <span class="hljs-number">100</span>);
+    map.put(<span class="hljs-string">&apos;D&apos;</span>, <span class="hljs-number">500</span>);
+    map.put(<span class="hljs-string">&apos;M&apos;</span>, <span class="hljs-number">1000</span>);
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">convert</span><span class="hljs-params">(String s)</span> </span>{
+    <span class="hljs-keyword">int</span> convertedNumber = <span class="hljs-number">0</span>;
+
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; s.length(); i++) {
+      <span class="hljs-keyword">int</span> currentNumber = map.get(s.charAt(i));
+      <span class="hljs-keyword">int</span> next = i + <span class="hljs-number">1</span> &lt; s.length() ? map.get(s.charAt(i + <span class="hljs-number">1</span>)) : <span class="hljs-number">0</span>;
+
+      <span class="hljs-keyword">if</span> (currentNumber &gt;= next) {
+        convertedNumber += currentNumber;
+      } <span class="hljs-keyword">else</span> {
+        convertedNumber -= currentNumber;
+      }
+    }
+
+    <span class="hljs-keyword">return</span> convertedNumber;
+  }
+}
+</code></pre>
+<p>With the implementation in hands, the next step is to devise
+test cases for the program.
+Use your experience as a developer to devise as many test cases as you can.
+To get you started, a few examples: </p>
+<ul>
+<li>T1 = Just one letter, e.g., C should equal 100</li>
+<li>T2 = Different letters combined, e.g., CLV = 155</li>
+<li>T3 = Subtractive notation, e.g., CM = 900</li>
+</ul>
+<p>In future chapters, we will explore how to devise those test cases. The output
+of that stage will often be similar to the one above: a test case number,
+an explanation of what the test is about (we will later call it <em>class</em> or <em>partition</em>),
+and a concrete instance of input that exercises the program in that way, together
+with the expected output.</p>
+<p>Once you are done with the &quot;manual task of devising test cases&quot;, you are ready to move on to the next section, which shows how to turn them into automated test cases using JUnit.</p>
+<h2 id="the-junit-framework">The JUnit Framework</h2>
+<p>Testing frameworks enable us to write test cases in a way that they can be easily executed by the machine. In Java, the standard framework to write automated tests is JUnit, and its most recent version is 5.x.</p>
+<p>The steps to create a JUnit class/test is often the following:</p>
+<ul>
+<li><p>Create a Java class under the directory <code>/src/test/java/roman/</code> (or whatever test directory your project structure uses). As a convention, the name of the test class is similar to the name of the class under test. For example, a class that tests the <code>RomanNumeral</code> class is often called <code>RomanNumeralTest</code>. In terms of package structure, the test class also inherits the same package as the class under test. In our case, <code>tudelft.roman</code>.</p>
+</li>
+<li><p>For each test case we devise for the program/class, we write a test method. A JUnit test method returns <code>void</code> and is annotated with <code>@Test</code> (an annotation that comes from JUnit 5&apos;s <code>org.junit.jupiter.api.Test</code>). The name of the test method does not matter to JUnit, but it does matter to us. A best practice is to name the test after the case it tests. </p>
+</li>
+<li><p>The test method instantiates the class under test and invokes the method under test. The test method passes the previously defined input in the test case definition to the method/class. The test method then stores the result of the method call (e.g., in a variable).</p>
+</li>
+<li><p>The test method asserts that the actual output matches the expected output. The expected output was defined during the test case definition phase. To check the outcome with the expected value, we use assertions. An assertion checks whether a certain expectation is met; if not, it throws an <code>AssertionError</code> and thereby causes the test to fail. A couple of useful assertions are:</p>
+<ul>
+<li><code>Assertions.assertEquals(expected, actual)</code>: Compares whether the expected and actual values are equal. The test fails otherwise. Be sure to pass the expected value as the first argument, and the actual value (the value that comes from the program under test) as the second argument.
+Otherwise the fail message of the test will not make sense.</li>
+<li><code>Assertions.assertTrue(condition)</code>: Passes if the condition evaluates to true, fails otherwise.</li>
+<li><code>Assertions.assertFalse(condition)</code>: Passes if the condition evaluates to false, fails otherwise.</li>
+<li>More assertions and additional arguments can be found in <a href="https://junit.org/junit5/docs/current/api/org.junit.jupiter.api/org/junit/jupiter/api/Assertions.html" target="_blank">JUnit&apos;s documentation</a>. To make easy use of the assertions and to import them all in one go, you can use <code>import static org.junit.jupiter.api.Assertions.*;</code>.</li>
+</ul>
+</li>
+</ul>
+<p>The three test cases we have devised can be automated as follows:</p>
+<pre><code class="lang-java"><span class="hljs-keyword">package</span> tudelft.roman;
+
+<span class="hljs-keyword">import</span> <span class="hljs-keyword">static</span> org.junit.jupiter.api.Assertions.*;
+
+<span class="hljs-keyword">import</span> org.junit.jupiter.api.Test;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RomanNumeralTest</span> </span>{
+
+  <span class="hljs-meta">@Test</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">convertSingleDigit</span><span class="hljs-params">()</span> </span>{
+    RomanNumeral roman = <span class="hljs-keyword">new</span> RomanNumeral();
+    <span class="hljs-keyword">int</span> result = roman.convert(<span class="hljs-string">&quot;C&quot;</span>);
+
+    assertEquals(<span class="hljs-number">100</span>, result);
+  }
+
+  <span class="hljs-meta">@Test</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">convertNumberWithDifferentDigits</span><span class="hljs-params">()</span> </span>{
+    RomanNumeral roman = <span class="hljs-keyword">new</span> RomanNumeral();
+    <span class="hljs-keyword">int</span> result = roman.convert(<span class="hljs-string">&quot;CCXVI&quot;</span>);
+
+    assertEquals(<span class="hljs-number">216</span>, result);
+  }
+
+  <span class="hljs-meta">@Test</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">convertNumberWithSubtractiveNotation</span><span class="hljs-params">()</span> </span>{
+    RomanNumeral roman = <span class="hljs-keyword">new</span> RomanNumeral();
+    <span class="hljs-keyword">int</span> result = roman.convert(<span class="hljs-string">&quot;XL&quot;</span>);
+
+    assertEquals(<span class="hljs-number">40</span>, result);
+  }
+}
+</code></pre>
+<p>At this point, if you see other possible test cases (there are!), go ahead and implement them.</p>
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/XS4-93Q4Zy8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+
+
+<h2 id="test-code-engineering-matters">Test code engineering matters</h2>
+<p>In practice, developers write (and maintain!) thousands of test code lines. 
+Taking care of the quality of test code is therefore of utmost importance.
+Whenever possible, we will introduce you to some best practices in test
+code engineering.</p>
+<p>In the test code above, we create the <code>roman</code> object four times.
+Having a fresh clean instance of an object for each test method is a good idea, as 
+we do not want &quot;objects that might be already dirty&quot; (and thus, being the cause for the test to fail, and not because there was a bug in the code) in our test. </p>
+<p>However, having duplicated code is not desirable. The problem with duplicated test code
+is the same as in production code: if there is a change to be made, the change has to be made
+in all the points where the duplicated code exists.</p>
+<p>In this example, we should try to isolate the line of code responsible for creating
+the class under test.
+In order to do so, we can use the <code>@BeforeEach</code> feature that JUnit provides.
+JUnit runs methods that are annotated with <code>@BeforeEach</code> before every test method.
+We therefore can instantiate the <code>roman</code> object inside a method annotated with <code>BeforeEach</code>.</p>
+<p>Although you might be asking yourself: &quot;But it is just a single line of code... Does it really matter?&quot;, remember that as test code becomes more complicated, the more important test code quality becomes.</p>
+<p>The new test code would look as follows:</p>
+<pre><code class="lang-java"><span class="hljs-keyword">import</span> org.junit.jupiter.api.BeforeEach;
+<span class="hljs-keyword">import</span> org.junit.jupiter.api.Test;
+
+<span class="hljs-keyword">import</span> <span class="hljs-keyword">static</span> org.junit.jupiter.api.Assertions.*;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RomanNumeralTest</span> </span>{
+
+  <span class="hljs-keyword">private</span> RomanNumeral roman;
+
+  <span class="hljs-meta">@BeforeEach</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setup</span><span class="hljs-params">()</span> </span>{
+    roman = <span class="hljs-keyword">new</span> RomanNumeral();
+  }
+
+  <span class="hljs-meta">@Test</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">convertSingleDigit</span><span class="hljs-params">()</span> </span>{
+    roman = <span class="hljs-keyword">new</span> RomanNumeral();
+    <span class="hljs-keyword">int</span> result = roman.convert(<span class="hljs-string">&quot;C&quot;</span>);
+
+    assertEquals(<span class="hljs-number">100</span>, result);
+  }
+
+  <span class="hljs-meta">@Test</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">convertNumberWithDifferentDigits</span><span class="hljs-params">()</span> </span>{
+    roman = <span class="hljs-keyword">new</span> RomanNumeral();
+    <span class="hljs-keyword">int</span> result = roman.convert(<span class="hljs-string">&quot;CCXVI&quot;</span>);
+
+    assertEquals(<span class="hljs-number">216</span>, result);
+  }
+
+  <span class="hljs-meta">@Test</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">convertNumberWithSubtractiveNotation</span><span class="hljs-params">()</span> </span>{
+    roman = <span class="hljs-keyword">new</span> RomanNumeral();
+    <span class="hljs-keyword">int</span> result = roman.convert(<span class="hljs-string">&quot;XL&quot;</span>);
+
+    assertEquals(<span class="hljs-number">40</span>, result);
+  }
+}
+</code></pre>
+<p>Feel free to read more about <a href="https://junit.org/junit5/docs/current/user-guide/#writing-tests-annotations" target="_blank">JUnit&apos;s annotations</a> in its documentation.</p>
+<p>We discuss test code quality in a more systematic way in a future 
+chapter.</p>
+<h2 id="tests-and-refactoring">Tests and refactoring</h2>
+<p>A more experienced Java developer might be looking at our implementation of the
+Roman Numeral problem and thinking that there are more elegant ways of implementing it.
+That is indeed true. <em>Software refactoring</em> is a constant activity in software
+development. </p>
+<p>However, how can one refactor the code and still make sure it presents the same behaviour?
+Without automated tests, that might be a costly activity. Developers would have to perform
+manual tests after every single refactoring operation. Software refactoring activities benefit
+from extensive automated test suites, as developers can refactor their code and, in a matter
+of seconds or minutes, get a clear feedback from the tests.</p>
+<p>See this new version of the <code>RomanNumeral</code> class, where we deeply refactored the code:</p>
+<ul>
+<li>We gave a better name to the method: we call it <code>asArabic()</code> now.</li>
+<li>We inlined the declaration of the Map, and used the <code>Map.of</code> utility method.</li>
+<li>We make use of an auxiliary array (<code>digits</code>) to get the current number inside the loop.</li>
+<li>We extracted a private method that decides whether it is a subtractive operation.</li>
+<li>We made use of the <code>var</code> keyword, as introduced in Java 10.</li>
+</ul>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RomanNumeral</span> </span>{
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">static</span> Map&lt;Character, Integer&gt; CHAR_TO_DIGIT = 
+    Map.of(<span class="hljs-string">&apos;I&apos;</span>, <span class="hljs-number">1</span>, <span class="hljs-string">&apos;V&apos;</span>, <span class="hljs-number">5</span>, <span class="hljs-string">&apos;X&apos;</span>, <span class="hljs-number">10</span>, <span class="hljs-string">&apos;L&apos;</span>, <span class="hljs-number">50</span>, <span class="hljs-string">&apos;C&apos;</span>, <span class="hljs-number">100</span>, <span class="hljs-string">&apos;D&apos;</span>, <span class="hljs-number">500</span>, <span class="hljs-string">&apos;M&apos;</span>, <span class="hljs-number">1000</span>);
+
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">asArabic</span><span class="hljs-params">(String roman)</span> </span>{
+    <span class="hljs-keyword">final</span> var digits = roman
+      .chars()
+      .map(c -&gt; CHAR_TO_DIGIT.get((<span class="hljs-keyword">char</span>)c)).toArray();
+
+    var result = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; digits.length; i++) {
+      <span class="hljs-keyword">final</span> var currentNumber = digits[i];
+
+      result += isSubtractive(digits, i, currentNumber) ? 
+                  -currentNumber : 
+                  currentNumber;
+    }
+
+    <span class="hljs-keyword">return</span> result;
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isSubtractive</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] digits, <span class="hljs-keyword">int</span> i, <span class="hljs-keyword">int</span> currentNumber)</span> </span>{
+    <span class="hljs-keyword">return</span> i + <span class="hljs-number">1</span> &lt; digits.length
+        &amp;&amp; currentNumber &lt; digits[i + <span class="hljs-number">1</span>];
+  }
+}
+</code></pre>
+<p>The number of refactoring operations is not small. And experience shows us that a lot
+of things can go wrong. Luckily, we now have an automated test suite that we can run and
+get some feedback.</p>
+<p>Let us also take the opportunity and improve our test code:</p>
+<ul>
+<li>Given that our goal was to isolate the single line of code that instantiated the class under test, instead of using the <code>@BeforeEach</code>, we now instantiate it directly in the class. JUnit creates a new instance of the test class before each test (again, as a way to help developers in avoiding test cases that fail due to previous test executions). This allows us to mark the field as <code>final</code>.</li>
+<li>We inlined the method call and the assertion. Now tests are written in a single line.</li>
+<li>We give test methods better names. It is common to rename test methods; the more we understand the problem, the more we can give good names to the test cases.</li>
+<li>We devised one more test case and added it to the test suite.</li>
+</ul>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RomanNumeralTest</span> </span>{
+  <span class="hljs-comment">/*
+  JUnit creates a new instance of the class before each test,
+  so test setup can be assigned as instance fields.
+  This has the advantage that references can be made final
+  */</span>
+  <span class="hljs-keyword">final</span> <span class="hljs-keyword">private</span> RomanNumeral roman = <span class="hljs-keyword">new</span> RomanNumeral();
+
+  <span class="hljs-meta">@Test</span>
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">singleNumber</span><span class="hljs-params">()</span> </span>{
+      Assertions.assertEquals(<span class="hljs-number">1</span>, roman.asArabic(<span class="hljs-string">&quot;I&quot;</span>));
+  }
+
+  <span class="hljs-meta">@Test</span>
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">numberWithManyDigits</span><span class="hljs-params">()</span> </span>{
+      Assertions.assertEquals(<span class="hljs-number">8</span>, roman.asArabic(<span class="hljs-string">&quot;VIII&quot;</span>));
+  }
+
+  <span class="hljs-meta">@Test</span>
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">numberWithSubtractiveNotation</span><span class="hljs-params">()</span> </span>{
+      Assertions.assertEquals(<span class="hljs-number">4</span>, roman.asArabic(<span class="hljs-string">&quot;IV&quot;</span>));
+  }
+
+  <span class="hljs-meta">@Test</span>
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">numberWithAndWithoutSubtractiveNotation</span><span class="hljs-params">()</span> </span>{
+      Assertions.assertEquals(<span class="hljs-number">44</span>, roman.asArabic(<span class="hljs-string">&quot;XLIV&quot;</span>));
+  }
+}
+</code></pre>
+<p>Lessons to be learned: </p>
+<ul>
+<li>Get to know your testing framework. </li>
+<li>Never stop refactoring your production code.</li>
+<li>Never stop refactoring your test code.</li>
+</ul>
+<h2 id="advantages-of-test-automation">Advantages of test automation</h2>
+<p>Having an automated test suite brings several advantages to software
+development teams. Automated test suites:</p>
+<ul>
+<li><p><strong>Are less prone to obvious mistakes.</strong> Developers who perform manual testing several times a day might make mistakes, e.g., by forgetting to execute a test case, by mistakenly marking a test as passed when the software actually exhibited faulty behaviour, etc.</p>
+</li>
+<li><p><strong>Execute tests faster than developers.</strong> The machine can run test cases way faster than developers can. Just imagine more complicated scenarios where the developers would have to type long sequences of inputs, verify the output at several different parts of the system. An automated test runs and gives feedback orders of magnitude faster than developers.</p>
+</li>
+<li><p><strong>Brings confidence during refactoring.</strong> As we just saw in the example, automated test suites enables developers to refactor their code more constantly. After all, developers know that they have a safety net; if something goes wrong, the test will fail.</p>
+</li>
+</ul>
+<p>Clearly, at first, one might argue that writing test code might feel like a loss in productivity. 
+After all, developers now have to not only write production code, but also test code.
+Developers now have to not only maintain production code, but also maintain test code.
+ <em>This could not be further from the truth</em>.
+ Once you master the tools and techniques, formalising test cases as JUnit methods
+will actually save you time; imagine how many times you have executed the same 
+manual test over and over. How much time have you lost by doing 
+the same task repeatedly? </p>
+<p>Studies have shown that developers who write tests spend less time debugging their systems when compared to developers who do not (Janzen), that the
+impact in productivity is not as significant as one would think (Maximilien and Williams), 
+and that bugs
+are fixed faster (Lui and Chen). Truth be told: 
+these experiments compared teams using Test-Driven Development (TDD) against teams not
+using TDD, and not the existence of a test suite per se. Still, the presence of test code
+is the remarking characteristic that emerges from TDD. Nevertheless, as a society,
+we might not need more evidence on the benefits of test automation. If we look around,
+from small and big companies to big open source projects, they all rely on extensive
+test suites to ensure quality. <strong>Testing (and test automation) pays off.</strong></p>
+<h2 id="exercises">Exercises</h2>
+<p><strong>Exercise 1.</strong>
+Implement the <code>RomanNumeral</code> class. Then, write as many tests as you
+can for it, using JUnit.</p>
+<p>For now, do not worry about how to derive test cases. Just follow
+your intuition. </p>
+<p><strong>Exercise 2.</strong>
+Choose a problem from <a href="https://codingbat.com/java/Logic-2" target="_blank">CodingBat</a>. Solve it.
+Then, write as many tests as you
+can for it, using JUnit.</p>
+<p>For now, do not worry about how to derive test cases. Just follow
+your intuition. </p>
+<h2 id="references">References</h2>
+<ul>
+<li><p>Pragmatic Unit Testing in Java 8 with Junit. Langr, Hunt, and Thomas. Pragmatic Programmers, 2015.</p>
+</li>
+<li><p>JUnit&apos;s manual: <a href="https://junit.org/junit5/docs/current/user-guide/" target="_blank">https://junit.org/junit5/docs/current/user-guide/</a>.</p>
+</li>
+<li><p>JUnit&apos;s manual, Annotations: <a href="https://junit.org/junit5/docs/current/user-guide/#writing-tests-annotations" target="_blank">https://junit.org/junit5/docs/current/user-guide/#writing-tests-annotations</a>.</p>
+</li>
+</ul>
+<ul>
+<li><p>Janzen, D. S. (2005, October). Software architecture improvement through test-driven development. In Companion to the 20th annual ACM SIGPLAN conference on Object-oriented programming, systems, languages, and applications (pp. 240-241).</p>
+</li>
+<li><p>Maximilien, E. M., &amp; Williams, L. (2003, May). Assessing test-driven development at IBM. In 25th International Conference on Software Engineering, 2003. Proceedings. (pp. 564-569). IEEE.</p>
+</li>
+<li><p>Lui, K. M., &amp; Chan, K. C. (2004, June). Test driven development and software process improvement in china. In International Conference on Extreme Programming and Agile Processes in Software Engineering (pp. 219-222). Springer, Berlin, Heidelberg.</p>
+</li>
+</ul>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="testing-principles.html" class="navigation navigation-prev " aria-label="Previous page: Principles of software testing">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../testing-techniques/" class="navigation navigation-next " aria-label="Next page: Testing techniques">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Software testing automation","level":"3.1.3","depth":2,"next":{"title":"Testing techniques","level":"4.1","depth":1,"path":"chapters/testing-techniques/README.md","ref":"chapters/testing-techniques/README.md","articles":[{"title":"Specification-based testing","level":"4.1.1","depth":2,"path":"chapters/testing-techniques/specification-based-testing.md","ref":"chapters/testing-techniques/specification-based-testing.md","articles":[]},{"title":"Boundary testing","level":"4.1.2","depth":2,"path":"chapters/testing-techniques/boundary-testing.md","ref":"chapters/testing-techniques/boundary-testing.md","articles":[]},{"title":"Structural testing","level":"4.1.3","depth":2,"path":"chapters/testing-techniques/structural-testing.md","ref":"chapters/testing-techniques/structural-testing.md","articles":[]},{"title":"Model-based testing","level":"4.1.4","depth":2,"path":"chapters/testing-techniques/model-based-testing.md","ref":"chapters/testing-techniques/model-based-testing.md","articles":[]},{"title":"Design-by-contracts","level":"4.1.5","depth":2,"path":"chapters/testing-techniques/design-by-contracts.md","ref":"chapters/testing-techniques/design-by-contracts.md","articles":[]},{"title":"Property-based testing","level":"4.1.6","depth":2,"path":"chapters/testing-techniques/property-based-testing.md","ref":"chapters/testing-techniques/property-based-testing.md","articles":[]}]},"previous":{"title":"Principles of software testing","level":"3.1.2","depth":2,"path":"chapters/getting-started/testing-principles.md","ref":"chapters/getting-started/testing-principles.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/getting-started/test-automation.md","mtime":"2020-04-15T15:51:53.540Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-15T16:01:56.907Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-ga/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

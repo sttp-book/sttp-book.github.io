@@ -1,0 +1,989 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Property-based testing · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-hints/plugin-hints.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-katex/katex.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+        <link rel="stylesheet" href="../../assets/css/website.css">
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../pragmatic-testing/" />
+    
+    
+    <link rel="prev" href="design-by-contracts.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../preface/authors.html">
+            
+                <a href="../preface/authors.html">
+            
+                    
+                    Authors
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../preface/acknowledgements.html">
+            
+                <a href="../preface/acknowledgements.html">
+            
+                    
+                    Acknowledgements
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../preface/use.html">
+            
+                <a href="../preface/use.html">
+            
+                    
+                    Using this book
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../preface/contribute.html">
+            
+                <a href="../preface/contribute.html">
+            
+                    
+                    Contribute to this book
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../preface/license.html">
+            
+                <a href="../preface/license.html">
+            
+                    
+                    License
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../preface/structure.html">
+            
+                <a href="../preface/structure.html">
+            
+                    
+                    Structure of the book
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../getting-started/">
+            
+                <a href="../getting-started/">
+            
+                    
+                    Getting started with software testing
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1.1" data-path="../getting-started/why-software-testing.html">
+            
+                <a href="../getting-started/why-software-testing.html">
+            
+                    
+                    Why software testing?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.2" data-path="../getting-started/testing-principles.html">
+            
+                <a href="../getting-started/testing-principles.html">
+            
+                    
+                    Principles of software testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.3" data-path="../getting-started/test-automation.html">
+            
+                <a href="../getting-started/test-automation.html">
+            
+                    
+                    Software testing automation
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Testing techniques
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1.1" data-path="specification-based-testing.html">
+            
+                <a href="specification-based-testing.html">
+            
+                    
+                    Specification-based testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.2" data-path="boundary-testing.html">
+            
+                <a href="boundary-testing.html">
+            
+                    
+                    Boundary testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.3" data-path="structural-testing.html">
+            
+                <a href="structural-testing.html">
+            
+                    
+                    Structural testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.4" data-path="model-based-testing.html">
+            
+                <a href="model-based-testing.html">
+            
+                    
+                    Model-based testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.5" data-path="design-by-contracts.html">
+            
+                <a href="design-by-contracts.html">
+            
+                    
+                    Design-by-contracts
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="4.1.6" data-path="property-based-testing.html">
+            
+                <a href="property-based-testing.html">
+            
+                    
+                    Property-based testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="5.1" data-path="../pragmatic-testing/">
+            
+                <a href="../pragmatic-testing/">
+            
+                    
+                    Pragmatic software testing
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1.1" data-path="../pragmatic-testing/testing-pyramid.html">
+            
+                <a href="../pragmatic-testing/testing-pyramid.html">
+            
+                    
+                    The testing pyramid
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.2" data-path="../pragmatic-testing/mock-objects.html">
+            
+                <a href="../pragmatic-testing/mock-objects.html">
+            
+                    
+                    Mock objects
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.3" data-path="../pragmatic-testing/design-for-testability.html">
+            
+                <a href="../pragmatic-testing/design-for-testability.html">
+            
+                    
+                    Design for testability
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.4" data-path="../pragmatic-testing/tdd.html">
+            
+                <a href="../pragmatic-testing/tdd.html">
+            
+                    
+                    Test-driven development
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.5" data-path="../pragmatic-testing/test-code-quality.html">
+            
+                <a href="../pragmatic-testing/test-code-quality.html">
+            
+                    
+                    Test code quality and engineering
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="6.1" data-path="../intelligent-testing/">
+            
+                <a href="../intelligent-testing/">
+            
+                    
+                    Intelligent testing
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="6.1.1" data-path="../intelligent-testing/random-testing.html">
+            
+                <a href="../intelligent-testing/random-testing.html">
+            
+                    
+                    Random testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.2" data-path="../intelligent-testing/mutation-testing.html">
+            
+                <a href="../intelligent-testing/mutation-testing.html">
+            
+                    
+                    Mutation testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.3" data-path="../intelligent-testing/fuzzing.html">
+            
+                <a href="../intelligent-testing/fuzzing.html">
+            
+                    
+                    Fuzzing testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.4" data-path="../intelligent-testing/sbst.html">
+            
+                <a href="../intelligent-testing/sbst.html">
+            
+                    
+                    Search-based software testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="7.1" data-path="../testing-into-context/">
+            
+                <a href="../testing-into-context/">
+            
+                    
+                    Testing in the context
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="7.1.1" data-path="../testing-into-context/web-testing.html">
+            
+                <a href="../testing-into-context/web-testing.html">
+            
+                    
+                    Web testing (soon)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.1.2" >
+            
+                <span>
+            
+                    
+                    Database testing (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.1.3" >
+            
+                <span>
+            
+                    
+                    Mobile testing (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.1.4" >
+            
+                <span>
+            
+                    
+                    Continuous experimentation (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.1.5" >
+            
+                <span>
+            
+                    
+                    Embedded software testing (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="8.1" data-path="../non-functional-testing/">
+            
+                <a href="../non-functional-testing/">
+            
+                    
+                    Non-functional testing
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.1.1" data-path="../non-functional-testing/security-testing.html">
+            
+                <a href="../non-functional-testing/security-testing.html">
+            
+                    
+                    Security testing (soon)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.2" >
+            
+                <span>
+            
+                    
+                    Performance testing (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="9.1" >
+            
+                <span>
+            
+                    
+                    Software Quality
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="9.1.1" >
+            
+                <span>
+            
+                    
+                    Code reviews (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.1.2" >
+            
+                <span>
+            
+                    
+                    Code metrics (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.1.3" >
+            
+                <span>
+            
+                    
+                    Ethics and testing (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="10.1" >
+            
+                <span>
+            
+                    
+                    Appendix
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="10.1.1" data-path="../appendix/answers.html">
+            
+                <a href="../appendix/answers.html">
+            
+                    
+                    Answers to the exercises
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="10.1.2" data-path="../appendix/changelog.html">
+            
+                <a href="../appendix/changelog.html">
+            
+                    
+                    Change log
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >Property-based testing</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="property-based-testing">Property-Based Testing</h1>
+<p>We briefly mentioned property checks when talking about design-by-contracts.
+There, we used the properties in assertions.
+We can also use the properties for test case generation instead of just assertions.</p>
+<p>Given that these properties should always hold, we can test them with any input that we like.
+We typically make use of a generator to try a high number of different inputs,
+without the need of writing them all ourselves.</p>
+<p>These generators often create a series of random input values for a test function.
+The test function then checks if the property holds using an assertion.
+For each of the generated input values, this assertion is checked. If we find an input value that makes the assertion to fail, we can affirm that the property does not hold.</p>
+<p>The first implementation of this idea was called <em>QuickCheck</em> and was originally developed for Haskell.
+Nowadays, most languages have an implementation of QuickCheck, including Java.
+The Java implementation we are going to use is made by Paul Holser and is available on his <a href="https://github.com/pholser/junit-quickcheck" target="_blank">GitHub</a>.
+All implementations of QuickCheck follow the same idea, but we will focus on the Java implementation.</p>
+<h2 id="getting-started-with-property-based-tests">Getting started with property-based tests</h2>
+<p>How does it work?</p>
+<ul>
+<li><p>First, we define properties.
+Similar to defining test methods, we use an annotation on a method with an assertion to define a property: <code>@Property</code>.
+QuickCheck includes a number of generators for various types.
+For example, Strings, Integers, Lists, Dates, etc.</p>
+</li>
+<li><p>To generate values, we add some parameters to the annotated method.
+The arguments for these parameters will then be automatically generated by QuickCheck.
+Note that the existing generators are often not enough when we want to test one
+of our own classes; in these cases, we can create a custom generator which generates random values for this class.</p>
+</li>
+<li><p>QuickCheck handles the number of generated inputs. After all, generating random values for the test input is tricky:
+the generator might create too much data to efficiently handle while testing.</p>
+</li>
+<li><p>Finally, as soon as QuickCheck finds a value that breaks the property, it
+starts the shrinking process.
+Using random input values can result in very large inputs.
+For example lists that are very long or strings with a lot of characters.
+These inputs can be very hard to debug. Smaller inputs are preferable when it comes to testing.
+When an input makes the property fail, QuickCheck tries to find shrink this input while it still makes the property fail.
+That way it gets the small part of the larger input that actually causes the problem.</p>
+</li>
+</ul>
+<p>As an example:
+a property of Strings is that if we add two strings together, the length of the result should be the same as the sum of the lengths of the two strings summed.
+We can use property-based testing and the QuickCheck&apos;s implementation to make tests for this property.</p>
+<pre><code class="lang-java"><span class="hljs-meta">@Runwith</span>(JUnitQuickcheck.class)
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PropertyTest</span> </span>{
+
+  <span class="hljs-meta">@Property</span>
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">concatenationLength</span><span class="hljs-params">(String s1, String s2)</span> </span>{
+    assertEquals(s1.length() + s2.length(), (s1 + s2).length())
+  }
+}
+</code></pre>
+<p><code>concatenationLength</code> had the <code>Property</code> annotation, so QuickCheck will generate random values for <code>s1</code> and <code>s2</code> and execute the test with those values.</p>
+<p>Property-based testing changes the way we automate our tests.
+We have only been automating the execution of our tests; the design and instantiation of test cases were always done by us, testers.
+With property-based testing, by means of QuickCheck&apos;s implementation, we also automatically generate the inputs of the tests.</p>
+<h2 id="property-based-testing-and-ai">Property-based testing and AI</h2>
+<p>A lot of today&apos;s research goes into a AI for software testing is about generating good input values for the tests.
+We try to apply artificial intelligence to find inputs that exercise an important parts of the system.</p>
+<p>While the research&apos;s results are very promising, there still exist difficulties with this test approach.
+The main problem is that if the AI generates random inputs, how do we know for sure that the outcome is correct, i.e., how do we know that the problem behaved correctly for that random value?
+With the unit test we made so far we manually took certain inputs, thought about the correct outcome, and made the assertion to expect that outcome.
+When generating random inputs, we cannot think about the outcome every time.
+The pre- and postconditions, contracts, and properties we discussed in this chapter can help us solve the problem.
+By well-defining the system in these terms, we can use them as oracles in the test cases.
+The properties always have to be true, so we can use them in all the randomly generated test cases.</p>
+<p>We will discuss more about AI techniques in a future chapter.</p>
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/7kB6JaSH9p8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+
+
+
+<h2 id="exercises">Exercises</h2>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="design-by-contracts.html" class="navigation navigation-prev " aria-label="Previous page: Design-by-contracts">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../pragmatic-testing/" class="navigation navigation-next " aria-label="Next page: Pragmatic software testing">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Property-based testing","level":"4.1.6","depth":2,"next":{"title":"Pragmatic software testing","level":"5.1","depth":1,"path":"chapters/pragmatic-testing/README.md","ref":"chapters/pragmatic-testing/README.md","articles":[{"title":"The testing pyramid","level":"5.1.1","depth":2,"path":"chapters/pragmatic-testing/testing-pyramid.md","ref":"chapters/pragmatic-testing/testing-pyramid.md","articles":[]},{"title":"Mock objects","level":"5.1.2","depth":2,"path":"chapters/pragmatic-testing/mock-objects.md","ref":"chapters/pragmatic-testing/mock-objects.md","articles":[]},{"title":"Design for testability","level":"5.1.3","depth":2,"path":"chapters/pragmatic-testing/design-for-testability.md","ref":"chapters/pragmatic-testing/design-for-testability.md","articles":[]},{"title":"Test-driven development","level":"5.1.4","depth":2,"path":"chapters/pragmatic-testing/tdd.md","ref":"chapters/pragmatic-testing/tdd.md","articles":[]},{"title":"Test code quality and engineering","level":"5.1.5","depth":2,"path":"chapters/pragmatic-testing/test-code-quality.md","ref":"chapters/pragmatic-testing/test-code-quality.md","articles":[]}]},"previous":{"title":"Design-by-contracts","level":"4.1.5","depth":2,"path":"chapters/testing-techniques/design-by-contracts.md","ref":"chapters/testing-techniques/design-by-contracts.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/testing-techniques/property-based-testing.md","mtime":"2020-04-15T15:51:53.592Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-15T16:01:56.907Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-ga/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

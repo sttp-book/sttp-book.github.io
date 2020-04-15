@@ -42,15 +42,7 @@
 
     
         
-    
-        
-    
-        
-    
-        
-    
-        
-    
+        <link rel="stylesheet" href="../../assets/css/website.css">
         
     
 
@@ -513,14 +505,14 @@
             
         </li>
     
-        <li class="chapter " data-level="6.1.4" >
+        <li class="chapter " data-level="6.1.4" data-path="../intelligent-testing/sbst.html">
             
-                <span>
+                <a href="../intelligent-testing/sbst.html">
             
                     
-                    Search-based software testing (soon)
+                    Search-based software testing
             
-                </span>
+                </a>
             
 
             
@@ -1461,7 +1453,7 @@ See <a href="https://martinfowler.com/bliki/TestPyramid.html!" target="_blank">h
 <h2 id="design-for-testability">Design for Testability</h2>
 <p><strong>Exercise 1</strong></p>
 <p>To test just the <code>runBatch</code> method of <code>OrderDeliveryBatch</code> (for example in a unit test) we need to be able to use mocks for at least the <code>dao</code> and <code>delivery</code> objects.
-In the current implementation this is not possible, as we cannot change <code>dao</code> or <code>delivery</code> from outside.
+In the current implementation this is not possible, as we cannot change <code>dao</code> or <code>delivery</code> from outside the class.
 In other words: We want to improve the controllability to improve the testability.</p>
 <p>The technique that we use to do so is called dependency injection.
 We can give the <code>dao</code> and <code>delivery</code> in a parameter of the method:</p>
@@ -1520,7 +1512,7 @@ This can be done, for example, by using Ports and Adapters.</p>
 <p>Static methods cannot be mocked and are therefore very bad for the controllability of the code.
 Code that has low controllability also has a low testability, so replacing the static methods by non-static ones will be very beneficial to the testability.</p>
 <p>The large tables and lack of indices do not really influence the testability, especially not when talking about unit tests.
-There we end up mocking the classes interacting with the database anyway.</p>
+When writing unit tests we end up mocking the classes interacting with the database anyway.</p>
 <p>Too many attributes/fields can hurt testability as we might need to create a lot of mocks for just one class under test.
 However, the static methods and mixed domain and infrastructure are worse for the testability than a large number of attributes/fields.</p>
 <p><strong>Exercise 4</strong></p>
@@ -1601,7 +1593,7 @@ TDD literature says nothing about team integration.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Answers to the exercises","level":"10.1.1","depth":2,"next":{"title":"Change log","level":"10.1.2","depth":2,"path":"chapters/appendix/changelog.md","ref":"chapters/appendix/changelog.md","articles":[]},"previous":{"title":"Appendix","level":"10.1","depth":1,"ref":"","articles":[{"title":"Answers to the exercises","level":"10.1.1","depth":2,"path":"chapters/appendix/answers.md","ref":"chapters/appendix/answers.md","articles":[]},{"title":"Change log","level":"10.1.2","depth":2,"path":"chapters/appendix/changelog.md","ref":"chapters/appendix/changelog.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapters/appendix/answers.md","mtime":"2020-04-06T22:05:14.978Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-09T21:57:02.163Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Answers to the exercises","level":"10.1.1","depth":2,"next":{"title":"Change log","level":"10.1.2","depth":2,"path":"chapters/appendix/changelog.md","ref":"chapters/appendix/changelog.md","articles":[]},"previous":{"title":"Appendix","level":"10.1","depth":1,"ref":"","articles":[{"title":"Answers to the exercises","level":"10.1.1","depth":2,"path":"chapters/appendix/answers.md","ref":"chapters/appendix/answers.md","articles":[]},{"title":"Change log","level":"10.1.2","depth":2,"path":"chapters/appendix/changelog.md","ref":"chapters/appendix/changelog.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/appendix/answers.md","mtime":"2020-04-15T10:20:48.268Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-15T10:21:01.015Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

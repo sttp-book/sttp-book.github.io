@@ -468,20 +468,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="6.1.1" data-path="../intelligent-testing/random-testing.html">
-            
-                <a href="../intelligent-testing/random-testing.html">
-            
-                    
-                    Random testing
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="6.1.2" data-path="../intelligent-testing/mutation-testing.html">
+        <li class="chapter " data-level="6.1.1" data-path="../intelligent-testing/mutation-testing.html">
             
                 <a href="../intelligent-testing/mutation-testing.html">
             
@@ -494,12 +481,12 @@
             
         </li>
     
-        <li class="chapter " data-level="6.1.3" data-path="../intelligent-testing/fuzzing.html">
+        <li class="chapter " data-level="6.1.2" data-path="../intelligent-testing/fuzzing.html">
             
                 <a href="../intelligent-testing/fuzzing.html">
             
                     
-                    Fuzzing testing
+                    Fuzz testing
             
                 </a>
             
@@ -507,7 +494,7 @@
             
         </li>
     
-        <li class="chapter " data-level="6.1.4" data-path="../intelligent-testing/sbst.html">
+        <li class="chapter " data-level="6.1.3" data-path="../intelligent-testing/sbst.html">
             
                 <a href="../intelligent-testing/sbst.html">
             
@@ -832,16 +819,16 @@
                                 
                                 <h1 id="why-software-testing">Why software testing?</h1>
 <p>Why should we actually care about software testing?
-<strong>Because bugs are everywhere</strong>. </p>
-<p>You, as a person who is probably highly dependent on software technology, have definitely encountered a few software bugs in your life. Some of them probably did not affect you that much. For example, when your Alarm app in your mobile phone crashed and you did not wake up early enough for a meeting with your boss. However, some other bugs might have (negatively) affected your life. Societies all over the world have faced critical issues due to software bugs, from medical devices that do not work properly and harm patients, to electric power plants that completely shut down.</p>
-<p>And, while those software systems we gave as examples might seem far out from most developers&apos; daily job, it is impressively easy to make mistakes even in less critical/complex software systems.</p>
+<strong>Because bugs are everywhere!</strong> </p>
+<p>As a person who is probably highly dependent on software technology, you should have encountered a few software bugs in your life. Some of them probably did not affect you that much. For example, maybe your Alarm app on your mobile phone crashed, and you did not wake up in time for a meeting. However, some other bugs might have (negatively) affected your life. Societies all over the world have faced critical issues due to software bugs, from medical devices that do not work properly and harm patients, to electric power plants that completely shut down.</p>
+<p>And, while these software systems we gave as examples might seem far out from most developers&apos; daily jobs, it is impressively easy to make mistakes even in less critical/complex software systems.</p>
 <p>To illustrate how hard it is to spot bugs, let&apos;s start with a requirement:</p>
 <blockquote>
 <p><strong>Requirement: Min-max</strong></p>
 <p>Implement a program that, given a list of numbers (integers), returns 
 the smallest and the largest numbers in this list.</p>
 </blockquote>
-<p>This looks like a very simple program to implement; maybe even an exercise of an Introduction to Programming course. </p>
+<p>This looks like a very simple program to implement; maybe even an exercise for an Introduction to Programming course. </p>
 <p>A first implementation in Java could be as follows:</p>
 <pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NumFinder</span> </span>{
   <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> smallest = Integer.MAX_VALUE;
@@ -857,11 +844,11 @@ the smallest and the largest numbers in this list.</p>
   <span class="hljs-comment">// getters for smallest and largest</span>
 }
 </code></pre>
-<p>The idea behind the code is as follows: we go through all the elements of the <code>nums</code> list, and store the smallest and the largest numbers in two different variables.
-If <code>n</code> is smaller than the smallest number we have seen, we replace <code>n</code> by the new smallest number. The same idea applies to the largest number: 
-if <code>n</code> is bigger than largest, we just replace <code>n</code> by the new largest number. </p>
-<p>A common flow for developers (which we will try as much as possible to convince you to <em>not do</em>) is: they implement the program based on the requirements, and then perform &quot;small checks&quot; to make sure the program works as expected. (Note that these &quot;small checks&quot; is what we will fight against; developers should perform rigorous and systematic testing to make sure their program works!)</p>
-<p>For the sake of the argument, let us do a &quot;small check&quot; in the program we just wrote. A simple way of doing it would be to come up with a &quot;main&quot; method that exercises the program a few times. 
+<p>The idea behind the code is as follows: we go through all the elements of the <code>nums</code> list and store the smallest and the largest numbers in two different variables.
+If <code>n</code> is smaller than the smallest number we have seen so far, we replace the smallest number by <code>n</code>. The same idea applies to the largest number: 
+if <code>n</code> is bigger than the largest number, we just replace it by <code>n</code>. </p>
+<p>A common technique developers use (which we will try as much as possible to convince you  <em>not to do</em>) is that they implement the program based on the requirements, and then perform &quot;small checks&quot; to make sure the program works as expected. (Note that these &quot;small checks&quot; are what we will fight against; developers should perform rigorous and systematic testing to make sure their program works!)</p>
+<p>For the sake of the argument, let us do a &quot;small check&quot; on the program we just wrote. A simple way of doing it would be to come up with a &quot;main&quot; method that exercises the program a few times. 
 Suppose that the developer then tried their implementation with 4, 25, 7, and 9 as inputs. </p>
 <pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NumFinderMain</span> </span>{
 
@@ -874,13 +861,13 @@ Suppose that the developer then tried their implementation with 4, 25, 7, and 9 
   }
 }
 </code></pre>
-<p>The output of the program is: <code>25, 4</code>. This means the implementation works as expected. In a larger context, this would mean that the developer can ship this new implementation to the final user, and let them use this new feature. <strong>Can we really...?</strong></p>
+<p>The output of this program is: <code>25, 4</code>. This means the implementation works as expected. In a larger context, this would mean that the developer can ship this new implementation to the final user, and let them use this new feature. <strong>Can we really...?</strong></p>
 <p>No, we can not. The current implementation does not work for all the possible cases. <strong>There&apos;s a bug in there!</strong> (Can you find the bug? Look at the implementation above and try to find it!)</p>
 <p>The program does not work properly for the following input: an array with values 4, 3, 2, and 1. For this input, the program returns the following output: <code>-2147483648, 1</code>.
 In a more generalised way, the implementation does not handle &quot;numbers in decreasing order&quot; well enough. </p>
-<p>We just found a bug. That is maybe the right time for a reflection: if bugs can occur
-even in simple programs like the ones above, imagine what happens in the large complex
-software systems we develop, and that our society relies upon so much.</p>
+<p>We have just found a bug. This is maybe the right time for a reflection: if bugs can occur
+even in simple programs like the ones above, imagine what happens in large complex
+software systems, on which our society relies upon.</p>
 <p>Before anything else, let us just fix the bug.
 Back to the source code, we see that the bug is 
 actually caused by the <code>else if</code> instruction.<br>The <code>else if</code> should actually just be an <code>if</code>. 
@@ -901,10 +888,10 @@ Take a moment to understand why.</p>
   <span class="hljs-comment">// getters for smallest and largest</span>
 }
 </code></pre>
-<p>Again, this is indeed a very simple bug. Once you have found it, it might indeed
-look stupid. But those mistakes 
+<p>Again, this is indeed a trivial bug. Once you have found it, it might indeed
+look like an unfortunate mistake. But this kind of mistakes 
 can and do happen all the time. Why? The answer is simple: developers deal 
-with highly complex software systems. Software systems that are composed of millions (if not billions) of lines of code. Software that generates tons of data per second. Software that communicates with hundreds (if not thousands) of external systems in an asynchronous and distributed manner. Software that has millions of user requests for hour. 
+with highly complex software systems. Software systems that are composed of millions (if not billions) of lines of code. Software that generates tons of data per second. Software that communicates with hundreds (if not thousands) of external systems in an asynchronous and distributed manner. Software that has millions of user requests per hour. 
 It is simply impossible to predict, during development time, everything that can happen. </p>
 <p><strong>This is why we need to test software. Because the world is complex, bugs do happen.</strong>
 And they can really have a huge impact in our lives.</p>
@@ -965,7 +952,7 @@ had.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Why software testing?","level":"3.1.1","depth":2,"next":{"title":"Principles of software testing","level":"3.1.2","depth":2,"path":"chapters/getting-started/testing-principles.md","ref":"chapters/getting-started/testing-principles.md","articles":[]},"previous":{"title":"Getting started with software testing","level":"3.1","depth":1,"path":"chapters/getting-started/README.md","ref":"chapters/getting-started/README.md","articles":[{"title":"Why software testing?","level":"3.1.1","depth":2,"path":"chapters/getting-started/why-software-testing.md","ref":"chapters/getting-started/why-software-testing.md","articles":[]},{"title":"Principles of software testing","level":"3.1.2","depth":2,"path":"chapters/getting-started/testing-principles.md","ref":"chapters/getting-started/testing-principles.md","articles":[]},{"title":"Software testing automation","level":"3.1.3","depth":2,"path":"chapters/getting-started/test-automation.md","ref":"chapters/getting-started/test-automation.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/getting-started/why-software-testing.md","mtime":"2020-04-15T15:51:53.541Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-15T16:01:56.907Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Why software testing?","level":"3.1.1","depth":2,"next":{"title":"Principles of software testing","level":"3.1.2","depth":2,"path":"chapters/getting-started/testing-principles.md","ref":"chapters/getting-started/testing-principles.md","articles":[]},"previous":{"title":"Getting started with software testing","level":"3.1","depth":1,"path":"chapters/getting-started/README.md","ref":"chapters/getting-started/README.md","articles":[{"title":"Why software testing?","level":"3.1.1","depth":2,"path":"chapters/getting-started/why-software-testing.md","ref":"chapters/getting-started/why-software-testing.md","articles":[]},{"title":"Principles of software testing","level":"3.1.2","depth":2,"path":"chapters/getting-started/testing-principles.md","ref":"chapters/getting-started/testing-principles.md","articles":[]},{"title":"Software testing automation","level":"3.1.3","depth":2,"path":"chapters/getting-started/test-automation.md","ref":"chapters/getting-started/test-automation.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/getting-started/why-software-testing.md","mtime":"2020-04-20T09:05:19.521Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-20T09:13:20.857Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

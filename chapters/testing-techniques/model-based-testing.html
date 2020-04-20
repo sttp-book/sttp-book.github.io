@@ -468,20 +468,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="6.1.1" data-path="../intelligent-testing/random-testing.html">
-            
-                <a href="../intelligent-testing/random-testing.html">
-            
-                    
-                    Random testing
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="6.1.2" data-path="../intelligent-testing/mutation-testing.html">
+        <li class="chapter " data-level="6.1.1" data-path="../intelligent-testing/mutation-testing.html">
             
                 <a href="../intelligent-testing/mutation-testing.html">
             
@@ -494,12 +481,12 @@
             
         </li>
     
-        <li class="chapter " data-level="6.1.3" data-path="../intelligent-testing/fuzzing.html">
+        <li class="chapter " data-level="6.1.2" data-path="../intelligent-testing/fuzzing.html">
             
                 <a href="../intelligent-testing/fuzzing.html">
             
                     
-                    Fuzzing testing
+                    Fuzz testing
             
                 </a>
             
@@ -507,7 +494,7 @@
             
         </li>
     
-        <li class="chapter " data-level="6.1.4" data-path="../intelligent-testing/sbst.html">
+        <li class="chapter " data-level="6.1.3" data-path="../intelligent-testing/sbst.html">
             
                 <a href="../intelligent-testing/sbst.html">
             
@@ -1075,8 +1062,41 @@ To avoid the code duplication that comes with this approach to implementing deci
 
 
 <h3 id="non-binary-choices-and-final-guidelines">Non-binary choices and final guidelines</h3>
-<p><div class="alert alert-warning hints-alert"><div class="hints-icon"><i class="fa fa-wrench"></i></div><div class="hints-container"><p>Write the video&apos;s accompanying text</p>
-</div></div></p>
+<p>So far, all the decision tables dicussed have boolean conditions (i.e., values in the cells were either <code>true</code> or <code>false</code>).
+The decision tables can be generalized to contain non-boolean values (non-binary choices). In other words, instead of only <code>true</code> and <code>false</code>, the values can now also be, e.g., a number.</p>
+<p>Take the decision table for the phone subscriptions, discussed earlier.
+Initially, this only contained the international and auto-renewal conditions.
+A non-boolean can be introduced to represent a data limit.
+The amount of data can be unlimited (&#x221E;), 8 GB, or none (0 GB).</p>
+<table>
+  <tr><th></th><th></th><th colspan="6">Variants</th></tr>
+  <tr><td rowspan="3"><br><i>Conditions</i></td>
+  <td>International</td><td>T</td><td>T</td><td>F<br></td><td>F</td><td>F</td><td>F</td></tr>
+  <tr><td>Auto-renewal</td><td>T<br></td><td>F</td><td>T</td><td>T</td><td>F</td><td>F</td></tr>
+  <tr><td>Data limit</td><td>&#x221E;</td><td>&#x221E;</td><td>8</td><td>0</td><td>8</td><td>0</td></tr>
+  <tr><td><i>Action</i></td><td>price / month</td><td>32<br></td><td>30</td><td>12</td><td>10</td><td>17</td><td>15</td></tr>
+</table>
+
+<p>With two boolean conditions and one condition with three possible values, the possible number of variants is <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn><mo>&#x22C5;</mo><mn>2</mn><mo>&#x22C5;</mo><mn>3</mn><mo>=</mo><mn>1</mn><mn>2</mn></mrow><annotation encoding="application/x-tex">2 \cdot 2 \cdot 3 = 12</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">2</span><span class="mbin">&#x22C5;</span><span class="mord mathrm">2</span><span class="mbin">&#x22C5;</span><span class="mord mathrm">3</span><span class="mrel">=</span><span class="mord mathrm">1</span><span class="mord mathrm">2</span></span></span></span>.
+The decision table only shows <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>6</mn></mrow><annotation encoding="application/x-tex">6</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">6</span></span></span></span>.
+The unspecified columns implicitly represent invalid combinations.
+For example, an international subscription without data would not be possible.</p>
+<p>In small decision tables, non-boolean conditions can be useful.
+However, with many non-boolean conditions, the amount of possible combinations in the decision table can be large.
+Due to this combinatorial explosion of possible variants, the decision table becomes very hard to work with.
+For example, a decision table with three conditions, each having <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>4</mn></mrow><annotation encoding="application/x-tex">4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">4</span></span></span></span> possible values, results in <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>4</mn><mo>&#x22C5;</mo><mn>4</mn><mo>&#x22C5;</mo><mn>4</mn><mo>=</mo><mn>6</mn><mn>4</mn></mrow><annotation encoding="application/x-tex">4 \cdot 4 \cdot 4 = 64</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">4</span><span class="mbin">&#x22C5;</span><span class="mord mathrm">4</span><span class="mbin">&#x22C5;</span><span class="mord mathrm">4</span><span class="mrel">=</span><span class="mord mathrm">6</span><span class="mord mathrm">4</span></span></span></span> possible combinations.
+In such case, other strategies like <em>pair-wise combinatorial testing</em> offer better scalability. </p>
+<p>The testing techniques for decision tables with only boolean conditions can also be generalized to tables with non-boolean conditions.
+For the MC/DC criteria (discussed in the structural testing chapter), this requires modifying one of its three properties: instead of making each condition <code>true</code> and <code>false</code> at least once in the test suite, each of its possible values should appear at least once in the test suite.</p>
+<p>Finally, these are some general quidelines to keep in mind when designing decision tables:</p>
+<ol>
+<li><strong>Keep conditions independent.</strong> The order of the conditions should not matter, otherwise a state machine might be more fitting.</li>
+<li><strong>Use DC values when possible.</strong> This decreases the amount of variants, making the decision table easier to read and easier to understand.</li>
+<li><strong>Variants with DC values should not overlap.</strong> If they do, they should at least have the same action.</li>
+<li><strong>Add a default column.</strong> This provides an action for the variants that are not in the decision table, allowing the decision table to not include all possible variants.</li>
+<li><strong>Consider non-boolean conditions if conditions are mutually exclusive.</strong> Mutually means that the conditions can never be true at the same time. These conditions then probably encode a single non-boolean condition.</li>
+<li><strong>If most conditions are non-boolean, consider using a different combinatorial testing technique instead</strong>. One example would be pair-wise testing.</li>
+</ol>
 <center>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/RHB_HaGfNjM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </center>
@@ -1612,7 +1632,7 @@ The complete table would have four conditions and 16 variants. We will try to cr
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Model-based testing","level":"4.1.4","depth":2,"next":{"title":"Design-by-contracts","level":"4.1.5","depth":2,"path":"chapters/testing-techniques/design-by-contracts.md","ref":"chapters/testing-techniques/design-by-contracts.md","articles":[]},"previous":{"title":"Structural testing","level":"4.1.3","depth":2,"path":"chapters/testing-techniques/structural-testing.md","ref":"chapters/testing-techniques/structural-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/testing-techniques/model-based-testing.md","mtime":"2020-04-15T15:51:53.592Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-15T16:01:56.907Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Model-based testing","level":"4.1.4","depth":2,"next":{"title":"Design-by-contracts","level":"4.1.5","depth":2,"path":"chapters/testing-techniques/design-by-contracts.md","ref":"chapters/testing-techniques/design-by-contracts.md","articles":[]},"previous":{"title":"Structural testing","level":"4.1.3","depth":2,"path":"chapters/testing-techniques/structural-testing.md","ref":"chapters/testing-techniques/structural-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/testing-techniques/model-based-testing.md","mtime":"2020-04-20T09:05:21.874Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-20T09:13:20.857Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

@@ -468,20 +468,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="6.1.1" data-path="../intelligent-testing/random-testing.html">
-            
-                <a href="../intelligent-testing/random-testing.html">
-            
-                    
-                    Random testing
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="6.1.2" data-path="../intelligent-testing/mutation-testing.html">
+        <li class="chapter " data-level="6.1.1" data-path="../intelligent-testing/mutation-testing.html">
             
                 <a href="../intelligent-testing/mutation-testing.html">
             
@@ -494,12 +481,12 @@
             
         </li>
     
-        <li class="chapter " data-level="6.1.3" data-path="../intelligent-testing/fuzzing.html">
+        <li class="chapter " data-level="6.1.2" data-path="../intelligent-testing/fuzzing.html">
             
                 <a href="../intelligent-testing/fuzzing.html">
             
                     
-                    Fuzzing testing
+                    Fuzz testing
             
                 </a>
             
@@ -507,7 +494,7 @@
             
         </li>
     
-        <li class="chapter " data-level="6.1.4" data-path="../intelligent-testing/sbst.html">
+        <li class="chapter " data-level="6.1.3" data-path="../intelligent-testing/sbst.html">
             
                 <a href="../intelligent-testing/sbst.html">
             
@@ -837,7 +824,7 @@ of inputs, where each input tackles one part (or <em>partition</em>)
 of the program.</p>
 <p>Given that specification-based techniques require no knowledge
 of how the software inside the &#x201C;box&#x201D; is structured
-(i.e., it does not matter if it is developed in Java or Python), they are also known
+(i.e., it does not matter if it is developed in Java or Python and concrete implementation details [such as usage of a particular data structure] are not of importance), these techniques are also referred to
 as <strong>black box testing</strong>.</p>
 <h2 id="partitioning-the-input-space">Partitioning the input space</h2>
 <p>Programs are usually too complex to be tested with just a single test case.
@@ -859,17 +846,17 @@ the provided year is a leap year and <em>false</em> if it is not.</p>
 <p>To find a good set of test cases, often referred to as a <em>test suite</em>,
 we split the program into <em>classes</em>.
 In other words, we divide the input space of
-the program in such a way that each class is 1)
-different, i.e. it is unique, where
-no two partitions represent/exercise the same behaviour,
-2) can easily verify whether that behaviour is correct or not.</p>
+the program in such a way that:
+1) Each class is different, i.e. it is unique, where
+no two partitions represent/exercise the same behaviour;
+2) We can easily verify whether the behaviour for a given input is correct or not.</p>
 <p>By looking at the requirements above, we can derive the
 following classes/partitions:</p>
 <ul>
-<li>Year is divisible by 4, but not divisible by 100 = leap year, TRUE</li>
-<li>Year is divisible by 4, divisible by 100, divisible by 400 = leap year, TRUE</li>
-<li>Not divisible by 4 = not a leap year, FALSE</li>
-<li>Divisible by 4, divisible by 100, but not divisible by 400 = not leap year, FALSE</li>
+<li>Year is divisible by 4, but not divisible by 100 = <code>leap year, TRUE</code></li>
+<li>Year is divisible by 4, divisible by 100, divisible by 400 = <code>leap year, TRUE</code></li>
+<li>Not divisible by 4 = <code>not leap year, FALSE</code></li>
+<li>Divisible by 4, divisible by 100, but not divisible by 400 = <code>not leap year, FALSE</code></li>
 </ul>
 <p>Note how each class above exercises the program in different ways.</p>
 <center>
@@ -925,12 +912,7 @@ the following inputs will be used for the partitions:</p>
 <li>1900, divisible by 4 and 100, not by 400.</li>
 </ul>
 <p>Implementing this using JUnit gives the following code for the tests:</p>
-<pre><code class="lang-java"><span class="hljs-keyword">package</span> tudelft.leapyear;
-
-<span class="hljs-keyword">import</span> org.junit.jupiter.api.Assertions;
-<span class="hljs-keyword">import</span> org.junit.jupiter.api.Test;
-
-<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LeapYearTests</span> </span>{
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LeapYearTests</span> </span>{
 
   <span class="hljs-keyword">private</span> LeapYear leapYear;
 
@@ -967,8 +949,8 @@ the following inputs will be used for the partitions:</p>
 <p>Note that each test method covers one of the partitions and the naming of the method refers to the partition it covers.</p>
 <p>For those who are learning JUnit: Note that the <code>setup</code> method is executed 
 before each test, thanks to the <code>BeforeEach</code> annotation.
-For each test, it creates a <code>LeapYear</code> object.
-This is then used by the tests to execute the method under test.
+For each test, it creates a new <code>LeapYear</code> object.
+This object is then used by the tests to execute the method under test.
 In each test we first determine the result of the method.
 After the method returns a value, we assert that this is the expected value.</p>
 <center>
@@ -1043,14 +1025,14 @@ Each of the test cases corresponds to one of the partitions that we want to test
 <p>Let&apos;s explore another example:</p>
 <blockquote>
 <p><strong>Requirement: Chocolate bars</strong></p>
-<p>A package should store a total number of kilos. 
+<p>A package should store a total number of kilos of chocolate. 
 There are small bars (1 kilo each) and big bars (5 kilos each). 
 We should calculate the number of small bars to use, 
 assuming we always use big bars before small bars. Return -1 if it is impossible.</p>
 <p>The input of the program is thus the number of small bars, the number of big bars,
 and the total number of kilos to store.</p>
 </blockquote>
-<p>A possible implementation for this program is:</p>
+<p>A possible implementation for this program is as follows:</p>
 <pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ChocolateBars</span> </span>{
 
     <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> CANNOT_PACK_BAG = -<span class="hljs-number">1</span>;
@@ -1087,7 +1069,8 @@ in order to derive the partitions.</p>
 </ul>
 <p>In JUnit code:</p>
 <pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ChocolateBarsTest</span> </span>{
-  <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> ChocolateBars bars = <span class="hljs-keyword">new</span> ChocolateBars();
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> ChocolateBars bars = <span class="hljs-keyword">new</span> ChocolateBars();
+
     <span class="hljs-meta">@Test</span>
     <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">notEnoughBars</span><span class="hljs-params">()</span> </span>{
         assertEquals(-<span class="hljs-number">1</span>, bars.calculate(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">10</span>));
@@ -1109,13 +1092,13 @@ in order to derive the partitions.</p>
     }
 
     <span class="hljs-meta">@Test</span>
-  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">invalidValues</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">invalidValues</span><span class="hljs-params">()</span> </span>{
       assertEquals(-<span class="hljs-number">1</span>, bars.calculate(-<span class="hljs-number">1</span>, -<span class="hljs-number">1</span>, -<span class="hljs-number">1</span>));
     }
 }
 </code></pre>
-<p>This example shows why deriving good test cases becomes more challenging, 
-when the specifications are complex.</p>
+<p>This example shows a case where deriving good test cases becomes more challenging due to the
+specifications being complex.</p>
 <center>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/T8caAUwgquQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </center>
@@ -1130,7 +1113,7 @@ a tester just keeps giving random inputs to the program?
 <p>Although random testing can definitely help us in finding bugs, it is not an effective way to find bugs in a large input space. 
 Developers/testers use their experience and knowledge of the program to test trouble-prone areas more effectively.
 However, they generate a limited number of tests in a specific time period such as a day,
-while computers can generate millions.
+while computers can generate millions of tests in the same period of time.
 A combination of random testing and partition testing is therefore the most beneficial.</p>
 <p><div class="alert alert-success hints-alert"><div class="hints-icon"><i class="fa fa-mortar-board"></i></div><div class="hints-container"><p>In future chapters, fuzzing testing and AI-based testing will be discussed, with information
 about automated random testing.</p>
@@ -1140,16 +1123,24 @@ about automated random testing.</p>
 What is an Equivalence Partition?</p>
 <ol>
 <li>A group of results that is produced by one method</li>
-<li>A group of results that is produced by one input into different methods</li>
-<li>A group of inputs that all make a method behave the same way</li>
-<li>A group of inputs that exactly gives the same output in every method</li>
+<li>A group of results that is produced by one input passed into different methods</li>
+<li>A group of inputs that all make a method behave in the same way</li>
+<li>A group of inputs that gives exactly the same output in every method</li>
 </ol>
 <p><strong>Exercise 2.</strong>
 We have a program called FizzBuzz.
-It does the following:
-Given an integer <code>n</code>, return the string form of the number followed by <code>&quot;!&quot;</code>.
-So the integer 6 yields <code>&quot;6!&quot;</code>.
-Except if the number is divisible by 3 use <code>&quot;Fizz&quot;</code> instead of the number, and if the number is divisible by 5 use <code>&quot;Buzz&quot;</code>, and if divisible by both 3 and 5, use <code>&quot;FizzBuzz&quot;</code>.</p>
+It does the following:</p>
+<blockquote>
+<p>Given an integer <code>n</code>, return the string form of the number followed by <code>&quot;!&quot;</code>.
+If the number is divisable by 3 use <code>&quot;Fizz&quot;</code> instead of the number,
+and if the number is divisable by 5 use <code>&quot;Buzz&quot;</code> instead of the number,
+and if the number is divisable by both 3 and 5, use <code>&quot;FizzBuzz&quot;</code></p>
+</blockquote>
+<p>Examples:</p>
+<ul>
+<li>The integer 4 yields <code>&quot;4!&quot;</code></li>
+<li>The integer 5 yields <code>&quot;Fizz!&quot;</code></li>
+</ul>
 <p>A novice tester is trying hard to devise as many tests as she can for
 the FizzBuzz method.
 She came up with the following tests:</p>
@@ -1163,11 +1154,11 @@ She came up with the following tests:</p>
 <p>Which of these tests can be removed while keeping a good test suite?</p>
 <p>Which concept can we use to determine the tests that can be removed?</p>
 <p><strong>Exercise 3.</strong>
-See a slightly modified version of HashMap&apos;s <code>put</code> method Javadoc. (Source code <a href="http://developer.classpath.org/doc/java/util/HashMap-source.html" target="_blank">here</a>).</p>
+See a slightly modified version of the HashMap&apos;s <code>put</code> method Javadoc below. (Source code <a href="http://developer.classpath.org/doc/java/util/HashMap-source.html" target="_blank">here</a>).</p>
 <pre><code class="lang-java"><span class="hljs-comment">/**
  * Puts the supplied value into the Map,
  * mapped by the supplied key.
- * If the key is already on the map, its
+ * If the key is already in the map, its
  * value will be replaced by the new value.
  *
  * <span class="hljs-doctag">NOTE:</span> Nulls are not accepted as keys;
@@ -1184,13 +1175,13 @@ See a slightly modified version of HashMap&apos;s <code>put</code> method Javado
 <p>Apply the category/partition method.
 What are the minimal and most suitable partitions?</p>
 <p><strong>Exercise 4.</strong>
-Zip codes in country X are always composed of 4 numbers + 2 letters, e.g., 2628CD.
-Numbers are in the range [1000, 4000].
-Letters are in the range [C, M].</p>
-<p>Consider a program that receives two inputs: an integer (for the 4 numbers) and a string (for the 2 letters), and returns true (valid zip code) or false (invalid zip code).</p>
+Zip codes in country X are always composed of 4 numbers + 2 letters, e.g., <code>2628CD</code>.
+Numbers are in the range <code>[1000, 4000]</code>.
+Letters are in the range <code>[C, M]</code>.</p>
+<p>Consider a program that receives two inputs: an integer (for the 4 numbers) and a string (for the 2 letters), and returns <code>true</code> (valid zip code) or <code>false</code> (invalid zip code).</p>
 <p>A tester comes up with the following partitions:</p>
 <ol>
-<li>[0,999]</li>
+<li>[0, 999]</li>
 <li>[1000, 4000]</li>
 <li>[2001, 3500]</li>
 <li>[3500, 3999]</li>
@@ -1202,10 +1193,10 @@ Letters are in the range [C, M].</p>
 <p>Note that with [a, b] all numbers between and including a and b are in the domain.
 The same goes with letters like [A-Z].</p>
 <p>Which of these partitions are valid (and good) partitions, i.e. which can actually be used as partitions?
-Name each of the valid partitions, corresponding to how they exercise the program.</p>
+Name each of the valid partitions, and describe how they exercise the program.</p>
 <p><strong>Exercise 5.</strong>
-See a slightly modified version of HashSet&apos;s <code>add()</code>&apos;s Javadoc below.
-Apply the category/partition method. What is <strong>the minimal and most suitable partitions</strong> for the <code>e</code> input parameter? </p>
+See a slightly modified version of the HashSet&apos;s <code>add()</code> Javadoc below.
+Apply the category/partition method. What are the <strong>minimal and most suitable partitions</strong> for the <code>e</code> input parameter? </p>
 <pre><code class="lang-java"><span class="hljs-comment">/**
  * Adds the specified element to this set if it 
  * is not already present.
@@ -1225,11 +1216,11 @@ Apply the category/partition method. What is <strong>the minimal and most suitab
 }
 </code></pre>
 <p><strong>Exercise 6.</strong>
-Which of the following statements <strong>is false</strong> about applying the category/partition method in method below?</p>
+Which of the following statements <strong>is false</strong> about applying the category/partition method in the Java method below?</p>
 <pre><code class="lang-java"><span class="hljs-comment">/**
  * Puts the supplied value into the Map, 
  * mapped by the supplied key.
- * If the key is already on the map, its
+ * If the key is already in the map, its
  * value will be replaced by the new value.
  *
  * <span class="hljs-doctag">NOTE:</span> Nulls are not accepted as keys; 
@@ -1259,11 +1250,11 @@ With a <code>find</code> program that finds occurrences of a pattern in a file, 
 <pre><code>find &lt;pattern&gt; &lt;file&gt;
 </code></pre><p>A tester, after reading the specs and following the Category-Partition method, devised the following test specification:</p>
 <ul>
-<li>Pattern size: empty, single character, many characters, longer than any line in the file.</li>
-<li>Quoting: pattern is quoted, pattern is not quoted, pattern is improperly quoted.</li>
-<li>File name: good file name, no file name with this name, omitted.</li>
-<li>Occurrences in the file: none, exactly one, more than one.</li>
-<li>Occurrences in a single line, assuming line contains the pattern: one, more than one.</li>
+<li><strong>Pattern size:</strong> empty, single character, many characters, longer than any line in the file.</li>
+<li><strong>Quoting:</strong> pattern is quoted, pattern is not quoted, pattern is improperly quoted.</li>
+<li><strong>File name:</strong> good file name, no file name with this name, omitted.</li>
+<li><strong>Occurrences in the file:</strong> none, exactly one, more than one.</li>
+<li><strong>Occurrences in a single line, assuming line contains the pattern:</strong> one, more than one.</li>
 </ul>
 <p>However, the number of combinations is too high now. What actions could we take to reduce the number of combinations?</p>
 <h2 id="references">References</h2>
@@ -1320,7 +1311,7 @@ With a <code>find</code> program that finds occurrences of a pattern in a file, 
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Specification-based testing","level":"4.1.1","depth":2,"next":{"title":"Boundary testing","level":"4.1.2","depth":2,"path":"chapters/testing-techniques/boundary-testing.md","ref":"chapters/testing-techniques/boundary-testing.md","articles":[]},"previous":{"title":"Testing techniques","level":"4.1","depth":1,"path":"chapters/testing-techniques/README.md","ref":"chapters/testing-techniques/README.md","articles":[{"title":"Specification-based testing","level":"4.1.1","depth":2,"path":"chapters/testing-techniques/specification-based-testing.md","ref":"chapters/testing-techniques/specification-based-testing.md","articles":[]},{"title":"Boundary testing","level":"4.1.2","depth":2,"path":"chapters/testing-techniques/boundary-testing.md","ref":"chapters/testing-techniques/boundary-testing.md","articles":[]},{"title":"Structural testing","level":"4.1.3","depth":2,"path":"chapters/testing-techniques/structural-testing.md","ref":"chapters/testing-techniques/structural-testing.md","articles":[]},{"title":"Model-based testing","level":"4.1.4","depth":2,"path":"chapters/testing-techniques/model-based-testing.md","ref":"chapters/testing-techniques/model-based-testing.md","articles":[]},{"title":"Design-by-contracts","level":"4.1.5","depth":2,"path":"chapters/testing-techniques/design-by-contracts.md","ref":"chapters/testing-techniques/design-by-contracts.md","articles":[]},{"title":"Property-based testing","level":"4.1.6","depth":2,"path":"chapters/testing-techniques/property-based-testing.md","ref":"chapters/testing-techniques/property-based-testing.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/testing-techniques/specification-based-testing.md","mtime":"2020-04-15T15:51:53.593Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-15T16:01:56.907Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Specification-based testing","level":"4.1.1","depth":2,"next":{"title":"Boundary testing","level":"4.1.2","depth":2,"path":"chapters/testing-techniques/boundary-testing.md","ref":"chapters/testing-techniques/boundary-testing.md","articles":[]},"previous":{"title":"Testing techniques","level":"4.1","depth":1,"path":"chapters/testing-techniques/README.md","ref":"chapters/testing-techniques/README.md","articles":[{"title":"Specification-based testing","level":"4.1.1","depth":2,"path":"chapters/testing-techniques/specification-based-testing.md","ref":"chapters/testing-techniques/specification-based-testing.md","articles":[]},{"title":"Boundary testing","level":"4.1.2","depth":2,"path":"chapters/testing-techniques/boundary-testing.md","ref":"chapters/testing-techniques/boundary-testing.md","articles":[]},{"title":"Structural testing","level":"4.1.3","depth":2,"path":"chapters/testing-techniques/structural-testing.md","ref":"chapters/testing-techniques/structural-testing.md","articles":[]},{"title":"Model-based testing","level":"4.1.4","depth":2,"path":"chapters/testing-techniques/model-based-testing.md","ref":"chapters/testing-techniques/model-based-testing.md","articles":[]},{"title":"Design-by-contracts","level":"4.1.5","depth":2,"path":"chapters/testing-techniques/design-by-contracts.md","ref":"chapters/testing-techniques/design-by-contracts.md","articles":[]},{"title":"Property-based testing","level":"4.1.6","depth":2,"path":"chapters/testing-techniques/property-based-testing.md","ref":"chapters/testing-techniques/property-based-testing.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/testing-techniques/specification-based-testing.md","mtime":"2020-04-20T09:05:19.526Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-20T09:13:20.857Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

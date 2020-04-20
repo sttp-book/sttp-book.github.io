@@ -60,7 +60,7 @@
     <link rel="next" href="fuzzing.html" />
     
     
-    <link rel="prev" href="random-testing.html" />
+    <link rel="prev" href="./" />
     
 
     </head>
@@ -468,20 +468,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="6.1.1" data-path="random-testing.html">
-            
-                <a href="random-testing.html">
-            
-                    
-                    Random testing
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter active" data-level="6.1.2" data-path="mutation-testing.html">
+        <li class="chapter active" data-level="6.1.1" data-path="mutation-testing.html">
             
                 <a href="mutation-testing.html">
             
@@ -494,12 +481,12 @@
             
         </li>
     
-        <li class="chapter " data-level="6.1.3" data-path="fuzzing.html">
+        <li class="chapter " data-level="6.1.2" data-path="fuzzing.html">
             
                 <a href="fuzzing.html">
             
                     
-                    Fuzzing testing
+                    Fuzz testing
             
                 </a>
             
@@ -507,7 +494,7 @@
             
         </li>
     
-        <li class="chapter " data-level="6.1.4" data-path="sbst.html">
+        <li class="chapter " data-level="6.1.3" data-path="sbst.html">
             
                 <a href="sbst.html">
             
@@ -961,7 +948,7 @@ This indicates that the mutants&apos; size should be small as well.
 Considering the coupling effect, test cases that detect 
 small errors, will also be able to detect larger, more complex errors.</p>
 <h2 id="terminology">Terminology</h2>
-<p>To talk about mutation testing in a depth way, let us define some terms:</p>
+<p>To talk about mutation testing in an in-depth way, let us define some terms:</p>
 <ul>
 <li><strong>Mutant</strong>: Given a program <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi></mrow><annotation encoding="application/x-tex">P</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">P</span></span></span></span>, a mutant called <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>P</mi><mrow><mi mathvariant="normal">&#x2032;</mi></mrow></msup></mrow><annotation encoding="application/x-tex">P&apos;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.751892em;"></span><span class="strut bottom" style="height:0.751892em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle uncramped mtight"><span class="mord scriptstyle uncramped mtight"><span class="mord mathrm mtight">&#x2032;</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span></span></span></span> is obtained by introducing a <em>syntactic change</em> to <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi></mrow><annotation encoding="application/x-tex">P</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">P</span></span></span></span>. A mutant is killed if a test fails when executed with the mutant.</li>
 <li><strong>Syntactic Change</strong>: A small <em>change</em> in the code. Such a small change should make the code still valid, i.e., the code can still compile and run.</li>
@@ -1080,11 +1067,11 @@ Like with test execution, we want to <strong>automate the mutation process</stro
 There are various tools that automatically generate mutants for mutant testing, but they all use the same methodology.</p>
 <p>First we need mutation operators.
 A <strong>mutation operator</strong> is a grammatic rule that can be used to introduce a syntactic change.
-This means that, if the generator sees a statement in the code that corresponds to the grammatic rule of the operator (e.g., <code>a + b</code>), then the mutation operator specifies how to change this statement with a syntactic change (e.g., turning it into <code>a - b</code> for example).</p>
+This means that, if the generator sees a statement in the code that corresponds to the grammatic rule of the operator (e.g., <code>a + b</code>), then the mutation operator specifies how to change this statement with a syntactic change (e.g., turning it into <code>a - b</code>).</p>
 <p>We distinguish two categories of mutation operators:</p>
 <ul>
 <li><strong>Real fault based operators</strong>: Operators that are very similar to defects seen in the past for the same kind of code. Such operators look like common mistakes made by programmers in similar code.</li>
-<li><strong>Language-specific operators</strong>: Mutations that are made specifically for a certain programming language. For example, changes related to the inheritance feature we have in the Java language, or changes regarding pointer manipulations in C, which we cannot simply apply to all the languages.</li>
+<li><strong>Language-specific operators</strong>: Mutations that are made specifically for a certain programming language. For example, changes related to the inheritance feature we have in Java, or changes regarding pointer manipulations in C, which we cannot simply apply to all the languages.</li>
 </ul>
 <p>Most mutation testing tools include various basic mutation operators for real fault based operators.
 We briefly go over some common mutation operators:</p>
@@ -1122,7 +1109,7 @@ We first show the original code, and then the mutant that could be given by the 
 }
 </code></pre>
 <p>Example of a mutant:</p>
-<pre><code class="lang-java"><span class="hljs-keyword">if</span> (a == <span class="hljs-keyword">null</span> | a.length == <span class="hljs-number">0</span>) {
+<pre><code class="lang-java"><span class="hljs-keyword">if</span> (a == <span class="hljs-keyword">null</span> &amp;&amp; a.length == <span class="hljs-number">0</span>) {
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">0</span>];
 }
 </code></pre>
@@ -1288,7 +1275,7 @@ Based on this observation, we only have to run the test cases that cover the cha
 This reduces the number of test cases to run and, with that, the execution time.
 Furthermore, once a test case kills a mutant, we do not have to run the other test cases anymore.
 This is because the test suite needs at least one test case that kills the mutant.
-The exact number of test cases killing the mutant does not really matter.</p>
+The exact number of test cases killing the same mutant does not really matter.</p>
 </li>
 <li><p>A second observation is that mutants generated by the same operator and injected at the same location are likely to be coupled to the same type of fault.
 This means that when we use a certain mutation operator (e.g., Arithmetic Operator Replacement) and we replace the same statement with this mutant operator, we get two mutants that represent the same fault in the code.
@@ -1320,7 +1307,7 @@ Finally, you can also see more detailed results in the source code and check whi
 
 <h2 id="exercises">Exercises</h2>
 <p><strong>Exercise 1.</strong>
-&quot;<em>Crimes</em> happen in a <em>city</em>. One way for us to know that the <em>police</em> is actually able to detect these <em>crimes</em>, we can <em>simulate crimes</em> and see whether the <em>police</em> is able to detect them.&quot;</p>
+&quot;<em>Crimes</em> happen in a <em>city</em>. One way for us to know that the <em>police</em> is actually able to detect these <em>crimes</em> is to <em>simulate crimes</em> and see whether the <em>police</em> is able to detect them.&quot;</p>
 <p>In the analogy above, we can replace crimes by bugs, city by software, and police by test suite. What should we replace <strong>simulate crimes</strong> by?</p>
 <ol>
 <li>Mutation testing</li>
@@ -1362,12 +1349,12 @@ Finally, you can also see more detailed results in the source code and check whi
 
             
                 
-                <a href="random-testing.html" class="navigation navigation-prev " aria-label="Previous page: Random testing">
+                <a href="./" class="navigation navigation-prev " aria-label="Previous page: Intelligent testing">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="fuzzing.html" class="navigation navigation-next " aria-label="Next page: Fuzzing testing">
+                <a href="fuzzing.html" class="navigation navigation-next " aria-label="Next page: Fuzz testing">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -1378,7 +1365,7 @@ Finally, you can also see more detailed results in the source code and check whi
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Mutation testing","level":"6.1.2","depth":2,"next":{"title":"Fuzzing testing","level":"6.1.3","depth":2,"path":"chapters/intelligent-testing/fuzzing.md","ref":"chapters/intelligent-testing/fuzzing.md","articles":[]},"previous":{"title":"Random testing","level":"6.1.1","depth":2,"path":"chapters/intelligent-testing/random-testing.md","ref":"chapters/intelligent-testing/random-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/intelligent-testing/mutation-testing.md","mtime":"2020-04-15T15:51:53.543Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-15T16:01:56.907Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Mutation testing","level":"6.1.1","depth":2,"next":{"title":"Fuzz testing","level":"6.1.2","depth":2,"path":"chapters/intelligent-testing/fuzzing.md","ref":"chapters/intelligent-testing/fuzzing.md","articles":[]},"previous":{"title":"Intelligent testing","level":"6.1","depth":1,"path":"chapters/intelligent-testing/README.md","ref":"chapters/intelligent-testing/README.md","articles":[{"title":"Mutation testing","level":"6.1.1","depth":2,"path":"chapters/intelligent-testing/mutation-testing.md","ref":"chapters/intelligent-testing/mutation-testing.md","articles":[]},{"title":"Fuzz testing","level":"6.1.2","depth":2,"path":"chapters/intelligent-testing/fuzzing.md","ref":"chapters/intelligent-testing/fuzzing.md","articles":[]},{"title":"Search-based software testing","level":"6.1.3","depth":2,"path":"chapters/intelligent-testing/sbst.md","ref":"chapters/intelligent-testing/sbst.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/intelligent-testing/mutation-testing.md","mtime":"2020-04-20T09:05:19.523Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-20T09:13:20.857Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

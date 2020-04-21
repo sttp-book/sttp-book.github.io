@@ -819,7 +819,7 @@
                                 
                                 <h1 id="boundary-testing">Boundary testing</h1>
 <p>Off-by-one mistakes are a common cause for bugs in software systems.
-As developers, we have all made mistakes such as using a &quot;greater than&quot; operator (<code>&gt;</code>) where it had to be a &quot;greater than or equal&quot; operator (<code>&gt;=</code>). 
+As developers, we have all made mistakes such as using a &quot;greater than&quot; operator (<code>&gt;</code>) where it had to be a &quot;greater than or equal to&quot; operator (<code>&gt;=</code>). 
 Interestingly, programs with such a bug tend to work well for most of the provided inputs. They fail, however, when the input is &quot;near the boundary of condition&quot;.</p>
 <p>In this chapter, we explore <strong>boundary testing</strong> techniques.</p>
 <h2 id="boundaries-in-between-classespartitions">Boundaries in between classes/partitions</h2>
@@ -829,7 +829,7 @@ When we devise classes, these have &quot;close boundaries&quot;
 with the other classes. 
 In other words, if we keep performing small changes 
 to an input that belongs to some partition (e.g., by adding +1 to it), 
-at some point this input will now belong to another class. 
+at some point this input will belong to another class. 
 The precise point where the input changes from one class to another is what we call a <em>boundary</em>.
 And this is precisely what boundary testing is about: to make the program behave correctly
 when inputs are near a boundary.</p>
@@ -838,12 +838,12 @@ we can find such boundaries by finding a pair of consecutive
 input values <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><msub><mi>p</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>p</mi><mn>2</mn></msub><mo>]</mo></mrow><annotation encoding="application/x-tex">[p_1,p_2]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">[</span><span class="mord"><span class="mord mathit">p</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord mathrm mtight">1</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span><span class="mpunct">,</span><span class="mord"><span class="mord mathit">p</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord mathrm mtight">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span><span class="mclose">]</span></span></span></span>, where <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>p</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">p_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">p</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord mathrm mtight">1</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span></span></span></span> belongs to partition A, and <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>p</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">p_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">p</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord mathrm mtight">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span></span></span></span> belongs to partition B.</p>
 <p>Let us apply boundary testing in a concrete example:</p>
 <blockquote>
-<p><strong>Requirement: Calculating the number of points of the player</strong></p>
-<p>Given the score of the player and the number of remaining lives of the player, the program does the following:</p>
+<p><strong>Requirement: Calculating the number of points of a player</strong></p>
+<p>Given the score of a player and the number of remaining lives of the player, the program does the following:</p>
 <ul>
 <li>If the player&apos;s score is below 50, then it always adds 50 points on top of the current points.</li>
 <li>If the player&apos;s score is greater than or equals to 50, then:<ul>
-<li>if the number of remaining lives is greater than or equal to 3: it triples the score of the player.</li>
+<li>if the number of remaining lives is greater than or equal to 3, it triples the score of the player.</li>
 <li>otherwise, it adds 30 points on top of the current points.</li>
 </ul>
 </li>
@@ -911,9 +911,8 @@ each boundary will require <em>at least</em> two test cases:</p>
 <li>B2.1 = input={score 500, remaining lives=3}, output={200}</li>
 <li>B2.2 = input={score 500, remaining lives=2}, output={130}</li>
 </ul>
-<p>In JUnit code (and note how we wrote the two test cases for a boundary in a single test (and not splitting it into two
-test methods). That makes the test more cohesive; if
-if find a boundary bug, a single test will let us know):</p>
+<p>An implementation using JUnit is shown below. Note that we have written just a single test for each pair of test cases. This makes the test more cohesive.
+If there is a boundary bug, a single test will let us know.</p>
 <pre><code class="lang-java"><span class="hljs-meta">@Test</span>
 <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">betweenLessAndManyPoints</span><span class="hljs-params">()</span> </span>{
   assertEquals(<span class="hljs-number">49</span>+<span class="hljs-number">50</span>, pp.totalPoints(<span class="hljs-number">49</span>, <span class="hljs-number">5</span>));
@@ -930,7 +929,7 @@ if find a boundary bug, a single test will let us know):</p>
 However, for score &gt;= 50, <code>remaining lives</code> does make a difference, as the output can vary according to its value. 
 And for the B1.2 test case, we chose <code>remaining lives</code> = 5, which makes the
 condition true. 
-You might wondering whether you also need to devise another test case, B1.3, where the remaining lives condition would be exercised as false. </p>
+You might be wondering whether you also need to devise another test case, B1.3, where the remaining lives condition would be exercised as false. </p>
 <p>If you are looking to test all possible combinations, then the answer is yes. However, in longer
 conditions, full of boundaries, the number of combinations might be too high, making it unfeasible for the developer
 to test them all. Later in this chapter, we will learn
@@ -956,7 +955,7 @@ This will be <span class="katex"><span class="katex-mathml"><math><semantics><mr
 </ul>
 <p>We show all these points in the diagram below.</p>
 <p><img src="img/boundary-testing/examples/on_off_points.svg" alt="On- and off-points, in- and out-points"></p>
-<p>Let us now study a similar but slightly different condition: <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mo>&#x2264;</mo><mn>1</mn><mn>0</mn><mn>0</mn></mrow><annotation encoding="application/x-tex">x \leq 100</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.78041em;vertical-align:-0.13597em;"></span><span class="base textstyle uncramped"><span class="mord mathit">x</span><span class="mrel">&#x2264;</span><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span></span></span></span> (note how similar they are; the only difference is that, in this one, we use smaller than or equals to):</p>
+<p>Let us now study a similar but slightly different condition: <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mo>&#x2264;</mo><mn>1</mn><mn>0</mn><mn>0</mn></mrow><annotation encoding="application/x-tex">x \leq 100</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.78041em;vertical-align:-0.13597em;"></span><span class="base textstyle uncramped"><span class="mord mathit">x</span><span class="mrel">&#x2264;</span><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span></span></span></span> (the only difference is that, in this one, we use &quot;less than or equal to&quot;):</p>
 <ul>
 <li>The on-point is still <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mn>0</mn><mn>0</mn></mrow><annotation encoding="application/x-tex">100</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span></span></span></span>: this is the value that is precisely in the condition.</li>
 <li>The condition is evaluated as true for the on-point. So, the off-point should be the closest number to the on-point, but making the condition false. The off-point is thus <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mn>0</mn><mn>1</mn></mrow><annotation encoding="application/x-tex">101</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mord mathrm">1</span></span></span></span>.</li>
@@ -1160,7 +1159,7 @@ partition to another one:</p>
 <li><code>(3, 2, 3)</code> returns 3. We need only small bars here, and therefore, this input belongs to the <strong>only small bars</strong> partition.</li>
 <li><code>(2, 2, 3)</code> returns -1. We can&apos;t make the boxes. This input belongs to the <strong>Not enough bars</strong> partition.</li>
 </ul>
-<p>A partition might make boundaries with more than just one single another partitions. 
+<p>A partition might have boundaries with more than just one single another partitions. 
 The <strong>only small bars</strong> partition has boundaries not only with the <strong>not enough bars</strong> partition (as we saw above), but also with the <strong>only big bars</strong> partition:</p>
 <ul>
 <li><code>(4, 2, 4)</code> returns 4. We need only small bars here, and therefore, this input belongs to the <strong>only small bars</strong> partition.</li>
@@ -1195,7 +1194,7 @@ parameter in the method&apos;s parameter list (note that so far, all our JUnit m
 no parameters). For example, a test method <code>t1(int a, int b)</code> receives two parameters,
 <code>int a</code> and <code>int b</code>. The developer uses these two variables in the body of the test
 method, often in places where the developer would have a hard-coded value.</p>
-<p>The next step is to feed JUnit with a list of inputs which it will pass
+<p>The next step is to feed JUnit with a list of inputs which will be passed
 to the test method.
 In general, these values are provided by a <code>Source</code>.
 Here, we will make use of a <code>CsvSource</code>.
@@ -1413,7 +1412,7 @@ Which one of the following statements about the <strong>CORRECT</strong> princip
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Boundary testing","level":"4.1.2","depth":2,"next":{"title":"Structural testing","level":"4.1.3","depth":2,"path":"chapters/testing-techniques/structural-testing.md","ref":"chapters/testing-techniques/structural-testing.md","articles":[]},"previous":{"title":"Specification-based testing","level":"4.1.1","depth":2,"path":"chapters/testing-techniques/specification-based-testing.md","ref":"chapters/testing-techniques/specification-based-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/testing-techniques/boundary-testing.md","mtime":"2020-04-15T15:51:53.558Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-20T09:13:20.857Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Boundary testing","level":"4.1.2","depth":2,"next":{"title":"Structural testing","level":"4.1.3","depth":2,"path":"chapters/testing-techniques/structural-testing.md","ref":"chapters/testing-techniques/structural-testing.md","articles":[]},"previous":{"title":"Specification-based testing","level":"4.1.1","depth":2,"path":"chapters/testing-techniques/specification-based-testing.md","ref":"chapters/testing-techniques/specification-based-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/testing-techniques/boundary-testing.md","mtime":"2020-04-21T13:54:19.783Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-21T13:56:14.877Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

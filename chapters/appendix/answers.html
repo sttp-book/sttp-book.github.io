@@ -920,24 +920,11 @@ Now the off-points are 4 and 6.</p>
 Then the condition evaluates to true.</p>
 <p>An example of an out-point, where the condition evaluates to false, is 893.</p>
 <p><strong>Exercise 4</strong></p>
-<p><img src="img/boundary-testing/exercises/domain_exercise.png" alt="Answer domain matrix"></p>
-<p>Note that we require 7 test cases in total: <code>numberOfPoints &lt;= 570</code> and <code>numberOfLives &gt; 10</code> each have one on- and one off-point.
-<code>energyLevel == 5</code> is an equality, so we have two off-points and one on-point.
-This gives a total of 7 test cases.</p>
-<p>For one of the first two conditions we need two typical rows.</p>
-<p>Let&apos;s rewrite the whole condition to: <code>(c1 &amp;&amp; c2) || c3</code>.</p>
-<p>To test <code>c1</code> we have to make <code>c2</code> true, otherwise the result will always be false.</p>
-<p>The same goes for testing <code>c2</code> and then making <code>c1</code> true.</p>
-<p>However, when testing <code>c3</code>, we need to make <code>(c1 &amp;&amp; c2)</code> false, otherwise the result will always be true.
-That is why, when testing <code>c3</code>, <code>c1</code> or <code>c2</code> has to be false, i.e. and out-point instead of an in-point.
-Therefore we use two different typical rows for the <code>numberOfLives</code> variable.
-The same could have been done with two typical rows for the <code>numberOfPoints</code> variable.</p>
-<p><strong>Exercise 5</strong></p>
 <p>An on-point is the (single) number on the boundary. It may or may not make the condition true. The off point is the closest number to the boundary that makes the condition to be evaluated to the opposite of the on point. Given it&apos;s an inequality, there&apos;s only a single off-point.</p>
-<p><strong>Exercise 6</strong></p>
+<p><strong>Exercise 5</strong></p>
 <p>on point = 1024, off point = 1025, in point = 1028, out point = 512</p>
 <p>The on point is the number precisely in the boundary = 1024. off point is the closest number to the boundary and has the opposite result of on point. In this case, 1024 makes the condition false, so the off point should make it true. 1025. In point makes conditions true, e.g., 1028. Out point makes the condition false, e.g., 512.</p>
-<p><strong>Exercise 7</strong></p>
+<p><strong>Exercise 6</strong></p>
 <p>We should always test the behaviour of our program when any expected data actually does not exist (EXISTENCE).</p>
 <h2 id="structural-testing">Structural testing</h2>
 <p><strong>Exercise 1</strong></p>
@@ -1579,7 +1566,7 @@ TDD literature says nothing about team integration.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Answers to the exercises","level":"10.1.1","depth":2,"next":{"title":"Change log","level":"10.1.2","depth":2,"path":"chapters/appendix/changelog.md","ref":"chapters/appendix/changelog.md","articles":[]},"previous":{"title":"Appendix","level":"10.1","depth":1,"ref":"","articles":[{"title":"Answers to the exercises","level":"10.1.1","depth":2,"path":"chapters/appendix/answers.md","ref":"chapters/appendix/answers.md","articles":[]},{"title":"Change log","level":"10.1.2","depth":2,"path":"chapters/appendix/changelog.md","ref":"chapters/appendix/changelog.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/appendix/answers.md","mtime":"2020-04-20T14:44:07.838Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-21T13:56:14.877Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Answers to the exercises","level":"10.1.1","depth":2,"next":{"title":"Change log","level":"10.1.2","depth":2,"path":"chapters/appendix/changelog.md","ref":"chapters/appendix/changelog.md","articles":[]},"previous":{"title":"Appendix","level":"10.1","depth":1,"ref":"","articles":[{"title":"Answers to the exercises","level":"10.1.1","depth":2,"path":"chapters/appendix/answers.md","ref":"chapters/appendix/answers.md","articles":[]},{"title":"Change log","level":"10.1.2","depth":2,"path":"chapters/appendix/changelog.md","ref":"chapters/appendix/changelog.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/appendix/answers.md","mtime":"2020-04-21T17:50:07.929Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-21T17:50:32.840Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

@@ -966,118 +966,6 @@ This will be <span class="katex"><span class="katex-mathml"><math><semantics><mr
 on-point, a test case for the off-point, a test case for a single in-point (as all in-points
 belong to the same equivalence partition), and a test case for a single out-point (as all
 out-points also belong to the same equivalence partition).</p>
-<h2 id="deriving-tests-for-multiple-conditions">Deriving tests for multiple conditions</h2>
-<p>In the previous example, we looked at one condition and its boundary.
-However, in most programs you will find statements that consist of multiple conditions,
-e.g., <code>a &gt; 10 &amp;&amp; b &lt; 20 &amp;&amp; c == 10 &amp;&amp; d &gt;= 50</code>. (Note that these conditions might be
-expressed in a single <code>if</code> statement, but also spread all over a method or a class; it
-is up to the tester to identify how these different conditions interact with each other).</p>
-<p>In such cases, the number of boundary tests might explode. Imagine a program composed
-of 5 different conditions. If we decide to write 4 test cases (on, off, in, out points) for 
-each of the conditions, and make sure we test all the possible combinations among them,
-we end up with <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>4</mn><mn>5</mn></msup><mo>=</mo><mn>1</mn><mn>0</mn><mn>2</mn><mn>4</mn></mrow><annotation encoding="application/x-tex">4^5=1024</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathrm">4</span><span class="msupsub"><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle uncramped mtight"><span class="mord mathrm mtight">5</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span><span class="mrel">=</span><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mord mathrm">2</span><span class="mord mathrm">4</span></span></span></span> tests. This is simply too much.</p>
-<p>To effectively test the boundaries in these more complicated decisions, while
-minimising the number of required tests,
-we can use the <strong>simplified domain testing strategy</strong>, proposed by Jeng and Weyuker.
-The idea of this strategy is to test each boundary separately, i.e. independent of the other conditions.</p>
-<p>To do so, <strong>for each boundary</strong>:</p>
-<ul>
-<li>We pick the on- and off-point and we create one test case for each of these two points.</li>
-<li>As we want to test each boundary independently, we choose in-points for the other variables/conditions. Note that we always choose in-points, regardless of the Boolean expression being connected by means of ANDs or ORs. In practice, we want all the other conditions to return true, so that we can evaluate the outcome of the condition under test independently.</li>
-<li>It is important to vary the chosen in-points in the different tests, and to not choose the on- or off-point. This gives us the ability to partially check that the program gives the correct results for some in-points. If we would set the in-point to the on- or off-point, we would be testing two boundaries at once.</li>
-</ul>
-<p>To find these values and display the test cases in a structured manner, we use a <strong>domain matrix</strong>.
-In general, the table looks like the following:</p>
-<p><img src="img/boundary-testing/boundary_template.png" alt="Template for domain matrix"></p>
-<p>In this template, we have two conditions with two parameters (see the <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mo>&gt;</mo><mi>a</mi><mo>&#x2227;</mo><mi>y</mi><mo>&gt;</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">x &gt; a \land y &gt; b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit">x</span><span class="mrel">&gt;</span><span class="mord mathit">a</span><span class="mbin">&#x2227;</span><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="mrel">&gt;</span><span class="mord mathit">b</span></span></span></span> condition).
-We list the variables, with all their conditions.
-Each condition has two rows: one for the on-point and one for the off-point.
-Each variable has an additional row for the typical (in-) values.
-These are used when testing the other boundary.</p>
-<p>Each column that corresponds to a test case has two coloured cells.
-In the coloured cells you have to fill in the correct values.
-Each of these pairs of values will then give a test case.
-If we implement all the test cases that the domain matrix gives us, 
-we exercise each boundary both for the on- and off-point independent of the other parameters.</p>
-<p>Let us walk through another example:</p>
-<blockquote>
-<p><strong>Requirement: Pizza or pasta</strong></p>
-<p>The program decides whether a person should eat pizza or pasta.
-Given two random numbers, x and y, if x is in between <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mn>5</mn><mo separator="true">,</mo><mn>2</mn><mn>0</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">[5,20]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">[</span><span class="mord mathrm">5</span><span class="mpunct">,</span><span class="mord mathrm">2</span><span class="mord mathrm">0</span><span class="mclose">]</span></span></span></span>
-and y is smaller than or equal to 89, the program returns &quot;pizza&quot;.
-Otherwise it returns &quot;pasta&quot;. </p>
-</blockquote>
-<p>A simple implementation of this program would be:</p>
-<pre><code class="lang-java"><span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">pizzaOrPasta</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y)</span> </span>{
-  <span class="hljs-keyword">return</span> (x &gt;= <span class="hljs-number">5</span> &amp;&amp; x &lt; <span class="hljs-number">20</span> &amp;&amp; y &lt;= <span class="hljs-number">89</span>) ?
-    <span class="hljs-string">&quot;pizza&quot;</span> :
-    <span class="hljs-string">&quot;pasta&quot;</span>;
-}
-</code></pre>
-<p>If we derive test cases based on the specification, we end up with at least two partitions:</p>
-<ul>
-<li><strong>Pizza</strong>: the program returns pizza. T1={x=15, y=50}.</li>
-<li><strong>Pasta</strong>: the program returns pasta. T2={x=15, y=100}.</li>
-</ul>
-<p>(Now that you are more experienced in testing, you can probably see that these
-two partitions are not enough.)</p>
-<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PizzaPastaTest</span> </span>{
-
-  <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> PizzaPasta pp = <span class="hljs-keyword">new</span> PizzaPasta();
-
-  <span class="hljs-meta">@Test</span>
-  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">pizza</span><span class="hljs-params">()</span> </span>{
-    assertEquals(<span class="hljs-string">&quot;pizza&quot;</span>, pp.pizzaOrPasta(<span class="hljs-number">15</span>, <span class="hljs-number">50</span>));
-  }
-
-  <span class="hljs-meta">@Test</span>
-  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">pasta</span><span class="hljs-params">()</span> </span>{
-    assertEquals(<span class="hljs-string">&quot;pasta&quot;</span>, pp.pizzaOrPasta(<span class="hljs-number">15</span>, <span class="hljs-number">100</span>));
-  }
-}
-</code></pre>
-<p>Let us now apply boundary testing. Note how easy it is for a developer to
-make a mistake, e.g., confusing <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mo>&gt;</mo><mo>=</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">x &gt;= 5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.68354em;vertical-align:-0.0391em;"></span><span class="base textstyle uncramped"><span class="mord mathit">x</span><span class="mrel">&gt;</span><span class="mrel">=</span><span class="mord mathrm">5</span></span></span></span> with <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mo>&gt;</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">x &gt; 5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.68354em;vertical-align:-0.0391em;"></span><span class="base textstyle uncramped"><span class="mord mathit">x</span><span class="mrel">&gt;</span><span class="mord mathrm">5</span></span></span></span>.</p>
-<p>We start by making the domain matrix, having space for each of the conditions and both parameters.</p>
-<p><img src="img/boundary-testing/examples/boundary_table_empty.png" alt="Empty boundary table example"></p>
-<p>Given that the statement has three conditions, we therefore will devise
-<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn><mo>&#xD7;</mo><mn>3</mn><mo>=</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">2 \times 3 = 6</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">2</span><span class="mbin">&#xD7;</span><span class="mord mathrm">3</span><span class="mrel">=</span><span class="mord mathrm">6</span></span></span></span> tests.
-If we fill the table with the on-, off-, and typical random in points, we end up
-with the following tests:</p>
-<p><img src="img/boundary-testing/examples/boundary_table.png" alt="Boundary tables example filled in"></p>
-<p>Now we have derived the six test cases that we can use to test the boundaries:</p>
-<ul>
-<li>T1={x=5, y=24}, output=pizza</li>
-<li>T2={x=4, y=13}, output=pasta</li>
-<li>T3={x=20, y=-75}, output=pasta</li>
-<li>T4={x=19, y=48}, output=pizza</li>
-<li>T5={x=15, y=89}, output=pizza</li>
-<li>T6={x=8, y=90}, output=pasta</li>
-</ul>
-<pre><code class="lang-java"><span class="hljs-meta">@Test</span>
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">boundary_x1</span><span class="hljs-params">()</span> </span>{
-  assertEquals(<span class="hljs-string">&quot;pizza&quot;</span>, pp.pizzaOrPasta(<span class="hljs-number">5</span>, <span class="hljs-number">24</span>));
-  assertEquals(<span class="hljs-string">&quot;pasta&quot;</span>, pp.pizzaOrPasta(<span class="hljs-number">4</span>, <span class="hljs-number">13</span>));
-}
-
-<span class="hljs-meta">@Test</span>
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">boundary_x2</span><span class="hljs-params">()</span> </span>{
-  assertEquals(<span class="hljs-string">&quot;pasta&quot;</span>, pp.pizzaOrPasta(<span class="hljs-number">20</span>, -<span class="hljs-number">75</span>));
-  assertEquals(<span class="hljs-string">&quot;pizza&quot;</span>, pp.pizzaOrPasta(<span class="hljs-number">19</span>, <span class="hljs-number">48</span>));
-}
-
-<span class="hljs-meta">@Test</span>
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">boundary_y</span><span class="hljs-params">()</span> </span>{
-  assertEquals(<span class="hljs-string">&quot;pizza&quot;</span>, pp.pizzaOrPasta(<span class="hljs-number">15</span>, <span class="hljs-number">89</span>));
-  assertEquals(<span class="hljs-string">&quot;pasta&quot;</span>, pp.pizzaOrPasta(<span class="hljs-number">8</span>, <span class="hljs-number">90</span>));
-}
-</code></pre>
-<center>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/rPcMJg62wM4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</center>
-
-
-
 <h2 id="boundaries-that-are-not-so-explicit">Boundaries that are not so explicit</h2>
 <p>Let&apos;s revisit the example from the a previous chapter. There, we had a program
 where the goal was to return the number of bars needed in order to build some boxes of chocolates:</p>
@@ -1341,10 +1229,6 @@ Perform boundary analysis on the condition.
 What are the on- and off-point of the condition?
 Also give an example for both an in-point and an out-point.</p>
 <p><strong>Exercise 4.</strong>
-We extend the game with a more complicated condition: <code>(numberOfPoints &lt;= 570 &amp;&amp; numberOfLives &gt; 10) || energyLevel == 5</code>.</p>
-<p>Perform boundary analysis on this condition.
-What is the resulting domain matrix?</p>
-<p><strong>Exercise 5.</strong>
 Regarding <strong>boundary analysis of inequalities</strong> (e.g., <code>a &lt; 10</code>), which of the following statements <strong>is true</strong>?</p>
 <ol>
 <li>There can only be a single on-point which always makes the condition true.</li>
@@ -1352,9 +1236,9 @@ Regarding <strong>boundary analysis of inequalities</strong> (e.g., <code>a &lt;
 <li>There can only be a single off-point which may or may not make the condition false.</li>
 <li>There can be multiple off-points for a given condition which always make the condition false.</li>
 </ol>
-<p><strong>Exercise 6.</strong>
+<p><strong>Exercise 5.</strong>
 A game has the following condition: <code>numberOfPoints &gt; 1024</code>. Perform a boundary analysis.</p>
-<p><strong>Exercise 7.</strong>
+<p><strong>Exercise 6.</strong>
 Which one of the following statements about the <strong>CORRECT</strong> principles is <strong>true</strong>?</p>
 <ol>
 <li>We assume that external dependencies are already on the right state for the test (REFERENCE).</li>
@@ -1412,7 +1296,7 @@ Which one of the following statements about the <strong>CORRECT</strong> princip
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Boundary testing","level":"4.1.2","depth":2,"next":{"title":"Structural testing","level":"4.1.3","depth":2,"path":"chapters/testing-techniques/structural-testing.md","ref":"chapters/testing-techniques/structural-testing.md","articles":[]},"previous":{"title":"Specification-based testing","level":"4.1.1","depth":2,"path":"chapters/testing-techniques/specification-based-testing.md","ref":"chapters/testing-techniques/specification-based-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/testing-techniques/boundary-testing.md","mtime":"2020-04-21T13:54:19.783Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-21T13:56:14.877Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Boundary testing","level":"4.1.2","depth":2,"next":{"title":"Structural testing","level":"4.1.3","depth":2,"path":"chapters/testing-techniques/structural-testing.md","ref":"chapters/testing-techniques/structural-testing.md","articles":[]},"previous":{"title":"Specification-based testing","level":"4.1.1","depth":2,"path":"chapters/testing-techniques/specification-based-testing.md","ref":"chapters/testing-techniques/specification-based-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/testing-techniques/boundary-testing.md","mtime":"2020-04-21T17:49:53.056Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-21T17:50:32.840Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

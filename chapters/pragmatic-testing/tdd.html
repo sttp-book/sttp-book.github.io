@@ -946,29 +946,38 @@ What words/sentences should be at the numbers?</p>
 <p>(Try to answer the question without scrolling up!)</p>
 <p><strong>Exercise 2.</strong>
 Remember the <code>RomanNumeral</code> problem?</p>
-<pre><code>**The Roman Numeral problem**
-
-It is our goal to implement a program that receives a string as a parameter
-containing a roman number and then converts it to an integer.
-
-In roman numeral, letters represent values:
-
-* I = 1
-* V = 5
-* X = 10
-* L = 50
-* C = 100
-* D = 500
-* M = 1000
-
-We can combine these letters to form numbers.
-The letters should be ordered from the highest to the lowest value.
-For example `CCXVI` would be 216.
-
-When we put a lower value in front of a higher one, we subtract that value from the higher value.
-For example we make 40 not by XXXX, but instead we use {% math %}50 - 10 = 40{% endmath %} and have the roman number `XL`.
-Combining both these principles we could give our method `MDCCCXLII` and it should return 1842.
-</code></pre><p>Implement this program. Practice TDD!</p>
+<blockquote>
+<p><strong>The Roman Numeral problem</strong></p>
+<p>It is our goal to implement a program that receives a string 
+as a parameter containing a roman number and then 
+converts it to an integer.</p>
+<p>In roman numeral, letters represent values:</p>
+<ul>
+<li>I = 1</li>
+<li>V = 5</li>
+<li>X = 10</li>
+<li>L = 50</li>
+<li>C = 100</li>
+<li>D = 500</li>
+<li>M = 1000</li>
+</ul>
+<p>Letters can be combined to form numbers.
+For example we make 6 by using <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>5</mn><mo>+</mo><mn>1</mn><mo>=</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">5 + 1 = 6</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">5</span><span class="mbin">+</span><span class="mord mathrm">1</span><span class="mrel">=</span><span class="mord mathrm">6</span></span></span></span> and 
+have the roman number &quot;VI&quot;.
+Example: 7 is &quot;VII&quot;, 11 is &quot;XI&quot; and 101 is &quot;CI&quot;.
+Some numbers need to make use of a subtractive notation 
+to be represented.
+For example we make 40 not by &quot;XXXX&quot;, but 
+instead we use <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>5</mn><mn>0</mn><mo>&#x2212;</mo><mn>1</mn><mn>0</mn><mo>=</mo><mn>4</mn><mn>0</mn></mrow><annotation encoding="application/x-tex">50 - 10 = 40</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">5</span><span class="mord mathrm">0</span><span class="mbin">&#x2212;</span><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mrel">=</span><span class="mord mathrm">4</span><span class="mord mathrm">0</span></span></span></span> and have the roman number &quot;XL&quot;.
+Other examples: 9 is &quot;XI&quot;, 40 is &quot;XL&quot;, 14 is &quot;XIV&quot;.</p>
+<p>The letters should be ordered from the highest to the lowest value.
+The values of each individual letter is added together.
+Unless the subtractive notation is used in which a letter 
+with a lower value is placed in front of a letter with a higher value.</p>
+<p>Combining both these principles we could give our 
+method &quot;MDCCCXLII&quot; and it should return 1842.</p>
+</blockquote>
+<p>Implement this program. Practice TDD!</p>
 <p><strong>Exercise 3.</strong>
 Which of the following <strong>is the least important</strong> reason why one does Test-Driven Development?</p>
 <ol>
@@ -1051,7 +1060,7 @@ TDD has become a really popular practice among developers. According to them, TD
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Test-driven development","level":"5.1.4","depth":2,"next":{"title":"Test code quality and engineering","level":"5.1.5","depth":2,"path":"chapters/pragmatic-testing/test-code-quality.md","ref":"chapters/pragmatic-testing/test-code-quality.md","articles":[]},"previous":{"title":"Design for testability","level":"5.1.3","depth":2,"path":"chapters/pragmatic-testing/design-for-testability.md","ref":"chapters/pragmatic-testing/design-for-testability.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/pragmatic-testing/tdd.md","mtime":"2020-04-20T14:44:07.840Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-23T10:14:38.432Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Test-driven development","level":"5.1.4","depth":2,"next":{"title":"Test code quality and engineering","level":"5.1.5","depth":2,"path":"chapters/pragmatic-testing/test-code-quality.md","ref":"chapters/pragmatic-testing/test-code-quality.md","articles":[]},"previous":{"title":"Design for testability","level":"5.1.3","depth":2,"path":"chapters/pragmatic-testing/design-for-testability.md","ref":"chapters/pragmatic-testing/design-for-testability.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/pragmatic-testing/tdd.md","mtime":"2020-04-23T10:21:23.620Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-23T10:21:53.942Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

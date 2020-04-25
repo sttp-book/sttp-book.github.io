@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Domain testing · GitBook</title>
+        <title>Domain testing examples · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="structural-testing.html" />
+    <link rel="next" href="../appendix/changelog.html" />
     
     
-    <link rel="prev" href="boundary-testing.html" />
+    <link rel="prev" href="../appendix/answers.html" />
     
 
     </head>
@@ -299,20 +299,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="4.1.3" data-path="domain-testing.html">
-            
-                <a href="domain-testing.html">
-            
-                    
-                    Domain testing
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.1.4" data-path="structural-testing.html">
+        <li class="chapter " data-level="4.1.3" data-path="structural-testing.html">
             
                 <a href="structural-testing.html">
             
@@ -325,7 +312,7 @@
             
         </li>
     
-        <li class="chapter " data-level="4.1.5" data-path="model-based-testing.html">
+        <li class="chapter " data-level="4.1.4" data-path="model-based-testing.html">
             
                 <a href="model-based-testing.html">
             
@@ -338,7 +325,7 @@
             
         </li>
     
-        <li class="chapter " data-level="4.1.6" data-path="design-by-contracts.html">
+        <li class="chapter " data-level="4.1.5" data-path="design-by-contracts.html">
             
                 <a href="design-by-contracts.html">
             
@@ -351,7 +338,7 @@
             
         </li>
     
-        <li class="chapter " data-level="4.1.7" data-path="property-based-testing.html">
+        <li class="chapter " data-level="4.1.6" data-path="property-based-testing.html">
             
                 <a href="property-based-testing.html">
             
@@ -767,7 +754,20 @@
             
         </li>
     
-        <li class="chapter " data-level="10.1.2" data-path="../appendix/changelog.html">
+        <li class="chapter active" data-level="10.1.2" data-path="domain-testing.html">
+            
+                <a href="domain-testing.html">
+            
+                    
+                    Domain testing examples
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="10.1.3" data-path="../appendix/changelog.html">
             
                 <a href="../appendix/changelog.html">
             
@@ -815,7 +815,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="../.." >Domain testing</a>
+        <a href="../.." >Domain testing examples</a>
     </h1>
 </div>
 
@@ -830,13 +830,12 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="domain-testing">Domain testing</h1>
-<p>In the two previous chapters, we discussed <em>equivalent class analysis</em> and <em>boundary testing</em>. In this chapter, we now revisit these techniques, and show how testers combine them both to derive test cases. We call it <em>domain testing</em>.</p>
+                                <h1 id="domain-testing-examples">Domain testing examples</h1>
 <p>This chapter follows a problem-based approach. We first show a program requirement, and then, show how we would apply equivalent class analysis and boundary testing.</p>
 <p>We will follow a common strategy when applying domain testing, highly influenced by how Kaner et al. do:</p>
 <ol>
 <li>We read the requirement</li>
-<li>We identify the input and output variables in play, their types, and their ranges.</li>
+<li>We identify the input and output variables in play, together with their types, and their ranges.</li>
 <li>We identify the dependencies (or independence) among input variables, and how input variables influence the output variable.</li>
 <li>We perform equivalent class analysis (valid and invalid classes).</li>
 <li>We explore the boundaries of these classes.</li>
@@ -2363,12 +2362,12 @@ Final sum should be &lt;= 165.</p>
 
             
                 
-                <a href="boundary-testing.html" class="navigation navigation-prev " aria-label="Previous page: Boundary testing">
+                <a href="../appendix/answers.html" class="navigation navigation-prev " aria-label="Previous page: Answers to the exercises">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="structural-testing.html" class="navigation navigation-next " aria-label="Next page: Structural testing">
+                <a href="../appendix/changelog.html" class="navigation navigation-next " aria-label="Next page: Change log">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2379,7 +2378,7 @@ Final sum should be &lt;= 165.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Domain testing","level":"4.1.3","depth":2,"next":{"title":"Structural testing","level":"4.1.4","depth":2,"path":"chapters/testing-techniques/structural-testing.md","ref":"chapters/testing-techniques/structural-testing.md","articles":[]},"previous":{"title":"Boundary testing","level":"4.1.2","depth":2,"path":"chapters/testing-techniques/boundary-testing.md","ref":"chapters/testing-techniques/boundary-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/testing-techniques/domain-testing.md","mtime":"2020-04-25T22:05:58.376Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-25T22:06:33.327Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Domain testing examples","level":"10.1.2","depth":2,"next":{"title":"Change log","level":"10.1.3","depth":2,"path":"chapters/appendix/changelog.md","ref":"chapters/appendix/changelog.md","articles":[]},"previous":{"title":"Answers to the exercises","level":"10.1.1","depth":2,"path":"chapters/appendix/answers.md","ref":"chapters/appendix/answers.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/testing-techniques/domain-testing.md","mtime":"2020-04-25T22:14:12.578Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-25T22:14:52.933Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

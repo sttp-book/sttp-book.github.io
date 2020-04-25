@@ -57,7 +57,7 @@
     <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="structural-testing.html" />
+    <link rel="next" href="domain-testing.html" />
     
     
     <link rel="prev" href="specification-based-testing.html" />
@@ -299,7 +299,20 @@
             
         </li>
     
-        <li class="chapter " data-level="4.1.3" data-path="structural-testing.html">
+        <li class="chapter " data-level="4.1.3" data-path="domain-testing.html">
+            
+                <a href="domain-testing.html">
+            
+                    
+                    Domain testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.4" data-path="structural-testing.html">
             
                 <a href="structural-testing.html">
             
@@ -312,7 +325,7 @@
             
         </li>
     
-        <li class="chapter " data-level="4.1.4" data-path="model-based-testing.html">
+        <li class="chapter " data-level="4.1.5" data-path="model-based-testing.html">
             
                 <a href="model-based-testing.html">
             
@@ -325,7 +338,7 @@
             
         </li>
     
-        <li class="chapter " data-level="4.1.5" data-path="design-by-contracts.html">
+        <li class="chapter " data-level="4.1.6" data-path="design-by-contracts.html">
             
                 <a href="design-by-contracts.html">
             
@@ -338,7 +351,7 @@
             
         </li>
     
-        <li class="chapter " data-level="4.1.6" data-path="property-based-testing.html">
+        <li class="chapter " data-level="4.1.7" data-path="property-based-testing.html">
             
                 <a href="property-based-testing.html">
             
@@ -966,7 +979,7 @@ This will be <span class="katex"><span class="katex-mathml"><math><semantics><mr
 on-point, a test case for the off-point, a test case for a single in-point (as all in-points
 belong to the same equivalence partition), and a test case for a single out-point (as all
 out-points also belong to the same equivalence partition).</p>
-<p><div class="alert alert-success hints-alert"><div class="hints-icon"><i class="fa fa-mortar-board"></i></div><div class="hints-container"><p>Note that <em>on</em> and <em>off</em> points are also <em>in</em> or <em>out points</em>. Therefore, tests that focus only on the <em>on</em> and <em>off</em> points would also be testing <em>in</em> and <em>out</em> points. This is totally true. In fact, some authors argue that testing boundaries is enough. Moreover, a test that exercises an in-point that is far away from the boundary might not have a strong fault detection capability. Why would we need them?</p>
+<p><div class="alert alert-success hints-alert"><div class="hints-icon"><i class="fa fa-mortar-board"></i></div><div class="hints-container"><p>Note that <em>on</em> and <em>off</em> points are also <em>in</em> or <em>out points</em>. Therefore, tests that focus only on the <em>on</em> and <em>off</em> points would also be testing <em>in</em> and <em>out</em> points. In fact, some authors argue that testing boundaries is enough. Moreover, a test that exercises an in-point that is far away from the boundary might not have a strong fault detection capability. Why would we need them?</p>
 <p>There is <em>no perfect answer</em> here. We suggest:</p>
 <ul>
 <li>If the number of test cases is indeed too high, and it is just too expensive to do them all, prioritization is important, and we suggest testers to indeed <strong>focus on the boundaries</strong>.</li>
@@ -1054,7 +1067,7 @@ partition to another one:</p>
 <li><code>(3, 2, 3)</code> returns 3. We need only small bars here, and therefore, this input belongs to the <strong>only small bars</strong> partition.</li>
 <li><code>(2, 2, 3)</code> returns -1. We can&apos;t make the boxes. This input belongs to the <strong>Not enough bars</strong> partition.</li>
 </ul>
-<p>A partition might have boundaries with more than just one single another partitions. 
+<p>A partition might have boundaries with more than just a single other partition. 
 The <strong>only small bars</strong> partition has boundaries not only with the <strong>not enough bars</strong> partition (as we saw above), but also with the <strong>only big bars</strong> partition:</p>
 <ul>
 <li><code>(4, 2, 4)</code> returns 4. We need only small bars here, and therefore, this input belongs to the <strong>only small bars</strong> partition.</li>
@@ -1098,7 +1111,7 @@ To execute multiple tests with the same test method,
 the <code>CsvSource</code> expects list of strings, where each string represents 
 the input and output values for one test case.
 The <code>CsvSource</code> is an annotation itself, so in an implementation 
-it would like like the following: <code>@CsvSource({&quot;value11, value12&quot;, &quot;value21, value22&quot;, &quot;value31, value32&quot;, ...})</code></p>
+it would look like the following: <code>@CsvSource({&quot;value11, value12&quot;, &quot;value21, value22&quot;, &quot;value31, value32&quot;, ...})</code></p>
 <pre><code class="lang-java"><span class="hljs-meta">@ParameterizedTest</span>(name = <span class="hljs-string">&quot;small={0}, big={1}, total={2}, result={3}&quot;</span>)
     <span class="hljs-meta">@CsvSource</span>({
       <span class="hljs-comment">// The total is higher than the amount of small and big bars.</span>
@@ -1256,7 +1269,7 @@ We have the following method.</p>
 <p>Perform boundary analysis on the condition in the for-loop: <code>i &lt; half</code>, i.e. what are the on- and off-point and the in- and out-points?
 You can give the points in terms of the variables used in the method.</p>
 <p><strong>Exercise 2.</strong>
-Perform boundary analysis on the following decision: <code>n % 3 == 0 &amp;&amp; n % 5 == 0</code>.
+Perform boundary analysis on the following equality: <code>x == 10</code>.
 What are the on- and off-points?</p>
 <p><strong>Exercise 3.</strong>
 A game has the following condition: <code>numberOfPoints &lt;= 570</code>.
@@ -1274,6 +1287,9 @@ Regarding <strong>boundary analysis of inequalities</strong> (e.g., <code>a &lt;
 <p><strong>Exercise 5.</strong>
 A game has the following condition: <code>numberOfPoints &gt; 1024</code>. Perform a boundary analysis.</p>
 <p><strong>Exercise 6.</strong>
+Perform boundary analysis on the following decision: <code>n % 3 == 0 &amp;&amp; n % 5 == 0</code>.
+What are the on- and off-points?</p>
+<p><strong>Exercise 7.</strong>
 Which one of the following statements about the <strong>CORRECT</strong> principles is <strong>true</strong>?</p>
 <ol>
 <li>We assume that external dependencies are already on the right state for the test (REFERENCE).</li>
@@ -1320,7 +1336,7 @@ Which one of the following statements about the <strong>CORRECT</strong> princip
                 </a>
                 
                 
-                <a href="structural-testing.html" class="navigation navigation-next " aria-label="Next page: Structural testing">
+                <a href="domain-testing.html" class="navigation navigation-next " aria-label="Next page: Domain testing">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -1331,7 +1347,7 @@ Which one of the following statements about the <strong>CORRECT</strong> princip
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Boundary testing","level":"4.1.2","depth":2,"next":{"title":"Structural testing","level":"4.1.3","depth":2,"path":"chapters/testing-techniques/structural-testing.md","ref":"chapters/testing-techniques/structural-testing.md","articles":[]},"previous":{"title":"Specification-based testing","level":"4.1.1","depth":2,"path":"chapters/testing-techniques/specification-based-testing.md","ref":"chapters/testing-techniques/specification-based-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/testing-techniques/boundary-testing.md","mtime":"2020-04-23T10:14:35.181Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-23T15:32:52.604Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Boundary testing","level":"4.1.2","depth":2,"next":{"title":"Domain testing","level":"4.1.3","depth":2,"path":"chapters/testing-techniques/domain-testing.md","ref":"chapters/testing-techniques/domain-testing.md","articles":[]},"previous":{"title":"Specification-based testing","level":"4.1.1","depth":2,"path":"chapters/testing-techniques/specification-based-testing.md","ref":"chapters/testing-techniques/specification-based-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/testing-techniques/boundary-testing.md","mtime":"2020-04-25T11:20:54.615Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-25T11:47:51.231Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

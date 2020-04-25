@@ -297,7 +297,20 @@
             
         </li>
     
-        <li class="chapter " data-level="4.1.3" data-path="../testing-techniques/structural-testing.html">
+        <li class="chapter " data-level="4.1.3" data-path="../testing-techniques/domain-testing.html">
+            
+                <a href="../testing-techniques/domain-testing.html">
+            
+                    
+                    Domain testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.4" data-path="../testing-techniques/structural-testing.html">
             
                 <a href="../testing-techniques/structural-testing.html">
             
@@ -310,7 +323,7 @@
             
         </li>
     
-        <li class="chapter " data-level="4.1.4" data-path="../testing-techniques/model-based-testing.html">
+        <li class="chapter " data-level="4.1.5" data-path="../testing-techniques/model-based-testing.html">
             
                 <a href="../testing-techniques/model-based-testing.html">
             
@@ -323,7 +336,7 @@
             
         </li>
     
-        <li class="chapter " data-level="4.1.5" data-path="../testing-techniques/design-by-contracts.html">
+        <li class="chapter " data-level="4.1.6" data-path="../testing-techniques/design-by-contracts.html">
             
                 <a href="../testing-techniques/design-by-contracts.html">
             
@@ -336,7 +349,7 @@
             
         </li>
     
-        <li class="chapter " data-level="4.1.6" data-path="../testing-techniques/property-based-testing.html">
+        <li class="chapter " data-level="4.1.7" data-path="../testing-techniques/property-based-testing.html">
             
                 <a href="../testing-techniques/property-based-testing.html">
             
@@ -868,18 +881,29 @@ We end up with three partitions:<ul>
 </li>
 </ol>
 <p><strong>Exercise 4</strong></p>
-<p>We go over each given partition and identify whether it is a valid partition:</p>
+<p>There are no right or wrong answers to this exercise. 
+It services to show that a lot of decisions that we make are based on what we know about the system (or, in this case, what we assume about the system).
+But, when context kicks in, there might be more possible invalid test cases then just the cases in the boundaries.</p>
+<p>Whatever decisions you as a tester make regarding specific invalid test cases, it is important to justify those decisions.
+For example:</p>
+<ul>
+<li>Do we feel the need of testing negative numbers separately from positive numbers? From the specification, there&apos;s no reason to do so. 
+If you look at the source code (supposing you have access to the source code, does it make you feel like this test is needed?</li>
+<li>Do we feel the need of testing trailing zeroes? Maybe the user inputs a string which is converted later... Then, testing might be important.</li>
+<li>Do we feel the need to test extreme numbers, like Integer.MAX_VALUE or even passing a long int or float there? </li>
+<li>Do we feel the need to test with a string consisting of only 1 letter, or maybe more than 2 letters? 
+If there&apos;s no input validation, unintended behaviour might be right around the corner </li>
+<li>Do we feel the need to test lowercase letters? Maybe the program can&apos;t distinguish between lower- and uppercase letters.</li>
+</ul>
+<p>Examples of possible invalid partitions:</p>
 <ol>
-<li>Valid partition: Invalid numbers, which are too small.</li>
-<li>Valid partition: Valid numbers</li>
-<li>Invalid partition: Contains some valid numbers, but the range is too small to cover the whole partition.</li>
-<li>Invalid partition: Same reason as number 3.</li>
-<li>Valid partition: Invalid numbers, that are too large.</li>
-<li>Invalid partition: Contains both valid and invalid letters (the C is included in the domain).</li>
-<li>Valid partition: Valid letters.</li>
-<li>Valid partition: Invalid letters, past the range of valid letters.</li>
+<li>[Integer.MIN_VALUE, 999]</li>
+<li>[4001, Integer.MAX_VALUE] </li>
+<li>[AA, B]</li>
+<li>[N, Z]</li>
+<li>[0000, 0999] </li>
+<li>[AAA, ZZZ]</li>
 </ol>
-<p>We have the following valid partitions: 1, 2, 5, 7, 8.</p>
 <p><strong>Exercise 5</strong></p>
 <ul>
 <li>P1: Element not present in the set</li>
@@ -907,12 +931,9 @@ This makes the off-point <code>half</code> - 1.</p>
 Practically they will be from 0, as that is what <code>i</code> starts with.</p>
 <p>The out-points are the values that make the condition false: all values equal to or larger than <code>half</code>.</p>
 <p><strong>Exercise 2</strong></p>
-<p>The decision consists of two conditions, so we can analyse these separately.</p>
-<p>For <code>n % 3 == 0</code> we have an on point of 3.
+<p>The on-point is 10.
 Here we are dealing with an equality; the value can both go up and down to make the condition false.
-As such, we have two off-points: 2 and 4.</p>
-<p>Similarly to the first condition for <code>n % 5 == 0</code> we have an on-point of 5.
-Now the off-points are 4 and 6.</p>
+As such, we have two off-points: 9 and 11.</p>
 <p><strong>Exercise 3</strong></p>
 <p>The on-point can be read from the condition: 570.</p>
 <p>The off-point should make the condition false (the on-point makes it true): 571.</p>
@@ -925,6 +946,16 @@ Then the condition evaluates to true.</p>
 <p>on point = 1024, off point = 1025, in point = 1028, out point = 512</p>
 <p>The on point is the number precisely in the boundary = 1024. off point is the closest number to the boundary and has the opposite result of on point. In this case, 1024 makes the condition false, so the off point should make it true. 1025. In point makes conditions true, e.g., 1028. Out point makes the condition false, e.g., 512.</p>
 <p><strong>Exercise 6</strong></p>
+<p>The decision consists of two conditions, so we can analyse these separately.</p>
+<p>First note that the modulo function <code>%</code> is not a linear function, therefore there is no single on and off point.
+<img src="img/boundary-testing/exercises/modulo3-graph.png" alt="Graph of `f(n) = n % 3`">
+(Graph of <code>f(n) = n % 3</code>, desmos.com)</p>
+<p>For <code>n % 3 == 0</code> any multiple of 3 would work as an on-point.
+Because we can&apos;t exhaustively test all multiples of 3, only one of them should be tested. Lets use 3 for this exercise.
+There are also infinitely many off points we can pick. Choosing the respective off-points of our on-point should suffice. Off-points: 2 and 4.</p>
+<p>Similarly to the first condition for <code>n % 5 == 0</code> we have an on-point of 5.
+Now the off-points are 4 and 6.</p>
+<p><strong>Exercise 7</strong></p>
 <p>We should always test the behaviour of our program when any expected data actually does not exist (EXISTENCE).</p>
 <h2 id="structural-testing">Structural testing</h2>
 <p><strong>Exercise 1</strong></p>
@@ -1566,7 +1597,7 @@ TDD literature says nothing about team integration.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Answers to the exercises","level":"10.1.1","depth":2,"next":{"title":"Change log","level":"10.1.2","depth":2,"path":"chapters/appendix/changelog.md","ref":"chapters/appendix/changelog.md","articles":[]},"previous":{"title":"Appendix","level":"10.1","depth":1,"ref":"","articles":[{"title":"Answers to the exercises","level":"10.1.1","depth":2,"path":"chapters/appendix/answers.md","ref":"chapters/appendix/answers.md","articles":[]},{"title":"Change log","level":"10.1.2","depth":2,"path":"chapters/appendix/changelog.md","ref":"chapters/appendix/changelog.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/appendix/answers.md","mtime":"2020-04-23T15:32:48.173Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-23T15:32:52.604Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Answers to the exercises","level":"10.1.1","depth":2,"next":{"title":"Change log","level":"10.1.2","depth":2,"path":"chapters/appendix/changelog.md","ref":"chapters/appendix/changelog.md","articles":[]},"previous":{"title":"Appendix","level":"10.1","depth":1,"ref":"","articles":[{"title":"Answers to the exercises","level":"10.1.1","depth":2,"path":"chapters/appendix/answers.md","ref":"chapters/appendix/answers.md","articles":[]},{"title":"Change log","level":"10.1.2","depth":2,"path":"chapters/appendix/changelog.md","ref":"chapters/appendix/changelog.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/appendix/answers.md","mtime":"2020-04-25T11:20:54.611Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-25T11:47:51.231Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

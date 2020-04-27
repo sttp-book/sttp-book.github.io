@@ -1035,7 +1035,7 @@ Each of the test cases corresponds to one of the partitions that we want to test
 </center>
 
 
-<p>Let&apos;s explore another example:</p>
+<h2 id="walking-example">Walking example</h2>
 <blockquote>
 <p><strong>Requirement: Chocolate bars</strong></p>
 <p>A package stores a certain number of chocolate bars in kilos.
@@ -1063,15 +1063,23 @@ Return -1 if it is not possible to fill the package completely.</p>
 </code></pre>
 <p>In this requirement, the partitions are less clear and it is essential to understand the problem fully
 in order to derive the partitions.</p>
-<p>The classes/partitions are:</p>
+<p>One way to perform the analysis is to consider how the input variables affect the output variables. We observe that:</p>
 <ul>
-<li><strong>Need only small bars</strong>. A solution that only uses the provided small bars.</li>
-<li><strong>Need only big bars</strong>. A solution that only uses the provided big bars.</li>
+<li>There are three input variables: <em>number of small bars</em>, <em>number of big bars</em>, <em>number of kilos in a package</em>. They are all integers and values can range from 0 to infinite.</li>
+<li>Given a valid <em>number of kilos in a package</em>, the outcome is then based on the <em>number of big bars</em> and <em>number of small bars</em>. This means we can not analyse each variable separately, but only together.</li>
+</ul>
+<p>We derive the following classes / partitions:</p>
+<ul>
+<li><strong>Need only small bars</strong>. A solution that only uses small bars (and does not use big bars).</li>
+<li><strong>Need only big bars</strong>. A solution that only uses the big bars (and does not use small bars).</li>
 <li><strong>Need small + big bars</strong>. A solution that has to use both small and big bars.</li>
 <li><strong>Not enough bars</strong>. A case in which it is impossible, because there are not enough bars.</li>
-<li><strong>Not from the specs</strong>: An exceptional case.</li>
 </ul>
-<p>For each of these classes, we can devise concrete test cases:</p>
+<p>We also derive an invalid class:</p>
+<ul>
+<li><strong>Not from the specs</strong>: An exceptional case (e.g., negative numbers in any of the inputs).</li>
+</ul>
+<p>For each of these classes, we can devise five concrete test cases:</p>
 <ul>
 <li><strong>Need only small bars</strong>. small = 4, big = 2, total = 3</li>
 <li><strong>Need only big bars</strong>. small = 5, big = 3, total = 10</li>
@@ -1111,6 +1119,8 @@ in order to derive the partitions.</p>
 </code></pre>
 <p>This example shows a case where deriving good test cases becomes more challenging due to the
 specifications being complex.</p>
+<p><div class="alert alert-success hints-alert"><div class="hints-icon"><i class="fa fa-mortar-board"></i></div><div class="hints-container"><p>If you know some advanced features of JUnit, you might be wondering why we did not use, e.g., Parameterized Tests. We will refactor this test code in a future chapter.</p>
+</div></div></p>
 <center>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/T8caAUwgquQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </center>
@@ -1321,7 +1331,7 @@ Consider a <code>find</code> program that finds occurrences of a pattern in a fi
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Specification-based testing","level":"4.1.1","depth":2,"next":{"title":"Boundary testing","level":"4.1.2","depth":2,"path":"chapters/testing-techniques/boundary-testing.md","ref":"chapters/testing-techniques/boundary-testing.md","articles":[]},"previous":{"title":"Testing techniques","level":"4.1","depth":1,"path":"chapters/testing-techniques/README.md","ref":"chapters/testing-techniques/README.md","articles":[{"title":"Specification-based testing","level":"4.1.1","depth":2,"path":"chapters/testing-techniques/specification-based-testing.md","ref":"chapters/testing-techniques/specification-based-testing.md","articles":[]},{"title":"Boundary testing","level":"4.1.2","depth":2,"path":"chapters/testing-techniques/boundary-testing.md","ref":"chapters/testing-techniques/boundary-testing.md","articles":[]},{"title":"Structural testing","level":"4.1.3","depth":2,"path":"chapters/testing-techniques/structural-testing.md","ref":"chapters/testing-techniques/structural-testing.md","articles":[]},{"title":"Model-based testing","level":"4.1.4","depth":2,"path":"chapters/testing-techniques/model-based-testing.md","ref":"chapters/testing-techniques/model-based-testing.md","articles":[]},{"title":"Design-by-contracts","level":"4.1.5","depth":2,"path":"chapters/testing-techniques/design-by-contracts.md","ref":"chapters/testing-techniques/design-by-contracts.md","articles":[]},{"title":"Property-based testing","level":"4.1.6","depth":2,"path":"chapters/testing-techniques/property-based-testing.md","ref":"chapters/testing-techniques/property-based-testing.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/testing-techniques/specification-based-testing.md","mtime":"2020-04-25T11:20:54.617Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-26T20:06:20.645Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Specification-based testing","level":"4.1.1","depth":2,"next":{"title":"Boundary testing","level":"4.1.2","depth":2,"path":"chapters/testing-techniques/boundary-testing.md","ref":"chapters/testing-techniques/boundary-testing.md","articles":[]},"previous":{"title":"Testing techniques","level":"4.1","depth":1,"path":"chapters/testing-techniques/README.md","ref":"chapters/testing-techniques/README.md","articles":[{"title":"Specification-based testing","level":"4.1.1","depth":2,"path":"chapters/testing-techniques/specification-based-testing.md","ref":"chapters/testing-techniques/specification-based-testing.md","articles":[]},{"title":"Boundary testing","level":"4.1.2","depth":2,"path":"chapters/testing-techniques/boundary-testing.md","ref":"chapters/testing-techniques/boundary-testing.md","articles":[]},{"title":"Structural testing","level":"4.1.3","depth":2,"path":"chapters/testing-techniques/structural-testing.md","ref":"chapters/testing-techniques/structural-testing.md","articles":[]},{"title":"Model-based testing","level":"4.1.4","depth":2,"path":"chapters/testing-techniques/model-based-testing.md","ref":"chapters/testing-techniques/model-based-testing.md","articles":[]},{"title":"Design-by-contracts","level":"4.1.5","depth":2,"path":"chapters/testing-techniques/design-by-contracts.md","ref":"chapters/testing-techniques/design-by-contracts.md","articles":[]},{"title":"Property-based testing","level":"4.1.6","depth":2,"path":"chapters/testing-techniques/property-based-testing.md","ref":"chapters/testing-techniques/property-based-testing.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/testing-techniques/specification-based-testing.md","mtime":"2020-04-27T10:01:41.150Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-27T10:10:05.110Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

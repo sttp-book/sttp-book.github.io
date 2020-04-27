@@ -843,6 +843,8 @@ For each of the generated input values, this assertion is checked. If we find an
 <p>The first implementation of this idea was called <em>QuickCheck</em> and was originally developed for Haskell.
 Nowadays, most languages have an implementation of quick check, including Java.
 The Java implementation we are going to use is <a href="https://jqwik.net" target="_blank">jqwik</a>.</p>
+<p><div class="alert alert-success hints-alert"><div class="hints-icon"><i class="fa fa-mortar-board"></i></div><div class="hints-container"><p>Jqwik has several features to better support property based tests. In this chapter, we only skim through some of them. We recommend readers to dive into jqwik&apos;s manual.</p>
+</div></div></p>
 <h2 id="getting-started-with-property-based-tests">Getting started with property-based tests</h2>
 <p>How does it work?</p>
 <ul>
@@ -885,6 +887,14 @@ We can use property-based testing and jqwik&apos;s implementation to make tests 
 <p>Property-based testing changes the way we automate our tests.
 We have only been automating the execution of our tests; the design and instantiation of test cases were always done by us, testers.
 With property-based testing, by means of QuickCheck&apos;s implementation, we also automatically generate the inputs of the tests.</p>
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/7kB6JaSH9p8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+
+
+
+<p><div class="alert alert-success hints-alert"><div class="hints-icon"><i class="fa fa-mortar-board"></i></div><div class="hints-container"><p>Note that, in the video, we still use the <code>@RunWith</code> annotation that was required in JUnit 4 (back then, we also used the <em>QuickCheck</em> framework, and not <em>jqwik</em>. The code in this chapter was updated to <em>jqwik</em>, which natively supports JUnit 5. Nevertheless, the underlying idea is still the same.</p>
+</div></div></p>
 <h2 id="other-examples">Other examples</h2>
 <p>Suppose the following requirement:</p>
 <blockquote>
@@ -999,6 +1009,7 @@ The program must throw an exception for numbers below 0 (inclusive).</p>
     }
 }
 </code></pre>
+<p>You may see other examples in our <a href="https://www.github.com/sttp-book/code-examples" target="_blank">code repository</a>.</p>
 <h2 id="property-based-testing-and-ai">Property-based testing and AI</h2>
 <p>A lot of today&apos;s research goes into creating AI for software testing that generates good input values for tests.
 We try to apply artificial intelligence to find inputs that exercise important parts of the system.</p>
@@ -1010,12 +1021,6 @@ The pre- and postconditions, contracts, and properties we discussed in this chap
 By well-defining the system in these terms, we can use them as oracles in the test cases.
 The properties always have to be true, so we can use them in all the randomly generated test cases.</p>
 <p>We will discuss AI techniques more in a future chapter.</p>
-<center>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/7kB6JaSH9p8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</center>
-
-
-
 <h2 id="exercises">Exercises</h2>
 
                                 
@@ -1060,7 +1065,7 @@ The properties always have to be true, so we can use them in all the randomly ge
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Property-based testing","level":"4.1.6","depth":2,"next":{"title":"Pragmatic software testing","level":"5.1","depth":1,"path":"chapters/pragmatic-testing/README.md","ref":"chapters/pragmatic-testing/README.md","articles":[{"title":"The testing pyramid","level":"5.1.1","depth":2,"path":"chapters/pragmatic-testing/testing-pyramid.md","ref":"chapters/pragmatic-testing/testing-pyramid.md","articles":[]},{"title":"Mock objects","level":"5.1.2","depth":2,"path":"chapters/pragmatic-testing/mock-objects.md","ref":"chapters/pragmatic-testing/mock-objects.md","articles":[]},{"title":"Design for testability","level":"5.1.3","depth":2,"path":"chapters/pragmatic-testing/design-for-testability.md","ref":"chapters/pragmatic-testing/design-for-testability.md","articles":[]},{"title":"Test-driven development","level":"5.1.4","depth":2,"path":"chapters/pragmatic-testing/tdd.md","ref":"chapters/pragmatic-testing/tdd.md","articles":[]},{"title":"Test code quality and engineering","level":"5.1.5","depth":2,"path":"chapters/pragmatic-testing/test-code-quality.md","ref":"chapters/pragmatic-testing/test-code-quality.md","articles":[]}]},"previous":{"title":"Design-by-contracts","level":"4.1.5","depth":2,"path":"chapters/testing-techniques/design-by-contracts.md","ref":"chapters/testing-techniques/design-by-contracts.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/testing-techniques/property-based-testing.md","mtime":"2020-04-27T14:25:01.655Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-27T14:25:36.323Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Property-based testing","level":"4.1.6","depth":2,"next":{"title":"Pragmatic software testing","level":"5.1","depth":1,"path":"chapters/pragmatic-testing/README.md","ref":"chapters/pragmatic-testing/README.md","articles":[{"title":"The testing pyramid","level":"5.1.1","depth":2,"path":"chapters/pragmatic-testing/testing-pyramid.md","ref":"chapters/pragmatic-testing/testing-pyramid.md","articles":[]},{"title":"Mock objects","level":"5.1.2","depth":2,"path":"chapters/pragmatic-testing/mock-objects.md","ref":"chapters/pragmatic-testing/mock-objects.md","articles":[]},{"title":"Design for testability","level":"5.1.3","depth":2,"path":"chapters/pragmatic-testing/design-for-testability.md","ref":"chapters/pragmatic-testing/design-for-testability.md","articles":[]},{"title":"Test-driven development","level":"5.1.4","depth":2,"path":"chapters/pragmatic-testing/tdd.md","ref":"chapters/pragmatic-testing/tdd.md","articles":[]},{"title":"Test code quality and engineering","level":"5.1.5","depth":2,"path":"chapters/pragmatic-testing/test-code-quality.md","ref":"chapters/pragmatic-testing/test-code-quality.md","articles":[]}]},"previous":{"title":"Design-by-contracts","level":"4.1.5","depth":2,"path":"chapters/testing-techniques/design-by-contracts.md","ref":"chapters/testing-techniques/design-by-contracts.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/testing-techniques/property-based-testing.md","mtime":"2020-04-27T14:29:46.030Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-27T14:30:00.487Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

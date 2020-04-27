@@ -834,7 +834,9 @@
 <p>Before we dive into the different testing techniques, let us first get used
 to software testing automation frameworks. In this book, we will use JUnit, as
 all our code examples are written in Java. If you are using a different programming language in your daily work, note that testing frameworks in other languages offer similar functionalities.</p>
-<p>We will now introduce an example program and then use it to demonstrate how to write JUnit tests. The code implemented in this chapter can be found at the <code>roman</code> package in the <a href="https://github.com/sttp-book/code-examples/" target="_blank">code examples</a> repository.</p>
+<p>We will now introduce an example program and then use it to demonstrate how to write JUnit tests. </p>
+<p><div class="alert alert-success hints-alert"><div class="hints-icon"><i class="fa fa-mortar-board"></i></div><div class="hints-container"><p>All the production and test code used in this book can be found in the <a href="https://github.com/sttp-book/code-examples/" target="_blank">code examples</a> repository.</p>
+</div></div></p>
 <blockquote>
 <p><strong>Requirement: Roman numerals</strong></p>
 <p>Implement a program that receives a string as a parameter
@@ -867,12 +869,7 @@ Unless the subtractive notation is used in which a letter with a lower value is 
 
 
 <p>A possible implementation for the <em>Roman Numerals</em> requirement is as follows:</p>
-<pre><code class="lang-java"><span class="hljs-keyword">package</span> tudelft.roman;
-
-<span class="hljs-keyword">import</span> java.util.HashMap;
-<span class="hljs-keyword">import</span> java.util.Map;
-
-<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RomanNumeral</span> </span>{
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RomanNumeral</span> </span>{
   <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Map&lt;Character, Integer&gt; map;
 
   <span class="hljs-keyword">static</span> {
@@ -923,7 +920,7 @@ with the expected output.</p>
 <p>Testing frameworks enable us to write test cases in a way that they can be easily executed by the machine. In Java, the standard framework to write automated tests is JUnit, and its most recent version is 5.x.</p>
 <p>The steps to create a JUnit class/test is often the following:</p>
 <ul>
-<li><p>Create a Java class under the directory <code>/src/test/java/roman/</code> (or whatever test directory your project structure uses). As a convention, the name of the test class is similar to the name of the class under test. For example, a class that tests the <code>RomanNumeral</code> class is often called <code>RomanNumeralTest</code>. In terms of package structure, the test class also inherits the same package as the class under test. In our case, <code>tudelft.roman</code>.</p>
+<li><p>Create a Java class under the directory <code>/src/test/java/roman/</code> (or whatever test directory your project structure uses). As a convention, the name of the test class is similar to the name of the class under test. For example, a class that tests the <code>RomanNumeral</code> class is often called <code>RomanNumeralTest</code>. In terms of package structure, the test class also inherits the same package as the class under test.</p>
 </li>
 <li><p>For each test case we devise for the program/class, we write a test method. A JUnit test method returns <code>void</code> and is annotated with <code>@Test</code> (an annotation that comes from JUnit 5&apos;s <code>org.junit.jupiter.api.Test</code>). The name of the test method does not matter to JUnit, but it does matter to us. A best practice is to name the test after the case it tests. </p>
 </li>
@@ -940,10 +937,7 @@ Otherwise the fail message of the test will not make sense.</li>
 </li>
 </ul>
 <p>The three test cases we have devised can be automated as follows:</p>
-<pre><code class="lang-java"><span class="hljs-keyword">package</span> tudelft.roman;
-
-<span class="hljs-keyword">import</span> <span class="hljs-keyword">static</span> org.junit.jupiter.api.Assertions.*;
-
+<pre><code class="lang-java"><span class="hljs-keyword">import</span> <span class="hljs-keyword">static</span> org.junit.jupiter.api.Assertions.*;
 <span class="hljs-keyword">import</span> org.junit.jupiter.api.Test;
 
 <span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RomanNumeralTest</span> </span>{
@@ -1231,7 +1225,7 @@ your intuition. </p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Software testing automation","level":"3.1.3","depth":2,"next":{"title":"Testing techniques","level":"4.1","depth":1,"path":"chapters/testing-techniques/README.md","ref":"chapters/testing-techniques/README.md","articles":[{"title":"Specification-based testing","level":"4.1.1","depth":2,"path":"chapters/testing-techniques/specification-based-testing.md","ref":"chapters/testing-techniques/specification-based-testing.md","articles":[]},{"title":"Boundary testing","level":"4.1.2","depth":2,"path":"chapters/testing-techniques/boundary-testing.md","ref":"chapters/testing-techniques/boundary-testing.md","articles":[]},{"title":"Structural testing","level":"4.1.3","depth":2,"path":"chapters/testing-techniques/structural-testing.md","ref":"chapters/testing-techniques/structural-testing.md","articles":[]},{"title":"Model-based testing","level":"4.1.4","depth":2,"path":"chapters/testing-techniques/model-based-testing.md","ref":"chapters/testing-techniques/model-based-testing.md","articles":[]},{"title":"Design-by-contracts","level":"4.1.5","depth":2,"path":"chapters/testing-techniques/design-by-contracts.md","ref":"chapters/testing-techniques/design-by-contracts.md","articles":[]},{"title":"Property-based testing","level":"4.1.6","depth":2,"path":"chapters/testing-techniques/property-based-testing.md","ref":"chapters/testing-techniques/property-based-testing.md","articles":[]}]},"previous":{"title":"Principles of software testing","level":"3.1.2","depth":2,"path":"chapters/getting-started/testing-principles.md","ref":"chapters/getting-started/testing-principles.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/getting-started/test-automation.md","mtime":"2020-04-25T11:20:54.613Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-27T10:10:05.110Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Software testing automation","level":"3.1.3","depth":2,"next":{"title":"Testing techniques","level":"4.1","depth":1,"path":"chapters/testing-techniques/README.md","ref":"chapters/testing-techniques/README.md","articles":[{"title":"Specification-based testing","level":"4.1.1","depth":2,"path":"chapters/testing-techniques/specification-based-testing.md","ref":"chapters/testing-techniques/specification-based-testing.md","articles":[]},{"title":"Boundary testing","level":"4.1.2","depth":2,"path":"chapters/testing-techniques/boundary-testing.md","ref":"chapters/testing-techniques/boundary-testing.md","articles":[]},{"title":"Structural testing","level":"4.1.3","depth":2,"path":"chapters/testing-techniques/structural-testing.md","ref":"chapters/testing-techniques/structural-testing.md","articles":[]},{"title":"Model-based testing","level":"4.1.4","depth":2,"path":"chapters/testing-techniques/model-based-testing.md","ref":"chapters/testing-techniques/model-based-testing.md","articles":[]},{"title":"Design-by-contracts","level":"4.1.5","depth":2,"path":"chapters/testing-techniques/design-by-contracts.md","ref":"chapters/testing-techniques/design-by-contracts.md","articles":[]},{"title":"Property-based testing","level":"4.1.6","depth":2,"path":"chapters/testing-techniques/property-based-testing.md","ref":"chapters/testing-techniques/property-based-testing.md","articles":[]}]},"previous":{"title":"Principles of software testing","level":"3.1.2","depth":2,"path":"chapters/getting-started/testing-principles.md","ref":"chapters/getting-started/testing-principles.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/getting-started/test-automation.md","mtime":"2020-04-27T11:23:15.904Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-27T11:29:07.365Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

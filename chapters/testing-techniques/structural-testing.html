@@ -1136,6 +1136,8 @@ we achieved 100% basic condition coverage, but only 50% branch coverage. This is
 that we achieve 100% condition coverage (i.e., all the outcomes of all conditions are exercised) and 100% branch coverage (all the outcomes
 of the compound decisions are exercised).</p>
 <p>From now on, whenever we mention <strong>condition coverage</strong>, we mean <strong>condition + branch coverage</strong>.</p>
+<p><div class="alert alert-success hints-alert"><div class="hints-icon"><i class="fa fa-mortar-board"></i></div><div class="hints-container"><p>Another common criterion is the <em>Multiple Condition Coverage</em>, or MCC. To satisfy the MCC criterion, a condition needs to be exercised in <em>all</em> its possible combinations. That would imply in </p>
+</div></div></p>
 <center>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/oWPprB9GBdE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </center>
@@ -1233,16 +1235,47 @@ Each of these combinations is a path. You might see a path as a unique way to tr
 </tbody>
 </table>
 <p>This means that, for full path coverage, we would need 8 tests just to cover this <code>if</code> statement.
-That is quite a lot for just a single statement.</p>
-<p>By aiming at achieving path coverage of our program, testers can indeed come up with good tests.
-However, the main issue is that achieving 100% path coverage might not always be feasible or too costly.
-The number of tests needed for full path coverage will grow exponentially with the number of conditions in a decision.</p>
+It is a large number for just a single statement. </p>
+<p>While this seems similar to the MCC criterion we quickly discussed above, imagine programs that rely on loops:</p>
+<pre><code class="lang-java"><span class="hljs-keyword">boolean</span> shouldRun = <span class="hljs-keyword">true</span>;
+<span class="hljs-keyword">while</span>(shouldRun) {
+  something();
+  something2();
+
+  shouldRun = something3();
+}
+</code></pre>
+<p>To satisfy all the criteria we studied so far, we would need to exercise the <code>shouldRun</code> as being true and false. That does not happen with path coverage. To satisfy path coverage, we would need to test all the possible paths that can happen. The unbounded loop might make this program to iterate an infinite number of times. Imagine now a program with two unbounded loops together. How many different possible paths does this program have?</p>
+<p>Achieving 100% path coverage might not always be feasible or too costly.
+The number of tests needed for full path coverage will grow exponentially with the number of conditions and unbounded loops.</p>
 <center>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/hpE-aZYulmk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </center>
 
 
 
+<h2 id="loop-boundary-adequacy">Loop boundary adequacy</h2>
+<p>The section raised an interesting problem:
+in terms of coverage criteria, what to do when we have loops? When there is a loop, the block inside of the loop might be executed many times, making testing more complicated.</p>
+<p>Think of a <code>while(true)</code> loop which can be non-terminating. If we wanted to be rigorous about it, we would have to test the program where the loop block is executed one time, two times, three times, etc. Imagine a <code>for(i = 0; i &lt; 10; i++)</code> loop with a <code>break</code> inside of the body. We would have to test what happens if the loop body executes one time, two times, three times, ..., up to ten times.
+It might be impossible to exhaustively test all the combinations.</p>
+<p>How can we handle long-lasting loops (a loop that runs for many iterations), or unbounded loops (where we do not know how many times it will be executed)? </p>
+<p>Given that exhaustive testing is impossible,
+testers often rely on the <strong>loop boundary adequacy criterion</strong>
+to decide when to stop testing a loop. A test suite satisfies this criterion if and only if for every loop:</p>
+<ul>
+<li>A test case exercises the loop zero times;</li>
+<li>A test case exercises the loop once;</li>
+<li>A test case exercises the loop multiple times.</li>
+</ul>
+<p>The idea behind the criterion is to make sure the program
+is tested when the loop is never executed (does the program
+behave correctly when the loop is simply &apos;skipped&apos;?), when it only iterates once (as we empirically know that algorithms may not handle single cases correctly), and many times.</p>
+<p>Pragmatically speaking, the main challenge comes when devising
+the test case for the loop being executed multiple times.
+Should the test case force the loop to iterate for 2, 5, or 10 times?
+That requires a good understanding of the program/requirement itself. 
+Our suggestion for testers is to rely on specification-based techniques. With an optimal understanding of the specs, one should be able to devise good tests for the particular loop.</p>
 <h2 id="mcdc-modified-conditiondecision-coverage">MC/DC (Modified Condition/Decision Coverage)</h2>
 <p>Modified condition/decision coverage (MC/DC) looks at the combinations of conditions like path coverage does.
 However, instead of aiming at testing all the possible combinations, we follow a process in order to identify the &quot;important&quot; combinations. The goal of focusing on these important combinations is to manage the large number of test cases that one needs to devise when aiming for 100% path coverage.</p>
@@ -1387,27 +1420,8 @@ This is indeed cheaper when compared to the 8 tests we would need for path cover
 
 
 
-<h2 id="loop-boundary-adequacy">Loop boundary adequacy</h2>
-<p>In terms of coverage criteria, what to do when we have loops? When there is a loop, the block inside of the loop might be executed many times, making testing more complicated.</p>
-<p>Think of a <code>while(true)</code> loop which can be non-terminating. If we wanted to be rigorous about it, we would have to test the program where the loop block is executed one time, two times, three times, etc. Imagine a <code>for(i = 0; i &lt; 10; i++)</code> loop with a <code>break</code> inside of the body. We would have to test what happens if the loop body executes one time, two times, three times, ..., up to ten times.
-It might be impossible to exhaustively test all the combinations.</p>
-<p>How can we handle long-lasting loops (a loop that runs for many iterations), or unbounded loops (where we do not know how many times it will be executed)? </p>
-<p>Given that exhaustive testing is impossible,
-testers often rely on the <strong>loop boundary adequacy criterion</strong>
-to decide when to stop testing a loop. A test suite satisfies this criterion if and only if for every loop:</p>
-<ul>
-<li>A test case exercises the loop zero times;</li>
-<li>A test case exercises the loop once;</li>
-<li>A test case exercises the loop multiple times.</li>
-</ul>
-<p>The idea behind the criterion is to make sure the program
-is tested when the loop is never executed (does the program
-behave correctly when the loop is simply &apos;skipped&apos;?), when it only iterates once (as we empirically know that algorithms may not handle single cases correctly), and many times.</p>
-<p>Pragmatically speaking, the main challenge comes when devising
-the test case for the loop being executed multiple times.
-Should the test case force the loop to iterate for 2, 5, or 10 times?
-That requires a good understanding of the program/requirement itself. 
-Our suggestion for testers is to rely on specification-based techniques. With an optimal understanding of the specs, one should be able to devise good tests for the particular loop.</p>
+
+
 <h2 id="criteria-subsumption">Criteria subsumption</h2>
 <p>You might have noticed that the criteria we studied became more rigorous and demanding throughout this chapter. We started our discussion with line coverage. Then we discussed branch coverage, and we noticed that we could generate more tests if we focused on branches. Then, we discussed branch + condition coverage, and we noticed that we could generate even more tests, if we also focused on the conditions.</p>
 <p>There is a relationship between these criteria. Some strategies <strong>subsume</strong> other strategies. 
@@ -1458,6 +1472,19 @@ of performing structural testing.</p>
 </ul>
 <p>For interested readers, an extensive literature review on the topic can be found in
 Zhu, H., Hall, P. A., &amp; May, J. H. (1997). Software unit test coverage and adequacy. ACM computing surveys (csur), 29(4), 366-427.</p>
+<h2 id="structural-testing-vs-structural-coverage">Structural testing vs structural coverage</h2>
+<p>A common misconception among practitioners to <em>confuse structural testing with structural coverage</em>.</p>
+<p>Structural testing means <em>leveraging the structure of the source code to systematically exercise the system under test</em>. When compared to specification-based testing, we note that structural testing is: </p>
+<ul>
+<li><p>More objective. In other words, it does not depend on the opinions and experience of the tester. While different testers might come up with different specification-based tests, they would come with similar structural tests.</p>
+</li>
+<li><p>Implementation-aware. Implementations can vary from the specifications. After all, there are so many ways one can implement a program. Structural testing enables testers to explore the precise implementation.</p>
+</li>
+</ul>
+<p>On the other hand, structural testing is a <em>check and balance</em> (as Chilenski puts it) on the specification-based tests. Structural testing confirms and complements the tests that we derived before.</p>
+<p>It is common to see developers running their coverage tools and writing tests for the outputs they observe. Developers that are mostly focused on (simply) achieving high <em>structural coverage</em> are missing the main point of structural testing. </p>
+<p>Again, structural testing should complement your requirements-based testing. As Chilenski suggests (see Figure 3 in his paper), the first step of a tester should be to derive test cases out of any requirements-based technique. Once requirements are fully covered, testers then perform structural testing to cover what is missing from the structural-point of view. Any divergences should be brought back to the requirements-based testing phase: <em>why did we not find this class/partition before?</em> Once requirements and structure are covered, one can consider the testing phase done.</p>
+<p>Therefore, do not aim at 100% coverage. Use structural testing to complement your specification-based tests.</p>
 <h2 id="exercises">Exercises</h2>
 <p>For the first couple of exercises we will use the following code:</p>
 <pre><code class="lang-java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">remove</span><span class="hljs-params">(Object o)</span> </span>{
@@ -1700,7 +1727,7 @@ If we aim to achieve <span class="katex"><span class="katex-mathml"><math><seman
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Structural testing","level":"4.1.3","depth":2,"next":{"title":"Model-based testing","level":"4.1.4","depth":2,"path":"chapters/testing-techniques/model-based-testing.md","ref":"chapters/testing-techniques/model-based-testing.md","articles":[]},"previous":{"title":"Boundary testing","level":"4.1.2","depth":2,"path":"chapters/testing-techniques/boundary-testing.md","ref":"chapters/testing-techniques/boundary-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/testing-techniques/structural-testing.md","mtime":"2020-04-27T21:22:28.036Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-27T21:23:00.970Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Structural testing","level":"4.1.3","depth":2,"next":{"title":"Model-based testing","level":"4.1.4","depth":2,"path":"chapters/testing-techniques/model-based-testing.md","ref":"chapters/testing-techniques/model-based-testing.md","articles":[]},"previous":{"title":"Boundary testing","level":"4.1.2","depth":2,"path":"chapters/testing-techniques/boundary-testing.md","ref":"chapters/testing-techniques/boundary-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/testing-techniques/structural-testing.md","mtime":"2020-04-28T08:05:21.741Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-28T08:06:34.517Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

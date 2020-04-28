@@ -923,8 +923,8 @@
 <li>X has 7 partitions, Y has 7 partitions.</li>
 <li>All combinations would be 7 * 7 = 49.</li>
 <li>Variables are independent (X does not affect the range of Y, and vice-versa).</li>
-<li>14 tests </li>
-<li>7 partitions of X, in point for Y, </li>
+<li>14 tests</li>
+<li>7 partitions of X, in point for Y,</li>
 <li>7 partitions of Y, in points for X.</li>
 </ul>
 <p><em>In-point X = 50, In-point Y = 50.</em></p>
@@ -1050,7 +1050,7 @@
 
 
 <h2 id="exercise-2-the-sum-of-integers-part-2">Exercise 2: The Sum Of Integers, part 2</h2>
-<p>A program receives two numbers and returns the sum of these two integers. Numbers are between 1 <em>inclusive</em> and 99 <em>inclusive</em>. 
+<p>A program receives two numbers and returns the sum of these two integers. Numbers are between 1 <em>inclusive</em> and 99 <em>inclusive</em>.
 Final sum should be &lt;= 165.</p>
 <table>
 <thead>
@@ -1132,12 +1132,13 @@ Final sum should be &lt;= 165.</p>
 <li>X has 7 partitions, Y has 7 partitions, Sum has 4 partitions.</li>
 <li>All combinations would be 7 <em> 7 </em> 4 = 196.</li>
 <li>Variables are independent (X does not affect the range of Y, and vice-versa).</li>
-<li>16 tests </li>
-<li>7 partitions of X, in point for Y, </li>
+<li>16 tests</li>
+<li>7 partitions of X, in point for Y,</li>
 <li>7 partitions of Y, in points for X.</li>
 <li>2 for the extra boundary on sum.</li>
 </ul>
-<p><em>In-point X = 50 (taking into consideration that X &lt;= 165 - Y),<br>In-point Y = 50 (taking into consideration that Y &lt;= 165 - X).</em></p>
+<p><em>In-point X = 50 (taking into consideration that X &lt;= 165 - Y),
+In-point Y = 50 (taking into consideration that Y &lt;= 165 - X).</em></p>
 <table>
 <thead>
 <tr>
@@ -1703,6 +1704,377 @@ Final sum should be &lt;= 165.</p>
 
 
 <h2 id="exercise-5-the-msc-admission-problem">Exercise 5: The MSc admission problem</h2>
+<p>A student can only join the MSc if :</p>
+<ul>
+<li><code>ACT = 36</code> and <code>GPA &gt;= 3.5</code></li>
+<li><code>ACT &gt;= 35</code> and <code>GPA &gt;= 3.6</code></li>
+<li><code>ACT &gt;= 34</code> and <code>GPA &gt;= 3.7</code></li>
+<li><code>ACT &gt;= 33</code> and <code>GPA &gt;= 3.8</code></li>
+<li><code>ACT &gt;= 32</code> and <code>GPA &gt;= 3.9</code></li>
+<li><code>ACT &gt;= 31</code> and <code>GPA = 4.0</code>
+<em>ACT is an integer between 0 and 36 (inclusive).</em>
+<em>GPA are float variables between 0.0 and 4.0 (single decimal digit) (inclusive).</em></li>
+</ul>
+<h3 id="variables">Variables</h3>
+<table>
+<thead>
+<tr>
+<th>Variables</th>
+<th>Types</th>
+<th>Ranges</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ACT</td>
+<td>integer</td>
+<td>[0, 36]</td>
+</tr>
+<tr>
+<td>GPA</td>
+<td>float</td>
+<td>[0.0, 4.0]</td>
+</tr>
+<tr>
+<td>Decision</td>
+<td>boolean</td>
+<td>true/false</td>
+</tr>
+</tbody>
+</table>
+<h3 id="dependency-among-variables">Dependency among variables</h3>
+<ul>
+<li>ACT and GPA have a joint effect</li>
+<li>ACT and GPA are used to calculate Decision.</li>
+</ul>
+<h3 id="equivalence-partitioning--boundary-analysis">Equivalence partitioning / Boundary Analysis</h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Equivalence classes</th>
+<th>Boundaries</th>
+<th>Remark</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(ACT, GPA)</td>
+<td>(= 36, &gt;= 3.5)</td>
+<td>(35, in)</td>
+<td>in-point GPA = 3.5</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(37, in)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(in, 3.5)</td>
+<td>in-point ACT = 36</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(in, 3.4)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>(&gt;= 35, &gt;= 3.6)</td>
+<td>(35, in)</td>
+<td>in-point GPA = 3.6</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(34, in)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(in, 3.6)</td>
+<td>in-point ACT = 35</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(in, 3.5)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>(&gt;= 34, &gt;= 3.7)</td>
+<td>(34, in)</td>
+<td>in-point GPA = 3.7</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(33, in)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(in, 3.7)</td>
+<td>in-point ACT = 34</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(in, 3.6)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>(&gt;= 33, &gt;= 3.8)</td>
+<td>(33, in)</td>
+<td>in-point GPA = 3.8</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(32, in)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(in, 3.8)</td>
+<td>in-point ACT = 33</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(in, 3.7)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>(&gt;= 32, &gt;= 3.9)</td>
+<td>(32, in)</td>
+<td>in-point GPA = 3.9</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(31, in)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(in, 3.9)</td>
+<td>in-point ACT = 32</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(in, 3.8)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>(&gt;= 31, = 4.0)</td>
+<td>(31, in)</td>
+<td>in-point GPA = 4.0</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(30, in)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(in, 4.0)</td>
+<td>in-point ACT = 31</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(in, 3.9)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>(= 36, &gt;= 3.5)</td>
+<td>(35, in)</td>
+<td>in-point GPA = 3.5</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(37, in)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(in, 3.5)</td>
+<td>in-point ACT = 36</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(in, 3.4)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>(&lt; 0, &lt; 0.0)</td>
+<td>(-1, in)</td>
+<td>in-point GPA = 0.1</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(in, -0.1)</td>
+<td>in-point ACT = 1</td>
+</tr>
+<tr>
+<td></td>
+<td>(&gt; 36, &gt; 4.0)</td>
+<td>(37, in)</td>
+<td>in-point GPA = 4</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(in, 4.1)</td>
+<td>in-point ACT = 36</td>
+</tr>
+</tbody>
+</table>
+<p><em>Note that we are using in-points that are on-points too. This is less common, but in the case of this problem choosing anohter in-point might make the final outcome to still not change between the boundary tests we devised.</em>
+<em>For example, if we choose a GPA in-point of 3.6, the 35 and 37 ACT will have the same outcome value (as the next rule will intervene).</em></p>
+<h3 id="strategy">Strategy</h3>
+<ul>
+<li>There are 24 boundaries <em>(for conditions on valid inputs)</em>, but some are repeated. 14 boundary tests.<ul>
+<li>(37, 3.5) is an invalid path, so we can ignore. Therefore 13 test cases.</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Test cases</th>
+<th>ACT</th>
+<th>GPA</th>
+<th>Decision</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T1</td>
+<td>35</td>
+<td>3.5</td>
+<td>False</td>
+</tr>
+<tr>
+<td>T2</td>
+<td>36</td>
+<td>3.5</td>
+<td>True</td>
+</tr>
+<tr>
+<td>T3</td>
+<td>36</td>
+<td>3.4</td>
+<td>False</td>
+</tr>
+<tr>
+<td>T4</td>
+<td>35</td>
+<td>3.6</td>
+<td>True</td>
+</tr>
+<tr>
+<td>T5</td>
+<td>34</td>
+<td>3.7</td>
+<td>True</td>
+</tr>
+<tr>
+<td>T6</td>
+<td>34</td>
+<td>3.6</td>
+<td>False</td>
+</tr>
+<tr>
+<td>T7</td>
+<td>33</td>
+<td>3.8</td>
+<td>True</td>
+</tr>
+<tr>
+<td>T8</td>
+<td>32</td>
+<td>3.8</td>
+<td>False</td>
+</tr>
+<tr>
+<td>T9</td>
+<td>33</td>
+<td>3.7</td>
+<td>False</td>
+</tr>
+<tr>
+<td>T10</td>
+<td>32</td>
+<td>3.9</td>
+<td>True</td>
+</tr>
+<tr>
+<td>T11</td>
+<td>31</td>
+<td>4.0</td>
+<td>True</td>
+</tr>
+<tr>
+<td>T12</td>
+<td>30</td>
+<td>4.0</td>
+<td>False</td>
+</tr>
+<tr>
+<td>T13</td>
+<td>31</td>
+<td>3.9</td>
+<td>False</td>
+</tr>
+<tr>
+<td>T14</td>
+<td>-1</td>
+<td>4.0</td>
+<td><em>Invalid</em></td>
+</tr>
+<tr>
+<td>T15</td>
+<td>40</td>
+<td>4.0</td>
+<td><em>Invalid</em></td>
+</tr>
+<tr>
+<td>T16</td>
+<td>36</td>
+<td>-0.1</td>
+<td><em>Invalid</em></td>
+</tr>
+<tr>
+<td>T17</td>
+<td>36</td>
+<td>4.1</td>
+<td><em>Invalid</em></td>
+</tr>
+</tbody>
+</table>
 <center>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/g9pk25_6MrY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </center>
@@ -1864,7 +2236,7 @@ The label can be up to 70 characters wide.</p>
 <p>Each variable has 6 partitions, thus: 6 <em> 6 </em> 6 = 216 tests.</p>
 <p>Let&apos;s not combine &quot;invalid strings&quot; with them all. So: 3 tests for exceptional cases + 5 <em> 5 </em> 5 = 125 + 3 = 128.</p>
 <p>If we focus on the on-points and off-points, and in-points for others, we&apos;d have 4 + 4 + 4 = 12 tests plus invalid cases: 15 tests.</p>
-<p>In-points always taking the FN + MN + LN &lt;= 68 restriction into account. 
+<p>In-points always taking the FN + MN + LN &lt;= 68 restriction into account.
 Two tests for the extra restriction: 17 tests.</p>
 <table>
 <thead>
@@ -2654,6 +3026,203 @@ Two tests for the extra restriction: 17 tests.</p>
 
 
 <h2 id="exercise-10-chocolate-bars">Exercise 10: Chocolate bars</h2>
+<p>A package should store a total number of kilograms. There are small bars (1 kg each) and big bars (5 kg each).</p>
+<ul>
+<li>The input of the program is the number of small bars and big bars available and the total number of kilos to store.</li>
+<li>We should calculate the number of small bars to use, assuming we always use big bars before small bars. Output -1, if it can&apos;t be done.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Variables</th>
+<th>Types</th>
+<th>Ranges</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Small bars</td>
+<td>integer</td>
+<td>[0, inf]</td>
+</tr>
+<tr>
+<td>Big bars</td>
+<td>integer</td>
+<td>[0, inf]</td>
+</tr>
+<tr>
+<td>Total kilos</td>
+<td>integer</td>
+<td>[0, inf]</td>
+</tr>
+<tr>
+<td>Used small bars (output)</td>
+<td>integer</td>
+<td>[-1, inf]</td>
+</tr>
+</tbody>
+</table>
+<h3 id="dependency-between-variables">Dependency between variables</h3>
+<ul>
+<li>Input variables are independent (they don&apos;t affect each other&apos;s range).</li>
+<li>Output variable depends on the three input values.</li>
+<li><strong>Constraint</strong>: Use big bars before small bars.</li>
+</ul>
+<p><em>Analyse it from the perspective of the output variable: how can the input variables influence the result?</em></p>
+<h3 id="equivalence-partitioning--boundary-analysis">Equivalence partitioning / Boundary analysis</h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Equivalence classes</th>
+<th>Boundaries</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(small, big, total weight)</td>
+<td>only big bars</td>
+<td>only big bars -&gt; small and big bars</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>only big bars -&gt; not enough bars</td>
+</tr>
+<tr>
+<td></td>
+<td>only small bars</td>
+<td>only small bars -&gt; small and big bars</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>only small bars -&gt; not enough bars</td>
+</tr>
+<tr>
+<td></td>
+<td>small and big bars</td>
+<td>small and big bars -&gt; only big bars</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>small and big bars -&gt; only small bars</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>small and big bars -&gt; not enough bars</td>
+</tr>
+<tr>
+<td></td>
+<td>not enough bars</td>
+<td>not enough bars -&gt; only big bars</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>not enough bars -&gt; only small bars</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>not enough bars -&gt; small and big bars</td>
+</tr>
+</tbody>
+</table>
+<p><img src="img/boundary-testing/chocolate-boundaries.png" alt="Boundaries in the chocolate bars problem"></p>
+<h3 id="strategy">Strategy</h3>
+<ul>
+<li>There are 4 equivalence classes and 10 boundaries, but many of these boundaries are actually the same.<ul>
+<li>For example, boundary 1 and 5 are in fact the same boundary. <em>Boundaries are not directional</em></li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Test cases</th>
+<th>(Small bars, Big bars, Total weight)</th>
+<th>Used small bars (output)</th>
+<th>Remark</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T2</td>
+<td>(10, 2, 10)</td>
+<td>0</td>
+<td>small and big bars -&gt;</td>
+</tr>
+<tr>
+<td>T1</td>
+<td>(10, 1, 10)</td>
+<td>5</td>
+<td>only big bars</td>
+</tr>
+<tr>
+<td>T3</td>
+<td>(10, 1, 10)</td>
+<td>5</td>
+<td>small and big bars -&gt;</td>
+</tr>
+<tr>
+<td>T4</td>
+<td>(10, 0, 10)</td>
+<td>10</td>
+<td>only small bars</td>
+</tr>
+<tr>
+<td>T5</td>
+<td>(5, 0, 5)</td>
+<td>5</td>
+<td>only small bars -&gt;</td>
+</tr>
+<tr>
+<td>T6</td>
+<td>(4, 0, 5)</td>
+<td>-1</td>
+<td>not enough bars</td>
+</tr>
+<tr>
+<td>T7</td>
+<td>(4, 2, 10)</td>
+<td>0</td>
+<td>only big bars -&gt;</td>
+</tr>
+<tr>
+<td>T8</td>
+<td>(4, 1, 10)</td>
+<td>-1</td>
+<td>not enough bars</td>
+</tr>
+<tr>
+<td>T9</td>
+<td>(3, 1, 8)</td>
+<td>3</td>
+<td>small and big bars -&gt;</td>
+</tr>
+<tr>
+<td>T10</td>
+<td>(2, 1, 8)</td>
+<td>-1</td>
+<td>not enough bars (needed more small bars)</td>
+</tr>
+<tr>
+<td>T11</td>
+<td>(3, 1, 8)</td>
+<td>3</td>
+<td>small and big bars -&gt;</td>
+</tr>
+<tr>
+<td>T12</td>
+<td>(3, 0, 8)</td>
+<td>-1</td>
+<td>not enough bars (needed more big bars)</td>
+</tr>
+</tbody>
+</table>
 <center>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/9ij_kqj78eA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </center>
@@ -2710,7 +3279,7 @@ Two tests for the extra restriction: 17 tests.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Domain testing examples","level":"10.1.2","depth":2,"next":{"title":"Change log","level":"10.1.3","depth":2,"path":"chapters/appendix/changelog.md","ref":"chapters/appendix/changelog.md","articles":[]},"previous":{"title":"Answers to the exercises","level":"10.1.1","depth":2,"path":"chapters/appendix/answers.md","ref":"chapters/appendix/answers.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/testing-techniques/domain-testing.md","mtime":"2020-04-27T11:33:50.169Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-28T08:19:20.787Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Domain testing examples","level":"10.1.2","depth":2,"next":{"title":"Change log","level":"10.1.3","depth":2,"path":"chapters/appendix/changelog.md","ref":"chapters/appendix/changelog.md","articles":[]},"previous":{"title":"Answers to the exercises","level":"10.1.1","depth":2,"path":"chapters/appendix/answers.md","ref":"chapters/appendix/answers.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/testing-techniques/domain-testing.md","mtime":"2020-04-28T13:51:49.804Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-28T14:07:37.622Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Principles of software testing · GitBook</title>
+        <title>Static testing · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="test-automation.html" />
+    <link rel="next" href="../testing-into-context/" />
     
     
-    <link rel="prev" href="why-software-testing.html" />
+    <link rel="prev" href="sbst.html" />
     
 
     </head>
@@ -194,9 +194,9 @@
         
         
     
-        <li class="chapter " data-level="3.1" data-path="./">
+        <li class="chapter " data-level="3.1" data-path="../getting-started/">
             
-                <a href="./">
+                <a href="../getting-started/">
             
                     
                     Getting started with software testing
@@ -208,9 +208,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="3.1.1" data-path="why-software-testing.html">
+        <li class="chapter " data-level="3.1.1" data-path="../getting-started/why-software-testing.html">
             
-                <a href="why-software-testing.html">
+                <a href="../getting-started/why-software-testing.html">
             
                     
                     Why software testing?
@@ -221,9 +221,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="3.1.2" data-path="testing-principles.html">
+        <li class="chapter " data-level="3.1.2" data-path="../getting-started/testing-principles.html">
             
-                <a href="testing-principles.html">
+                <a href="../getting-started/testing-principles.html">
             
                     
                     Principles of software testing
@@ -234,9 +234,9 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.3" data-path="test-automation.html">
+        <li class="chapter " data-level="3.1.3" data-path="../getting-started/test-automation.html">
             
-                <a href="test-automation.html">
+                <a href="../getting-started/test-automation.html">
             
                     
                     Software testing automation
@@ -454,9 +454,9 @@
         
         
     
-        <li class="chapter " data-level="6.1" data-path="../intelligent-testing/">
+        <li class="chapter " data-level="6.1" data-path="./">
             
-                <a href="../intelligent-testing/">
+                <a href="./">
             
                     
                     Intelligent testing
@@ -468,9 +468,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="6.1.1" data-path="../intelligent-testing/mutation-testing.html">
+        <li class="chapter " data-level="6.1.1" data-path="mutation-testing.html">
             
-                <a href="../intelligent-testing/mutation-testing.html">
+                <a href="mutation-testing.html">
             
                     
                     Mutation testing
@@ -481,9 +481,9 @@
             
         </li>
     
-        <li class="chapter " data-level="6.1.2" data-path="../intelligent-testing/fuzzing.html">
+        <li class="chapter " data-level="6.1.2" data-path="fuzzing.html">
             
-                <a href="../intelligent-testing/fuzzing.html">
+                <a href="fuzzing.html">
             
                     
                     Fuzz testing
@@ -494,9 +494,9 @@
             
         </li>
     
-        <li class="chapter " data-level="6.1.3" data-path="../intelligent-testing/sbst.html">
+        <li class="chapter " data-level="6.1.3" data-path="sbst.html">
             
-                <a href="../intelligent-testing/sbst.html">
+                <a href="sbst.html">
             
                     
                     Search-based software testing
@@ -507,9 +507,9 @@
             
         </li>
     
-        <li class="chapter " data-level="6.1.4" data-path="../intelligent-testing/static-testing.html">
+        <li class="chapter active" data-level="6.1.4" data-path="static-testing.html">
             
-                <a href="../intelligent-testing/static-testing.html">
+                <a href="static-testing.html">
             
                     
                     Static testing
@@ -828,7 +828,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="../.." >Principles of software testing</a>
+        <a href="../.." >Static testing</a>
     </h1>
 </div>
 
@@ -843,187 +843,64 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="principles-of-software-testing">Principles of software testing</h1>
-<p>In this chapter, we first define some terminology. Using the right
-terms helps us understand each other better. We then discuss the differences
-between <em>verification</em> and <em>validation</em>. Finally, we discuss some testing principles
-that will guide us (or, more specifically, force us to perform trade-offs whenever
-we choose a testing technique) throughout the book.</p>
-<h2 id="failure-fault-and-error">Failure, Fault and Error</h2>
-<p>It is common to hear different terms to indicate that a software system
-is not behaving as expected.
-Just to name a few: <em>error</em>, <em>mistake</em>, <em>defect</em>, <em>bug</em>, <em>fault</em>, and <em>failure</em>.
-To describe the events that led to a software crash more precisely, 
-we need to agree on a certain vocabulary.
-For now, this comes down to three terms: <strong>failure</strong>, <strong>fault</strong>, and <strong>error</strong>.</p>
-<p>A <strong>failure</strong> is a component of the (software) system that is not behaving as expected.
-Failures are often visible to the end user.
-An example of a failure is a mobile app that stops working, or a 
-news website that starts to show yesterday&apos;s news on its front page. 
-The software system did something it was not supposed to do.</p>
-<p>Failures are generally caused by <em>faults</em>.
-<strong>Faults</strong> are also called <em>defects</em> or <em>bugs</em>.
-A fault is the flaw in the component of the system that caused the 
-system to behave incorrectly. A fault is technical and, in our world, usually refers to 
-source code, such as a comparison in an <code>if</code> statement that uses a &quot;less than&quot; operator (<code>&lt;</code>) instead of a &quot;greater than&quot; operator (<code>&gt;</code>). 
-A broken connection is an example of a hardware fault.</p>
-<blockquote>
-<p>Note that the existence of a fault in the source code does not necessarily lead to a failure.
-If the code containing the fault is never executed, it will never cause a failure.
-Failures only occur when the system is being used, and someone notices it not behaving as expected.</p>
-</blockquote>
-<p>Finally, we have an <strong>error</strong>, also called <em>mistake</em>.
-An error is the human action that caused the system to run not as expected.
-For example, a developer didn&apos;t cover an obscure condition because they misunderstood
-the requirement. Plugging a cable into the wrong socket is an example of a hardware mistake. </p>
-<p>In other words: a <em>mistake</em> by a developer can lead to a <em>fault</em> in the source code that will
-eventually result in a <em>failure</em>.</p>
-<p>In the <em>Min-Max</em> code example of the previous chapter: the <em>failure</em> was the program returning
-a large number, the <em>fault</em> was a bad <code>if/else if</code> condition, and the <em>mistake</em> was me not dealing 
-properly with that case.</p>
-<center>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/zAty8Rpg92I" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</center>
-
-
-
-
-<h2 id="verification-and-validation">Verification and Validation</h2>
-<p><strong>Verification</strong> and <strong>validation</strong> are both about 
-assessing the quality of a system. However, they do have a subtle difference,
-which can be quickly described by a single question:</p>
-<ul>
-<li><p><strong>Validation: Are we building the right software?</strong>
-Validation concerns the features that our software system offers, and the customer (i.e., for whom the system is made): </p>
-<ul>
-<li>is the system under development what the users really want and/or need?</li>
-<li>is the system actually useful? </li>
-</ul>
-<p>Validation techniques, thus, focus on understanding
-whether the software system is delivering the business value it should deliver. In this book, we only briefly cover validation techniques (see chapters on Continuous Experimentation and on Behaviour-Driven Development).</p>
-</li>
-</ul>
-<ul>
-<li><p><strong>Verification: Are we building the system right?</strong> 
-Verification, on the other hand, is about the system behaving as it 
-is supposed to, according to the specification. </p>
-<p>In simple words, this mostly means that the system behaves without any bugs.
-Note that this does not guarantee that the system is useful: a system might work 
-beautifully, bug-free, but  not deliver the features that customers really need.</p>
-</li>
-</ul>
-<p>Note how both <em>validation</em> and <em>verification</em> are fundamental for ensuring
-the delivery of high-quality software systems.</p>
-<center>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/LZ3Fb2Jq7yw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</center>
-
-
-
-<h2 id="principles-of-software-testing-or-why-software-testing-is-so-hard">Principles of software testing (or why software testing is so hard)</h2>
-<p>A simplistic view on software testing is that,
-if we want our systems to be well-tested, all we need to do is to keep adding more tests until it is enough. We wish it were that simple.</p>
-<p>Indeed, a very important part of any software testing process is 
-to know <em>when to stop testing</em>.
-After all, resources (e.g., money, developers, infrastructure) are limited. Therefore,
-the goal should always be to maximise the number of bugs found while minimising the 
-amount of resources we had to spend on finding those bugs.
-Creating too few tests might leave us with a software system that does not behave as intended (i.e., <em>full of bugs</em>).
-On the other hand, creating tests after tests, without proper consideration, might lead to ineffective tests (besides costing too much time and money).</p>
-<p>Given resource constraints, we highlight an important principle in 
-software testing: <strong>exhaustive testing is impossible</strong>. It might be impossible
-even if we had unlimited resources. Imagine a software system that has &quot;just&quot; 128 different
-flags (or configuration settings). Those flags can be set to either true or false (Booleans) and
-they can be set independently from the others. The software system behaves differently
-according to the configured combination of flags. This implies that we need to test all the possible combinations. A simple calculation shows us that 2 possible values for each of the 128 different flags gives <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mrow><mn>1</mn><mn>2</mn><mn>8</mn></mrow></msup></mrow><annotation encoding="application/x-tex">2^{128}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathrm">2</span><span class="msupsub"><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle uncramped mtight"><span class="mord scriptstyle uncramped mtight"><span class="mord mathrm mtight">1</span><span class="mord mathrm mtight">2</span><span class="mord mathrm mtight">8</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span></span></span></span> combinations that need to be tested. As a matter
-of comparison, this number is higher than the estimated number of atoms in the universe.
-In other words, this software system has more possible combinations to be tested than the universe has atoms.</p>
-<p>Given that exhaustive testing is impossible,
-software testers have to then prioritise the tests they will perform.</p>
-<p>When prioritising the test cases, we note that <strong>bugs are not uniformly distributed</strong>.
-Empirically, we observe that some components in some software systems present more
-bugs than other components.</p>
-<p>Another crucial consequence of the fact that exhaustive testing is impossible is that, 
-as Dijkstra used to say, <strong>program testing can be used to show the presence of bugs, but never to show their absence</strong>.
-In other words, while we might find more bugs by simply testing more, our test suites,
-however large they might be,
-will never ensure that the software system is 100% bug-free. They will only ensure
-that the cases we test for behave as expected.</p>
-<p>To test our software, we need a lot of variation in our tests.
-For example, we want variety in the inputs when testing a method, 
-like we saw in the examples above.
-To test the software well, however, we also need variation in 
-the testing strategies that we apply.</p>
-<p>Indeed, an interesting empirical finding is that if testers apply the same testing techniques over and over, they will at some point lose their efficacy. 
-This is described by what is known as the <strong>pesticide paradox</strong> (which nicely refers to &quot;bugs&quot; as an equivalent term for software faults):
-<em>&quot;Every method you use to prevent or find bugs leaves a residue of 
-subtler bugs against which those methods are ineffectual.&quot;</em>
-In practice, this means that no single testing strategy 
-can guarantee that the software under test is bug-free.
-A concrete example might be a team that solely relies on unit testing techniques.
-At some point, maybe all the bugs that can be captured at unit test level will be found
-by the team; however, the team might miss bugs that only occur at integration level.
-From the pesticide paradox, we thus conclude that testers have to use 
-different testing strategies to minimise the number of bugs left in the software.
-When studying the various testing strategies that we present in this book, 
-keep in mind that combining them all might be a wise decision.</p>
-<p>The context also plays an important role in how one devises test cases.
-For example, devising test cases for a mobile app is very different 
-from devising test cases for a web application, or for software used in a rocket.
-In other words: <strong>testing is context-dependent</strong>.</p>
-<p>Again, while this book mostly focuses on verification techniques, 
-let us not forget that having a low number of bugs is not enough for good software.
-As we have said before, a program that works flawlessly, but is of no use for its users, 
-is still not a good program.
-That is a common fallacy (also known as the <strong>absence-of-errors fallacy</strong>) that software testers face when they decide to focus solely
-on verification and not so much on validation.</p>
-<center>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/dkbvb_wTN-M" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</center>
-
-
-
-<h2 id="exercises">Exercises</h2>
-<p><strong>Exercise 1.</strong>
-Having certain terminology helps testers to explain the problems they have with a program or in their software.</p>
-<p>Below is a small conversation.
-Fill in the blanks with one of the following terms: failure, fault, or error.</p>
-<ul>
-<li><strong>Mark</strong>: Hey, Jane, I just observed a (1) <em> </em> <em> </em> <em> </em> in our software: if the user has multiple surnames, our software doesn&apos;t allow them to sign in. </li>
-<li><strong>Jane</strong>: Oh, that&apos;s awful. Let me debug the code so that I can find the (2) <em> </em> <em> </em> <em> </em>.</li>
-<li><strong>Jane</strong> <em>(a few minutes later):</em> Mark, I found it! It was my (3) <em> </em> <em> </em> <em> </em>. I programmed that part, but never thought of this case.</li>
-<li><strong>Mark</strong>: No worries, Jane! Thanks for fixing it!</li>
-</ul>
-<p><strong>Exercise 2.</strong>
-Kelly, a very experienced software tester, visits <em>Books!</em>, a social network focused on matching people based on books they read.
-Users do not report bugs so often, as <em>Books!</em> developers have strong testing practices in place.
-However, users do say that the software is not really delivering what it promises.</p>
-<p>What testing principle applies to this problem?</p>
-<p><strong>Exercise 3.</strong>
-Suzanne, a junior software tester, has just joined a very large online payment company in the Netherlands. As a first task, Suzanne analysed their past two years of bug reports.
-Suzanne observes that more than 50% of bugs have been happening in the <em>International payments</em> module. </p>
-<p>Suzanne then promises her manager that she will design test cases that will completely cover the <em>International payments</em> module, and thus, find 
-all the bugs.</p>
-<p>Which of the following testing principles might explain why this is <strong>not</strong> possible?</p>
+                                <h1 id="static-testing">Static testing</h1>
+<p>Static testing analyses the code characteristics without executing the application. It can be considered as an automated code review. It checks the style and structure of the code, and can be used to <em>statically</em> evaluate all possible code paths in the System Under Test (SUT).
+Static analysis can quickly find <em>low-hanging fruit</em> bugs that can be found in the source code, e.g. using deprecated functions. Static analysis tools are scalable and generally require less time to set up. <em>PMD</em>, <em>Checkstyle</em>, <em>Checkmarx</em> are some common static analysis tools.</p>
+<p>The classical approach underlying static analysis is checking the code for potential structural and/or stylistic rule violations. A code checker typically contains a parser and an acceptable rule set. We look at the following techniques for static analysis:</p>
 <ol>
-<li>Pesticide paradox. </li>
-<li>Exhaustive testing.</li>
-<li>Test early.</li>
-<li>Defect clustering.</li>
+<li>Pattern matching via <em>Regular expressions</em></li>
+<li>Syntax analysis via <em>Abstract Syntax Trees</em></li>
 </ol>
-<p><strong>Exercise 4.</strong>
-John strongly believes in unit testing. In fact, this is the only type of testing he actually
-does at any project he&apos;s in. All the testing principles below but one might help convince John that he should also focus on different types of testing. </p>
-<p>Which of the following <strong>is the least related</strong> when we want to convince John to move away from his &apos;only unit testing&apos; approach?</p>
+<h2 id="pattern-matching">Pattern matching</h2>
+<p>Pattern matching is a code checking approach that searches for pre-defined patterns in code. A <strong>Regular expression</strong> or RegEx is a sequence of characters that represent a pattern. Simply put, a regex engine reads code character-by-character and upon every character-match, progresses through the regular expression until no more characters remain. Depending on the logic, either a positive/negative reaction is returned indicating whether the final state was an accepting/rejecting state, or all code snippets that matched the pattern are returned.</p>
+<p>Regular expressions are usually represented using <strong><em>Finite State Automaton</em></strong>. Each <em>node</em> represents a state. We move from one state to the next by taking the <em>transition</em> that matches the input symbol. Below you see a few examples of regular expressions and their corresponding finite state automata. The node with an arrow is called the <em>starting state</em>. <em>Green states</em> are accepting states, and <em>red states</em> are rejecting states.</p>
+<p>The regular expression that results in the following automata is &apos;<strong>bug</strong>&apos;. An input of the string <code>bug</code> will transition from left to right, until we end up in the green state. However, an input of <code>bag</code> will move from first state to the second state, and then to the red state. Since there is no transition out of this state, we will stay here until the input finishes.</p>
+<p><img src="img/static-testing/regex1.png" alt="FSM for bug"></p>
+<p>Regex also have options to introduce wildcard characters. For example, the regular expression &apos;<strong>.*bug</strong>&apos; results in the following automata. <code>.</code> denotes any possible character, and <code>*</code> denotes <em>0 or many times</em>. Hence, the following strings will be accepted by this pattern: <code>bug</code> and <code>this is a bug</code>. The following strings will be rejected by this pattern: <code>bug!</code>, <code>bugs</code>, <code>bad bug</code>.</p>
+<p><img src="img/static-testing/regex2.png" alt="FSM for .*bug"></p>
+<p>The automata for &apos;<strong>.*bug.*</strong>&apos; is given below. It will accept any string that contains the characters <code>b</code>, <code>u</code>, <code>g</code> consecutively, at least once, before the occurrence of <code>b</code>, <code>u</code>, or <code>g</code> separately.</p>
+<p><img src="img/static-testing/regex3.png" alt="FSM for .*bug.*"></p>
+<p>Regular expressions have some limitations: First, they cannot count, so we need to explicitly program each scenario in the regex, which reduces flexibility. For example, if we wanted to <em>allow at most 3 methods</em>, we would need to create a regex with three explicit sub-patterns, one for each function occurrence. Second, regular expressions don&apos;t take semantics into account, so they create many false positives. For example, consider the following code snippet. Suppose that the regular expression, <code>(\s)*System.out.println\(.*\);</code>, searches for all print statements in the code to remove them before deployment. It will find three occurrences in the code snippet, which are all FPs because the code is already disabled by a flag.</p>
+<pre><code class="lang-java"><span class="hljs-keyword">boolean</span> DEBUG = <span class="hljs-keyword">false</span>;
+
+<span class="hljs-keyword">if</span> (DEBUG){
+  System.out.println(<span class="hljs-string">&quot;Debug line 1&quot;</span>);
+  System.out.println(<span class="hljs-string">&quot;Debug line 2&quot;</span>);
+  System.out.println(<span class="hljs-string">&quot;Debug line 3&quot;</span>);
+}
+</code></pre>
+<h2 id="syntax-analysis">Syntax analysis</h2>
+<p>A more advanced code checking approach is syntax analysis. It works by deconstructing input code into a stream of characters, that are eventually turned into a Parse Tree. <em>Tokens</em> are hierarchal data structures that are put together according to the code&apos;s logical structure.</p>
+<p><img src="img/static-testing/lexer.png" alt="Parser pipeline"></p>
+<p>A <strong>Parse Tree</strong> is a concrete instantiation of the code, where each character is explicitly placed in the tree, whereas an <strong>Abstract Syntax Tree (AST)</strong> is an abstract version of the parse tree in which syntax-related characters, such as semi-colon and parentheses, are removed. An example of the AST of the code snippet above is given below.</p>
+<p><img src="img/static-testing/ast-example.png" alt="AST example"></p>
+<p>A static analysis tool using syntax analysis takes as input (a) an AST, and (b) a rule-set, and raises an alarm in case a rule is violated.
+For example, for a rule <em>allowing at most 3 methods</em>, and the following code snippet, the AST will be parsed and an error will be raised for violating the rule. Contrarily, a very complicated regular expression would be needed to handle the varying characteristics of the four available methods, potentially resulting in false positives.</p>
+<p><img src="img/static-testing/ast-usecase1.png" alt="AST rule enforcement"></p>
+<p>Abstract Syntax Trees are used by compilers to find sematic errors &#x2014; compile-time errors associated to the <em>meaning</em> of the program. ASTs are also be used for program verification, type-checking, and translating the program from one language to another.  </p>
+<h2 id="limitations-of-static-analysis">Limitations of static analysis</h2>
+<p>The signatures that static analysis uses to detect bugs need to be kept up-to-date as they codebase evolves. Additionally, while static analysis can see the entire codebase, it does not see how the application behaves in action, so if a piece of code is added at runtime, the static analysis will miss it completely. This is why static analysis tools generally produce a large amount of False positives &#x2014; raises alarms when there are none, and False negatives &#x2014; miss bugs.</p>
+<h2 id="exercises">Exercises</h2>
+<p><strong>Exercise 1.</strong> Regular expressions <em>CANNOT DO</em> which of the following tasks?</p>
 <ol>
-<li>Pesticide paradox. </li>
-<li>Tests are context-dependent.</li>
-<li>Absence-of-errors fallacy.</li>
-<li>Test early.</li>
+<li>Matching patterns</li>
+<li>Count instances</li>
+<li>Define wild cards</li>
+<li>Detect coding mistakes</li>
+</ol>
+<p><strong>Exercise 2.</strong> What is the quality of results that Static analysis produces?</p>
+<ol>
+<li>Sound and Precise</li>
+<li>Sound but Imprecise</li>
+<li>Unsound but Precise</li>
+<li>Unsound and Imprecise</li>
 </ol>
 <h2 id="references">References</h2>
 <ul>
-<li>Graham, D., Van Veenendaal, E., &amp; Evans, I. (2008). Foundations of software testing: ISTQB certification. Cengage Learning EMEA. Chapters 1, 2, 3.</li>
+<li>Grune, D., Van Reeuwijk, K., Bal, H.E., Jacobs, C.J. and Langendoen, K., 2012. Modern compiler design. Springer Science &amp; Business Media.</li>
+<li>Abstract Syntax Trees. <a href="https://en.wikipedia.org/wiki/Abstract_syntax_tree" target="_blank">https://en.wikipedia.org/wiki/Abstract_syntax_tree</a></li>
+<li>Sematic analysis. <a href="https://www.cs.usfca.edu/~galles/cs414S05/lecture/old2/lecture7.java.pdf" target="_blank">https://www.cs.usfca.edu/~galles/cs414S05/lecture/old2/lecture7.java.pdf</a></li>
+<li>Regular expressions in Java. <a href="https://www.tutorialspoint.com/java/java_regular_expressions.htm" target="_blank">https://www.tutorialspoint.com/java/java_regular_expressions.htm</a></li>
 </ul>
 
                                 
@@ -1052,12 +929,12 @@ does at any project he&apos;s in. All the testing principles below but one might
 
             
                 
-                <a href="why-software-testing.html" class="navigation navigation-prev " aria-label="Previous page: Why software testing?">
+                <a href="sbst.html" class="navigation navigation-prev " aria-label="Previous page: Search-based software testing">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="test-automation.html" class="navigation navigation-next " aria-label="Next page: Software testing automation">
+                <a href="../testing-into-context/" class="navigation navigation-next " aria-label="Next page: Testing in the context">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -1068,7 +945,7 @@ does at any project he&apos;s in. All the testing principles below but one might
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Principles of software testing","level":"3.1.2","depth":2,"next":{"title":"Software testing automation","level":"3.1.3","depth":2,"path":"chapters/getting-started/test-automation.md","ref":"chapters/getting-started/test-automation.md","articles":[]},"previous":{"title":"Why software testing?","level":"3.1.1","depth":2,"path":"chapters/getting-started/why-software-testing.md","ref":"chapters/getting-started/why-software-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/getting-started/testing-principles.md","mtime":"2020-04-23T10:14:35.180Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-29T16:58:56.071Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Static testing","level":"6.1.4","depth":2,"next":{"title":"Testing in the context","level":"7.1","depth":1,"path":"chapters/testing-into-context/README.md","ref":"chapters/testing-into-context/README.md","articles":[{"title":"Web testing (soon)","level":"7.1.1","depth":2,"path":"chapters/testing-into-context/web-testing.md","ref":"chapters/testing-into-context/web-testing.md","articles":[]},{"title":"Database testing (soon)","level":"7.1.2","depth":2,"ref":"","articles":[]},{"title":"Mobile testing (soon)","level":"7.1.3","depth":2,"ref":"","articles":[]},{"title":"Continuous experimentation (soon)","level":"7.1.4","depth":2,"ref":"","articles":[]},{"title":"Embedded software testing (soon)","level":"7.1.5","depth":2,"ref":"","articles":[]}]},"previous":{"title":"Search-based software testing","level":"6.1.3","depth":2,"path":"chapters/intelligent-testing/sbst.md","ref":"chapters/intelligent-testing/sbst.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/intelligent-testing/static-testing.md","mtime":"2020-04-29T16:56:49.404Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-29T16:58:56.071Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

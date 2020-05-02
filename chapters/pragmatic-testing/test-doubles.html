@@ -1000,45 +1000,6 @@ Stubs do not actually have a working implementation, as fake objects do. In the 
 <p>Note that, besides making the test easier to write, the use of stubs also made the test class more cohesive. The <code>InvoiceFilterTest</code> only tests the <code>InvoiceFilter</code> class. It does not test the usage of the <code>IssueInvoices</code> class. Clearly, <code>IssueInvoices</code> deserves to be tested, but in another place, and by means of an integration test.</p>
 <p>Note that a cohesive test has less chances of failing because of something else. In the old version, the <code>filterInvoices</code> test could fail because of a bug in the <code>InvoiceFilter</code> class or because of a bug in the <code>IssuedInvoices</code> class. The new tests can now only fail because of a bug in the <code>InvoiceFilter</code> class, and never because of <code>IssuedInvoices</code>. This is handy, as a developer will spend less time debugging in case this test starts to fail.</p>
 <p>Our new approach for testing <code>InvoiceFilter</code> is faster, easier to write, and more cohesive.</p>
-<center>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/kptTWbeLZ3E" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</center>
-
-
-
-
-<center>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/baunKy04deM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</center>
-
-
-
-<blockquote>
-<p>From a developer&apos;s perspective, the use of stubs enables them to develop their software, &quot;without caring too much about external details&quot;. Imagine a developer working on this &quot;Low value invoices&quot; requirement. The developer knows that the invoices will come from the database. However, while developing the main logic of the requirement (i.e., the filtering logic), the developer &quot;does not care about the database&quot;; they only care about the list of invoices that will come from it.</p>
-<p>In other words, the developer only cares about the existence of a method that returns all the existing invoices. In object-oriented languages, that can be represented by means of an interface:</p>
-<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">IssuedInvoices</span> </span>{
- <span class="hljs-function">List&lt;Invoice&gt; <span class="hljs-title">all</span><span class="hljs-params">()</span></span>;
- <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">save</span><span class="hljs-params">(Invoice inv)</span></span>;
-}
-</code></pre>
-<p>Having such an interface, the developer can then proceed to the <code>InvoiceFilter</code> and develop it completely. After all, its implementation never depended on a database, but solely on the issued invoices. Look at it again:</p>
-<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">InvoiceFilter</span> </span>{
-
-  <span class="hljs-keyword">final</span> IssuedInvoices issuedInvoices;
-
-  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">InvoiceFilter</span><span class="hljs-params">(IssuedInvoices issuedInvoices)</span> </span>{
-    <span class="hljs-keyword">this</span>.issuedInvoices = issuedInvoices;
-  }
-  <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;Invoice&gt; <span class="hljs-title">lowValueInvoices</span><span class="hljs-params">()</span> </span>{
-      <span class="hljs-keyword">return</span> issuedInvoices.all().stream()
-              .filter(invoice -&gt; invoice.value &lt; <span class="hljs-number">100</span>)
-              .collect(toList());
-  }
-}
-</code></pre>
-<p>Once the <code>InvoiceFilter</code> and all its tests are done, the developer can then focus on finally implementing the <code>IssuedInvoices</code> class and its integration tests.</p>
-<p>Hence, once you get used to this way of developing, you will notice how your code will become easier to test. We will talk more about design for testability in future chapters.</p>
-</blockquote>
 <h2 id="mocks-and-expectations">Mocks and expectations</h2>
 <p>Suppose our system has a new requirement:</p>
 <blockquote>
@@ -1231,7 +1192,32 @@ case, a <code>Clock</code> abstraction can do the job:</p>
 </li>
 </ul>
 <p>Ultimately, remember that whenever you mock, you reduce the reality of the test. It is up to you to understand this trade-off.</p>
-<h2 id="mock-roles-not-objects-interaction-testing-and-mocks-as-a-design-technique">&quot;Mock Roles, not Objects!&quot;: interaction testing and mocks as a design technique</h2>
+<h2 id="mocks-as-a-design-technique">Mocks as a design technique</h2>
+<p>From a developer&apos;s perspective, the use of mocks enables them to develop their software, <em>without caring too much about external details</em>. Imagine a developer working on the &quot;low value invoices&quot; requirement. The developer knows that the invoices will come from the database. However, while developing the main logic of the requirement (i.e., the filtering logic), the developer &quot;does not care about the database&quot;; they only care about the list of invoices that will come from it.</p>
+<p>In other words, the developer only cares about the existence of a method that returns all the existing invoices. In object-oriented languages, that can be represented by means of an interface:</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">IssuedInvoices</span> </span>{
+ List&lt;Invoiceall();
+ <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">save</span><span class="hljs-params">(Invoice inv)</span></span>;
+}
+</code></pre>
+<p>Having such an interface, the developer can then proceed to the <code>InvoiceFilter</code> and develop it completely. After all, its implementation never depended on a database, but solely on the issued invoices. Look at it again:</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">InvoiceFilter</span> </span>{
+
+  <span class="hljs-keyword">final</span> IssuedInvoices issuedInvoices;
+
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">InvoiceFilter</span><span class="hljs-params">(IssuedInvoices issuedInvoices)</span> </span>{
+    <span class="hljs-keyword">this</span>.issuedInvoices = issuedInvoices;
+  }
+  <span class="hljs-keyword">public</span> List&lt;InvoicelowValueInvoices() {
+      <span class="hljs-keyword">return</span> issuedInvoices.all().stream()
+              .filter(invoice -invoice.value &lt; <span class="hljs-number">100</span>)
+              .collect(toList());
+  }
+}
+</code></pre>
+<p>Once the <code>InvoiceFilter</code> and all its tests are done, the developer can then focus on finally implementing the <code>IssuedInvoices</code> class and its integration tests.</p>
+<p>Hence, once you get used to this way of developing, you will notice how your code will become easier to test. We will talk more about design for testability in future chapters.</p>
+<h2 id="mock-roles-not-objects">Mock Roles, Not Objects!</h2>
 <p>In their seminal work <em>Mock Roles, Not Objects</em>, Freeman et al. show how mock objects can be used not as tool to solely support testing, but as a tool to drive the design of the system. In other words, by concentrating on the interactions between objects (achieved through TDD and mock objects), developers can better discover the roles, interfaces, contracts, and expectations of the classes in their software systems.</p>
 <p>In the following, we summarize some of the best practices on <em>interaction testing</em>, that authors raise in their paper:</p>
 <ul>
@@ -1273,6 +1259,7 @@ case, a <code>Clock</code> abstraction can do the job:</p>
 <li>When mocking, prefer <em>state testing</em> rather than <em>iteraction testing</em>. In other words, make sure you are asserting a change of state and/or the consequence of the action under test, rather than the precise interaction that the action has with the mocked object. After all, interaction testing tends to be too coupled with the implementation of the system under test.</li>
 <li>Use <em>interaction testing</em> when state testing is not possible, or when a bad interaction might have an impact in the system (e.g., calling the same method twice would make the system twice as slow).</li>
 <li>Avoid overspecified interaction tests. Focus on the relevant arguments and functions.</li>
+<li>Good <em>interaction testing</em> requires strict guidelines when designing the system under test. Google engineers tend not to do it.</li>
 </ul>
 <h2 id="exercises">Exercises</h2>
 <p><strong>Exercise 1.</strong>
@@ -1380,7 +1367,7 @@ Referring to the previous chapter, apply boundary testing techniques to the <cod
 </li>
 <li><p>Freeman, S., &amp; Pryce, N. (2009). Growing object-oriented software, guided by tests. Pearson Education.</p>
 </li>
-<li><p>Winters, T., Manshreck, T., Wright, H. Software Engineering at Google: Lessons Learned from Programming Over Time. O&apos;Reilly, 2020.</p>
+<li><p>Winters, T., Manshreck, T., Wright, H. Software Engineering at Google: Lessons Learned from Programming Over Time. O&apos;Reilly, 2020. Chapter 13, &quot;Test doubles&quot;.</p>
 </li>
 <li><p>Freeman, S., Mackinnon, T., Pryce, N., &amp; Walnes, J. (2004, October). Mock roles, not objects. In Companion to the 19th annual ACM SIGPLAN conference on Object-oriented programming systems, languages, and applications (pp. 236-246).</p>
 </li>
@@ -1428,7 +1415,7 @@ Referring to the previous chapter, apply boundary testing techniques to the <cod
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Test doubles","level":"5.1.2","depth":2,"next":{"title":"Design for testability","level":"5.1.3","depth":2,"path":"chapters/pragmatic-testing/design-for-testability.md","ref":"chapters/pragmatic-testing/design-for-testability.md","articles":[]},"previous":{"title":"The testing pyramid","level":"5.1.1","depth":2,"path":"chapters/pragmatic-testing/testing-pyramid.md","ref":"chapters/pragmatic-testing/testing-pyramid.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/pragmatic-testing/test-doubles.md","mtime":"2020-05-02T16:15:48.515Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-02T16:29:15.509Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Test doubles","level":"5.1.2","depth":2,"next":{"title":"Design for testability","level":"5.1.3","depth":2,"path":"chapters/pragmatic-testing/design-for-testability.md","ref":"chapters/pragmatic-testing/design-for-testability.md","articles":[]},"previous":{"title":"The testing pyramid","level":"5.1.1","depth":2,"path":"chapters/pragmatic-testing/testing-pyramid.md","ref":"chapters/pragmatic-testing/testing-pyramid.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/pragmatic-testing/test-doubles.md","mtime":"2020-05-02T17:08:51.170Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-02T17:10:41.336Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

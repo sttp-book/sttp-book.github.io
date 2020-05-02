@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Mock objects · GitBook</title>
+        <title>Test doubles · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -390,12 +390,12 @@
             
         </li>
     
-        <li class="chapter active" data-level="5.1.2" data-path="mock-objects.html">
+        <li class="chapter active" data-level="5.1.2" data-path="test-doubles.html">
             
-                <a href="mock-objects.html">
+                <a href="test-doubles.html">
             
                     
-                    Mock objects
+                    Test doubles
             
                 </a>
             
@@ -828,7 +828,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="../.." >Mock objects</a>
+        <a href="../.." >Test doubles</a>
     </h1>
 </div>
 
@@ -843,11 +843,11 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="mock-objects">Mock Objects</h1>
+                                <h1 id="test-doubles">Test doubles</h1>
 <p>While testing single units is simpler than testing entire systems, we still face challenges when unit testing classes that depend on other classes or on external infrastructure.</p>
 <p>As an example, consider an application in which all SQL-related code has been encapsulated in an <code>InvoiceDAO</code> class. Other parts of the system that depend on this <code>InvoiceDAO</code> class, then also depend (directly or indirectly) on a database. We therefore also have a dependency on the database when we write tests for those other parts, even though our focus might not even be the database part of the system. As we saw before, this can incur higher testing costs.</p>
 <p>In other words: <strong>we want to unit test a component A, that depends on another component B. The dependency on component B increases the costs of unit testing A.</strong></p>
-<p>This is where a <strong>mock object</strong> comes in handy. The idea is that we will create an object that will mimic the behaviour of component B (&quot;it looks like B, but it is not B&quot;). Given that we have full control over what this &quot;mock component B&quot; does, we can design it in such a way that unit testing A becomes less costly. In our example above, suppose that A is a plain Java class and B is a Data Access Object (and thus, it communicates with the database). If we simulate B for example by returning a hard-coded list of two elements whenever the <code>findAllInvoices()</code> method is called, instead of going to the database, we remove the need for a database when testing A. 
+<p>This is where <strong>test doubles</strong> come in handy. The idea is that we will create an object that will mimic the behaviour of component B (&quot;it looks like B, but it is not B&quot;). Given that we have full control over what this &quot;fake component B&quot; does, we can design it in such a way that unit testing A becomes less costly. In our example above, suppose that A is a plain Java class and B is a <em>Data Access Object</em> (and thus, it communicates with the database). If we simulate B for example by returning a hard-coded list of two elements whenever the <code>findAllInvoices()</code> method is called, instead of going to the database, we remove the need for a database when testing A. 
 If this seems too abstract, the source code we show later in this chapter offers more clarification.</p>
 <p>The use of objects that simulate the behaviour of other objects has advantages:</p>
 <ul>
@@ -857,7 +857,7 @@ If this seems too abstract, the source code we show later in this chapter offers
 </li>
 </ul>
 <p><strong>Simulating dependencies is therefore a widely used technique in software testing, mainly to increase testability.</strong></p>
-<p>You might have noted that, although the title of this chapter is &quot;mock objects&quot;, we have been using the word &quot;simulation&quot;. As you will see in the remainder of this chapter, you may need different types of &quot;simulation objects&quot;, according to your problem. Such objects are also known as &quot;test doubles&quot;.</p>
+<p>As you will see in the remainder of this chapter, you may need different types of &quot;simulation objects&quot;, according to your problem. Such objects are also known as &quot;test doubles&quot;.</p>
 <p>Meszaros, in his book, defines five different types: dummy objects, fake objects, stubs, spies, and mocks:</p>
 <ul>
 <li><p><strong>Dummy objects</strong>: Objects that are passed to the class under test, but are never really used. This is common in business applications, where in many cases you need to fill a long list of parameters, but the test only exercises a few of them. Think of a unit test for a <code>Customer</code> class. Maybe this class depends on several other classes (<code>Address</code>, <code>Last Order</code>, etc). But a specific test case A wants to exercise the &quot;last order business rule&quot;, and does not care much about which Address this Customer has. In this case, a tester would then set up a dummy Address object and pass it to the Customer class.</p>
@@ -872,7 +872,12 @@ Stubs do not actually have a working implementation, as fake objects do. In the 
 <li><p><strong>Mocks</strong>: Mock objects act like stubs that are pre-configured ahead of time to know what kind of interactions should occur with them. For example, imagine a mock object that is configured as follows: method A should be called twice and, for the first call it should return &quot;1&quot;, and for the second call it should throw an exception, while method B should never be called.</p>
 </li>
 </ul>
-<p>In the rest of this chapter, we introduce the reader to Mockito, a popular mocking framework in Java. Although Mockito has &quot;mock&quot; in the name, Mockito can be used for stubbing and spying as well. We also show, by means of a few examples, how simulations can help developers in writing unit tests more effectively.</p>
+<p>In the rest of this chapter, we will:</p>
+<ol>
+<li>Learn <em>Mockito</em>, a popular mocking framework in Java. Although Mockito has &quot;mock&quot; in the name, Mockito can be used for stubbing and spying as well. We also show, by means of a few examples, how simulations can help developers in writing unit tests more effectively.</li>
+<li>Discuss <em>interaction testing</em> and how mocks can be used as a design technique.</li>
+<li>Discuss what Google has learned about test doubles.</li>
+</ol>
 <p><div class="alert alert-success hints-alert"><div class="hints-icon"><i class="fa fa-mortar-board"></i></div><div class="hints-container"><p>You can read more about the history of Mock Objects at <a href="http://www.mockobjects.com" target="_blank">http://www.mockobjects.com</a>.</p>
 </div></div></p>
 <h2 id="mockito">Mockito</h2>
@@ -1226,6 +1231,49 @@ case, a <code>Clock</code> abstraction can do the job:</p>
 </li>
 </ul>
 <p>Ultimately, remember that whenever you mock, you reduce the reality of the test. It is up to you to understand this trade-off.</p>
+<h2 id="mock-roles-not-objects-interaction-testing-and-mocks-as-a-design-technique">&quot;Mock Roles, not Objects!&quot;: interaction testing and mocks as a design technique</h2>
+<p>In their seminal work <em>Mock Roles, Not Objects</em>, Freeman et al. show how mock objects can be used not as tool to solely support testing, but as a tool to drive the design of the system. In other words, by concentrating on the interactions between objects (achieved through TDD and mock objects), developers can better discover the roles, interfaces, contracts, and expectations of the classes in their software systems.</p>
+<p>In the following, we summarize some of the best practices on <em>interaction testing</em>, that authors raise in their paper:</p>
+<ul>
+<li><p><strong>Only mock types you own.</strong> Developers should not mock objects that they do not &quot;own&quot;, e.g., a class from an external library. Rather, they should build abstractions on top of those.</p>
+</li>
+<li><p><strong>Be explicit about things that should not happen</strong>. Writing tests for interactions that should not happen makes intentions clearer.</p>
+</li>
+<li><p><strong>Specify as little as possible in the test</strong>. Overspecified tests tend to be more brittle. Focus on the interactions that really matter.</p>
+</li>
+<li><p><strong>Don&apos;t use mocks to test boundary objects</strong>. Objects that have no relationships to other objects do not need to be mocked. In practice, these objects tend to &quot;only&quot; store data or represent atomic values.</p>
+</li>
+<li><p><strong>Don&apos;t add behaviour</strong>. Mocks are still stubs, and you should avoid adding any extra behavior on it.</p>
+</li>
+<li><p><strong>Only mock your immediate neighbours</strong>. Mocking an entire network of objects adds extra complexity to the test. This might be a symptom that the component needs a better design.</p>
+</li>
+<li><p><strong>Avoid too many mocks</strong>. After all, mock objects add complexity to the overall test.</p>
+</li>
+</ul>
+<p>The authors also discuss some common misconception when using mocks:</p>
+<ul>
+<li><p><strong>Mocks are just stubs</strong>. Mock objects indeed act as stubs. However, their main goal (or, what makes it different from &quot;just&quot; stubs) is to assert the interaction of the target object with its neighbours.</p>
+</li>
+<li><p><strong>Mocks should not be used only to the boundaries of the system</strong>. Some developers might argue that only classes that are at the boundaries of the system should be mocked (e.g., classes that talk to external systems). Mocks might be even more helpful when used <em>within</em> the system, as the it can also drive developers to better class design.</p>
+</li>
+<li><p><strong>Gather state during the test and assert against it afterwards</strong>. Making assertions only at the end of the test makes failing tests less easy to be understood. Favour immediate failures.</p>
+</li>
+<li><p><strong>Testing using Mock Objects duplicates the code.</strong> This often happens when mock objects act purely as a replacement for an external class, rather than to drive the design of the code.</p>
+</li>
+</ul>
+<h2 id="test-doubles-at-google">Test doubles at Google</h2>
+<p>The &quot;Software Engineering at Google&quot; book has an entire chapter dedicated to test doubles. In the following, we provide you with a summary:</p>
+<ul>
+<li>Using test doubles requires the system to be designed for testability. Dependency injection is the common technique to enable test doubles.</li>
+<li>Building test doubles that are faithful to the real implementation is challenging. Test doubles have to be as faithful as possible.</li>
+<li>Prefer realism over isolation. When possible, opt for the real implementation, instead of fakes, stubs, or mocks.</li>
+<li>Some trade-offs to consider when deciding whether to use a test double: the execution time of the real implementation, how much non-determinism we would get from using the real implementation.</li>
+<li>When using the real implementation is not possible or too costly, prefer fakes over mocks. An in-memory database, for example, might be better (or more real) than a mock.</li>
+<li>Excessive mocking can be dangerous, as tests become unclear (i.e., hard to comprehend), brittle (i.e., might break too often), and less effective (i.e., reduced fault capability detection).</li>
+<li>When mocking, prefer <em>state testing</em> rather than <em>iteraction testing</em>. In other words, make sure you are asserting a change of state and/or the consequence of the action under test, rather than the precise interaction that the action has with the mocked object. After all, interaction testing tends to be too coupled with the implementation of the system under test.</li>
+<li>Use <em>interaction testing</em> when state testing is not possible, or when a bad interaction might have an impact in the system (e.g., calling the same method twice would make the system twice as slow).</li>
+<li>Avoid overspecified interaction tests. Focus on the relevant arguments and functions.</li>
+</ul>
 <h2 id="exercises">Exercises</h2>
 <p><strong>Exercise 1.</strong>
 See the following class:</p>
@@ -1332,6 +1380,10 @@ Referring to the previous chapter, apply boundary testing techniques to the <cod
 </li>
 <li><p>Freeman, S., &amp; Pryce, N. (2009). Growing object-oriented software, guided by tests. Pearson Education.</p>
 </li>
+<li><p>Winters, T., Manshreck, T., Wright, H. Software Engineering at Google: Lessons Learned from Programming Over Time. O&apos;Reilly, 2020.</p>
+</li>
+<li><p>Freeman, S., Mackinnon, T., Pryce, N., &amp; Walnes, J. (2004, October). Mock roles, not objects. In Companion to the 19th annual ACM SIGPLAN conference on Object-oriented programming systems, languages, and applications (pp. 236-246).</p>
+</li>
 </ul>
 
                                 
@@ -1376,7 +1428,7 @@ Referring to the previous chapter, apply boundary testing techniques to the <cod
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Mock objects","level":"5.1.2","depth":2,"next":{"title":"Design for testability","level":"5.1.3","depth":2,"path":"chapters/pragmatic-testing/design-for-testability.md","ref":"chapters/pragmatic-testing/design-for-testability.md","articles":[]},"previous":{"title":"The testing pyramid","level":"5.1.1","depth":2,"path":"chapters/pragmatic-testing/testing-pyramid.md","ref":"chapters/pragmatic-testing/testing-pyramid.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/pragmatic-testing/mock-objects.md","mtime":"2020-04-27T11:23:22.357Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-29T16:58:56.071Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Test doubles","level":"5.1.2","depth":2,"next":{"title":"Design for testability","level":"5.1.3","depth":2,"path":"chapters/pragmatic-testing/design-for-testability.md","ref":"chapters/pragmatic-testing/design-for-testability.md","articles":[]},"previous":{"title":"The testing pyramid","level":"5.1.1","depth":2,"path":"chapters/pragmatic-testing/testing-pyramid.md","ref":"chapters/pragmatic-testing/testing-pyramid.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/pragmatic-testing/test-doubles.md","mtime":"2020-05-02T16:15:48.515Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-02T16:18:41.621Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

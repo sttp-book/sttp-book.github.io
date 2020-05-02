@@ -390,12 +390,12 @@
             
         </li>
     
-        <li class="chapter " data-level="5.1.2" data-path="../pragmatic-testing/mock-objects.html">
+        <li class="chapter " data-level="5.1.2" data-path="../pragmatic-testing/test-doubles.html">
             
-                <a href="../pragmatic-testing/mock-objects.html">
+                <a href="../pragmatic-testing/test-doubles.html">
             
                     
-                    Mock objects
+                    Test doubles
             
                 </a>
             
@@ -878,8 +878,13 @@ Static analysis can quickly find <em>low-hanging fruit</em> bugs that can be fou
 For example, for a rule <em>allowing at most 3 methods</em>, and the following code snippet, the AST will be parsed and an error will be raised for violating the rule. Contrarily, a very complicated regular expression would be needed to handle the varying characteristics of the four available methods, potentially resulting in false positives.</p>
 <p><img src="img/static-testing/ast-usecase1.png" alt="AST rule enforcement"></p>
 <p>Abstract Syntax Trees are used by compilers to find sematic errors &#x2014; compile-time errors associated to the <em>meaning</em> of the program. ASTs are also be used for program verification, type-checking, and translating the program from one language to another.  </p>
-<h2 id="limitations-of-static-analysis">Limitations of static analysis</h2>
-<p>The signatures that static analysis uses to detect bugs need to be kept up-to-date as they codebase evolves. Additionally, while static analysis can see the entire codebase, it does not see how the application behaves in action, so if a piece of code is added at runtime, the static analysis will miss it completely. This is why static analysis tools generally produce a large amount of False positives &#x2014; raises alarms when there are none, and False negatives &#x2014; miss bugs.</p>
+<h2 id="performance-of-static-analysis">Performance of static analysis</h2>
+<p> Typically, static analysis produces <em>sound</em> results, i.e. zero false negatives. This is because the tools have access to the whole codebase, and they can track all the possible execution paths a program might take. So, if there are <em>any</em> vulnerabilities, the tool should be able to find them. However, this comes at the cost of <em>Completeness</em>. Because it tracks all possible execution paths without seeing how the application behaves in action, some of the results might never be reached in an actual execution scenario, resulting in false positives.</p>
+<blockquote>
+<p>Note that static analysis <em>can produce unsound results</em> if a piece of code is added at runtime, because then the analysis will not be done on the new code-piece. This is one reason why the signatures that static analysis uses to detect bugs need to be kept up-to-date as the codebase evolves. However, this strategy will still not work for dynamically induced bugs.</p>
+</blockquote>
+<p><div class="alert alert-success hints-alert"><div class="hints-icon"><i class="fa fa-mortar-board"></i></div><div class="hints-container"><p> <em>Soundness</em> and <em>Completeness</em> are defined more extensively in the Security testing chapter. </p>
+</div></div></p>
 <h2 id="exercises">Exercises</h2>
 <p><strong>Exercise 1.</strong> Regular expressions <em>CANNOT DO</em> which of the following tasks?</p>
 <ol>
@@ -888,7 +893,7 @@ For example, for a rule <em>allowing at most 3 methods</em>, and the following c
 <li>Define wild cards</li>
 <li>Detect coding mistakes</li>
 </ol>
-<p><strong>Exercise 2.</strong> What is the quality of results that Static analysis produces?</p>
+<p><strong>Exercise 2.</strong> Given that a static analysis tool can view the entire codebase, what is the quality of results that the analysis will produce?</p>
 <ol>
 <li>Sound and Precise</li>
 <li>Sound but Imprecise</li>
@@ -945,7 +950,7 @@ For example, for a rule <em>allowing at most 3 methods</em>, and the following c
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Static testing","level":"6.1.4","depth":2,"next":{"title":"Testing in the context","level":"7.1","depth":1,"path":"chapters/testing-into-context/README.md","ref":"chapters/testing-into-context/README.md","articles":[{"title":"Web testing (soon)","level":"7.1.1","depth":2,"path":"chapters/testing-into-context/web-testing.md","ref":"chapters/testing-into-context/web-testing.md","articles":[]},{"title":"Database testing (soon)","level":"7.1.2","depth":2,"ref":"","articles":[]},{"title":"Mobile testing (soon)","level":"7.1.3","depth":2,"ref":"","articles":[]},{"title":"Continuous experimentation (soon)","level":"7.1.4","depth":2,"ref":"","articles":[]},{"title":"Embedded software testing (soon)","level":"7.1.5","depth":2,"ref":"","articles":[]}]},"previous":{"title":"Search-based software testing","level":"6.1.3","depth":2,"path":"chapters/intelligent-testing/sbst.md","ref":"chapters/intelligent-testing/sbst.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/intelligent-testing/static-testing.md","mtime":"2020-04-29T16:56:49.404Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-29T16:58:56.071Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Static testing","level":"6.1.4","depth":2,"next":{"title":"Testing in the context","level":"7.1","depth":1,"path":"chapters/testing-into-context/README.md","ref":"chapters/testing-into-context/README.md","articles":[{"title":"Web testing (soon)","level":"7.1.1","depth":2,"path":"chapters/testing-into-context/web-testing.md","ref":"chapters/testing-into-context/web-testing.md","articles":[]},{"title":"Database testing (soon)","level":"7.1.2","depth":2,"ref":"","articles":[]},{"title":"Mobile testing (soon)","level":"7.1.3","depth":2,"ref":"","articles":[]},{"title":"Continuous experimentation (soon)","level":"7.1.4","depth":2,"ref":"","articles":[]},{"title":"Embedded software testing (soon)","level":"7.1.5","depth":2,"ref":"","articles":[]}]},"previous":{"title":"Search-based software testing","level":"6.1.3","depth":2,"path":"chapters/intelligent-testing/sbst.md","ref":"chapters/intelligent-testing/sbst.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/intelligent-testing/static-testing.md","mtime":"2020-05-02T10:49:51.814Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-02T16:18:41.621Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

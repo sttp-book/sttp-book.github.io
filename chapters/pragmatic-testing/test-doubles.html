@@ -857,7 +857,16 @@ If this seems too abstract, the source code we show later in this chapter offers
 </li>
 </ul>
 <p><strong>Simulating dependencies is therefore a widely used technique in software testing, mainly to increase testability.</strong></p>
-<p>As you will see in the remainder of this chapter, you may need different types of &quot;simulation objects&quot;, according to your problem. Such objects are also known as &quot;test doubles&quot;.</p>
+<p>Such objects are also known as <strong>test doubles</strong>. In the rest of this chapter, we will:</p>
+<ol>
+<li>Explain the differences between dummies, fakes, stubs, spies, and mocks.</li>
+<li>Learn <em>Mockito</em>, a popular mocking framework in Java. Although Mockito has &quot;mock&quot; in the name, Mockito can be used for stubbing and spying as well. We also show, by means of a few examples, how simulations can help developers in writing unit tests more effectively.</li>
+<li>Discuss <em>interaction testing</em> and how mocks can be used as a design technique.</li>
+<li>Discuss what Google has learned about test doubles.</li>
+</ol>
+<p><div class="alert alert-success hints-alert"><div class="hints-icon"><i class="fa fa-mortar-board"></i></div><div class="hints-container"><p>You can read more about the history of Mock Objects at <a href="http://www.mockobjects.com" target="_blank">http://www.mockobjects.com</a>.</p>
+</div></div></p>
+<h2 id="dummies-fakes-stubs-spies-and-mocks">Dummies, fakes, stubs, spies, and mocks</h2>
 <p>Meszaros, in his book, defines five different types: dummy objects, fake objects, stubs, spies, and mocks:</p>
 <ul>
 <li><p><strong>Dummy objects</strong>: Objects that are passed to the class under test, but are never really used. This is common in business applications, where in many cases you need to fill a long list of parameters, but the test only exercises a few of them. Think of a unit test for a <code>Customer</code> class. Maybe this class depends on several other classes (<code>Address</code>, <code>Last Order</code>, etc). But a specific test case A wants to exercise the &quot;last order business rule&quot;, and does not care much about which Address this Customer has. In this case, a tester would then set up a dummy Address object and pass it to the Customer class.</p>
@@ -872,14 +881,7 @@ Stubs do not actually have a working implementation, as fake objects do. In the 
 <li><p><strong>Mocks</strong>: Mock objects act like stubs that are pre-configured ahead of time to know what kind of interactions should occur with them. For example, imagine a mock object that is configured as follows: method A should be called twice and, for the first call it should return &quot;1&quot;, and for the second call it should throw an exception, while method B should never be called.</p>
 </li>
 </ul>
-<p>In the rest of this chapter, we will:</p>
-<ol>
-<li>Learn <em>Mockito</em>, a popular mocking framework in Java. Although Mockito has &quot;mock&quot; in the name, Mockito can be used for stubbing and spying as well. We also show, by means of a few examples, how simulations can help developers in writing unit tests more effectively.</li>
-<li>Discuss <em>interaction testing</em> and how mocks can be used as a design technique.</li>
-<li>Discuss what Google has learned about test doubles.</li>
-</ol>
-<p><div class="alert alert-success hints-alert"><div class="hints-icon"><i class="fa fa-mortar-board"></i></div><div class="hints-container"><p>You can read more about the history of Mock Objects at <a href="http://www.mockobjects.com" target="_blank">http://www.mockobjects.com</a>.</p>
-</div></div></p>
+<p>As a tester, you should decide which test double to use. We will discuss some guidelines later.</p>
 <h2 id="mockito">Mockito</h2>
 <p>One of the most popular Java mocking/stubbing frameworks is Mockito (<a href="https://site.mockito.org" target="_blank">mockito.org</a>). Mockito has a very simple API. Developers can set up stubs and/or define expectations in mock objects with just a few lines of code.</p>
 <p>The most important methods one needs to know from Mockito are:</p>
@@ -1415,7 +1417,7 @@ Referring to the previous chapter, apply boundary testing techniques to the <cod
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Test doubles","level":"5.1.2","depth":2,"next":{"title":"Design for testability","level":"5.1.3","depth":2,"path":"chapters/pragmatic-testing/design-for-testability.md","ref":"chapters/pragmatic-testing/design-for-testability.md","articles":[]},"previous":{"title":"The testing pyramid","level":"5.1.1","depth":2,"path":"chapters/pragmatic-testing/testing-pyramid.md","ref":"chapters/pragmatic-testing/testing-pyramid.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/pragmatic-testing/test-doubles.md","mtime":"2020-05-02T17:08:51.170Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-02T17:20:25.444Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Test doubles","level":"5.1.2","depth":2,"next":{"title":"Design for testability","level":"5.1.3","depth":2,"path":"chapters/pragmatic-testing/design-for-testability.md","ref":"chapters/pragmatic-testing/design-for-testability.md","articles":[]},"previous":{"title":"The testing pyramid","level":"5.1.1","depth":2,"path":"chapters/pragmatic-testing/testing-pyramid.md","ref":"chapters/pragmatic-testing/testing-pyramid.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/pragmatic-testing/test-doubles.md","mtime":"2020-05-02T17:24:21.250Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-02T17:24:43.817Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

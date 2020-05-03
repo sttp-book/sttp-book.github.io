@@ -992,6 +992,68 @@ There are also infinitely many off points we can pick. Choosing the respective o
 Now the off-points are 4 and 6.</p>
 <p><strong>Exercise 7</strong></p>
 <p>We should always test the behaviour of our program when any expected data actually does not exist (EXISTENCE).</p>
+<p><strong>Exercise 8</strong>
+We have a lot of boundaries to test for:</p>
+<p><img src="img/boundary-testing/ex8/legs.png" alt="Boundary Analysis Legs">
+<img src="img/boundary-testing/ex8/tail.png" alt="Boundary Analysis Tail">
+<img src="img/boundary-testing/ex8/lives.png" alt="Boundary Analysis Lives">
+<img src="img/boundary-testing/ex8/nails.png" alt="Boundary Analysis SharpNails">
+<img src="img/boundary-testing/ex8/sound.png" alt="Boundary Analysis Sound"></p>
+<p>To establish the needed tests in the category/partition method, we need to identify the parameters, derive the characteristics, add constraints and final make the tests.
+As we last step we can identify duplicate tests and remove those.</p>
+<ol>
+<li>Identify parameters:<ul>
+<li>Legs</li>
+<li>Tail</li>
+<li>Lives</li>
+<li>Sharp nails</li>
+<li>Sound</li>
+</ul>
+</li>
+<li>Derive characteristics of parameters:<ul>
+<li>int legs: [0,2,4,6,8,10,integer.MAX_VALUE], [1,3,5,7,9,integer.MAX_VALUE], [negative value]</li>
+<li>bool tail: [true], [false]</li>
+<li>int lives: [1-9], no lives, more than 10 lives</li>
+<li>bool sharp nails: [true], [false]</li>
+<li>string sound: [&apos;miauw&apos;], [&apos;woof&apos;], [empty]</li>
+</ul>
+</li>
+<li>Add constraints:<ul>
+<li>If <code>lives &lt;= 0</code>, we can test this with just one combination.</li>
+<li>If legs is an negative integer or 0, this is an exceptional case. Therefore it doesn&apos;t matter if the animal has sharp nails or not.</li>
+<li>If legs is not an even integer, we can test this with just one combination.</li>
+<li>If <code>lives &gt;= 10</code>, we can test this with just one combination. </li>
+</ul>
+</li>
+<li>Test cases: Tests can be divided in 3 categories: is a cat, not a cat, exceptional cases.<ul>
+<li><strong>Cat</strong><ol>
+<li>2, true, 6, true, &quot;miauws&quot; --&gt; cat</li>
+</ol>
+</li>
+<li><strong>Not a cat</strong><ol>
+<li>3, true, 6, true, &quot;miauws&quot; --&gt; not a cat</li>
+<li>4, false, 6, true, &quot;miauws&quot; --&gt; not a cat</li>
+<li>6, true, 11, true, &quot;miauws&quot; --&gt; not a cat</li>
+<li>8, true, 4, false, &quot;miauws&quot; --&gt; not a cat</li>
+<li>2, true, 3, true, &quot;woof&quot; --&gt; not a cat</li>
+</ol>
+</li>
+<li><strong>Exceptional</strong><ol>
+<li>0, true, 2, false, &quot;miauws&quot; --&gt; cat or invalid depending on the context of the program.</li>
+<li>2, true, 11, true, &quot;miauws&quot; --&gt; not a cat</li>
+<li>3, true, 8, true, &quot;miauws&quot; --&gt; not a cat</li>
+<li>4, true, 0, true, &quot;miauws&quot; --&gt; not a cat or invalid depending on the context of the program.</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+<p>Note that some tests can be combined! For example: </p>
+<ul>
+<li>TEST-1 from not a cat is the same as TEST-3 from exceptional</li>
+<li>TEST-3 from not a cat is the same as TEST-2 from exceptional</li>
+</ul>
+<p>So the total number of tests = 8.</p>
 <h2 id="structural-testing">Structural testing</h2>
 <p><strong>Exercise 1</strong></p>
 <p>Example of a test suite that achieves <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mn>0</mn><mn>0</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">100\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span><span class="mord mathrm">%</span></span></span></span> line coverage:</p>
@@ -1170,6 +1232,54 @@ This gives us a minimum of 4 tests.</p>
 <p>Test pairs for <code>A = {(2,6)}</code>, <code>B = {(2,4)}</code> and <code>C = {(3, 4), (5, 6), (7,8)}</code>.
 Thus, from the options, tests 2, 3, 4 and 6 are the only ones that achieve 100% MC/DC.
 Note that 2, 4, 5, 6 could also be a solution.</p>
+<p><strong>Exercise 16</strong></p>
+<p>The table for the given expression is:</p>
+<table>
+<thead>
+<tr>
+<th>Tests</th>
+<th style="text-align:center">A</th>
+<th style="text-align:center">B</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td style="text-align:center">F</td>
+<td style="text-align:center">F</td>
+<td>F</td>
+</tr>
+<tr>
+<td>2</td>
+<td style="text-align:center">F</td>
+<td style="text-align:center">T</td>
+<td>T</td>
+</tr>
+<tr>
+<td>3</td>
+<td style="text-align:center">T</td>
+<td style="text-align:center">F</td>
+<td>T</td>
+</tr>
+<tr>
+<td>4</td>
+<td style="text-align:center">T</td>
+<td style="text-align:center">T</td>
+<td>F</td>
+</tr>
+</tbody>
+</table>
+<p>From this table we can deduce sets of independence pairs for each of the parameters:</p>
+<ul>
+<li><code>A</code>: {(1, 3), (2, 4)}</li>
+<li><code>B</code>: { (empty) }</li>
+</ul>
+<p>We can see that there is no independence pair for <code>B</code>. 
+Thus, <strong>it is not possible to achieve MC/DC coverage for this expression</strong>.</p>
+<p>Since there is no independence pair for <code>B</code>, this parameter has no effect on the result.
+We should recommend the developer to restructure the expression without using <code>B</code>, which will make the code easier to maintain.</p>
+<p>This example shows that software testers can contribute to the code quality not only by spotting bugs, but also by suggesting changes that result in better maintainability.</p>
 <h2 id="model-based-testing">Model-Based Testing</h2>
 <p><strong>Exercise 1</strong></p>
 <p><img src="img/model-based-testing/exercises/coldhot_state_machine.svg" alt=""></p>
@@ -1222,7 +1332,7 @@ Note that 2, 4, 5, 6 could also be a solution.</p>
 
 <p>There are 14 empty cells in the table, so there are 14 sneaky paths that we can test.</p>
 <p><strong>Exercise 4</strong></p>
-<p><img src="img/model-based-testing/exercises/order_transition_tree.svg" alt=""></p>
+<p>(Exercise removed)</p>
 <p><strong>Exercise 5</strong></p>
 <p>We have a total of 6 transitions.
 Of these transitions the four given in the test are covered and order cancelled and order resumed are not.
@@ -1707,7 +1817,7 @@ y = {<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Answers to the exercises","level":"10.1.1","depth":2,"next":{"title":"Domain testing examples","level":"10.1.2","depth":2,"path":"chapters/testing-techniques/domain-testing.md","ref":"chapters/testing-techniques/domain-testing.md","articles":[]},"previous":{"title":"Appendix","level":"10.1","depth":1,"ref":"","articles":[{"title":"Answers to the exercises","level":"10.1.1","depth":2,"path":"chapters/appendix/answers.md","ref":"chapters/appendix/answers.md","articles":[]},{"title":"Domain testing examples","level":"10.1.2","depth":2,"path":"chapters/testing-techniques/domain-testing.md","ref":"chapters/testing-techniques/domain-testing.md","articles":[]},{"title":"Change log","level":"10.1.3","depth":2,"path":"chapters/appendix/changelog.md","ref":"chapters/appendix/changelog.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/appendix/answers.md","mtime":"2020-05-03T07:04:38.283Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-03T07:25:10.313Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Answers to the exercises","level":"10.1.1","depth":2,"next":{"title":"Domain testing examples","level":"10.1.2","depth":2,"path":"chapters/testing-techniques/domain-testing.md","ref":"chapters/testing-techniques/domain-testing.md","articles":[]},"previous":{"title":"Appendix","level":"10.1","depth":1,"ref":"","articles":[{"title":"Answers to the exercises","level":"10.1.1","depth":2,"path":"chapters/appendix/answers.md","ref":"chapters/appendix/answers.md","articles":[]},{"title":"Domain testing examples","level":"10.1.2","depth":2,"path":"chapters/testing-techniques/domain-testing.md","ref":"chapters/testing-techniques/domain-testing.md","articles":[]},{"title":"Change log","level":"10.1.3","depth":2,"path":"chapters/appendix/changelog.md","ref":"chapters/appendix/changelog.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/appendix/answers.md","mtime":"2020-05-03T08:08:52.025Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-03T08:09:57.465Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

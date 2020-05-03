@@ -959,7 +959,7 @@ The line coverage went up from <span class="katex"><span class="katex-mathml"><m
 while testing the same method with the same input.</p>
 <p>This urges for a better representation of source code. One that is 
 independent of the developers&apos; personal code styles.</p>
-<p><div class="alert alert-success hints-alert"><div class="hints-icon"><i class="fa fa-mortar-board"></i></div><div class="hints-container"><p>Some coverage tools measure coverage as statement level. Statements are the unique instructions that your
+<p><div class="alert alert-success hints-alert"><div class="hints-icon"><i class="fa fa-mortar-board"></i></div><div class="hints-container"><p>Some coverage tools measure coverage at statement level. Statements are the unique instructions that your
 JVM, for example, executes. This is a bit better, as splitting one line of code in two would not make a difference, but it is still not good enough.</p>
 </div></div></p>
 <center>
@@ -1170,11 +1170,11 @@ Each of these combinations is a path. You might see a path as a unique way to tr
 <p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtext><mi mathvariant="normal">p</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">h</mi><mtext>&#xA0;</mtext><mi mathvariant="normal">c</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">v</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">g</mi><mi mathvariant="normal">e</mi></mtext><mo>=</mo><mfrac><mrow><mtext><mi mathvariant="normal">p</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">h</mi><mi mathvariant="normal">s</mi><mtext>&#xA0;</mtext><mi mathvariant="normal">c</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">v</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">d</mi></mtext></mrow><mrow><mtext><mi mathvariant="normal">p</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">h</mi><mi mathvariant="normal">s</mi><mtext>&#xA0;</mtext><mi mathvariant="normal">t</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi></mtext></mrow></mfrac><mo>&#x22C5;</mo><mn>1</mn><mn>0</mn><mn>0</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">\text{path coverage} = \frac{\text{paths covered}}{\text{paths total}} \cdot 100\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.9322159999999999em;"></span><span class="strut bottom" style="height:1.4133239999999998em;vertical-align:-0.481108em;"></span><span class="base textstyle uncramped"><span class="mord text textstyle uncramped"><span class="mord mathrm">path&#xA0;coverage</span></span><span class="mrel">=</span><span class="mord reset-textstyle textstyle uncramped"><span class="mopen sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord scriptstyle cramped mtight"><span class="mord text scriptstyle cramped mtight"><span class="mord mathrm mtight">paths&#xA0;total</span></span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.44610799999999995em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle uncramped mtight"><span class="mord scriptstyle uncramped mtight"><span class="mord text scriptstyle uncramped mtight"><span class="mord mathrm mtight">paths&#xA0;covered</span></span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span><span class="mclose sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span><span class="mbin">&#x22C5;</span><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span><span class="mord mathrm">%</span></span></span></span></p>
 <p>See the following example that focus on a small piece of the <code>count</code> method:</p>
 <pre><code class="lang-java"><span class="hljs-keyword">if</span> (!Character.isLetter(str.charAt(i)) 
-        &amp;&amp; (last == <span class="hljs-string">&apos;s&apos;</span> || last == <span class="hljs-string">&apos;r&apos;</span>)) {
+        &amp; (last == <span class="hljs-string">&apos;s&apos;</span> | last == <span class="hljs-string">&apos;r&apos;</span>)) {
     words++;
 }
 </code></pre>
-<p>The decision in this if-statement contains three conditions and can be generalised to <code>(A &amp;&amp; (B || C))</code>, with:</p>
+<p>The decision in this if-statement contains three conditions and can be generalised to <code>(A &amp; (B | C))</code>, with:</p>
 <ul>
 <li>A = <code>!Character.isLetter(str.charAt(i))</code></li>
 <li>B = <code>last == &apos;s&apos;</code></li>
@@ -1263,14 +1263,61 @@ It is a large number for just a single statement. </p>
 }
 </code></pre>
 <p>To satisfy all the criteria we studied so far, we would need to exercise the <code>shouldRun</code> as being true and false. That does not happen with path coverage. To satisfy path coverage, we would need to test all the possible paths that can happen. The unbounded loop might make this program to iterate an infinite number of times. Imagine now a program with two unbounded loops together. How many different possible paths does this program have?</p>
-<p>Achieving 100% path coverage might not always be feasible or too costly.
-The number of tests needed for full path coverage will grow exponentially with the number of conditions and unbounded loops.</p>
+<p>By aiming at achieving path coverage of our program, testers can indeed come up with good tests.
+However, the main issue is that achieving 100% path coverage might not always be feasible or too costly.
+The number of tests needed for full path coverage will grow exponentially with the number of conditions in a decision.</p>
 <center>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/hpE-aZYulmk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </center>
 
 
-
+<h2 id="lazy-vs-eager-operators-and-how-they-affect-test-case-design">Lazy vs eager operators (and how they affect test case design)</h2>
+<p>Note that we have been avoiding lazy (short-circuit) operators (i.e., &amp;&amp; and ||), on purpose, to make sure all conditions of the expression are evaluated. This allows us to devise test cases for each possible combination we see in the decision table. However, that might not be the case if we use lazy operators. Let&apos;s take as an example the same expression, but now using lazy operators: <code>(A &amp;&amp; (B || C))</code></p>
+<p>We make the truth table to find the combinations:</p>
+<table>
+<thead>
+<tr>
+<th>Tests</th>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>Outcome</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>T</td>
+<td>T</td>
+<td>dc</td>
+<td>T</td>
+</tr>
+<tr>
+<td>2</td>
+<td>T</td>
+<td>F</td>
+<td>T</td>
+<td>T</td>
+</tr>
+<tr>
+<td>3</td>
+<td>T</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+</tr>
+<tr>
+<td>4</td>
+<td>F</td>
+<td>X</td>
+<td>dc</td>
+<td>F</td>
+</tr>
+</tbody>
+</table>
+<p>(&apos;dc&apos; represents &quot;don&apos;t care&quot; values.)</p>
+<p>For this particular example, if the A is false, then the rest of the expression will be not evaluated anymore, because the result of the entire statement will be automatically false. Moreover, for the second part of the expression, if B is true, then the entire proposition <code>(B || C)</code> is already true, so we &quot;don&apos;t care&quot; about the value of the C.</p>
+<p>Generically speaking, it might be not possible to devise test cases for all the combinations. As a tester, you just have to take such constraints into consideration.</p>
 <h2 id="loop-boundary-adequacy">Loop boundary adequacy</h2>
 <p>The section raised an interesting problem:
 in terms of coverage criteria, what to do when we have loops? When there is a loop, the block inside of the loop might be executed many times, making testing more complicated.</p>
@@ -1721,6 +1768,11 @@ criterion if for every loop L:</p>
 <p><strong>Exercise 15.</strong>
 Consider the expression <code>((A and B) or C)</code>.
 Devise a test suite that achieves <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mn>0</mn><mn>0</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">100\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span><span class="mord mathrm">%</span></span></span></span> <em>Modified Condition / Decision Coverage</em> (MC/DC).</p>
+<p><strong>Exercise 16.</strong>
+Draw the truth table for expression <code>A and (A or B)</code>.</p>
+<p>Is it possible to achieve MC/DC coverage for this expression?
+Why (not)?</p>
+<p>What feedback should you give to the developer, that used this expression, about your finding?</p>
 <h2 id="references">References</h2>
 <ul>
 <li><p>Chapter 4 of the Foundations of software testing: ISTQB certification. Graham, Dorothy, Erik Van Veenendaal, and Isabel Evans, Cengage Learning EMEA, 2008.</p>
@@ -1785,7 +1837,7 @@ Devise a test suite that achieves <span class="katex"><span class="katex-mathml"
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Structural testing","level":"4.1.3","depth":2,"next":{"title":"Model-based testing","level":"4.1.4","depth":2,"path":"chapters/testing-techniques/model-based-testing.md","ref":"chapters/testing-techniques/model-based-testing.md","articles":[]},"previous":{"title":"Boundary testing","level":"4.1.2","depth":2,"path":"chapters/testing-techniques/boundary-testing.md","ref":"chapters/testing-techniques/boundary-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/testing-techniques/structural-testing.md","mtime":"2020-05-03T07:04:21.028Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-03T07:25:10.313Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Structural testing","level":"4.1.3","depth":2,"next":{"title":"Model-based testing","level":"4.1.4","depth":2,"path":"chapters/testing-techniques/model-based-testing.md","ref":"chapters/testing-techniques/model-based-testing.md","articles":[]},"previous":{"title":"Boundary testing","level":"4.1.2","depth":2,"path":"chapters/testing-techniques/boundary-testing.md","ref":"chapters/testing-techniques/boundary-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/testing-techniques/structural-testing.md","mtime":"2020-05-03T07:59:09.863Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-03T08:09:57.465Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

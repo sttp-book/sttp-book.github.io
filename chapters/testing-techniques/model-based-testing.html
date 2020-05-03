@@ -849,7 +849,7 @@ A model holds some of the attributes of the program for which the model is built
 Given that the model preserves some of the original attributes of the system under test, it can be used to analyse and test the system.</p>
 <p>Why should we use models at all? A model gives us a structured way to understand how the program operates (or should operate).
 Model-based testing makes use of models of the system to derive tests.</p>
-<p>In this chapter, we show what a model is (or can be), and go over some of the models used in software testing.
+<p>In this chapter, we show what a model is (or can be) and go over some of the models used in software testing.
 The two models covered in this chapter are decision tables and state machines.</p>
 <center>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/5yuFf4-4JnE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -900,7 +900,7 @@ corresponds to an option that is not chosen.</p>
 </table>
 
 <p>You can see the different prices for the combinations of international services and automatic renewal.</p>
-<p><strong>Don&apos;t care values:</strong> In some cases the value of a condition might not influence the action.
+<p><strong>Don&apos;t care values:</strong> In some cases, the value of a condition might not influence the action.
 This is represented as a &quot;don&apos;t care&quot; value, or &quot;dc&quot;.</p>
 <p>Essentially, &quot;dc&quot; is a combination of two columns.
 These two columns have the same values for the conditions and the same result, except the condition that had the dc value which has different values in the expanded form.</p>
@@ -1019,7 +1019,7 @@ We want to cover all the actions in the test suite.
 Therefore, we need at least v4 and v8.
 With these decisions we also have covered the International Services condition.
 We need one of v1, v2, v3 and one of v5, v6, v7.
-To cover Loyal we add v7 and to cover Automatic Renewal we add v2.
+To cover Loyal, we add v7 and to cover Automatic Renewal we add v2.
 All the possible actions have now been covered.</p>
 <p>For full MC/DC, we test the decisions: v2, v4, v7, v8.</p>
 <center>
@@ -1088,7 +1088,7 @@ To avoid the code duplication that comes with this approach to implementing deci
 
 
 <h3 id="non-binary-choices-and-final-guidelines">Non-binary choices and final guidelines</h3>
-<p>So far, all the decision tables dicussed have boolean conditions (i.e., values in the cells were either <code>true</code> or <code>false</code>).
+<p>So far, all the decision tables we have discussed have boolean conditions (i.e., values in the cells were either <code>true</code> or <code>false</code>).
 The decision tables can be generalized to contain non-boolean values (non-binary choices). In other words, instead of only <code>true</code> and <code>false</code>, the values can now also be, e.g., a number.</p>
 <p>Take the decision table for the phone subscriptions, discussed earlier.
 Initially, this only contained the international and auto-renewal conditions.
@@ -1111,16 +1111,16 @@ For example, an international subscription without data would not be possible.</
 However, with many non-boolean conditions, the amount of possible combinations in the decision table can be large.
 Due to this combinatorial explosion of possible variants, the decision table becomes very hard to work with.
 For example, a decision table with three conditions, each having <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>4</mn></mrow><annotation encoding="application/x-tex">4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">4</span></span></span></span> possible values, results in <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>4</mn><mo>&#x22C5;</mo><mn>4</mn><mo>&#x22C5;</mo><mn>4</mn><mo>=</mo><mn>6</mn><mn>4</mn></mrow><annotation encoding="application/x-tex">4 \cdot 4 \cdot 4 = 64</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">4</span><span class="mbin">&#x22C5;</span><span class="mord mathrm">4</span><span class="mbin">&#x22C5;</span><span class="mord mathrm">4</span><span class="mrel">=</span><span class="mord mathrm">6</span><span class="mord mathrm">4</span></span></span></span> possible combinations.
-In such case, other strategies like <em>pair-wise combinatorial testing</em> offer better scalability. </p>
+In such cases, other strategies like <em>pair-wise combinatorial testing</em> offer better scalability. </p>
 <p>The testing techniques for decision tables with only boolean conditions can also be generalized to tables with non-boolean conditions.
 For the MC/DC criteria (discussed in the structural testing chapter), this requires modifying one of its three properties: instead of making each condition <code>true</code> and <code>false</code> at least once in the test suite, each of its possible values should appear at least once in the test suite.</p>
-<p>Finally, these are some general quidelines to keep in mind when designing decision tables:</p>
+<p>Finally, these are some general guidelines to keep in mind when designing decision tables:</p>
 <ol>
 <li><strong>Keep conditions independent.</strong> The order of the conditions should not matter, otherwise a state machine might be more fitting.</li>
 <li><strong>Use DC values when possible.</strong> This decreases the amount of variants, making the decision table easier to read and easier to understand.</li>
 <li><strong>Variants with DC values should not overlap.</strong> If they do, they should at least have the same action.</li>
 <li><strong>Add a default column.</strong> This provides an action for the variants that are not in the decision table, allowing the decision table to not include all possible variants.</li>
-<li><strong>Consider non-boolean conditions if conditions are mutually exclusive.</strong> Mutually means that the conditions can never be true at the same time. These conditions then probably encode a single non-boolean condition.</li>
+<li><strong>Consider non-boolean conditions if conditions are mutually exclusive.</strong> Mutually exclusive means that the conditions can never be true at the same time. These conditions then probably encode a single non-boolean condition.</li>
 <li><strong>If most conditions are non-boolean, consider using a different combinatorial testing technique instead</strong>. One example would be pair-wise testing.</li>
 </ol>
 <center>
@@ -1136,7 +1136,7 @@ For the MC/DC criteria (discussed in the structural testing chapter), this requi
 A system often has multiple states and various transitions between these states.
 The state machine model uses these states and transitions to illustrate the system&apos;s behaviour.</p>
 <p>The main focus of a state machine is, as the name suggests, the states of a system.
-So it is useful to think about what a state actually is.
+So, it is useful to think about what a state actually is.
 The states in a state machine model describe where a program is in its execution. 
 Transitions are actions that take the system from one state to another.
 We can use as many states as we need to describe the system&apos;s behaviour well.</p>
@@ -1162,14 +1162,13 @@ A correct password unlocks the phone and if an incorrect password is given, the 
 Finally, an unlocked phone can be locked again by pushing the lock button.
 We can use these events in the state machine.</p>
 <p><img src="img/model-based-testing/examples/locked_unlocked_machine.svg" alt=""></p>
-<p>In the diagram the initial state is <code>LOCKED</code>.
-Usually when someone starts using their phone, it is locked.
-Therefore the initial state of the state machine should also be <code>LOCKED</code>.</p>
+<p>In the diagram the initial state is <code>LOCKED</code>, because usually when someone starts using their phone, it is locked.
+This should be represented in the initial state of the state machine.</p>
 <p>Sometimes an event can lead to multiple states, depending on a certain condition.
 To model this in the state machines, we use <em>conditional transitions</em>.
 These transitions are only performed if the event happens and if the condition is true.
 The conditions often depend on a certain value being used in the state machine.
-To modify these values when a transition is taken in the state machine we use actions.
+To modify these values when a transition is taken in the state machine, we use actions.
 Actions are associated with a transition and are performed when the system uses that transition to go into another state.
 The notation for conditions and actions is as follows:</p>
 <ul>
@@ -1227,7 +1226,7 @@ To test a single transition (for transition coverage), more steps are needed:</p
 <li>If there is an action, check if this action has happened;</li>
 <li>Assert that the system is in the new state that the transition points to.</li>
 </ol>
-<p>To achieve full state coverage we need to arrive in each state once.
+<p>To achieve full state coverage, we need to arrive in each state once.
 For the phone example we have three states so we can make three tests.</p>
 <ul>
 <li>Check that the system is <code>LOCKED</code> when it is started;</li>
@@ -1245,9 +1244,9 @@ These combinations of transitions are called paths.</p>
 <p>A logical thought might be: let&apos;s test all the paths in the state machine.
 While this looks like a good objective, the number of paths will probably be too high.
 Take a state machine that has a loop, i.e., a transition from state X to Y and a transition from state Y to X.
-When creating paths we can keep going back and forth between these two states.
+When creating paths, we can keep going back and forth between these two states.
 This leads to an infinite number of paths.
-Obviously, we cannot test all the paths so we need to take a different approach.</p>
+Obviously, we cannot test all the paths, so we need to take a different approach.</p>
 <p>The idea is that when using paths to derive test cases, we want each loop to be executed once.
 This way we have a finite number of paths to be tested.
 We derive these tests by using a transition tree, which spans the graph of the state machine.
@@ -1264,7 +1263,7 @@ Repeat from step 2. <!-- TODO: Marsha: this is already step 2. I find this whole
 </li>
 </ol>
 <p>This is demonstrated in the example below.</p>
-<p>To make the transition table more interesting, we modify the phone&apos;s state machine to have an <code>OFF</code> state instead of a <code>BLOCKED</code> state.
+<p>To make the transition tree more interesting, we modify the phone&apos;s state machine to have an <code>OFF</code> state instead of a <code>BLOCKED</code> state.
 See the state machine below:</p>
 <p><img src="img/model-based-testing/examples/phone_off_machine.svg" alt="Phone state machine with off"></p>
 <p>The root node of the transition tree is the initial state of the state machine.
@@ -1275,7 +1274,7 @@ We append a number to make it easier to distinguish this node from other nodes o
 <p>One node was added, so we continue by adding children to that node.</p>
 <p><img src="img/model-based-testing/examples/transition_tree/transition_tree_2.svg" alt="Three level transition tree"></p>
 <p>The only state we have not seen yet is <code>UNLOCKED</code> in the <code>UNLOCKED_0</code> node.
-Therefore this is the only node we should add children to.</p>
+Therefore, this is the only node we should add children to.</p>
 <p><img src="img/model-based-testing/examples/transition_tree/transition_tree_3.svg" alt="Final phone transition tree"></p>
 <p>Now all the states of the nodes in the lowest layer have been visited so the transition tree is done.</p>
 <p>From a complete transition tree, we can derive tests.
@@ -1402,7 +1401,7 @@ The transition is given by the state it is going out of, the event that triggers
 <p>We can see that there is, for example, a transition from <code>UNLOCKED</code> to <code>LOCKED</code> when the event <code>lock button</code> is triggered.</p>
 <p>When we have the transition table, we have to decide the intended behaviour for the cells that are empty.
 The default is to ignore the event and stay in the same state.
-In some cases one might want the system to throw an exception.
+In some cases, one might want the system to throw an exception.
 These decisions depend on the project and the customer&apos;s needs.</p>
 <p>As discussed earlier, we can use the transition table to derive tests for sneak paths.
 Usually, we want the system to remain in its current state when we trigger an event that has an empty cell in the transition table.
@@ -1443,9 +1442,9 @@ We can use this to create a super state called <code>ON</code>.</p>
 <p>Now we can also simplify the state machine by collapsing the super state:</p>
 <p><img src="img/model-based-testing/examples/phone_collapsed.svg" alt="Collapsed super state example"></p>
 <p><strong>Regions</strong>:
-So far we have had super states that contain one state machine.
+So far, we have had super states that contain one state machine.
 Here, the system is in only one state of the super state at once.
-In some cases it may be useful to allow the system to be in multiple states at once.
+In some cases, it may be useful to allow the system to be in multiple states at once.
 This is achieved with regions.</p>
 <p>A super state can be split into multiple regions.
 These are orthogonal regions, meaning that the state machines in the regions are independent of each other; they do not influence the state machines in other regions.
@@ -1456,8 +1455,8 @@ This means that the system is in multiple states at once.</p>
 <p>Expanding regions is possible, but is highly impractical and usually not wanted, because expanding a region requires the creation of a state for each combination of states in the different regions.
 This causes the number of states and transitions to explode quickly.
 For this reason, we will not cover how to expand regions.</p>
-<p>In general it is best to use small state machines and to link these together using super states and regions.</p>
-<p>So far when the phone was <code>ON</code> we modelled the <code>LOCKED</code> and <code>UNLOCKED</code> state.
+<p>In general, it is best to use small state machines and to link these together using super states and regions.</p>
+<p>So far when the phone was <code>ON</code>, we modelled the <code>LOCKED</code> and <code>UNLOCKED</code> state.
 When the phone is on, it drains the battery.
 The system keeps track of the level of the battery.
 Let&apos;s assume that our phone has two battery levels: low and normal.
@@ -1526,13 +1525,13 @@ Draw the transition tree of the following state machine:</p>
 <p><img src="img/model-based-testing/exercises/order_state_machine.svg" alt=""></p>
 <p>Use sensible naming for the states in your transition tree.</p>
 <p><strong>Exercise 5.</strong>
-With the transition tree you devised in the previous exercise and the state machine in that exercise, what is the transition coverage of a test that the following events: [order placed, order received, order fulfilled, order delivered]?</p>
+With the transition tree you devised in the previous exercise and the state machine in that exercise, what is the transition coverage of a test that includes the following events: [order placed, order received, order fulfilled, order delivered]?</p>
 <p><strong>Exercise 6.</strong>
 Devise the decision table of the state machine that was given in the exercise above.
 Ignore the initial transition <code>Order placed</code>.</p>
 <p><strong>Exercise 7.</strong>
 How many sneak paths are there in the state machine we used in the previous exercises?
-Again ignore the initial <code>Order placed</code> transition.</p>
+Again, ignore the initial <code>Order placed</code> transition.</p>
 <p><strong>Exercise 8.</strong>
 Consider the following decision table:</p>
 <table>
@@ -1543,7 +1542,7 @@ Consider the following decision table:</p>
   <tr><td></td><td>10%</td><td>0%</td><td>5%</td><td>2%</td><td>6%</td><td>3%</td></tr>
 </table>
 
-<p>Which decision do we have to test for full MC/DC?</p>
+<p>Which decisions do we have to test for full MC/DC?</p>
 <p>Use as few decisions as possible.</p>
 <p><strong>Exercise 9.</strong>
 See the following generic state machine.</p>
@@ -1558,7 +1557,7 @@ Our product team defined the following rules:</p>
 <li>An administrator checks the content of the ad. If it follows all the rules, the ad then waits for payment. If the ad contains anything illegal, it then goes back to the beginning of the process.</li>
 <li>As soon as the company makes the payment, the ad becomes available to users.</li>
 <li>When the target number of visualisations is reached, the ad is considered done. At this time, the company might consider running the campaign again, which moves the ad to wait for payment again. The company might also decide to end the campaign at that moment, which puts the ad in a final state.  </li>
-<li>While appearing for the users, if more than 10\% of the users complain about the ad, the ad is then marked as blocked. The company then gets contacted. After understanding the case, the ad either starts to appear again, or is labelled as inappropriate. An inappropriate ad will never be shown again.</li>
+<li>While appearing for the users, if more than 10% of the users complain about the ad, the ad is then marked as blocked. The company then gets contacted. After understanding the case, the ad either starts to appear again, or is labelled as inappropriate. An inappropriate ad will never be shown again.</li>
 </ul>
 <p>Devise a state diagram that describes the life cycle of an ad.</p>
 <p><strong>Exercise 11.</strong>
@@ -1575,7 +1574,7 @@ Also, remember that, if a transition is not specified in the requirements, it si
 <p><strong>Exercise 12.</strong>
 Devise a state transition tree for the microwave state machine.</p>
 <p><strong>Exercise 13.</strong>
-Again consider the state machine requirements for the microwave.
+Again, consider the state machine requirements for the microwave.
 There appears to be some redundancy in the defrosting and warming up functionality, which potentially can be described using super states (also called OR-states).
 Which effect does this have on the total number of states and transitions for the resulting diagram with a super state?</p>
 <ol>
@@ -1656,7 +1655,7 @@ The complete table would have four conditions and 16 variants. We will try to cr
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Model-based testing","level":"4.1.4","depth":2,"next":{"title":"Design-by-contracts","level":"4.1.5","depth":2,"path":"chapters/testing-techniques/design-by-contracts.md","ref":"chapters/testing-techniques/design-by-contracts.md","articles":[]},"previous":{"title":"Structural testing","level":"4.1.3","depth":2,"path":"chapters/testing-techniques/structural-testing.md","ref":"chapters/testing-techniques/structural-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/testing-techniques/model-based-testing.md","mtime":"2020-04-20T14:44:07.843Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-02T18:12:59.028Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Model-based testing","level":"4.1.4","depth":2,"next":{"title":"Design-by-contracts","level":"4.1.5","depth":2,"path":"chapters/testing-techniques/design-by-contracts.md","ref":"chapters/testing-techniques/design-by-contracts.md","articles":[]},"previous":{"title":"Structural testing","level":"4.1.3","depth":2,"path":"chapters/testing-techniques/structural-testing.md","ref":"chapters/testing-techniques/structural-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/testing-techniques/model-based-testing.md","mtime":"2020-05-03T07:10:39.351Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-03T07:24:19.905Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

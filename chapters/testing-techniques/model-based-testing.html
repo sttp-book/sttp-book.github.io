@@ -1521,15 +1521,16 @@ Derive the transition tree from the state machine of the assignment above.</p>
 Derive the transition table of the <em>ColdHot</em> state machine.</p>
 <p>How many sneaky paths can be tested based on this transition table?</p>
 <p><strong>Exercise 4.</strong>
-(Exercise removed)</p>
+Draw the transition tree of the following state machine:</p>
+<p><img src="img/model-based-testing/exercises/statemachine-order.png" alt=""></p>
 <p><strong>Exercise 5.</strong>
 With the transition tree you devised in the previous exercise and the state machine in that exercise, what is the transition coverage of a test that includes the following events: [order placed, order received, order fulfilled, order delivered]?</p>
 <p><strong>Exercise 6.</strong>
 Devise the transition table of the state machine that was given in the exercise above.
-Ignore the initial transition <code>Order placed</code>.</p>
+(Note that the initial transition <code>Order placed</code> should not be represented in the transition table; this transition is there as a way to indicate the developer what &quot;external action&quot; has to happen for this state machine to start).</p>
 <p><strong>Exercise 7.</strong>
 How many sneak paths are there in the state machine we used in the previous exercises?
-Again, ignore the initial <code>Order placed</code> transition.</p>
+(Again, ignore the initial <code>Order placed</code> transition.)</p>
 <p><strong>Exercise 8.</strong>
 Consider the following decision table:</p>
 <table>
@@ -1573,14 +1574,8 @@ Also, remember that, if a transition is not specified in the requirements, it si
 Devise a state transition tree for the microwave state machine.</p>
 <p><strong>Exercise 13.</strong>
 Again, consider the state machine requirements for the microwave.
-There appears to be some redundancy in the defrosting and warming up functionality, which potentially can be described using super states (also called OR-states).
-Which effect does this have on the total number of states and transitions for the resulting diagram with a super state?</p>
-<ol>
-<li>There will be one extra state, and two fewer transitions.</li>
-<li>There will be one state less, and the same number of transitions.</li>
-<li>The total number of states will remain the same, and there will be two fewer transitions.</li>
-<li>This has no effect on the total number of states and transitions.</li>
-</ol>
+There appears to be some redundancy in the defrosting and warming up functionality, which potentially can be described using super states (also called OR-states).</p>
+<p>Make use of super states and re-design the state machine.</p>
 <p><strong>Exercise 14.</strong>
 See the requirement below:</p>
 <pre><code>Stefan works for Foodgram, a piece of software that enables users to send pictures of the dishes they prepare themselves. Foodgram&apos;s upload system has specific rules:
@@ -1653,7 +1648,7 @@ The complete table would have four conditions and 16 variants. We will try to cr
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Model-based testing","level":"4.1.4","depth":2,"next":{"title":"Design-by-contracts","level":"4.1.5","depth":2,"path":"chapters/testing-techniques/design-by-contracts.md","ref":"chapters/testing-techniques/design-by-contracts.md","articles":[]},"previous":{"title":"Structural testing","level":"4.1.3","depth":2,"path":"chapters/testing-techniques/structural-testing.md","ref":"chapters/testing-techniques/structural-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/testing-techniques/model-based-testing.md","mtime":"2020-05-04T09:51:57.032Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-04T09:52:00.644Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Model-based testing","level":"4.1.4","depth":2,"next":{"title":"Design-by-contracts","level":"4.1.5","depth":2,"path":"chapters/testing-techniques/design-by-contracts.md","ref":"chapters/testing-techniques/design-by-contracts.md","articles":[]},"previous":{"title":"Structural testing","level":"4.1.3","depth":2,"path":"chapters/testing-techniques/structural-testing.md","ref":"chapters/testing-techniques/structural-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/testing-techniques/model-based-testing.md","mtime":"2020-05-06T07:30:02.649Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-06T07:32:34.778Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

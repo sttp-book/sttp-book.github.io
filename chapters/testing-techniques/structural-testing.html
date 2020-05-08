@@ -1035,7 +1035,34 @@ A word ends when a non-letter appears.</p>
 <p>The corresponding CFG:</p>
 <p><img src="img/structural-testing/examples/CFG-branch-example.svg" alt="Control flow graph example"></p>
 <p>Note that we split the <code>for</code> loop into three blocks: the variable initialisation, the decision block, and the increment.</p>
-<p>As you can see, this CFG representation is quite generic. Even when you use a different programming language to write the same program, you might end up with the same CFG.</p>
+<p><strong>Control-Flow Graphs in other languages.</strong> As you can see, this CFG representation is quite generic. Even when you use a different programming language to write the same program, you might end up with the same CFG. We can devise control-flow graphs for programs in any programming language. For example, see the piece of
+Python code below:</p>
+<pre><code class="lang-python"><span class="hljs-comment"># random_ads is a list of ads.</span>
+<span class="hljs-comment"># an ad contains three attributes:</span>
+<span class="hljs-comment"># * available: true/false indicating whether the ad </span>
+<span class="hljs-comment">#   is still available.</span>
+<span class="hljs-comment"># * reached: true/false indicating </span>
+<span class="hljs-comment">#   whether the number of paid prints was reached.</span>
+<span class="hljs-comment"># * prints: an integer indicating the </span>
+<span class="hljs-comment">#   number of times that the ad was printed.</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">validate_ads</span><span class="hljs-params">(random_ads)</span>:</span>
+<span class="hljs-number">01.</span> valid_ads = []
+<span class="hljs-number">02.</span> invalid_ads = []
+
+<span class="hljs-number">03.</span> <span class="hljs-keyword">for</span> random_ad <span class="hljs-keyword">in</span> random_ads:
+<span class="hljs-number">04.</span>   <span class="hljs-keyword">if</span> random_ad.available <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> random_ad.reached:
+<span class="hljs-number">05.</span>     valid_ads.append(random_ad)
+<span class="hljs-number">06.</span>   <span class="hljs-keyword">else</span>:
+<span class="hljs-number">07.</span>     invalid_ads.append(random_ad)
+
+<span class="hljs-number">08.</span> <span class="hljs-keyword">for</span> valid_ad <span class="hljs-keyword">in</span> valid_ads:
+<span class="hljs-number">09.</span>   valid_ad.prints += <span class="hljs-number">1</span>
+
+<span class="hljs-number">10.</span> <span class="hljs-keyword">return</span> valid_ads, invalid_ads
+</code></pre>
+<p>A CFG for this piece of code would look like:</p>
+<p><img src="img/structural-testing/examples/cfg-python.png" alt="CFG in Python"></p>
+<p>We applied the same idea we have seen for Java programs in a Python program. The notions of basic and decision blocks are the same. A small difference to note is in the <em>foreach</em> loop (which is simply written using the <code>for</code> keyword in Python). Given that <em>foreach</em> loops do not follow the same format as traditional <code>for</code> loops, we modelled it differently: the <em>foreach</em> loop is fully represented by a single decision block (i.e., no blocks for the increment, or condition). As with any decision blocks, it has two outcomes, <code>true</code> and <code>false</code>.</p>
 <h2 id="block-coverage">Block coverage</h2>
 <p>We can use the control-flow graph to derive tests.
 A first idea would be to use <em>blocks</em> as a coverage criterion, in the same way we did with lines, but instead of aiming at covering
@@ -1539,35 +1566,6 @@ These are the only 4 tests we need. This is indeed cheaper when compare to the 8
 Formally, a strategy X subsumes strategy Y if all elements that Y exercises are also exercised by X. You can see in the figure below the relationship between the coverage criteria we studied.</p>
 <p><img src="img/structural-testing/subsumption.png" alt="Criteria subsumption"><!--{width=50%}--></p>
 <p>For example, in the picture, one can see that branch coverage subsumes line coverage. This means that 100% of branch coverage always implies 100% line coverage. However, 100% line coverage does not imply 100% branch coverage. Moreover, 100% of branch + condition coverage always implies 100% branch coverage and 100% line coverage.</p>
-<h2 id="more-examples-of-control-flow-graphs">More examples of Control-Flow Graphs</h2>
-<p>We can devise control-flow graphs for programs in any programming language. For example, see the piece of
-Python code below:</p>
-<pre><code class="lang-python"><span class="hljs-comment"># random_ads is a list of ads.</span>
-<span class="hljs-comment"># an ad contains three attributes:</span>
-<span class="hljs-comment"># * available: true/false indicating whether the ad </span>
-<span class="hljs-comment">#   is still available.</span>
-<span class="hljs-comment"># * reached: true/false indicating </span>
-<span class="hljs-comment">#   whether the number of paid prints was reached.</span>
-<span class="hljs-comment"># * prints: an integer indicating the </span>
-<span class="hljs-comment">#   number of times that the ad was printed.</span>
-<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">validate_ads</span><span class="hljs-params">(random_ads)</span>:</span>
-<span class="hljs-number">01.</span> valid_ads = []
-<span class="hljs-number">02.</span> invalid_ads = []
-
-<span class="hljs-number">03.</span> <span class="hljs-keyword">for</span> random_ad <span class="hljs-keyword">in</span> random_ads:
-<span class="hljs-number">04.</span>   <span class="hljs-keyword">if</span> random_ad.available <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> random_ad.reached:
-<span class="hljs-number">05.</span>     valid_ads.append(random_ad)
-<span class="hljs-number">06.</span>   <span class="hljs-keyword">else</span>:
-<span class="hljs-number">07.</span>     invalid_ads.append(random_ad)
-
-<span class="hljs-number">08.</span> <span class="hljs-keyword">for</span> valid_ad <span class="hljs-keyword">in</span> valid_ads:
-<span class="hljs-number">09.</span>   valid_ad.prints += <span class="hljs-number">1</span>
-
-<span class="hljs-number">10.</span> <span class="hljs-keyword">return</span> valid_ads, invalid_ads
-</code></pre>
-<p>A CFG for this piece of code would look like:</p>
-<p><img src="img/structural-testing/examples/cfg-python.png" alt="CFG in Python"></p>
-<p>We applied the same idea we have seen for Java programs in a Python program. The notions of basic and decision blocks are the same. A small difference to note is in the <em>foreach</em> loop (which is simply written using the <code>for</code> keyword in Python). Given that <em>foreach</em> loops do not follow the same format as traditional <code>for</code> loops, we modelled it differently: the <em>foreach</em> loop is fully represented by a single decision block (i.e., no blocks for the increment, or condition). As with any decision blocks, it has two outcomes, <code>true</code> and <code>false</code>.</p>
 <h2 id="the-effectiveness-of-structural-testing">The effectiveness of structural testing</h2>
 <p>A common question among practitioners is whether
 structural testing or, in their words, test coverage,
@@ -1839,7 +1837,7 @@ Why (not)?</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Structural testing","level":"4.1.3","depth":2,"next":{"title":"Model-based testing","level":"4.1.4","depth":2,"path":"chapters/testing-techniques/model-based-testing.md","ref":"chapters/testing-techniques/model-based-testing.md","articles":[]},"previous":{"title":"Boundary testing","level":"4.1.2","depth":2,"path":"chapters/testing-techniques/boundary-testing.md","ref":"chapters/testing-techniques/boundary-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/testing-techniques/structural-testing.md","mtime":"2020-05-06T06:51:16.006Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-07T16:29:25.476Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Structural testing","level":"4.1.3","depth":2,"next":{"title":"Model-based testing","level":"4.1.4","depth":2,"path":"chapters/testing-techniques/model-based-testing.md","ref":"chapters/testing-techniques/model-based-testing.md","articles":[]},"previous":{"title":"Boundary testing","level":"4.1.2","depth":2,"path":"chapters/testing-techniques/boundary-testing.md","ref":"chapters/testing-techniques/boundary-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/testing-techniques/structural-testing.md","mtime":"2020-05-08T07:33:01.562Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-08T07:42:29.176Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

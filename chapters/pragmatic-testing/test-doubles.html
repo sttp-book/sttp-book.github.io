@@ -843,7 +843,7 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="test-doubles">Test doubles</h1>
+                                <p>&#xFEFF;# Test doubles</p>
 <p>While testing single units is simpler than testing entire systems, we still face challenges when unit testing classes that depend on other classes or on external infrastructure.</p>
 <p>As an example, consider an application in which all SQL-related code has been encapsulated in an <code>IssuedInvoices</code> class. Other parts of the system that depend on this <code>IssuedInvoices</code> class, then also depend (directly or indirectly) on a database. We therefore also have a dependency on the database when we write tests for those other parts, even though our focus might not even be the database part of the system. As we saw before, this can incur higher testing costs.</p>
 <p>In other words: <strong>we want to unit test a component A, that depends on another component B. The dependency on component B increases the costs of unit testing A.</strong></p>
@@ -1028,7 +1028,7 @@ SAP offers a /sendInvoice webservice that receives invoices.</p>
 <p>Let us now test the <code>SAPInvoiceSender</code> class.</p>
 <p>Note that, for this test, we now mock the <code>InvoiceFilter</code> class. After all, for the <code>SAPInvoiceSender</code>, <code>InvoiceFilter</code> class is &quot;just a class that returns a list of invoices&quot;. As it is not the goal of the current test to test the filter itself, we should mock this class, in order to facilitate the testing of the method under test.</p>
 <p>After the execution of the method under test (<code>sendLowValuedInvoices()</code>), we 
-should expect that the <code>SAP</code> mock received <code>mauricio</code>&apos;s, <code>steve</code>&apos;s, and <code>arie</code>s invoices. For that, we use Mockito&apos;s <code>verify()</code> method:</p>
+should expect that the <code>SAP</code> mock received <code>mauricio</code>&apos;s and <code>steve</code>&apos;s invoices. For that, we use Mockito&apos;s <code>verify()</code> method:</p>
 <pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SAPInvoiceSenderTest</span> </span>{
 
   <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> InvoiceFilter filter = mock(InvoiceFilter.class);
@@ -1039,28 +1039,25 @@ should expect that the <code>SAP</code> mock received <code>mauricio</code>&apos
   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">sendToSap</span><span class="hljs-params">()</span> </span>{
     <span class="hljs-keyword">final</span> var mauricio = <span class="hljs-keyword">new</span> Invoice(<span class="hljs-string">&quot;Mauricio&quot;</span>, <span class="hljs-number">20</span>);
     <span class="hljs-keyword">final</span> var steve = <span class="hljs-keyword">new</span> Invoice(<span class="hljs-string">&quot;Steve&quot;</span>, <span class="hljs-number">99</span>);
-    <span class="hljs-keyword">final</span> var arie = <span class="hljs-keyword">new</span> Invoice(<span class="hljs-string">&quot;Arie&quot;</span>, <span class="hljs-number">300</span>);
 
-    when(filter.lowValueInvoices()).thenReturn(asList(mauricio, steve, arie));
+    when(filter.lowValueInvoices()).thenReturn(asList(mauricio, steve));
 
     sender.sendLowValuedInvoices();
 
     verify(sap).send(mauricio);
     verify(sap).send(steve);
-    verify(sap).send(arie);
   }
 }
 </code></pre>
 <p>Note how we defined the expectations of the mock object. We &quot;knew&quot; exactly how the <code>InvoiceFilter</code> class had to interact with the mock. When the test is executed, Mockito will check whether these expectations were met, and fail the test if they were not. (If you want to test it, simply comment out the <code>forEach...</code> line in the <code>sendLowValuedInvoices</code> and see the test failing).</p>
 <p>This example illustrates the main difference between stubbing and mocking. Stubbing means simply returning hard-coded values for a given method call. Mocking means not only defining what methods do, but also explicitly defining how the interactions with the mock should be.</p>
 <p>Mockito actually enables us to define even more specific expectations. For example, see the expectations below:</p>
-<pre><code class="lang-java">verify(sap, times(<span class="hljs-number">3</span>)).send(any(Invoice.class));
+<pre><code class="lang-java">verify(sap, times(<span class="hljs-number">2</span>)).send(any(Invoice.class));
 verify(sap, times(<span class="hljs-number">1</span>)).send(mauricio);
 verify(sap, times(<span class="hljs-number">1</span>)).send(steve);
-verify(sap, times(<span class="hljs-number">1</span>)).send(arie);
 </code></pre>
 <p>These expectations are more restrictive than the ones we had before.
-We now expect the SAP mock to have its <code>send</code> method invoked precisely three times (for any given <code>Invoice</code>). We then expect the <code>send</code> method to called once for the <code>mauricio</code> invoice, once for the <code>steve</code> invoice, and once for the <code>arie</code> invoice. We point the reader to Mockito&apos;s manual for more details on how to configure expectations.</p>
+We now expect the SAP mock to have its <code>send</code> method invoked precisely two times (for any given <code>Invoice</code>). We then expect the <code>send</code> method to called once for the <code>mauricio</code> invoice and once for the <code>steve</code> invoice. We point the reader to Mockito&apos;s manual for more details on how to configure expectations.</p>
 <blockquote>
 <p>You might be asking yourself now: <em>Why did you not put this new SAP sending functionality inside of the existing <code>InvoiceFilter</code> class</em>?</p>
 <p>If we were do it, the <code>lowValueInvoices</code> method would then be both a &quot;command&quot; and a &quot;query&quot;. By &quot;query&quot;, we mean that the method returns data to the caller while with &quot;command&quot;, we mean that the method also performs an action in the system. Mixing both concepts in a single method is not a good idea, as it may confuse developers who will eventually call this method. How would they know this method had some extra side-effect, besides just returning the list of invoices?</p>
@@ -1191,7 +1188,7 @@ case, a <code>Clock</code> abstraction can do the job:</p>
 <p>From a developer&apos;s perspective, the use of mocks enables them to develop their software, <em>without caring too much about external details</em>. Imagine a developer working on the &quot;low value invoices&quot; requirement. The developer knows that the invoices will come from the database. However, while developing the main logic of the requirement (i.e., the filtering logic), the developer &quot;does not care about the database&quot;; they only care about the list of invoices that will come from it.</p>
 <p>In other words, the developer only cares about the existence of a method that returns all the existing invoices. In object-oriented languages, that can be represented by means of an interface:</p>
 <pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">IssuedInvoices</span> </span>{
- List&lt;Invoiceall();
+ <span class="hljs-function">List&lt;Invoice&gt; <span class="hljs-title">Invoiceall</span><span class="hljs-params">()</span></span>;
  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">save</span><span class="hljs-params">(Invoice inv)</span></span>;
 }
 </code></pre>
@@ -1203,7 +1200,7 @@ case, a <code>Clock</code> abstraction can do the job:</p>
   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">InvoiceFilter</span><span class="hljs-params">(IssuedInvoices issuedInvoices)</span> </span>{
     <span class="hljs-keyword">this</span>.issuedInvoices = issuedInvoices;
   }
-  <span class="hljs-keyword">public</span> List&lt;InvoicelowValueInvoices() {
+  <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;Invoice&gt; <span class="hljs-title">InvoicelowValueInvoices</span><span class="hljs-params">()</span> </span>{
       <span class="hljs-keyword">return</span> issuedInvoices.all().stream()
               .filter(invoice -&gt; invoice.value &lt; <span class="hljs-number">100</span>)
               .collect(toList());
@@ -1253,7 +1250,7 @@ case, a <code>Clock</code> abstraction can do the job:</p>
 <li>Some trade-offs to consider when deciding whether to use a test double: the execution time of the real implementation, how much non-determinism we would get from using the real implementation.</li>
 <li>When using the real implementation is not possible or too costly, prefer fakes over mocks. An in-memory database, for example, might be better (or more real) than a mock.</li>
 <li>Excessive mocking can be dangerous, as tests become unclear (i.e., hard to comprehend), brittle (i.e., might break too often), and less effective (i.e., reduced fault capability detection).</li>
-<li>When mocking, prefer <em>state testing</em> rather than <em>iteraction testing</em>. In other words, make sure you are asserting a change of state and/or the consequence of the action under test, rather than the precise interaction that the action has with the mocked object. After all, interaction testing tends to be too coupled with the implementation of the system under test.</li>
+<li>When mocking, prefer <em>state testing</em> rather than <em>interaction testing</em>. In other words, make sure you are asserting a change of state and/or the consequence of the action under test, rather than the precise interaction that the action has with the mocked object. After all, interaction testing tends to be too coupled with the implementation of the system under test.</li>
 <li>Use <em>interaction testing</em> when state testing is not possible, or when a bad interaction might have an impact in the system (e.g., calling the same method twice would make the system twice as slow).</li>
 <li>Avoid overspecified interaction tests. Focus on the relevant arguments and functions.</li>
 <li>Good <em>interaction testing</em> requires strict guidelines when designing the system under test. Google engineers tend not to do it.</li>
@@ -1416,7 +1413,7 @@ Referring to the previous chapter, apply boundary testing techniques to the <cod
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Test doubles","level":"5.1.2","depth":2,"next":{"title":"Design for testability","level":"5.1.3","depth":2,"path":"chapters/pragmatic-testing/design-for-testability.md","ref":"chapters/pragmatic-testing/design-for-testability.md","articles":[]},"previous":{"title":"The testing pyramid","level":"5.1.1","depth":2,"path":"chapters/pragmatic-testing/testing-pyramid.md","ref":"chapters/pragmatic-testing/testing-pyramid.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/pragmatic-testing/test-doubles.md","mtime":"2020-05-06T06:51:15.981Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-08T09:41:12.106Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Test doubles","level":"5.1.2","depth":2,"next":{"title":"Design for testability","level":"5.1.3","depth":2,"path":"chapters/pragmatic-testing/design-for-testability.md","ref":"chapters/pragmatic-testing/design-for-testability.md","articles":[]},"previous":{"title":"The testing pyramid","level":"5.1.1","depth":2,"path":"chapters/pragmatic-testing/testing-pyramid.md","ref":"chapters/pragmatic-testing/testing-pyramid.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/pragmatic-testing/test-doubles.md","mtime":"2020-05-08T14:41:23.640Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-08T14:42:56.997Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

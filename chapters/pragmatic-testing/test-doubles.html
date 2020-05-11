@@ -845,10 +845,14 @@
                                 
                                 <p>&#xFEFF;# Test doubles</p>
 <p>While testing single units is simpler than testing entire systems, we still face challenges when unit testing classes that depend on other classes or on external infrastructure.</p>
-<p>As an example, consider an application in which all SQL-related code has been encapsulated in an <code>IssuedInvoices</code> class. Other parts of the system that depend on this <code>IssuedInvoices</code> class, then also depend (directly or indirectly) on a database. We therefore also have a dependency on the database when we write tests for those other parts, even though our focus might not even be the database part of the system. As we saw before, this can incur higher testing costs.</p>
-<p>In other words: <strong>we want to unit test a component A, that depends on another component B. The dependency on component B increases the costs of unit testing A.</strong></p>
-<p>This is where <strong>test doubles</strong> come in handy. The idea is that we will create an object that will mimic the behaviour of component B (&quot;it looks like B, but it is not B&quot;). Given that we have full control over what this &quot;fake component B&quot; does, we can design it in such a way that unit testing A becomes less costly. In our example above, suppose that A is a plain Java class and B is a <em>Data Access Object</em> (and thus, it communicates with the database). If we simulate B for example by returning a hard-coded list of two elements whenever the <code>findAllInvoices()</code> method is called, instead of going to the database, we remove the need for a database when testing A. 
-If this seems too abstract, the source code we show later in this chapter offers more clarification.</p>
+<p>As an example, consider an application in which all SQL-related code has been encapsulated in an <code>IssuedInvoices</code> class. Other parts of the system that depend on this <code>IssuedInvoices</code> class, then also depend (directly or indirectly) on a database. This implicitly creates a dependency on the database when we write tests for those other parts, even though we&apos;re not immediately concerned with its behaviour. As we saw before, this can make testing more difficult. We&apos;d really like to test this other code, <em>assuming that the <code>IssuedInvoices</code> works</em>.</p>
+<p>In other words, we want to unit test a component A that depends on another component B, but setting up B for testing A is expensive.</p>
+<p>This is where <strong>test doubles</strong> come in handy. We will create an object to mimic the behaviour of component B (&quot;it looks like B, but it is not B&quot;). 
+Within the test, we have full control over what this &quot;fake component B&quot; does so we can make it behave as B would <em>in the context of this test</em> 
+and cut the dependency on the real object. In our example above, suppose that A is a plain Java class that depends on an <code>IssuedInvoices</code> to retrieve 
+values from a database, we can implement a fake <code>IssuedInvoices</code> that just returns a hard-coded list of values in its <code>findAllInvoices()</code> method
+rather than hitting an external database. This means that, in our test, we can control the environment around A so we can check how it behaves.
+We&apos;ll be showing some examples of how this works later in the chapter. </p>
 <p>The use of objects that simulate the behaviour of other objects has advantages:</p>
 <ul>
 <li><p>Firstly we have <strong>more control</strong>. We can easily tell these objects what to do, without the need for complicated setups. If we want a method to throw an exception, we just tell the mock method to throw it; there is no need for complicated setups to &quot;force&quot; the dependency to throw the exception. Similarly, if we want a method that returns a Calendar object representing a date in 2009, we just tell the mock method to do it; there is no need to complicate your OS in order to make it go back in time. Note how hard it usually is to &quot;force&quot; a class to throw an exception, or to &quot;force&quot; a class to return a fake date. This effort is close to zero when we simulate the dependencies with mock objects. </p>
@@ -895,8 +899,9 @@ Stubs do not actually have a working implementation, as fake objects do. In the 
 <p><strong>Requirement: Low value invoices</strong></p>
 <p>The program must return all the issued invoices with values smaller than 100. The collection of invoices can be found in our database.</p>
 </blockquote>
-<p>The following is a possible implementation of this requirement. Note that the
-<code>IssuedInvoices</code> is a class responsible for retrieving all the invoices from the database.</p>
+<p>The following is a possible implementation of this requirement. Note that
+<code>IssuedInvoices</code> is a class responsible for retrieving all the invoices from the database. 
+It connects to the database using some global properties.</p>
 <pre><code class="lang-java"><span class="hljs-keyword">import</span> java.util.List;
 <span class="hljs-keyword">import</span> <span class="hljs-keyword">static</span> java.util.stream.Collectors.toList;
 
@@ -915,7 +920,7 @@ Stubs do not actually have a working implementation, as fake objects do. In the 
 
 }
 </code></pre>
-<p>Without stubbing the <code>IssueInvoices</code> class, the <code>InvoiceFilter</code> test would need to also handle the database (making the unit testing more expensive). Note how the tests need to open and close the connection (see the <code>open()</code> and <code>closeDao()</code> methods) and save invoices to the database (see the many calls to <code>invoices.save()</code> in the <code>filterInvoices</code> test).</p>
+<p>Without stubbing the <code>IssueInvoices</code> class, the <code>InvoiceFilter</code> test would need to also handle the database (making the unit testing more expensive). Note how the tests need to open and close the connection (see the <code>open()</code> and <code>close()</code> methods) and save invoices to the database (see the many calls to <code>invoices.save()</code> in the <code>filterInvoices</code> test).</p>
 <pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">InvoiceFilterTest</span> </span>{
   <span class="hljs-keyword">private</span> IssuedInvoices invoices;
 
@@ -923,7 +928,7 @@ Stubs do not actually have a working implementation, as fake objects do. In the 
     invoices = <span class="hljs-keyword">new</span> IssuedInvoices();
   }
 
-  <span class="hljs-meta">@AfterEach</span> <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">closeDao</span><span class="hljs-params">()</span> </span>{
+  <span class="hljs-meta">@AfterEach</span> <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">close</span><span class="hljs-params">()</span>) </span>{
     <span class="hljs-keyword">if</span> (invoices != <span class="hljs-keyword">null</span>) invoices.close();
   }
 
@@ -1261,25 +1266,15 @@ See the following class:</p>
 <pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OrderDeliveryBatch</span> </span>{
 
   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">runBatch</span><span class="hljs-params">()</span> </span>{
-
-    OrderDao dao = <span class="hljs-keyword">new</span> OrderDao();
+    OrderBook orderBook = <span class="hljs-keyword">new</span> OrderBook();
     DeliveryStartProcess delivery = <span class="hljs-keyword">new</span> DeliveryStartProcess();
 
-    List&lt;Order&gt; orders = dao.paidButNotDelivered();
-
-    <span class="hljs-keyword">for</span> (Order order : orders) {
-      delivery.start(order);
-
-      <span class="hljs-keyword">if</span> (order.isInternational()) {
-        order.setDeliveryDate(<span class="hljs-string">&quot;5 days from now&quot;</span>);
-      } <span class="hljs-keyword">else</span> {
-       order.setDeliveryDate(<span class="hljs-string">&quot;2 days from now&quot;</span>);
-      }
-    }
+    orderBook.paidButNotDelivered()
+      .forEach(delivery::start);
   }
 }
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OrderDao</span> </span>{
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OrderBook</span> </span>{
   <span class="hljs-comment">// accesses a database</span>
 }
 
@@ -1289,9 +1284,9 @@ See the following class:</p>
 </code></pre>
 <p>Which of the following Mockito lines would never appear in a test for the <code>OrderDeliveryBatch</code> class?</p>
 <ol>
-<li><code>OrderDao dao = Mockito.mock(OrderDao.class);</code></li>
+<li><code>OrderBook orderBook = Mockito.mock(OrderBook.class);</code></li>
 <li><code>Mockito.verify(delivery).start(order);</code> (assume <code>order</code> is an instance of <code>Order</code>)</li>
-<li><code>Mockito.when(dao.paidButNotDelivered()).thenReturn(list);</code> (assume <code>dao</code> is an instance of <code>OrderDao</code> and <code>list</code> is an instance of <code>List&lt;Order&gt;</code>)</li>
+<li><code>Mockito.when(orderBook.paidButNotDelivered()).thenReturn(orders);</code> (assume <code>orderBook</code> is an instance of <code>OrderBook</code> and <code>orders</code> is an instance of <code>List&lt;Order&gt;</code>)</li>
 <li><code>OrderDeliveryBatch batch = Mockito.mock(OrderDeliveryBatch.class);</code></li>
 </ol>
 <p><strong>Exercise 2.</strong>
@@ -1304,34 +1299,28 @@ The system has been designed cleanly and consists of a set of co-operating class
 <li>You use mocks to control the triggered events.</li>
 </ol>
 <p><strong>Exercise 3.</strong>
-Below, we show the <code>InvoiceFilter</code> class. This class is responsible for returning the invoices for an amount that is smaller than 100.0. It makes use of the InvoiceDAO class, which is responsible for communication with the database.</p>
+Below, we show the <code>InvoiceFilter</code> class. This class is responsible for returning the invoices for an amount that is smaller than 100.0. It makes use of the <code>IssuedInvoices</code> type, which is responsible for communication with the database.</p>
 <pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">InvoiceFilter</span> </span>{
 
-    <span class="hljs-keyword">private</span> InvoiceDao invoiceDao;
+    <span class="hljs-keyword">private</span> IssuedInvoices invoices;
 
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">InvoiceFilter</span><span class="hljs-params">(InvoiceDao invoiceDao)</span> </span>{
-        <span class="hljs-keyword">this</span>.invoiceDao = invoiceDao;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">InvoiceFilter</span><span class="hljs-params">(IssuedInvoices invoices)</span> </span>{
+        <span class="hljs-keyword">this</span>.invoices = invoices;
     }
 
     <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;Invoice&gt; <span class="hljs-title">filter</span><span class="hljs-params">()</span> </span>{
-        List&lt;Invoice&gt; filtered = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
-        List&lt;Invoice&gt; allInvoices = invoiceDao.all();
-
-        <span class="hljs-keyword">for</span>(Invoice inv : allInvoices) {
-            <span class="hljs-keyword">if</span>(inv.getValue() &lt; <span class="hljs-number">100.0</span>)
-                filtered.add(inv);
-        }
-
-        <span class="hljs-keyword">return</span> filtered;
+      <span class="hljs-keyword">return</span> invoices.all().stream()
+              .filter(invoice -&gt; invoice.getValue() &lt; <span class="hljs-number">100.0</span>)
+              .collect(toList());
     }
 }
 </code></pre>
-<p>Which of the following statements is <strong>false</strong> about this class?</p>
+<p>Which of the following statements are <strong>true</strong> about this class?</p>
 <ol>
 <li>Integration tests would help us achieve a 100% branch coverage, which is not possible solely via unit tests.</li>
 <li>Its implementation allows for dependency injection, which enables mocking.</li>
 <li>It is possible to write completely isolated unit tests for it by, e.g., using mocks.</li>
-<li>The InvoiceDao class (a direct dependency of the InvoiceFilter) itself should be tested by means of integration tests.</li>
+<li>The <code>IssuedInvoices</code> type (a direct dependency of the <code>InvoiceFilter</code>) itself should be tested by means of integration tests.</li>
 </ol>
 <p><strong>Exercise 4.</strong>
 Class A depends on a static method in another class B. If you want to test class A, which of the following two action(s) should you apply to do this properly?</p>
@@ -1413,7 +1402,7 @@ Referring to the previous chapter, apply boundary testing techniques to the <cod
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Test doubles","level":"5.1.2","depth":2,"next":{"title":"Design for testability","level":"5.1.3","depth":2,"path":"chapters/pragmatic-testing/design-for-testability.md","ref":"chapters/pragmatic-testing/design-for-testability.md","articles":[]},"previous":{"title":"The testing pyramid","level":"5.1.1","depth":2,"path":"chapters/pragmatic-testing/testing-pyramid.md","ref":"chapters/pragmatic-testing/testing-pyramid.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/pragmatic-testing/test-doubles.md","mtime":"2020-05-08T14:41:23.640Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-08T14:42:56.997Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Test doubles","level":"5.1.2","depth":2,"next":{"title":"Design for testability","level":"5.1.3","depth":2,"path":"chapters/pragmatic-testing/design-for-testability.md","ref":"chapters/pragmatic-testing/design-for-testability.md","articles":[]},"previous":{"title":"The testing pyramid","level":"5.1.1","depth":2,"path":"chapters/pragmatic-testing/testing-pyramid.md","ref":"chapters/pragmatic-testing/testing-pyramid.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/pragmatic-testing/test-doubles.md","mtime":"2020-05-11T13:44:58.560Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-11T13:45:02.390Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

@@ -1558,18 +1558,20 @@ This violates Liskov&apos;s Substitution Principle.
 We cannot substitute a <code>Square</code> for a <code>Rectangle</code>, because we would not be able to have unequal width and height anymore.</p>
 <p><strong>Exercise 4</strong></p>
 <p>Making correct use of a class should never trigger a class invariant violation.
-We are making correct use of the class, as otherwise it would have been a precondition violation.
+We are making correct use of the class, as otherwise it would have been a pre-condition violation.
 This means that there is a bug in the implementation of the library, which would have to be fixed.
 As this is outside your project, you typically cannot fix this problem.</p>
 <p><strong>Exercise 5</strong></p>
 <p>Just like the contracts we have a client and a server.</p>
-<p>A 4xx code means that the client invoked the server in a wrong way, which corresponds to failing to adhere to a precondition.</p>
+<p>A 4xx code means that the client invoked the server in a wrong way, which corresponds to failing to adhere to a pre-condition.</p>
 <p>A 5xx code means that the server was not able to handle the request of the client, which was correct.
-This corresponds to failing to meet a postcondition.</p>
+This corresponds to failing to meet a post-condition.</p>
 <p><strong>Exercise 6</strong></p>
-<p>P&apos; should be equal or weaker than P, and Q&apos; should be equal or stronger than Q.</p>
+<p>Statement 1 is correct:\
+<em>P&apos; should be equal or weaker than P, and Q&apos; should be equal or stronger than Q.</em></p>
 <p><strong>Exercise 7</strong></p>
-<p>To make debugging easier.</p>
+<p>Statement 4 is correct:\
+<em>To make debugging easier.</em></p>
 <h2 id="property-based-testing">Property-based testing</h2>
 <ol>
 <li>We still need answers here. Maybe you want to help us and open a PR?</li>
@@ -1608,7 +1610,7 @@ This corresponds to failing to meet a postcondition.</p>
 <p><strong>Exercise 1</strong></p>
 <p>The correct answer is 4.</p>
 <ol>
-<li>This line is required to create a mock for the <code>OrderDao</code> class.</li>
+<li>This line is required to create a mock for the <code>OrderBook</code> class.</li>
 <li>With this line we check that the methods calls start with <code>order</code> on a <code>delivery</code> mock we defined. The method is supposed to start each order that is paid but not delivered.</li>
 <li>With this line we define the behaviour of the <code>paidButNotDelivered</code> method by telling the mock that it should return an earlier defined <code>list</code>.</li>
 <li>We would never see this happen in a test that is testing the <code>OrderDeliveryBatch</code> class. By mocking the class we do not use any of its implementation. But the implementation is the exact thing we want to test. In general we never mock the class under test.</li>
@@ -1630,69 +1632,56 @@ This corresponds to failing to meet a postcondition.</p>
 <p>A single test with these four invoices is a good test for the boundaries of the problem.</p>
 <h2 id="design-for-testability">Design for Testability</h2>
 <p><strong>Exercise 1</strong></p>
-<p>To test just the <code>runBatch</code> method of <code>OrderDeliveryBatch</code> (for example in a unit test) we need to be able to use mocks for at least the <code>dao</code> and <code>delivery</code> objects.
-In the current implementation this is not possible, as we cannot change <code>dao</code> or <code>delivery</code> from outside the class.
+<p>To test just the <code>runBatch</code> method of <code>OrderDeliveryBatch</code> (for example in a unit test) we need to be able to use mocks for at least the <code>orderBook</code> and <code>delivery</code> objects.
+In the current implementation this is not possible, as we cannot change <code>orderBook</code> or <code>delivery</code> from outside the class.
 In other words: We want to improve the controllability to improve the testability.</p>
 <p>The technique that we use to do so is called dependency injection.
-We can give the <code>dao</code> and <code>delivery</code> in a parameter of the method:</p>
+We can give the <code>orderBook</code> and <code>delivery</code> in a parameter of the method:</p>
 <pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OrderDeliveryBatch</span> </span>{
 
-  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">runBatch</span><span class="hljs-params">(OrderDao dao, DeliveryStartProcess delivery)</span> </span>{
-    List&lt;Order&gt; orders = dao.paidButNotDelivered();
-
-    <span class="hljs-keyword">for</span> (Order order : orders) {
-      delivery.start(order);
-
-      <span class="hljs-keyword">if</span> (order.isInternational()) {
-        order.setDeliveryDate(<span class="hljs-string">&quot;5 days from now&quot;</span>);
-      } <span class="hljs-keyword">else</span> {
-        order.setDeliveryDate(<span class="hljs-string">&quot;2 days from now&quot;</span>);
-      }
-    }
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">runBatch</span><span class="hljs-params">(OrderBook orderBook, DeliveryStartProcess delivery)</span> </span>{
+    orderBook.paidButNotDelivered()
+      .forEach(delivery::start);
   }
 }
 </code></pre>
-<p>Alternatively we can create fields for the <code>dao</code> and <code>delivery</code> and a constructor that sets the fields:</p>
+<p>Alternatively we can create fields for the <code>orderBook</code> and <code>delivery</code> and a constructor that sets the fields:</p>
 <pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OrderDeliveryBatch</span> </span>{
 
-  <span class="hljs-keyword">private</span> OrderDao dao;
+  <span class="hljs-keyword">private</span> OrderBook orderBook;
   <span class="hljs-keyword">private</span> DeliveryStartProcess delivery;
 
-  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">OrderDeliveryBatch</span><span class="hljs-params">(OrderDao dao, DeliveryStartProcess delivery)</span> </span>{
-    <span class="hljs-keyword">this</span>.dao = dao;
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">OrderDeliveryBatch</span><span class="hljs-params">(OrderBook orderBook, DeliveryStartProcess delivery)</span> </span>{
+    <span class="hljs-keyword">this</span>.orderBook = orderBook;
     <span class="hljs-keyword">this</span>.delivery = delivery;
   }
 
   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">runBatch</span><span class="hljs-params">()</span> </span>{
-    List&lt;Order&gt; orders = dao.paidButNotDelivered();
-
-    <span class="hljs-keyword">for</span> (Order order : orders) {
-      delivery.start(order);
-
-      <span class="hljs-keyword">if</span> (order.isInternational()) {
-        order.setDeliveryDate(<span class="hljs-string">&quot;5 days from now&quot;</span>);
-      } <span class="hljs-keyword">else</span> {
-        order.setDeliveryDate(<span class="hljs-string">&quot;2 days from now&quot;</span>);
-      }
-    }
+    orderBook.paidButNotDelivered()
+      .forEach(delivery::start);
   }
 }
 </code></pre>
+<p>Which option we chose depends on the lifecycles of the various objects. If the <code>OrderDeliveryBatch</code> always applies to the same <code>OrderBook</code> and <code>DeliveryStartProcess</code>, then we would probably use the constructor, otherwise, we might use the method parameters. 
+Our choice expresses this runtime behaviour. </p>
 <p><strong>Exercise 2</strong></p>
 <p>The method and class lack controllability.
 We cannot change the values that <code>Calender</code> gives in the method because the <code>getInstance</code> method is static.
 Mockito cannot really mock static methods, which is why we tend to avoid using static methods.</p>
 <p>We can use dependency injection to make sure we can control the <code>today</code> object by using a mock.</p>
 <p><strong>Exercise 3</strong></p>
-<p>The correct answer is 1 and 3.</p>
+<p>The correct answer is 2, 3, and 4</p>
 <p>As we discussed it is very important to keep the domain and infrastructure separated for the testability.
 This can be done, for example, by using Ports and Adapters.</p>
-<p>Static methods cannot be mocked and are therefore very bad for the controllability of the code.
-Code that has low controllability also has a low testability, so replacing the static methods by non-static ones will be very beneficial to the testability.</p>
-<p>The large tables and lack of indices do not really influence the testability, especially not when talking about unit tests.
-When writing unit tests we end up mocking the classes interacting with the database anyway.</p>
-<p>Too many attributes/fields can hurt testability as we might need to create a lot of mocks for just one class under test.
-However, the static methods and mixed domain and infrastructure are worse for the testability than a large number of attributes/fields.</p>
+<p>Static methods that manipulate state are effectively Singletons and so can introduce implicit runtime dependencies that are 
+difficult to control and so difficult to test. They are best used for helper methods where they either return a new result, packaging up
+constructors, or return a value based on their inputs. Otherwise, look for a non-static technique, such as calling an instance methods
+on some kind of context object.</p>
+<p>For a unit test, we&apos;re not concerned about the scale of the real data table, we need to know whether this functionality works in isolation.
+That said, if these lists are likely to be very large, we should prepare for that in our design and run some integration stress tests for scale.</p>
+<p>If you find yourself creating a lot of mocks to test a class, because it has a lot of dependencies, that usually a sign that 
+there are missing concepts in the code that would encapsulate some of those dependencies. It&apos;s time to step back and take another
+look at the design. </p>
 <p><strong>Exercise 4</strong></p>
 <ol>
 <li>Observability: The developer needs to be able to better observe the result.</li>
@@ -1824,7 +1813,7 @@ y = {<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Answers to the exercises","level":"10.1.1","depth":2,"next":{"title":"Domain testing examples","level":"10.1.2","depth":2,"path":"chapters/testing-techniques/domain-testing.md","ref":"chapters/testing-techniques/domain-testing.md","articles":[]},"previous":{"title":"Appendix","level":"10.1","depth":1,"ref":"","articles":[{"title":"Answers to the exercises","level":"10.1.1","depth":2,"path":"chapters/appendix/answers.md","ref":"chapters/appendix/answers.md","articles":[]},{"title":"Domain testing examples","level":"10.1.2","depth":2,"path":"chapters/testing-techniques/domain-testing.md","ref":"chapters/testing-techniques/domain-testing.md","articles":[]},{"title":"Change log","level":"10.1.3","depth":2,"path":"chapters/appendix/changelog.md","ref":"chapters/appendix/changelog.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/appendix/answers.md","mtime":"2020-05-08T14:42:52.160Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-08T14:42:56.997Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Answers to the exercises","level":"10.1.1","depth":2,"next":{"title":"Domain testing examples","level":"10.1.2","depth":2,"path":"chapters/testing-techniques/domain-testing.md","ref":"chapters/testing-techniques/domain-testing.md","articles":[]},"previous":{"title":"Appendix","level":"10.1","depth":1,"ref":"","articles":[{"title":"Answers to the exercises","level":"10.1.1","depth":2,"path":"chapters/appendix/answers.md","ref":"chapters/appendix/answers.md","articles":[]},{"title":"Domain testing examples","level":"10.1.2","depth":2,"path":"chapters/testing-techniques/domain-testing.md","ref":"chapters/testing-techniques/domain-testing.md","articles":[]},{"title":"Change log","level":"10.1.3","depth":2,"path":"chapters/appendix/changelog.md","ref":"chapters/appendix/changelog.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/appendix/answers.md","mtime":"2020-05-11T13:44:58.556Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-11T13:45:02.390Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

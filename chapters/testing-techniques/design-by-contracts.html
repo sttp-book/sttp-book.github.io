@@ -871,7 +871,7 @@ at the time the assertion is executed.</p>
 <p>In Java, to make an assertion we use the <code>assert</code> keyword:</p>
 <pre><code class="lang-java"><span class="hljs-keyword">assert</span> &lt;condition&gt; : <span class="hljs-string">&quot;&lt;message&gt;&quot;</span>;
 </code></pre>
-<p>The <code>assert</code> keywords checks if the <code>&lt;condition&gt;</code> is true.
+<p>The <code>assert</code> keyword checks if the <code>&lt;condition&gt;</code> is true.
 If it is, nothing happens.
 The program just continues its execution as everything is according to plan.
 However, if the <code>&lt;condition&gt;</code> yields false, the <code>assert</code> throws an <code>AssertionError</code>.</p>
@@ -899,7 +899,7 @@ Always include a message that describes what is going wrong if the assertion is 
 <p>In Java, asserts can be enabled or disabled.
 If the asserts are disabled, they will never throw an <code>AssertionError</code> even if their conditions are false.
 Java&apos;s default configuration is to disable the assertions.</p>
-<p>To enable the asserts we have to run Java with a special argument in one of these two ways: <code>java -enableassertions</code> or <code>java -ea</code>.
+<p>To enable the asserts, we have to run Java with a special argument in one of these two ways: <code>java -enableassertions</code> or <code>java -ea</code>.
 When using Maven or IntelliJ, the assertions are enabled automatically when running tests.
 With Eclipse or Gradle, we have to enable it ourselves.</p>
 <center>
@@ -982,7 +982,7 @@ This also cannot be <code>null</code> because then it is not possible to call <c
 <p>The number of assumptions made before a method can be executed (and, with that, the number of pre-conditions) is a design choice.</p>
 <p>One might want to <em>weaken the pre-conditions</em>, so that the method accepts/is able to handle more situations.
 To that aim, we can remove a pre-condition as the method itself can handle the situation where the pre-condition would be false.
-This makes the method more generally applicable, but is also increases its complexity.
+This makes the method more generally applicable, but also increases its complexity.
 The method always has to check some extra things to handle the cases that could had been pre-conditions.
 Finding the balance between the number of pre-conditions and complexity of the method is part of designing the system.</p>
 <p>We can remove some of the pre-conditions of the <code>merge</code> method by adding some if-statements to the method.
@@ -1145,7 +1145,7 @@ Moreover, methods can assume that, when they start, the class invariant holds.</
 <p>A private method invoked by a public method can leave the object with the class invariant being false.
 However, the public method that invoked the private method should then fix this and end with the class invariant again being true.</p>
 <p>This is all formalised by Bertrand Meyer as: <em>&quot;The class invariant indicates that a proposition P can be a class invariant if it holds after construction, and before and after any call to a public method assuming that the public methods are called with their pre-conditions being true.&quot;</em></p>
-<p>To implement simple class invariant in Java, we can use the Boolean method that checks if the representation is okay.
+<p>To implement a simple class invariant in Java, we can use the Boolean method that checks if the representation is okay.
 We usually call this method <code>invariant</code>.
 We then assert the return value of this method after the constructor, and before and after each public method.
 In these public methods, the only pre-conditions and post-conditions that have to hold additionally are the ones that are not in the invariant.</p>
@@ -1263,7 +1263,7 @@ Creating the tests for each of the sub-classes separately will result in the fol
 <p><img src="img/design-by-contracts/examples/subclass_test.svg" alt="Test classes architecture"></p>
 <p>The ArrayList and LinkedList will behave the same for the methods defined in List.
 Therefore, there will be duplicate tests for these methods.</p>
-<p>To avoid this code duplication we can create a test suite just for the super class.
+<p>To avoid this code duplication, we can create a test suite just for the super class.
 This test suite tests just the public methods of the super class.
 The tests in this test suite should then be executed for each 
 of the sub-classes of the super class.
@@ -1400,7 +1400,7 @@ Your colleague decides to implement this by making Square inherit from Rectangle
   }
 }
 </code></pre>
-<p>Inspired by Bertrand Meyer&apos;s design by contracts, he also use asserts to make sure contracts are followed. He explicitly defines pre-conditions and post-conditions in various methods of the base Rectangle class and the derived Square class.</p>
+<p>Inspired by Bertrand Meyer&apos;s design by contracts, he also uses asserts to make sure contracts are followed. He explicitly defines pre-conditions and post-conditions in various methods of the base Rectangle class and the derived Square class.</p>
 <p>A second colleague comes in and expresses concerns about the design.
 How can you use the assertions provided to discuss the correctness of this design?</p>
 <p>Is the second colleagues concern justified?
@@ -1500,7 +1500,7 @@ Which of the following is a valid reason to use assertions in your code?</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Design-by-contracts","level":"4.1.5","depth":2,"next":{"title":"Property-based testing","level":"4.1.6","depth":2,"path":"chapters/testing-techniques/property-based-testing.md","ref":"chapters/testing-techniques/property-based-testing.md","articles":[]},"previous":{"title":"Model-based testing","level":"4.1.4","depth":2,"path":"chapters/testing-techniques/model-based-testing.md","ref":"chapters/testing-techniques/model-based-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/testing-techniques/design-by-contracts.md","mtime":"2020-05-08T07:42:04.536Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-08T14:42:56.997Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Design-by-contracts","level":"4.1.5","depth":2,"next":{"title":"Property-based testing","level":"4.1.6","depth":2,"path":"chapters/testing-techniques/property-based-testing.md","ref":"chapters/testing-techniques/property-based-testing.md","articles":[]},"previous":{"title":"Model-based testing","level":"4.1.4","depth":2,"path":"chapters/testing-techniques/model-based-testing.md","ref":"chapters/testing-techniques/model-based-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/testing-techniques/design-by-contracts.md","mtime":"2020-05-11T13:44:58.561Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-11T13:45:02.390Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

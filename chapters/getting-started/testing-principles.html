@@ -1,0 +1,1111 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Principles of software testing · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-hints/plugin-hints.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-katex/katex.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+        <link rel="stylesheet" href="../../assets/css/website.css">
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="test-automation.html" />
+    
+    
+    <link rel="prev" href="why-software-testing.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../preface/authors.html">
+            
+                <a href="../preface/authors.html">
+            
+                    
+                    Authors
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../preface/acknowledgements.html">
+            
+                <a href="../preface/acknowledgements.html">
+            
+                    
+                    Acknowledgements
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../preface/use.html">
+            
+                <a href="../preface/use.html">
+            
+                    
+                    Using this book
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../preface/contribute.html">
+            
+                <a href="../preface/contribute.html">
+            
+                    
+                    Contribute to this book
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../preface/license.html">
+            
+                <a href="../preface/license.html">
+            
+                    
+                    License
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../preface/structure.html">
+            
+                <a href="../preface/structure.html">
+            
+                    
+                    Structure of the book
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Getting started with software testing
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1.1" data-path="why-software-testing.html">
+            
+                <a href="why-software-testing.html">
+            
+                    
+                    Why software testing?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="3.1.2" data-path="testing-principles.html">
+            
+                <a href="testing-principles.html">
+            
+                    
+                    Principles of software testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.3" data-path="test-automation.html">
+            
+                <a href="test-automation.html">
+            
+                    
+                    Software testing automation
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" data-path="../testing-techniques/">
+            
+                <a href="../testing-techniques/">
+            
+                    
+                    Testing techniques
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1.1" data-path="../testing-techniques/specification-based-testing.html">
+            
+                <a href="../testing-techniques/specification-based-testing.html">
+            
+                    
+                    Specification-based testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.2" data-path="../testing-techniques/boundary-testing.html">
+            
+                <a href="../testing-techniques/boundary-testing.html">
+            
+                    
+                    Boundary testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.3" data-path="../testing-techniques/structural-testing.html">
+            
+                <a href="../testing-techniques/structural-testing.html">
+            
+                    
+                    Structural testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.4" data-path="../testing-techniques/model-based-testing.html">
+            
+                <a href="../testing-techniques/model-based-testing.html">
+            
+                    
+                    Model-based testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.5" data-path="../testing-techniques/design-by-contracts.html">
+            
+                <a href="../testing-techniques/design-by-contracts.html">
+            
+                    
+                    Design-by-contracts
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.6" data-path="../testing-techniques/property-based-testing.html">
+            
+                <a href="../testing-techniques/property-based-testing.html">
+            
+                    
+                    Property-based testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="5.1" data-path="../pragmatic-testing/">
+            
+                <a href="../pragmatic-testing/">
+            
+                    
+                    Pragmatic software testing
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1.1" data-path="../pragmatic-testing/testing-pyramid.html">
+            
+                <a href="../pragmatic-testing/testing-pyramid.html">
+            
+                    
+                    The testing pyramid
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.2" data-path="../pragmatic-testing/test-doubles.html">
+            
+                <a href="../pragmatic-testing/test-doubles.html">
+            
+                    
+                    Test doubles
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.3" data-path="../pragmatic-testing/design-for-testability.html">
+            
+                <a href="../pragmatic-testing/design-for-testability.html">
+            
+                    
+                    Design for testability
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.4" data-path="../pragmatic-testing/tdd.html">
+            
+                <a href="../pragmatic-testing/tdd.html">
+            
+                    
+                    Test-driven development
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.5" data-path="../pragmatic-testing/test-code-quality.html">
+            
+                <a href="../pragmatic-testing/test-code-quality.html">
+            
+                    
+                    Test code quality and engineering
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="6.1" data-path="../intelligent-testing/">
+            
+                <a href="../intelligent-testing/">
+            
+                    
+                    Intelligent testing
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="6.1.1" data-path="../intelligent-testing/static-testing.html">
+            
+                <a href="../intelligent-testing/static-testing.html">
+            
+                    
+                    Static testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.2" data-path="../intelligent-testing/mutation-testing.html">
+            
+                <a href="../intelligent-testing/mutation-testing.html">
+            
+                    
+                    Mutation testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.3" data-path="../intelligent-testing/fuzzing.html">
+            
+                <a href="../intelligent-testing/fuzzing.html">
+            
+                    
+                    Fuzz testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.4" data-path="../intelligent-testing/sbst.html">
+            
+                <a href="../intelligent-testing/sbst.html">
+            
+                    
+                    Search-based software testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="7.1" data-path="../testing-into-context/">
+            
+                <a href="../testing-into-context/">
+            
+                    
+                    Testing in the context
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="7.1.1" data-path="../testing-into-context/web-testing.html">
+            
+                <a href="../testing-into-context/web-testing.html">
+            
+                    
+                    Web testing (soon)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.1.2" >
+            
+                <span>
+            
+                    
+                    Database testing (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.1.3" >
+            
+                <span>
+            
+                    
+                    Mobile testing (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.1.4" >
+            
+                <span>
+            
+                    
+                    Continuous experimentation (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.1.5" >
+            
+                <span>
+            
+                    
+                    Embedded software testing (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="8.1" data-path="../non-functional-testing/">
+            
+                <a href="../non-functional-testing/">
+            
+                    
+                    Non-functional testing
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.1.1" data-path="../non-functional-testing/security-testing.html">
+            
+                <a href="../non-functional-testing/security-testing.html">
+            
+                    
+                    Security testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.2" >
+            
+                <span>
+            
+                    
+                    Performance testing (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="9.1" >
+            
+                <span>
+            
+                    
+                    Software Quality
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="9.1.1" >
+            
+                <span>
+            
+                    
+                    Code reviews (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.1.2" >
+            
+                <span>
+            
+                    
+                    Code metrics (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.1.3" >
+            
+                <span>
+            
+                    
+                    Ethics and testing (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="10.1" >
+            
+                <span>
+            
+                    
+                    Appendix
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="10.1.1" data-path="../appendix/answers.html">
+            
+                <a href="../appendix/answers.html">
+            
+                    
+                    Answers to the exercises
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="10.1.2" data-path="../testing-techniques/domain-testing.html">
+            
+                <a href="../testing-techniques/domain-testing.html">
+            
+                    
+                    Domain testing examples
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="10.1.3" data-path="../appendix/changelog.html">
+            
+                <a href="../appendix/changelog.html">
+            
+                    
+                    Change log
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >Principles of software testing</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="principles-of-software-testing">Principles of software testing</h1>
+<p>In this chapter, we first define some terminology. Using the right
+terms helps us understand each other better. We then discuss the differences
+between <em>verification</em> and <em>validation</em>. Finally, we discuss some testing principles
+that will guide us (or, more specifically, force us to perform trade-offs whenever
+we choose a testing technique) throughout the book.</p>
+<h2 id="failure-fault-and-error">Failure, Fault and Error</h2>
+<p>It is common to hear different terms to indicate that a software system
+is not behaving as expected.
+Just to name a few: <em>error</em>, <em>mistake</em>, <em>defect</em>, <em>bug</em>, <em>fault</em>, and <em>failure</em>.
+To describe the events that led to a software crash more precisely, 
+we need to agree on a certain vocabulary.
+For now, this comes down to three terms: <strong>failure</strong>, <strong>fault</strong>, and <strong>error</strong>.</p>
+<p>A <strong>failure</strong> is a component of the (software) system that is not behaving as expected.
+Failures are often visible to the end user.
+An example of a failure is a mobile app that stops working, or a 
+news website that starts to show yesterday&apos;s news on its front page. 
+The software system did something it was not supposed to do.</p>
+<p>Failures are generally caused by <em>faults</em>.
+<strong>Faults</strong> are also called <em>defects</em> or <em>bugs</em>.
+A fault is the flaw in the component of the system that caused the 
+system to behave incorrectly. A fault is technical and, in our world, usually refers to 
+source code, such as a comparison in an <code>if</code> statement that uses a &quot;less than&quot; operator (<code>&lt;</code>) instead of a &quot;greater than&quot; operator (<code>&gt;</code>). 
+A broken connection is an example of a hardware fault.</p>
+<blockquote>
+<p>Note that the existence of a fault in the source code does not necessarily lead to a failure.
+If the code containing the fault is never executed, it will never cause a failure.
+Failures only occur when the system is being used, and someone notices it not behaving as expected.</p>
+</blockquote>
+<p>Finally, we have an <strong>error</strong>, also called <em>mistake</em>.
+An error is the human action that caused the system to run not as expected.
+For example, a developer didn&apos;t cover an obscure condition because they misunderstood
+the requirement. Plugging a cable into the wrong socket is an example of a hardware mistake. </p>
+<p>In other words: a <em>mistake</em> by a developer can lead to a <em>fault</em> in the source code that will
+eventually result in a <em>failure</em>.</p>
+<p>In the <em>Min-Max</em> code example of the previous chapter: the <em>failure</em> was the program returning
+a large number, the <em>fault</em> was a bad <code>if/else if</code> condition, and the <em>mistake</em> was me not dealing 
+properly with that case.</p>
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/zAty8Rpg92I" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+
+
+
+
+<h2 id="verification-and-validation">Verification and Validation</h2>
+<p><strong>Verification</strong> and <strong>validation</strong> are both about 
+assessing the quality of a system. However, they do have a subtle difference,
+which can be quickly described by a single question:</p>
+<ul>
+<li><p><strong>Validation: Are we building the right software?</strong>
+Validation concerns the features that our software system offers, and the customer (i.e., for whom the system is made): </p>
+<ul>
+<li>is the system under development what the users really want and/or need?</li>
+<li>is the system actually useful? </li>
+</ul>
+<p>Validation techniques, thus, focus on understanding
+whether the software system is delivering the business value it should deliver. In this book, we only briefly cover validation techniques (see chapters on Continuous Experimentation and on Behaviour-Driven Development).</p>
+</li>
+</ul>
+<ul>
+<li><p><strong>Verification: Are we building the system right?</strong> 
+Verification, on the other hand, is about the system behaving as it 
+is supposed to, according to the specification. </p>
+<p>In simple words, this mostly means that the system behaves without any bugs.
+Note that this does not guarantee that the system is useful: a system might work 
+beautifully, bug-free, but  not deliver the features that customers really need.</p>
+</li>
+</ul>
+<p>Note how both <em>validation</em> and <em>verification</em> are fundamental for ensuring
+the delivery of high-quality software systems.</p>
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/LZ3Fb2Jq7yw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+
+
+
+<h2 id="principles-of-software-testing-or-why-software-testing-is-so-hard">Principles of software testing (or why software testing is so hard)</h2>
+<p>A simplistic view on software testing is that,
+if we want our systems to be well-tested, all we need to do is to keep adding more tests until it is enough. We wish it were that simple.</p>
+<p>Indeed, a very important part of any software testing process is 
+to know <em>when to stop testing</em>.
+After all, resources (e.g., money, developers, infrastructure) are limited. Therefore,
+the goal should always be to maximise the number of bugs found while minimising the 
+amount of resources we had to spend on finding those bugs.
+Creating too few tests might leave us with a software system that does not behave as intended (i.e., <em>full of bugs</em>).
+On the other hand, creating tests after tests, without proper consideration, might lead to ineffective tests (besides costing too much time and money).</p>
+<p>Given resource constraints, we highlight an important principle in 
+software testing: <strong>exhaustive testing is impossible</strong>. It might be impossible
+even if we had unlimited resources. Imagine a software system that has &quot;just&quot; 128 different
+flags (or configuration settings). Those flags can be set to either true or false (Booleans) and
+they can be set independently from the others. The software system behaves differently
+according to the configured combination of flags. This implies that we need to test all the possible combinations. A simple calculation shows us that 2 possible values for each of the 128 different flags gives <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mrow><mn>1</mn><mn>2</mn><mn>8</mn></mrow></msup></mrow><annotation encoding="application/x-tex">2^{128}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathrm">2</span><span class="msupsub"><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle uncramped mtight"><span class="mord scriptstyle uncramped mtight"><span class="mord mathrm mtight">1</span><span class="mord mathrm mtight">2</span><span class="mord mathrm mtight">8</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span></span></span></span> combinations that need to be tested. As a matter
+of comparison, this number is higher than the estimated number of atoms in the universe.
+In other words, this software system has more possible combinations to be tested than the universe has atoms.</p>
+<p>Given that exhaustive testing is impossible,
+software testers have to then prioritise the tests they will perform.</p>
+<p>When prioritising the test cases, we note that <strong>bugs are not uniformly distributed</strong>.
+Empirically, we observe that some components in some software systems present more
+bugs than other components.</p>
+<p>Another crucial consequence of the fact that exhaustive testing is impossible is that, 
+as Dijkstra used to say, <strong>program testing can be used to show the presence of bugs, but never to show their absence</strong>.
+In other words, while we might find more bugs by simply testing more, our test suites,
+however large they might be,
+will never ensure that the software system is 100% bug-free. They will only ensure
+that the cases we test for behave as expected.</p>
+<p>To test our software, we need a lot of variation in our tests.
+For example, we want variety in the inputs when testing a method, 
+like we saw in the examples above.
+To test the software well, however, we also need variation in 
+the testing strategies that we apply.</p>
+<p>Indeed, an interesting empirical finding is that if testers apply the same testing techniques over and over, they will at some point lose their efficacy. 
+This is described by what is known as the <strong>pesticide paradox</strong> (which nicely refers to &quot;bugs&quot; as an equivalent term for software faults):
+<em>&quot;Every method you use to prevent or find bugs leaves a residue of 
+subtler bugs against which those methods are ineffectual.&quot;</em>
+In practice, this means that no single testing strategy 
+can guarantee that the software under test is bug-free.
+A concrete example might be a team that solely relies on unit testing techniques.
+At some point, maybe all the bugs that can be captured at unit test level will be found
+by the team; however, the team might miss bugs that only occur at integration level.
+From the pesticide paradox, we thus conclude that testers have to use 
+different testing strategies to minimise the number of bugs left in the software.
+When studying the various testing strategies that we present in this book, 
+keep in mind that combining them all might be a wise decision.</p>
+<p>The context also plays an important role in how one devises test cases.
+For example, devising test cases for a mobile app is very different 
+from devising test cases for a web application, or for software used in a rocket.
+In other words: <strong>testing is context-dependent</strong>.</p>
+<p>Again, while this book mostly focuses on verification techniques, 
+let us not forget that having a low number of bugs is not enough for good software.
+As we have said before, a program that works flawlessly, but is of no use for its users, 
+is still not a good program.
+That is a common fallacy (also known as the <strong>absence-of-errors fallacy</strong>) that software testers face when they decide to focus solely
+on verification and not so much on validation.</p>
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/dkbvb_wTN-M" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+
+
+
+<h2 id="exercises">Exercises</h2>
+<p><strong>Exercise 1.</strong>
+Having certain terminology helps testers to explain the problems they have with a program or in their software.</p>
+<p>Below is a small conversation.
+Fill in the blanks with one of the following terms: failure, fault, or error.</p>
+<ul>
+<li><strong>Mark</strong>: Hey, Jane, I just observed a (1) <em> </em> <em> </em> <em> </em> in our software: if the user has multiple surnames, our software doesn&apos;t allow them to sign in. </li>
+<li><strong>Jane</strong>: Oh, that&apos;s awful. Let me debug the code so that I can find the (2) <em> </em> <em> </em> <em> </em>.</li>
+<li><strong>Jane</strong> <em>(a few minutes later):</em> Mark, I found it! It was my (3) <em> </em> <em> </em> <em> </em>. I programmed that part, but never thought of this case.</li>
+<li><strong>Mark</strong>: No worries, Jane! Thanks for fixing it!</li>
+</ul>
+<p><strong>Exercise 2.</strong>
+Kelly, a very experienced software tester, visits <em>Books!</em>, a social network focused on matching people based on books they read.
+Users do not report bugs so often, as <em>Books!</em> developers have strong testing practices in place.
+However, users do say that the software is not really delivering what it promises.</p>
+<p>What testing principle applies to this problem?</p>
+<p><strong>Exercise 3.</strong>
+Suzanne, a junior software tester, has just joined a very large online payment company in the Netherlands. As a first task, Suzanne analysed their past two years of bug reports.
+Suzanne observes that more than 50% of bugs have been happening in the <em>International payments</em> module. </p>
+<p>Suzanne then promises her manager that she will design test cases that will completely cover the <em>International payments</em> module, and thus, find 
+all the bugs.</p>
+<p>Which of the following testing principles might explain why this is <strong>not</strong> possible?</p>
+<ol>
+<li>Pesticide paradox. </li>
+<li>Exhaustive testing.</li>
+<li>Test early.</li>
+<li>Defect clustering.</li>
+</ol>
+<p><strong>Exercise 4.</strong>
+John strongly believes in unit testing. In fact, this is the only type of testing he actually
+does at any project he&apos;s in. All the testing principles below but one might help convince John that he should also focus on different types of testing. </p>
+<p>Which of the following <strong>is the least related</strong> when we want to convince John to move away from his &apos;only unit testing&apos; approach?</p>
+<ol>
+<li>Pesticide paradox. </li>
+<li>Tests are context-dependent.</li>
+<li>Absence-of-errors fallacy.</li>
+<li>Test early.</li>
+</ol>
+<h2 id="references">References</h2>
+<ul>
+<li>Graham, D., Van Veenendaal, E., &amp; Evans, I. (2008). Foundations of software testing: ISTQB certification. Cengage Learning EMEA. Chapters 1, 2, 3.</li>
+</ul>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="why-software-testing.html" class="navigation navigation-prev " aria-label="Previous page: Why software testing?">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="test-automation.html" class="navigation navigation-next " aria-label="Next page: Software testing automation">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Principles of software testing","level":"3.1.2","depth":2,"next":{"title":"Software testing automation","level":"3.1.3","depth":2,"path":"chapters/getting-started/test-automation.md","ref":"chapters/getting-started/test-automation.md","articles":[]},"previous":{"title":"Why software testing?","level":"3.1.1","depth":2,"path":"chapters/getting-started/why-software-testing.md","ref":"chapters/getting-started/why-software-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/getting-started/testing-principles.md","mtime":"2020-05-06T06:51:15.946Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-12T08:20:42.325Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-ga/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

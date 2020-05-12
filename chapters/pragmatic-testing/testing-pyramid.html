@@ -1,0 +1,1232 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>The testing pyramid · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-hints/plugin-hints.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-katex/katex.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+        <link rel="stylesheet" href="../../assets/css/website.css">
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="test-doubles.html" />
+    
+    
+    <link rel="prev" href="./" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../preface/authors.html">
+            
+                <a href="../preface/authors.html">
+            
+                    
+                    Authors
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../preface/acknowledgements.html">
+            
+                <a href="../preface/acknowledgements.html">
+            
+                    
+                    Acknowledgements
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../preface/use.html">
+            
+                <a href="../preface/use.html">
+            
+                    
+                    Using this book
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../preface/contribute.html">
+            
+                <a href="../preface/contribute.html">
+            
+                    
+                    Contribute to this book
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../preface/license.html">
+            
+                <a href="../preface/license.html">
+            
+                    
+                    License
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../preface/structure.html">
+            
+                <a href="../preface/structure.html">
+            
+                    
+                    Structure of the book
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../getting-started/">
+            
+                <a href="../getting-started/">
+            
+                    
+                    Getting started with software testing
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1.1" data-path="../getting-started/why-software-testing.html">
+            
+                <a href="../getting-started/why-software-testing.html">
+            
+                    
+                    Why software testing?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.2" data-path="../getting-started/testing-principles.html">
+            
+                <a href="../getting-started/testing-principles.html">
+            
+                    
+                    Principles of software testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.3" data-path="../getting-started/test-automation.html">
+            
+                <a href="../getting-started/test-automation.html">
+            
+                    
+                    Software testing automation
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" data-path="../testing-techniques/">
+            
+                <a href="../testing-techniques/">
+            
+                    
+                    Testing techniques
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1.1" data-path="../testing-techniques/specification-based-testing.html">
+            
+                <a href="../testing-techniques/specification-based-testing.html">
+            
+                    
+                    Specification-based testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.2" data-path="../testing-techniques/boundary-testing.html">
+            
+                <a href="../testing-techniques/boundary-testing.html">
+            
+                    
+                    Boundary testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.3" data-path="../testing-techniques/structural-testing.html">
+            
+                <a href="../testing-techniques/structural-testing.html">
+            
+                    
+                    Structural testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.4" data-path="../testing-techniques/model-based-testing.html">
+            
+                <a href="../testing-techniques/model-based-testing.html">
+            
+                    
+                    Model-based testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.5" data-path="../testing-techniques/design-by-contracts.html">
+            
+                <a href="../testing-techniques/design-by-contracts.html">
+            
+                    
+                    Design-by-contracts
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.6" data-path="../testing-techniques/property-based-testing.html">
+            
+                <a href="../testing-techniques/property-based-testing.html">
+            
+                    
+                    Property-based testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="5.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Pragmatic software testing
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="5.1.1" data-path="testing-pyramid.html">
+            
+                <a href="testing-pyramid.html">
+            
+                    
+                    The testing pyramid
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.2" data-path="test-doubles.html">
+            
+                <a href="test-doubles.html">
+            
+                    
+                    Test doubles
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.3" data-path="design-for-testability.html">
+            
+                <a href="design-for-testability.html">
+            
+                    
+                    Design for testability
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.4" data-path="tdd.html">
+            
+                <a href="tdd.html">
+            
+                    
+                    Test-driven development
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.5" data-path="test-code-quality.html">
+            
+                <a href="test-code-quality.html">
+            
+                    
+                    Test code quality and engineering
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="6.1" data-path="../intelligent-testing/">
+            
+                <a href="../intelligent-testing/">
+            
+                    
+                    Intelligent testing
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="6.1.1" data-path="../intelligent-testing/static-testing.html">
+            
+                <a href="../intelligent-testing/static-testing.html">
+            
+                    
+                    Static testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.2" data-path="../intelligent-testing/mutation-testing.html">
+            
+                <a href="../intelligent-testing/mutation-testing.html">
+            
+                    
+                    Mutation testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.3" data-path="../intelligent-testing/fuzzing.html">
+            
+                <a href="../intelligent-testing/fuzzing.html">
+            
+                    
+                    Fuzz testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.4" data-path="../intelligent-testing/sbst.html">
+            
+                <a href="../intelligent-testing/sbst.html">
+            
+                    
+                    Search-based software testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="7.1" data-path="../testing-into-context/">
+            
+                <a href="../testing-into-context/">
+            
+                    
+                    Testing in the context
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="7.1.1" data-path="../testing-into-context/web-testing.html">
+            
+                <a href="../testing-into-context/web-testing.html">
+            
+                    
+                    Web testing (soon)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.1.2" >
+            
+                <span>
+            
+                    
+                    Database testing (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.1.3" >
+            
+                <span>
+            
+                    
+                    Mobile testing (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.1.4" >
+            
+                <span>
+            
+                    
+                    Continuous experimentation (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.1.5" >
+            
+                <span>
+            
+                    
+                    Embedded software testing (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="8.1" data-path="../non-functional-testing/">
+            
+                <a href="../non-functional-testing/">
+            
+                    
+                    Non-functional testing
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.1.1" data-path="../non-functional-testing/security-testing.html">
+            
+                <a href="../non-functional-testing/security-testing.html">
+            
+                    
+                    Security testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.2" >
+            
+                <span>
+            
+                    
+                    Performance testing (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="9.1" >
+            
+                <span>
+            
+                    
+                    Software Quality
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="9.1.1" >
+            
+                <span>
+            
+                    
+                    Code reviews (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.1.2" >
+            
+                <span>
+            
+                    
+                    Code metrics (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.1.3" >
+            
+                <span>
+            
+                    
+                    Ethics and testing (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="10.1" >
+            
+                <span>
+            
+                    
+                    Appendix
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="10.1.1" data-path="../appendix/answers.html">
+            
+                <a href="../appendix/answers.html">
+            
+                    
+                    Answers to the exercises
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="10.1.2" data-path="../testing-techniques/domain-testing.html">
+            
+                <a href="../testing-techniques/domain-testing.html">
+            
+                    
+                    Domain testing examples
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="10.1.3" data-path="../appendix/changelog.html">
+            
+                <a href="../appendix/changelog.html">
+            
+                    
+                    Change log
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >The testing pyramid</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="the-testing-pyramid">The Testing Pyramid</h1>
+<p>In previous chapters, we studied different techniques to derive test cases for requirements with single responsibilities (tested via specification-based techniques) and source code that could fit into a single unit/class (tested via structural techniques).</p>
+<p>A large software system, however, is composed of many units and responsibilities.</p>
+<p>In this chapter, we are going to discuss 
+the different <strong>test levels</strong> (i.e., unit, integration, and system), their advantages and disadvantages, and the trade-offs that a tester has to make in real-world testing.</p>
+<h2 id="unit-testing">Unit testing</h2>
+<p>In some situations, the goal of the tester is to test a single feature of the software, <em>purposefully ignoring the other units of the systems</em> (just like we have been doing so far). When we test units in isolation, we are doing what is called <strong>unit testing</strong>.</p>
+<p>Defining a &apos;unit&apos; is challenging and highly dependent on the context.
+A unit can be just one method or can consist of multiple classes.
+Here is a definition for unit testing by Roy Osherove:</p>
+<blockquote>
+<p>&quot;A unit test is an automated piece of code that invokes a unit of work in the system.
+And a unit of work can span a single method, a whole class or multiple classes working together to achieve one single logical purpose that can be verified.&quot;</p>
+</blockquote>
+<p>As with any testing strategy, unit testing has advantages and disadvantages.</p>
+<h4 id="advantages">Advantages</h4>
+<ul>
+<li><p>Firstly, <strong>unit tests are fast</strong>.
+A unit test usually takes just a couple of milliseconds to execute.
+Fast tests give us the ability to test huge portions of the system in a small amount of time.
+Fast, automated test suites give developers constant feedback; this fast safety net makes developers feel more comfortable and confident in performing evolutionary changes to the software system they are working on.</p>
+</li>
+<li><p>Secondly, <strong>unit tests are easy to control</strong>. 
+A unit test tests the software by giving certain parameters to a method and then comparing the return value of this method to the expected result.
+The input values and expected result values are easy to adapt or modify in the test.</p>
+</li>
+<li><p>Finally, <strong>unit tests are easy to write</strong>.
+Unit tests do not require complicated setup or additional work. A single unit is also
+often cohesive and small, making the job of the tester easier.</p>
+</li>
+</ul>
+<h4 id="disadvantages">Disadvantages</h4>
+<ul>
+<li><p>Unit tests <strong>lack &quot;reality&quot;</strong>.
+A software system is rarely composed of a single class.
+The large number of classes in a system and the interaction between these classes can cause the system to behave differently in its real application than in the unit tests.
+Therefore, unit tests do not perfectly represent the real execution of a software system.</p>
+</li>
+<li><p><strong>Some types of bugs are not caught</strong>. 
+Some types of bugs cannot be caught at unit test level. They only happen in the integration of the different components (which are not exercised in a pure unit test).</p>
+</li>
+</ul>
+<h2 id="system-testing">System testing</h2>
+<p>Unit tests do not exercise the system in its entirety (but this is not their goal).
+To get a more realistic view of the software, and thus perform more realistic tests, 
+we should run the entire software system, with all its 
+databases, front-end apps, and any other components it has.</p>
+<p>When we test the system in its entirety, we are doing what is called <strong>&quot;system testing&quot;</strong>.
+In practice, instead of testing small parts of the system in isolation, system tests exercise the system as a whole.
+Note that an alternative name for system testing is <strong>black box testing</strong> because the system is a kind of black box.
+In other words, we do not care or actually know what goes on inside of the system (&quot;the black box&quot;) as long as we get the expected output for a given input.</p>
+<h4 id="advantages">Advantages</h4>
+<ul>
+<li><p>The obvious advantage of system testing is <strong>how realistic the tests are</strong>.
+After all,
+the more realistic the tests are, the greater the chance that the system works when shipped.</p>
+</li>
+<li><p>System tests also <strong>capture the user&apos;s perspective</strong> better than unit tests.
+In other words, system tests are a better simulation of how the final user interacts with the system.</p>
+</li>
+</ul>
+<h4 id="disadvantages">Disadvantages</h4>
+<p>System testing does, however, have its downsides.</p>
+<ul>
+<li><p><strong>System tests are often slow when compared to unit tests</strong>.
+Although we have not written any system test up until now, try to imagine what all a system test has to do, including starting and running the whole system with all its components. The test also has to interact with the real application and actions might take a few seconds to happen.
+Imagine a test that starts a container with a web application and another container with a database. It then submits an HTTP request to a webservice that is exposed by this web app. This webservice
+then retrieves data from the database and writes a JSON response to the test.
+This obviously takes more time than running a simple unit test, which has virtually no dependencies.</p>
+</li>
+<li><p>System tests are also <strong>harder to write</strong>.
+Some of the components (e.g., databases) might require complex setup before they can be used in a testing scenario. Think of not only connection and authentication, but also making sure that the database has all the data that is required by that
+test case. This takes additional code that is needed just for automating the tests.</p>
+</li>
+<li><p>Lastly, <strong>system tests tend to become flaky</strong>.
+A flaky test is a test that presents an erratic behaviour: if you run it, it might pass or it might fail for the same configuration. Flaky tests are an important problem for software development teams. After all, having a test that might pass when there is a bug or one that might fail when there is none harms the productivity of the development team.
+It is easy to imagine how a system test can become flaky. Think of a system test that exercises a web app. After clicking a button, the HTTP POST request to the web app took half a second more than usual (due to small variations we often do not control in real-life scenarios; Tomcat decided to do a full garbage collection at that very second, for example). The test was not expecting it to happen and thus, it failed. If the test is executed again, the web app might now take its usual time to respond and the test will pass on this try. There are just too many uncertainties in a system test that
+can lead to unexpected behaviour.</p>
+</li>
+</ul>
+<p><div class="alert alert-success hints-alert"><div class="hints-icon"><i class="fa fa-mortar-board"></i></div><div class="hints-container"><p> We discuss flaky tests more formally later in the book. </p>
+</div></div></p>
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/5q_ZjIM_9PQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+
+
+<h2 id="integration-testing">Integration testing</h2>
+<p>Unit and system testing are the two extremes of test levels.
+As we saw, unit tests focus on the smallest parts of the system 
+while system tests focus on the whole system at once.
+However, sometimes we need something in between.</p>
+<p><strong>Integration testing</strong> is the test level we use when we need something more
+integrated (or less isolated) than a unit test but without the need of exercising
+the entire system.</p>
+<p>Let us look at a real-world integration test example:</p>
+<blockquote>
+<p>Software systems commonly rely on database systems. To communicate with the database, developers often create a class whose only responsibility is to interact with this external component (think of <em>Data Access Objects</em> - DAO - classes). These DAOs might contain complicated SQL code. Thus, a tester feels the need to
+test these SQL queries.</p>
+<p>However, note that the tester does not want to test the entire system, only the integration between the DAO class and the database. The tester also does not want to test the DAO class in complete isolation; after all, the best way to know whether a SQL query works is to actually submit it to the database and see what the database returns back. This is an example of an integration test.</p>
+</blockquote>
+<p>The goal of integration testing is to test multiple components of a system together, focusing on the interactions between them instead of testing the system as a whole.
+Are they communicating correctly? What happens if component A sends message X to component B? 
+Do they still present correct behaviour?</p>
+<h4 id="advantages">Advantages</h4>
+<p>The advantage of integration tests is that, while not fully isolated, devising tests 
+just for a specific integration is easier than devising tests for all the components together. 
+Therefore, the effort of writing such tests
+is a little more than the effort required for unit tests but less than the effort for system tests.</p>
+<h4 id="disadvantages">Disadvantages</h4>
+<p>Note that the more integrated our tests are, the more difficult they are to write. 
+In the example, setting up a database for the test requires effort.
+Tests that involve databases usually need to:</p>
+<ul>
+<li>make use of an isolated instance of the database just for testing purposes (as you 
+probably do not want your tests to mess with production data),</li>
+<li>update the database schema (in fast companies, database schemas are changing all the time, and the test database needs to keep up),</li>
+<li>put the database into a state expected by the test by adding or removing rows,</li>
+<li>and clean everything afterwards (so that the next tests do not fail because of the data that was left behind by the previous test).</li>
+</ul>
+<p>The same effort happens to any other type of integration test you can imagine (e.g., web services, file reads and writes, etc.).</p>
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/MPjQXVYqadQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+
+
+<h2 id="the-testing-pyramid">The Testing Pyramid</h2>
+<p>We discussed three different test levels: unit, system, and integration. 
+A question that pragmatic software developers might ask themselves is:</p>
+<p><em>How much should I do of each?</em></p>
+<p>Testers have to decide whether to invest more in unit testing or in system testing as well as determine which components should be tested via unit testing and which components should be tested via system testing. A wrong decision might have a considerable impact on the quality of the system: a wrong level might cost too much resources and might not find sufficient bugs.</p>
+<p>While we still have no clear empirical answer to this question, practitioners have been
+proposing different ways to make this decision.</p>
+<p>One of the most famous diagrams that help us in this discussion 
+is the so-called <strong>testing pyramid</strong>.</p>
+<p><img src="img/testing-pyramid/testing_pyramid.svg" alt="Testing pyramid, extracted from Fowler&apos;s wiki"></p>
+<p>The diagram indicates all the test levels we discussed, plus <strong>manual testing</strong>. 
+Note that as you climb the levels in the diagram, the tests become more realistic. At the same time, the tests also become more complex on the higher levels.</p>
+<p><strong>How much should we do of each then?</strong> </p>
+<p>The common practice in industry is also represented by the diagram. The size of the pyramid slice represents the number of tests one would want to carry out at each test level. </p>
+<p>Unit testing is at the bottom of the pyramid and has the largest area of them all. This means that testers should favour unit testing.
+The reasons for this have been discussed before: they are fast, require less effort to be written, and give developers more control.</p>
+<p>As we climb up the levels on the diagram, we see that the next level is integration testing. The area is a bit smaller, indicating that in practice, we should do integration tests less than unit tests.
+Given the extra effort that integration tests require,
+testers should make sure to write tests only for the integrations they really need.</p>
+<p>The diagram continues, showing that testers should then favour system tests less than integration tests and even less manual tests.</p>
+<p>It is clear that this diagram focuses on <strong>costs</strong>. Unit tests are cheaper than system tests (and manual tests), and therefore they should be preferred.</p>
+<p>The next question is: <strong>how do I decide whether a component should be tested at the unit- or system-level?</strong>. Practitioners have devised guidelines, which we present below but it should be noted that this is not a universal rule as every software system is different to other systems, and might require specific guidelines.</p>
+<h4 id="when-to-write-unit-tests">When to write unit tests?</h4>
+<blockquote>
+<p>When the component is about an algorithm or a single piece of business logic of the software system.</p>
+</blockquote>
+<p>If we think of enterprise/business systems, most of them are about &quot;transforming data&quot;. Such business logics is often expressed by means of entity classes (e.g., an <em>Invoice</em> class and a <em>Order</em> class) exchanging messages.
+Business logic often does not depend on external services and so it can easily be tested and fully exercised by means of unit tests. Unit tests give testers full control in terms of the input data, as well as full observability in terms of asserting that the behaviour was as expected.</p>
+<p>If you have a piece of code that deals with specific business logic but you are not able to test it via unit tests (e.g., it is only possible to exercise that business logic with the full system running), it is probably because of previous design or architectural decisions that prevent you from writing unit tests.
+The way you design your classes has a high impact on how easy it is to write unit tests for your code. We discuss more about design for testability in a future chapter.</p>
+<h4 id="when-to-write-integration-tests">When to write integration tests?</h4>
+<blockquote>
+<p>Whenever the component under test interacts with an external component (e.g., a database or a web service) integration tests are appropriate.</p>
+</blockquote>
+<p>Following our example in the integration testing section, a Data Access Object class is better tested at the integration level.</p>
+<p>Again, note that integration tests are more expensive and harder to set up than a unit test. Therefore making sure that the component that performs the integration is <em>solely</em> responsible for that integration and nothing else (i.e., no business rules together with integration code), will reduce the cost of the testing.</p>
+<h4 id="when-to-write-system-tests">When to write system tests?</h4>
+<p>As we know, system tests are very costly. This makes it impossible for testers to re-test their entire system at system level. Therefore, the suggestion here is to use a risk-based approach. What are the absolutely critical parts of the software system under test? In other words, what are the parts of the system on which a bug would have a high impact? These are the ones where the tester should focus on with system tests.</p>
+<p>Of course, such critical parts must also be tested at other levels. Remember the <em>pesticide paradox</em>: a single technique is usually not enough to identify all the bugs.</p>
+<h4 id="when-to-perform-manual-tests">When to perform manual tests?</h4>
+<p>Manual testing has lots of disadvantages, but is sometimes impossible to avoid. Even in cases where automation is fully possible, manual exploratory testing can be useful. 
+The Wikipedia page on <a href="https://en.wikipedia.org/wiki/Exploratory_testing" target="_blank">Exploratory Testing</a> is well written and we point the reader to it.</p>
+<p>On the other hand, those who apply the <em>testing pyramid</em> try to avoid the so-called <em>ice-cream cone</em> anti-pattern. Imagine the testing pyramid upside down.
+In this new version, manual testing has the largest area, which means more effort on manual testing (!!).</p>
+<p><img src="img/testing-pyramid/ice_cream_cone.svg" alt="Ice cream cone"></p>
+<p>At this point, we do not have to explain why relying fully on manual testing is a bad thing. Unfortunately, it is common to see development teams relying mostly on manual tests in their quality assurance processes. Often, these teams also have a small number of system tests. This is not because they believe system tests are more efficient, but because the system was badly designed, so that it is impossible to carry out unit and integration tests.
+We will discuss design for testability in future chapters.</p>
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/YpKxAicxasU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+
+
+<h2 id="the-community-of-practice-and-the-testing-pyramid">The community of practice and the testing pyramid</h2>
+<p>We have no scientific evidence that the testing pyramid or the idea
+of prioritising design for testability and focusing on unit tests is efficient.
+However, the software development community has relied on it for years, and small and larger companies have been advocating it.</p>
+<p>That being said, in our point of view, the testing pyramid approach is viable in most enterprise / business systems. Imagine an <a href="https://en.wikipedia.org/wiki/Enterprise_resource_planning" target="_blank">ERP</a> or a <a href="https://en.wikipedia.org/wiki/Customer_relationship_management" target="_blank">CRM</a> system. Most business rules there can be expressed by classes/units which exchange messages and transform data. Unit tests will then deliver benefits as testers can easily gain control and observability of the actions of the system.</p>
+<p>However, in many other systems, unit testing might not be enough. Imagine the development of a database management system itself (e.g., MySQL, Oracle, or a distributed computing system like Hadoop). While MySQL&apos;s code probably contains lots of individual components that can be unit tested, a lot happens at &quot;low-level&quot; - like disk I/O or socket communication. In these cases, system tests may be the ones that would reveal most of the important bugs. </p>
+<p>The same might happen with cyber-physical systems. Imagine a water management station.
+Although a lot of software is used there, the system depends highly on physical constraints, such as the dynamics of water that affect the reading of the water level sensors. In such situations, it can be challenging or even unrealistic to write unit tests.</p>
+<p>The message here is that although the testing pyramid makes sense in lots of systems that are developed in industry, for some others it might not be the best way of making trade-offs. You, as a tester, should understand the advantages and the disadvantages of each test level, their benefits and costs,
+and then decide which test levels to use, how much, and when. There is no silver bullet.</p>
+<h2 id="the-testing-pyramid-at-google">The testing pyramid at Google</h2>
+<p>In &quot;Software Engineeging at Google&quot;, authors mention that Google often opts for unit tests, as they tend to be cheaper to be developed, and execute faster. Similarly to the testing pyramid, integration and system tests also happen, although in less scale. According to the authors, around 80% of their tests are unit tests.</p>
+<p>Google has also an interesting definition of &quot;test sizes&quot;, that engineers also take into consideration when designing test cases:</p>
+<ul>
+<li><p>A &quot;small test&quot; is a test that can be executed in a single process. In other words, imagine that a tester wants to test a method in a class. This method makes no use of external components and/or threads and parallelism. This is a &quot;small test&quot;. Their advantages is that such tests do not have access to main sources of test slowness or determinism; in other words, they are fast and not flaky.</p>
+</li>
+<li><p>A &quot;medium test&quot; can span multiple processes, use threads, and can make external calls (like network calls) to localhost. Integration tests to databases, as we discussed before, could be classified as a medium test, if the database also runs in the same machine as the tests. Clearly, medium tests tend to be somewhat slower and more flaky than small tests.</p>
+</li>
+<li><p>Finally, &quot;large tests&quot; remove the localhost restriction. Large tests can then require and make calls to multiple machines. Google reserves large tests for full end-to-end tests.</p>
+</li>
+</ul>
+<h2 id="exercises">Exercises</h2>
+<p><strong>Exercise 1.</strong>
+Here is a skeleton for the testing pyramid.
+Fill in the correct corresponding terms.</p>
+<p><img src="img/testing-pyramid/exercises/pyramid_skeleton.svg" alt="Testing Pyramid exercise skeleton"></p>
+<p>(Try to answer the question without scrolling up!)</p>
+<p><strong>Exercise 2.</strong>
+As a tester, you have to decide which test level (i.e., unit, integration, or system test) you will apply.
+Which of the following statements is true?</p>
+<ol>
+<li>Integration tests, although more complicated (in terms of automation) than unit tests, would provide more help in finding bugs in the communication with the webservice and/or the communication with the database.</li>
+<li>Given that unit tests could be easily written (by using mocks) and they would cover as much as integration tests would, unit tests are the best option for this problem.</li>
+<li>The most effective way to find bugs in this code is through system tests. In this case, the tester should run the entire system and exercise the batch process. Given that this code can be easily mocked, system tests would also be cheap.</li>
+<li>While all the test levels can be used for this problem, testers are more likely to find more bugs if they choose one level and explore all the possibilities and corner cases there.</li>
+</ol>
+<p><strong>Exercise 3.</strong>
+The tester should now write an integration test for the <code>OrderDao</code> class below.</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OrderDeliveryBatch</span> </span>{
+
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">runBatch</span><span class="hljs-params">()</span> </span>{
+
+    OrderDao dao = <span class="hljs-keyword">new</span> OrderDao();
+    DeliveryStartProcess delivery = <span class="hljs-keyword">new</span> DeliveryStartProcess();
+
+    List&lt;Order&gt; orders = dao.paidButNotDelivered();
+
+    <span class="hljs-keyword">for</span>(Order order : orders) {
+      delivery.start(order);
+
+      <span class="hljs-keyword">if</span>(order.isInternational()) {
+        order.setDeliveryDate(<span class="hljs-string">&quot;5 days from now&quot;</span>);
+      } <span class="hljs-keyword">else</span> {
+        order.setDeliveryDate(<span class="hljs-string">&quot;2 days from now&quot;</span>);
+      }
+    }
+  }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OrderDao</span> </span>{
+  <span class="hljs-comment">// accesses a database</span>
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DeliveryStartProcess</span> </span>{
+  <span class="hljs-comment">// communicates with a third-party webservice</span>
+}
+</code></pre>
+<p>Which one of the following statements <strong>is not required</strong> when writing
+an integration test for this class?</p>
+<ol>
+<li>Reset the database state before each test.</li>
+<li>Apply the correct schema to the database under test.</li>
+<li>Assert that all database constraints are met.</li>
+<li>Set the transaction auto-commit to true.</li>
+</ol>
+<p><strong>Exercise 4.</strong>
+A newly developed product started off with some basic unit tests but later on decided to add only integration and system tests for the new code that was written. This was because a user interacts with the system as a whole and therefore these types of tests were considered more valuable. Therefore unit tests became less prevalent, while integration and system tests became a more crucial part of the test suite. Which of the following describes this transition?</p>
+<ol>
+<li>Transitioning from a testing pyramid to an ice-cream cone pattern</li>
+<li>Transitioning from an ice-cream cone anti-pattern to a testing pyramid</li>
+<li>Transitioning form an ice-cream cone pattern to a testing pyramid</li>
+<li>Transitioning from a testing pyramid to an ice-cream cone anti-pattern</li>
+</ol>
+<p><strong>Exercise 5.</strong>
+TU Delft just built in-house software to handle the payroll of its employees. The application makes use of Java web technologies and stores data in a Postgres database. The application frequently retrieves, modifies, and inserts large amounts of data into the database. All this communication is made by Java classes that send (complex) SQL queries to the database. </p>
+<p>As testers, we know that a bug can be anywhere, including in the SQL queries themselves. We also know that there are many ways to exercise our system. Which one of the following <strong>is not</strong> a good option to detect bugs in the SQL queries?</p>
+<ol>
+<li>Unit testing</li>
+<li>Integration testing</li>
+<li>System testing</li>
+<li>Stress testing</li>
+</ol>
+<p><strong>Exercise 6.</strong>
+Choosing the level of a test is a matter of a trade-off. After all, each 
+test level has advantages and disadvantages.
+Which one of the following is the <strong>main advantage</strong> of a test at system level?</p>
+<ol>
+<li>The interaction with the system is much closer to reality.</li>
+<li>In a continuous integration environment, system tests provide real feedback to developers.</li>
+<li>Given that system tests are never flaky, they provide developers with more stable feedback.</li>
+<li>A system test is written by product owners, making it closer to reality.</li>
+</ol>
+<p><strong>Exercise 7.</strong>
+What is the main reason for the number of recommended system tests in the testing pyramid to be smaller than the number of unit tests?</p>
+<ol>
+<li>Unit tests are as good as system tests.</li>
+<li>System tests do not provide developers with enough quality feedback.</li>
+<li>There are no good tools for system tests.</li>
+<li>System tests tend to be slow and often are non-deterministic.</li>
+</ol>
+<h2 id="references">References</h2>
+<ul>
+<li><p>Chapter 2 of the Foundations of software testing: ISTQB certification. Graham, Dorothy, Erik Van Veenendaal, and Isabel Evans, Cengage Learning EMEA, 2008.</p>
+</li>
+<li><p>Vocke, Ham. The Practical Test Pyramid (2018), <a href="https://martinfowler.com/articles/practical-test-pyramid.html" target="_blank">https://martinfowler.com/articles/practical-test-pyramid.html</a>.</p>
+</li>
+<li><p>Fowler, Martin. TestingPyramid (2012). <a href="https://martinfowler.com/bliki/TestPyramid.html" target="_blank">https://martinfowler.com/bliki/TestPyramid.html</a></p>
+</li>
+<li><p>Wikipedia. Exploratory testing. <a href="https://en.wikipedia.org/wiki/Exploratory_testing" target="_blank">https://en.wikipedia.org/wiki/Exploratory_testing</a>. Last access on March, 2020.</p>
+</li>
+<li><ul>
+<li>Winters, T., Manshreck, T., Wright, H. Software Engineering at Google: Lessons Learned from Programming Over Time. O&apos;Reilly, 2020. Chapters 11 and 12.</li>
+</ul>
+</li>
+</ul>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="./" class="navigation navigation-prev " aria-label="Previous page: Pragmatic software testing">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="test-doubles.html" class="navigation navigation-next " aria-label="Next page: Test doubles">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"The testing pyramid","level":"5.1.1","depth":2,"next":{"title":"Test doubles","level":"5.1.2","depth":2,"path":"chapters/pragmatic-testing/test-doubles.md","ref":"chapters/pragmatic-testing/test-doubles.md","articles":[]},"previous":{"title":"Pragmatic software testing","level":"5.1","depth":1,"path":"chapters/pragmatic-testing/README.md","ref":"chapters/pragmatic-testing/README.md","articles":[{"title":"The testing pyramid","level":"5.1.1","depth":2,"path":"chapters/pragmatic-testing/testing-pyramid.md","ref":"chapters/pragmatic-testing/testing-pyramid.md","articles":[]},{"title":"Test doubles","level":"5.1.2","depth":2,"path":"chapters/pragmatic-testing/test-doubles.md","ref":"chapters/pragmatic-testing/test-doubles.md","articles":[]},{"title":"Design for testability","level":"5.1.3","depth":2,"path":"chapters/pragmatic-testing/design-for-testability.md","ref":"chapters/pragmatic-testing/design-for-testability.md","articles":[]},{"title":"Test-driven development","level":"5.1.4","depth":2,"path":"chapters/pragmatic-testing/tdd.md","ref":"chapters/pragmatic-testing/tdd.md","articles":[]},{"title":"Test code quality and engineering","level":"5.1.5","depth":2,"path":"chapters/pragmatic-testing/test-code-quality.md","ref":"chapters/pragmatic-testing/test-code-quality.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/pragmatic-testing/testing-pyramid.md","mtime":"2020-05-06T06:51:15.981Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-12T08:20:42.325Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-ga/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

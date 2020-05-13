@@ -879,12 +879,11 @@ However, if the <code>&lt;condition&gt;</code> yields false, the <code>assert</c
 Suppose an implementation of a Stack, which we just show the <code>pop</code> method:</p>
 <pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyStack</span> </span>{
   <span class="hljs-function"><span class="hljs-keyword">public</span> Element <span class="hljs-title">pop</span><span class="hljs-params">()</span> </span>{
-    <span class="hljs-function"><span class="hljs-keyword">assert</span> <span class="hljs-title">count</span><span class="hljs-params">()</span> &gt; 0 : &quot; The stack does not have any elements to pop.&quot;
+    <span class="hljs-function"><span class="hljs-keyword">assert</span> <span class="hljs-title">count</span><span class="hljs-params">()</span> &gt; 0 : &quot;The stack does not have any elements to pop&quot;</span>;
 
     <span class="hljs-comment">// ... actual method body ...</span>
 
-    <span class="hljs-keyword">assert</span> <span class="hljs-title">count</span><span class="hljs-params">()</span> </span>== oldCount - <span class="hljs-number">1</span> : 
-        <span class="hljs-string">&quot;Size of stack did not decrease by one&quot;</span>;
+    <span class="hljs-function"><span class="hljs-keyword">assert</span> <span class="hljs-title">count</span><span class="hljs-params">()</span> </span>== oldCount - <span class="hljs-number">1</span> : <span class="hljs-string">&quot;Size of stack did not decrease by one&quot;</span>;
   }
 }
 </code></pre>
@@ -1331,7 +1330,7 @@ Because the <code>createList()</code> method returns an <code>ArrayList</code>, 
 See the code below:</p>
 <pre><code class="lang-java"><span class="hljs-function"><span class="hljs-keyword">public</span> Square <span class="hljs-title">squareAt</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y)</span> </span>{
   <span class="hljs-keyword">assert</span> x &gt;= <span class="hljs-number">0</span>;
-  <span class="hljs-keyword">assert</span> x &lt; board.getWidth();
+  <span class="hljs-keyword">assert</span> x &lt; board.length;
   <span class="hljs-keyword">assert</span> y &gt;= <span class="hljs-number">0</span>;
   <span class="hljs-keyword">assert</span> y &lt; board[x].length;
   <span class="hljs-keyword">assert</span> board != <span class="hljs-keyword">null</span>;
@@ -1500,7 +1499,7 @@ Which of the following is a valid reason to use assertions in your code?</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Design-by-contracts","level":"4.1.5","depth":2,"next":{"title":"Property-based testing","level":"4.1.6","depth":2,"path":"chapters/testing-techniques/property-based-testing.md","ref":"chapters/testing-techniques/property-based-testing.md","articles":[]},"previous":{"title":"Model-based testing","level":"4.1.4","depth":2,"path":"chapters/testing-techniques/model-based-testing.md","ref":"chapters/testing-techniques/model-based-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/testing-techniques/design-by-contracts.md","mtime":"2020-05-11T13:44:58.561Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-12T08:20:42.325Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Design-by-contracts","level":"4.1.5","depth":2,"next":{"title":"Property-based testing","level":"4.1.6","depth":2,"path":"chapters/testing-techniques/property-based-testing.md","ref":"chapters/testing-techniques/property-based-testing.md","articles":[]},"previous":{"title":"Model-based testing","level":"4.1.4","depth":2,"path":"chapters/testing-techniques/model-based-testing.md","ref":"chapters/testing-techniques/model-based-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/testing-techniques/design-by-contracts.md","mtime":"2020-05-13T09:40:48.243Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-13T09:40:51.613Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

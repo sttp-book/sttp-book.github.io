@@ -894,27 +894,27 @@ We end up with three partitions:<ul>
 </li>
 </ol>
 <p><strong>Exercise 4</strong></p>
-<p>There are no right or wrong answers to this exercise. 
+<p>There are no right or wrong answers to this exercise.
 It services to show that a lot of decisions that we make are based on what we know about the system (or, in this case, what we assume about the system).
 But, when context kicks in, there might be more possible invalid test cases then just the cases in the boundaries.</p>
 <p>Whatever decisions you as a tester make regarding specific invalid test cases, it is important to justify those decisions.
 For example:</p>
 <ul>
-<li>Do we feel the need of testing negative numbers separately from positive numbers? From the specification, there&apos;s no reason to do so. 
+<li>Do we feel the need of testing negative numbers separately from positive numbers? From the specification, there&apos;s no reason to do so.
 If you look at the source code (supposing you have access to the source code, does it make you feel like this test is needed?</li>
 <li>Do we feel the need of testing trailing zeroes? Maybe the user inputs a string which is converted later... Then, testing might be important.</li>
-<li>Do we feel the need to test extreme numbers, like Integer.MAX_VALUE or even passing a long int or float there? </li>
-<li>Do we feel the need to test with a string consisting of only 1 letter, or maybe more than 2 letters? 
-If there&apos;s no input validation, unintended behaviour might be right around the corner </li>
+<li>Do we feel the need to test extreme numbers, like Integer.MAX_VALUE or even passing a long int or float there?</li>
+<li>Do we feel the need to test with a string consisting of only 1 letter, or maybe more than 2 letters?
+If there&apos;s no input validation, unintended behaviour might be right around the corner</li>
 <li>Do we feel the need to test lowercase letters? Maybe the program can&apos;t distinguish between lower- and uppercase letters.</li>
 </ul>
 <p>Examples of possible invalid partitions:</p>
 <ol>
 <li>[Integer.MIN_VALUE, 999]</li>
-<li>[4001, Integer.MAX_VALUE] </li>
+<li>[4001, Integer.MAX_VALUE]</li>
 <li>[AA, B]</li>
 <li>[N, Z]</li>
-<li>[0000, 0999] </li>
+<li>[0000, 0999]</li>
 <li>[AAA, ZZZ]</li>
 </ol>
 <p><strong>Exercise 5</strong></p>
@@ -937,7 +937,7 @@ This is a functional testing technique. No need for source code.</p>
 </ol>
 <p><strong>Exercise 8</strong></p>
 <p>This focus of this exercise is for you to see that the internal state of the object should also be taken into account in the partitions (and not only the direct input variables).</p>
-<p>Input parameter e: </p>
+<p>Input parameter e:</p>
 <ul>
 <li>P1: Element not present in the set</li>
 <li>P2: Element already present in the set</li>
@@ -948,7 +948,7 @@ This is a functional testing technique. No need for source code.</p>
 <li>isFull == true</li>
 <li>isFull == false</li>
 </ul>
-<p>With the categories and partitions in hands, we can constrain the <code>isFull == true</code> and test it only once (i.e., without combining with other classes). </p>
+<p>With the categories and partitions in hands, we can constrain the <code>isFull == true</code> and test it only once (i.e., without combining with other classes).</p>
 <p>We then combine them all and end up with four tests:</p>
 <ul>
 <li>T1: isFull returns false, e: Element not present in the set</li>
@@ -1022,7 +1022,7 @@ As we last step we can identify duplicate tests and remove those.</p>
 <li>If <code>lives &lt;= 0</code>, we can test this with just one combination.</li>
 <li>If legs is an negative integer or 0, this is an exceptional case. Therefore it doesn&apos;t matter if the animal has sharp nails or not.</li>
 <li>If legs is not an even integer, we can test this with just one combination.</li>
-<li>If <code>lives &gt;= 10</code>, we can test this with just one combination. </li>
+<li>If <code>lives &gt;= 10</code>, we can test this with just one combination.</li>
 </ul>
 </li>
 <li>Test cases: Tests can be divided in 3 categories: is a cat, not a cat, exceptional cases.<ul>
@@ -1048,7 +1048,7 @@ As we last step we can identify duplicate tests and remove those.</p>
 </ul>
 </li>
 </ol>
-<p>Note that some tests can be combined! For example: </p>
+<p>Note that some tests can be combined! For example:</p>
 <ul>
 <li>TEST-1 from not a cat is the same as TEST-3 from exceptional</li>
 <li>TEST-3 from not a cat is the same as TEST-2 from exceptional</li>
@@ -1171,7 +1171,7 @@ This would require us to test all possible number of iterations.
 For the other answers we can come up with a test case: <code>&quot;aXYa&quot;</code></p>
 <p><strong>Exercise 9</strong></p>
 <p>First the condition coverage.
-When talking about condition coverage, we first have to split the condition on line 1 (n % 3 == 0 &amp;&amp; n % 5 == 0) 
+When talking about condition coverage, we first have to split the condition on line 1 (n % 3 == 0 &amp;&amp; n % 5 == 0)
 into two decision blocks for the CFG. In total, we will have 8 conditions:</p>
 <ol>
 <li>Line 1: <code>n % 3 == 0</code>, true and false</li>
@@ -1184,7 +1184,7 @@ into two decision blocks for the CFG. In total, we will have 8 conditions:</p>
 <li>condition 1 = [true: exercised, false: not exercised]</li>
 <li>condition 2 = [true: exercised, false: not exercised]</li>
 <li>condition 3 = [true: not exercised, false: not exercised]</li>
-<li>condition 4 = [true: not exercised, false: not exercised]. </li>
+<li>condition 4 = [true: not exercised, false: not exercised].</li>
 </ul>
 <p>At this moment, condition coverage = 2/8.</p>
 <p>For T2, the input number 8 is neither divisible by 3, nor divisible by 5. Therefore covers the cases of all 4 conditions to be false. We now have:</p>
@@ -1284,7 +1284,7 @@ Note that 2, 4, 5, 6 could also be a solution.</p>
 <li><code>A</code>: {(1, 3), (2, 4)}</li>
 <li><code>B</code>: { (empty) }</li>
 </ul>
-<p>We can see that there is no independence pair for <code>B</code>. 
+<p>We can see that there is no independence pair for <code>B</code>.
 Thus, <strong>it is not possible to achieve MC/DC coverage for this expression</strong>.</p>
 <p>Since there is no independence pair for <code>B</code>, this parameter has no effect on the result.
 We should recommend the developer to restructure the expression without using <code>B</code>, which will make the code easier to maintain.</p>
@@ -1540,7 +1540,7 @@ To achieve this we add the FFF and TFF decision as test cases.</p>
 <h2 id="design-by-contracts">Design-by-contracts</h2>
 <p><strong>Exercise 1</strong></p>
 <p><code>board != null</code></p>
-<p>For a class invariant the assertions has to assert a class variable.
+<p>For a class invariant the assertions have to assert a class variable.
 <code>board</code> is such a class variable, unlike the other variables that are checked by the assertions.
 The other assertions are about the parameters (preconditions) or the result (postcondition).</p>
 <p><strong>Exercise 2</strong></p>
@@ -1662,8 +1662,8 @@ We can give the <code>orderBook</code> and <code>delivery</code> in a parameter 
   }
 }
 </code></pre>
-<p>Which option we chose depends on the lifecycles of the various objects. If the <code>OrderDeliveryBatch</code> always applies to the same <code>OrderBook</code> and <code>DeliveryStartProcess</code>, then we would probably use the constructor, otherwise, we might use the method parameters. 
-Our choice expresses this runtime behaviour. </p>
+<p>Which option we chose depends on the lifecycles of the various objects. If the <code>OrderDeliveryBatch</code> always applies to the same <code>OrderBook</code> and <code>DeliveryStartProcess</code>, then we would probably use the constructor, otherwise, we might use the method parameters.
+Our choice expresses this runtime behaviour.</p>
 <p><strong>Exercise 2</strong></p>
 <p>The method and class lack controllability.
 We cannot change the values that <code>Calender</code> gives in the method because the <code>getInstance</code> method is static.
@@ -1673,15 +1673,15 @@ Mockito cannot really mock static methods, which is why we tend to avoid using s
 <p>The correct answer is 2, 3, and 4</p>
 <p>As we discussed it is very important to keep the domain and infrastructure separated for the testability.
 This can be done, for example, by using Ports and Adapters.</p>
-<p>Static methods that manipulate state are effectively Singletons and so can introduce implicit runtime dependencies that are 
+<p>Static methods that manipulate state are effectively Singletons and so can introduce implicit runtime dependencies that are
 difficult to control and so difficult to test. They are best used for helper methods where they either return a new result, packaging up
 constructors, or return a value based on their inputs. Otherwise, look for a non-static technique, such as calling an instance methods
 on some kind of context object.</p>
 <p>For a unit test, we&apos;re not concerned about the scale of the real data table, we need to know whether this functionality works in isolation.
 That said, if these lists are likely to be very large, we should prepare for that in our design and run some integration stress tests for scale.</p>
-<p>If you find yourself creating a lot of mocks to test a class, because it has a lot of dependencies, that usually a sign that 
+<p>If you find yourself creating a lot of mocks to test a class, because it has a lot of dependencies, that usually a sign that
 there are missing concepts in the code that would encapsulate some of those dependencies. It&apos;s time to step back and take another
-look at the design. </p>
+look at the design.</p>
 <p><strong>Exercise 4</strong></p>
 <ol>
 <li>Observability: The developer needs to be able to better observe the result.</li>
@@ -1813,7 +1813,7 @@ y = {<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Answers to the exercises","level":"10.1.1","depth":2,"next":{"title":"Domain testing examples","level":"10.1.2","depth":2,"path":"chapters/testing-techniques/domain-testing.md","ref":"chapters/testing-techniques/domain-testing.md","articles":[]},"previous":{"title":"Appendix","level":"10.1","depth":1,"ref":"","articles":[{"title":"Answers to the exercises","level":"10.1.1","depth":2,"path":"chapters/appendix/answers.md","ref":"chapters/appendix/answers.md","articles":[]},{"title":"Domain testing examples","level":"10.1.2","depth":2,"path":"chapters/testing-techniques/domain-testing.md","ref":"chapters/testing-techniques/domain-testing.md","articles":[]},{"title":"Change log","level":"10.1.3","depth":2,"path":"chapters/appendix/changelog.md","ref":"chapters/appendix/changelog.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/appendix/answers.md","mtime":"2020-05-14T11:46:25.290Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-14T11:46:29.517Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Answers to the exercises","level":"10.1.1","depth":2,"next":{"title":"Domain testing examples","level":"10.1.2","depth":2,"path":"chapters/testing-techniques/domain-testing.md","ref":"chapters/testing-techniques/domain-testing.md","articles":[]},"previous":{"title":"Appendix","level":"10.1","depth":1,"ref":"","articles":[{"title":"Answers to the exercises","level":"10.1.1","depth":2,"path":"chapters/appendix/answers.md","ref":"chapters/appendix/answers.md","articles":[]},{"title":"Domain testing examples","level":"10.1.2","depth":2,"path":"chapters/testing-techniques/domain-testing.md","ref":"chapters/testing-techniques/domain-testing.md","articles":[]},{"title":"Change log","level":"10.1.3","depth":2,"path":"chapters/appendix/changelog.md","ref":"chapters/appendix/changelog.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/appendix/answers.md","mtime":"2020-05-14T14:41:48.892Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-14T14:41:54.531Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

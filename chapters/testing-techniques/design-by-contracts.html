@@ -860,7 +860,7 @@ It does not add any behaviour to the system.</p>
 These assertions we insert into production code allows the system to check if it is running correctly by itself.
 We do not have to run the test suite, but instead the system can check (part of) its behaviour during its normal execution.
 Like with the test suite, if anything is not acting as expected, an error will be thrown.
-In software testing, the self-tests are used as an additional check in the system additional to the test suite.</p>
+In software testing, the self-tests are used as an additional check in the system complementary to the test suite.</p>
 <h3 id="assertions">Assertions</h3>
 <p>The simplest form of this self-testing is the <em>assertion</em>.
 An assertion is a Boolean expression at a specific point in a program
@@ -876,7 +876,7 @@ If it is, nothing happens.
 The program just continues its execution as everything is according to plan.
 However, if the <code>&lt;condition&gt;</code> yields false, the <code>assert</code> throws an <code>AssertionError</code>.</p>
 <p>Let us walk through an example.
-Suppose an implementation of a Stack, which we just show the <code>pop</code> method:</p>
+Take the implementation of a Stack, of which we just show the <code>pop</code> method:</p>
 <pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyStack</span> </span>{
   <span class="hljs-function"><span class="hljs-keyword">public</span> Element <span class="hljs-title">pop</span><span class="hljs-params">()</span> </span>{
     <span class="hljs-function"><span class="hljs-keyword">assert</span> <span class="hljs-title">count</span><span class="hljs-params">()</span> &gt; 0 : &quot;The stack does not have any elements to pop&quot;</span>;
@@ -914,7 +914,7 @@ whether the software behaved correctly.</p>
 we devised, we knew what output to expect. For example, in a program that
 returns the square root of a number, given <code>n=4</code>, the value we expect as output
 is <code>2</code>.
-Instead of focusing on a specific instances, like we did so far, property checks, like the ones we are going to see in the remaining of this chapter, are more general rules (properties) that we assert on our code. For example, a program that, given <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span></span></span></span>, returns <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>n</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">n^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">n</span><span class="msupsub"><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle uncramped mtight"><span class="mord mathrm mtight">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span></span></span></span>, has a property that it should never return a negative number.</p>
+Instead of focusing on a specific instance, like we did so far, property checks, like the ones we are going to see in the remainder of this chapter, are more general rules (properties) that we assert on our code. For example, a program that, given <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span></span></span></span>, returns <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>n</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">n^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">n</span><span class="msupsub"><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle uncramped mtight"><span class="mord mathrm mtight">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span></span></span></span>, has a property that it should never return a negative number.</p>
 <p>Assertions also serve as an extra safety measure.
 If it is crucial that a system runs correctly, we can use the asserts to add some additional testing during the system&apos;s execution.</p>
 <p>Note that assertions do not replace unit tests.
@@ -982,7 +982,7 @@ This also cannot be <code>null</code> because then it is not possible to call <c
 <p>One might want to <em>weaken the pre-conditions</em>, so that the method accepts/is able to handle more situations.
 To that aim, we can remove a pre-condition as the method itself can handle the situation where the pre-condition would be false.
 This makes the method more generally applicable, but also increases its complexity.
-The method always has to check some extra things to handle the cases that could had been pre-conditions.
+The method always has to check some extra things to handle the cases that could have been pre-conditions.
 Finding the balance between the number of pre-conditions and complexity of the method is part of designing the system.</p>
 <p>We can remove some of the pre-conditions of the <code>merge</code> method by adding some if-statements to the method.
 First, we can try to remove the <code>!books.isEmpty()</code> assertions.
@@ -1020,7 +1020,7 @@ This means that the method <code>merge</code> has to handle empty <code>books</c
   }
 }
 </code></pre>
-<p>Note that, although we increased the complexity of method by removing some of its pre-conditions and dealing with these cases in the implementation, the method is now also easier to be called by clients. After all, the method has less pre-conditions to be considered.</p>
+<p>Note that, although we increased the complexity of the method by removing some of its pre-conditions and dealing with these cases in the implementation, the method is now also easier to be called by clients. After all, the method has less pre-conditions to be considered.</p>
 <h3 id="post-conditions">Post-conditions</h3>
 <p>The pre-conditions of a method hold when the method is called. At the end of the method, its <strong>post-conditions</strong> should hold.
 In other words, the post-conditions formalise the effects that a method guarantees to have when it is done with its execution.</p>
@@ -1046,11 +1046,11 @@ Let us turn this into a Boolean expression, so we can formulate this as a post-c
 }
 </code></pre>
 <p>The other effect of the method is the notification that is sent.
-Unfortunately, we cannot easily formalise it as a post-condition.
+Unfortunately, we cannot easily formalise this as a post-condition.
 In a test suite, we would probably mock the <code>pushNotification</code> and then use <code>Mockito.verify</code> to verify that <code>booksAdded</code> was called.</p>
 <p>It is important to realise that these post-conditions only have to hold if the pre-conditions held when the method was called. <strong>In other words, if the method&apos;s pre-conditions were not fully satisfied, the method might not guarantee its post-conditions.</strong></p>
 <p>You also saw in the example that we could not really write assertions for
-some of post-conditions of the method. 
+some of the post-conditions of the method. 
 Post-conditions (and pre-conditions for that matter) might not cover all the possible effects; however,
 hopefully they do cover a relevant subset of the possible behaviour.</p>
 <p>For complex methods, the post-conditions also become more complex.
@@ -1402,7 +1402,7 @@ Your colleague decides to implement this by making Square inherit from Rectangle
 <p>Inspired by Bertrand Meyer&apos;s design by contracts, he also uses asserts to make sure contracts are followed. He explicitly defines pre-conditions and post-conditions in various methods of the base Rectangle class and the derived Square class.</p>
 <p>A second colleague comes in and expresses concerns about the design.
 How can you use the assertions provided to discuss the correctness of this design?</p>
-<p>Is the second colleagues concern justified?
+<p>Is the second colleague&apos;s concern justified?
 What principle is violated, if any?
 Explain with the assertions shown in the code.</p>
 <p><strong>Exercise 4.</strong>
@@ -1499,7 +1499,7 @@ Which of the following is a valid reason to use assertions in your code?</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Design-by-contracts","level":"4.1.5","depth":2,"next":{"title":"Property-based testing","level":"4.1.6","depth":2,"path":"chapters/testing-techniques/property-based-testing.md","ref":"chapters/testing-techniques/property-based-testing.md","articles":[]},"previous":{"title":"Model-based testing","level":"4.1.4","depth":2,"path":"chapters/testing-techniques/model-based-testing.md","ref":"chapters/testing-techniques/model-based-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/testing-techniques/design-by-contracts.md","mtime":"2020-05-13T09:40:48.243Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-14T11:46:29.517Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Design-by-contracts","level":"4.1.5","depth":2,"next":{"title":"Property-based testing","level":"4.1.6","depth":2,"path":"chapters/testing-techniques/property-based-testing.md","ref":"chapters/testing-techniques/property-based-testing.md","articles":[]},"previous":{"title":"Model-based testing","level":"4.1.4","depth":2,"path":"chapters/testing-techniques/model-based-testing.md","ref":"chapters/testing-techniques/model-based-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/testing-techniques/design-by-contracts.md","mtime":"2020-05-14T14:41:48.893Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-14T14:41:54.531Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

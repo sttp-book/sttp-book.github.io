@@ -955,7 +955,7 @@ It connects to the database using some global properties.</p>
     invoices = <span class="hljs-keyword">new</span> IssuedInvoices();
   }
 
-  <span class="hljs-meta">@AfterEach</span> <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">close</span><span class="hljs-params">()</span>) </span>{
+  <span class="hljs-meta">@AfterEach</span> <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">close</span><span class="hljs-params">()</span> </span>{
     <span class="hljs-keyword">if</span> (invoices != <span class="hljs-keyword">null</span>) invoices.close();
   }
 
@@ -1235,7 +1235,7 @@ case, a <code>Clock</code> abstraction can do the job:</p>
   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">InvoiceFilter</span><span class="hljs-params">(IssuedInvoices issuedInvoices)</span> </span>{
     <span class="hljs-keyword">this</span>.issuedInvoices = issuedInvoices;
   }
-  <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;Invoice&gt; <span class="hljs-title">InvoicelowValueInvoices</span><span class="hljs-params">()</span> </span>{
+  <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;Invoice&gt; <span class="hljs-title">lowValueInvoices</span><span class="hljs-params">()</span> </span>{
       <span class="hljs-keyword">return</span> issuedInvoices.all().stream()
               .filter(invoice -&gt; invoice.value &lt; <span class="hljs-number">100</span>)
               .collect(toList());
@@ -1356,7 +1356,7 @@ Below, we show the <code>InvoiceFilter</code> class. This class is responsible f
 Class A depends on a static method in another class B. If you want to test class A, which of the following two action(s) should you apply to do this properly?</p>
 <ul>
 <li>Approach 1: Mock class B to control the behavior of the methods in class B.</li>
-<li>Approach 2: Refactor class A, so the outcome of the method of class B is now used as an parameter.</li>
+<li>Approach 2: Refactor class A, so the outcome of the method of class B is now used as a parameter.</li>
 </ul>
 <ol>
 <li>Only approach 1.</li>
@@ -1432,7 +1432,7 @@ Referring to the previous chapter, apply boundary testing techniques to the <cod
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Test doubles","level":"5.1.2","depth":2,"next":{"title":"Design for testability","level":"5.1.3","depth":2,"path":"chapters/pragmatic-testing/design-for-testability.md","ref":"chapters/pragmatic-testing/design-for-testability.md","articles":[]},"previous":{"title":"The testing pyramid","level":"5.1.1","depth":2,"path":"chapters/pragmatic-testing/testing-pyramid.md","ref":"chapters/pragmatic-testing/testing-pyramid.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/pragmatic-testing/test-doubles.md","mtime":"2020-05-15T11:38:06.331Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-15T13:59:19.392Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Test doubles","level":"5.1.2","depth":2,"next":{"title":"Design for testability","level":"5.1.3","depth":2,"path":"chapters/pragmatic-testing/design-for-testability.md","ref":"chapters/pragmatic-testing/design-for-testability.md","articles":[]},"previous":{"title":"The testing pyramid","level":"5.1.1","depth":2,"path":"chapters/pragmatic-testing/testing-pyramid.md","ref":"chapters/pragmatic-testing/testing-pyramid.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/pragmatic-testing/test-doubles.md","mtime":"2020-05-15T14:48:52.976Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-15T14:48:56.255Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

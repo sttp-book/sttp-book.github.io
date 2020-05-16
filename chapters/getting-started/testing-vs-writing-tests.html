@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Test-driven development · GitBook</title>
+        <title>Testing vs writing tests · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="test-code-quality.html" />
+    <link rel="next" href="developer-testing-workflow.html" />
     
     
-    <link rel="prev" href="design-for-testability.html" />
+    <link rel="prev" href="test-automation.html" />
     
 
     </head>
@@ -194,9 +194,9 @@
         
         
     
-        <li class="chapter " data-level="3.1" data-path="../getting-started/">
+        <li class="chapter " data-level="3.1" data-path="./">
             
-                <a href="../getting-started/">
+                <a href="./">
             
                     
                     Getting started with software testing
@@ -208,9 +208,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="3.1.1" data-path="../getting-started/why-software-testing.html">
+        <li class="chapter " data-level="3.1.1" data-path="why-software-testing.html">
             
-                <a href="../getting-started/why-software-testing.html">
+                <a href="why-software-testing.html">
             
                     
                     Why software testing?
@@ -221,9 +221,9 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.2" data-path="../getting-started/testing-principles.html">
+        <li class="chapter " data-level="3.1.2" data-path="testing-principles.html">
             
-                <a href="../getting-started/testing-principles.html">
+                <a href="testing-principles.html">
             
                     
                     Principles of software testing
@@ -234,9 +234,9 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.3" data-path="../getting-started/test-automation.html">
+        <li class="chapter " data-level="3.1.3" data-path="test-automation.html">
             
-                <a href="../getting-started/test-automation.html">
+                <a href="test-automation.html">
             
                     
                     Software testing automation
@@ -247,9 +247,9 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.4" data-path="../getting-started/testing-vs-writing-tests.html">
+        <li class="chapter active" data-level="3.1.4" data-path="testing-vs-writing-tests.html">
             
-                <a href="../getting-started/testing-vs-writing-tests.html">
+                <a href="testing-vs-writing-tests.html">
             
                     
                     Testing vs writing tests
@@ -260,9 +260,9 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.5" data-path="../getting-started/developer-testing-workflow.html">
+        <li class="chapter " data-level="3.1.5" data-path="developer-testing-workflow.html">
             
-                <a href="../getting-started/developer-testing-workflow.html">
+                <a href="developer-testing-workflow.html">
             
                     
                     The developer testing workflow
@@ -389,9 +389,9 @@
         
         
     
-        <li class="chapter " data-level="5.1" data-path="./">
+        <li class="chapter " data-level="5.1" data-path="../pragmatic-testing/">
             
-                <a href="./">
+                <a href="../pragmatic-testing/">
             
                     
                     Pragmatic software testing
@@ -403,9 +403,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="5.1.1" data-path="testing-pyramid.html">
+        <li class="chapter " data-level="5.1.1" data-path="../pragmatic-testing/testing-pyramid.html">
             
-                <a href="testing-pyramid.html">
+                <a href="../pragmatic-testing/testing-pyramid.html">
             
                     
                     The testing pyramid
@@ -416,9 +416,9 @@
             
         </li>
     
-        <li class="chapter " data-level="5.1.2" data-path="test-doubles.html">
+        <li class="chapter " data-level="5.1.2" data-path="../pragmatic-testing/test-doubles.html">
             
-                <a href="test-doubles.html">
+                <a href="../pragmatic-testing/test-doubles.html">
             
                     
                     Test doubles
@@ -429,9 +429,9 @@
             
         </li>
     
-        <li class="chapter " data-level="5.1.3" data-path="design-for-testability.html">
+        <li class="chapter " data-level="5.1.3" data-path="../pragmatic-testing/design-for-testability.html">
             
-                <a href="design-for-testability.html">
+                <a href="../pragmatic-testing/design-for-testability.html">
             
                     
                     Design for testability
@@ -442,9 +442,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="5.1.4" data-path="tdd.html">
+        <li class="chapter " data-level="5.1.4" data-path="../pragmatic-testing/tdd.html">
             
-                <a href="tdd.html">
+                <a href="../pragmatic-testing/tdd.html">
             
                     
                     Test-driven development
@@ -455,9 +455,9 @@
             
         </li>
     
-        <li class="chapter " data-level="5.1.5" data-path="test-code-quality.html">
+        <li class="chapter " data-level="5.1.5" data-path="../pragmatic-testing/test-code-quality.html">
             
-                <a href="test-code-quality.html">
+                <a href="../pragmatic-testing/test-code-quality.html">
             
                     
                     Test code quality and engineering
@@ -880,7 +880,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="../.." >Test-driven development</a>
+        <a href="../.." >Testing vs writing tests</a>
     </h1>
 </div>
 
@@ -895,168 +895,54 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="test-driven-development">Test-Driven Development</h1>
-<p>So far in this book, our approach to testing has been the following: we wrote the production code first, and after that we moved on to writing the tests.
-One disadvantage of this approach is that this creates a delay before we have tests, causing us to miss the &quot;design feedback&quot; that our tests can give us.</p>
-<p>Test-Driven Development (TDD) proposes the opposite: to write the tests before the production code.</p>
-<p>In this chapter, we will:</p>
-<ol>
-<li>Introduce the reader to the TDD cycle.</li>
-<li>Discuss the advantages of TDD.</li>
-<li>Discuss whether developers should adhere 100% to TDD.</li>
-</ol>
-<h2 id="the-tdd-cycle">The TDD cycle</h2>
-<p>The TDD cycle is illustrated in the diagram below:</p>
-<p><img src="img/tdd/tdd_cycle.svg" alt="Test Driven Development Cycle"></p>
-<p>With a given requirement, we start by thinking of test cases. 
-Often the simplest test case we can think of will take us a step further in implementing this requirement.
-We try to answer the question: what is the next input we want our code to be able to handle, and what output should it give?
-We then write the corresponding test.
-The test will probably fail, as we have not written the production code yet.
-With this failing test, we write the production code that makes the test pass.
-In doing this, the aim is to write the simplest production code that makes the test pass.
-Once this is achieved, it is time to refactor the code we have written. This is because, when focusing on making the test
-pass, we might have ignored the quality of our production code.
-We then repeat the process from the beginning. We stop once we are satisfied with our implementation and
-the requirement is met.</p>
-<h2 id="advantages-of-tdd">Advantages of TDD</h2>
-<p>TDD has several advantages:</p>
+                                <h1 id="testing-vs-writing-tests">Testing vs Writing Tests</h1>
+<p><strong>TL;DR: Testing is different from writing tests. Developers write tests as a a way to give them space to think and confidence for refactoring. Testing focuses on finding bugs. Both should be done.</strong></p>
+<p>We are right now at a point where developers do know that they need to write automated tests. After all, ideas such as Kent Beck&apos;s <a href="https://en.wikipedia.org/wiki/Extreme_programming" target="_blank">Extreme Programming</a> and <a href="https://sttp.site/chapters/pragmatic-testing/tdd.html" target="_blank">Test-Driven Development</a>, Michael Feather&apos;s on the <a href="https://medium.com/r/?url=https%3A%2F%2Fvimeo.com%2F15007792" target="_blank">synergy between testing and design</a>, Steve Freeman&apos;s and Nat Pryce&apos;s on <a href="https://medium.com/r/?url=https%3A%2F%2Fwww.amazon.de%2FGrowing-Object-Oriented-Software-Addison-Wesley-Signature%2Fdp%2F0321503627" target="_blank">how to grow an Object-Oriented software guided by tests</a>, DHH and Ruby on Rails on <a href="https://medium.com/r/?url=http%3A%2F%2Fguides.rubyonrails.org%2Ftesting.html" target="_blank">making sure that a web framework comes with a testing framework</a>, etc, really sticked.</p>
+<p>These ideas sticked with me as well. I have been trying to write as many automated tests as I can for the software systems I work since 2007 (I can tell the history of how traumatic my 2006 project was in a later post). I was so excited about Test-Driven Development that I even made it the topic of my MSc thesis. In 2012, I thought I had enough experience with the topic, so I decided to <a href="https://medium.com/r/?url=https%3A%2F%2Fwww.casadocodigo.com.br%2Fproducts%2Flivro-tdd" target="_blank">write a book about how I was practicing TDD</a>, as well as a <a href="https://medium.com/r/?url=https%3A%2F%2Fwww.casadocodigo.com.br%2Fproducts%2Flivro-testes-de-software" target="_blank">book on the basics of tools like JUnit and Selenium</a> (unfortunately, only available in Brazilian Portuguese).
+After many years of pair programming, I see developers using automated test code as a sort of support net. The tests enabled them to clearly think about what they want to implement, and supported them throughout the innumerous refactorings they apply.</p>
+<p>In fact, research has shown quite a few times that doing TDD can improve your class design (see <a href="http://digitalcommons.calpoly.edu/cgi/viewcontent.cgi?article=1039&amp;context=csse_fac" target="_blank">Janzen</a>, <a href="http://digitalcommons.calpoly.edu/cgi/viewcontent.cgi?article=1030&amp;context=csse_fac" target="_blank">Janzen and Saiedian</a>, <a href="https://www.semanticscholar.org/paper/An-Initial-Investigation-of-Test-Driven-Development-George-Williams/66869075d20858a2e9af144b2749a055c6b03177" target="_blank">George and Williams</a>, <a href="http://eisc.univalle.edu.co/materias/TPS/archivos/articulosPruebas/test_first_design.pdf" target="_blank">Langr</a>, <a href="https://link.springer.com/article/10.1007/s11219-011-9130-2" target="_blank">Dogsa and Batic</a>, <a href="https://pdfs.semanticscholar.org/16d4/2a1eaefb1f404f6da91b12d6c0e710dacb9d.pdf" target="_blank">Munir</a>, <a href="https://pdfs.semanticscholar.org/16d4/2a1eaefb1f404f6da91b12d6c0e710dacb9d.pdf" target="_blank">Moyaaed and Petersen</a>, <a href="https://journal-bcs.springeropen.com/articles/10.1186/s13173-015-0034-z" target="_blank">myself</a>, among others). Recently, <a href="https://arxiv.org/pdf/1611.05994.pdf" target="_blank">Fucci et al.</a> even argued that the important part is to write tests (and it doesn&apos;t matter whether it&apos;s before or after). This is also the perception of practitioners, where I quote a recent blog post from Feathers: <em>&quot;That&apos;s the magic, and it&apos;s why unit testing works also. When you write unit tests, TDD-style or after your development, you scrutinize, you think, and often you prevent problems without even encountering a test failure.&quot;</em></p>
+<hr>
+<p>Writing automated tests is therefore something to be recommended.</p>
+<p>Pragmatically speaking, I feel that, when using test code as a way to strengthen confidence, good weather tests are often enough. And indeed, there is no need for a lot of knowledge or theories to test good weather, but knowing how to make testing possible (developers talk a lot about designing for testability) and to use the best tools available (and developers indeed master tools like JUnit, Mockito, and Selenium).</p>
+<p>What I argue is that, after implementing the production code (with all the support from the good weather test code), the next step should then be about testing it properly. Software testing is about finding many bugs; it is about exploring how your system behaves not only in good weather, but also in exceptional and corner cases.</p>
+<p>I recently asked my 1st year CS students on what kinds of mistakes they have done in their programs so far, which have taught them that the testing is important. I got a huge list:</p>
 <ul>
-<li><p><strong>By creating the test first, we also look at the requirements first.</strong>
-This makes us write the code for the specific problem that it is supposed to solve.
-In turn, this prevents us from writing unnecessary code.</p>
-</li>
-<li><p><strong>We can control our pace of writing production code.</strong>
-Once we have a failing test, our goal is clear: to make the test pass.
-With the test that we create, we can control the pace we follow when writing the production code.
-If we are confident about how to solve the problem, we can make a big step by creating a complicated test.
-However, if we are not sure how to tackle the problem, we can break it into smaller parts and start by creating tests for these and then proceed with the other parts.</p>
-</li>
-<li><p><strong>The tests are derived from the requirements.</strong>
-Therefore, we know that, when the tests pass, the code does what it is supposed to do.
-If we write tests using code that has already been written, the tests might pass but the code might not be doing the right thing.
-The tests also show us how easy it is to use the class we just made.
-We are using the class directly in the tests so we know immediately when we can improve something.</p>
-</li>
-<li><p><strong>Testable code from the beginning.</strong>
-Creating the tests first makes us think about the way to test the classes before implementing them. After all, we need testable classes from the beginning, if we start from the test code. Because TDD forces developers to change how they design their code, it improves the testability, and more specifically also the controllability of our code. We already talked about the importance of this aspect when creating automated tests. Controllable code will be easier to test, resulting in improved code quality. </p>
-</li>
-<li><p><strong>Quick feedback on the code that we are writing.</strong>
-Instead of writing a lot of code and then a lot of tests, i.e. getting a lot of feedback at once after a long period of time, we create a test and then write a small piece of code for that test.
-It becomes easier to identify new problems as they arise, because they relate to the small amount of code that was added last.
-In addition, if we want to change something, it will be easier to do on a relatively small amount of code.</p>
-</li>
-<li><p><strong>Baby steps</strong>: TDD encourages developers to work in small (baby) steps: first define the smallest possible functionality, then write the simplest code that makes the test green, and carry out one refactoring at a time.</p>
-</li>
-<li><p><strong>Feedback on design</strong>. The properties of the tests we write can indicate certain types of problems in the code.
-This is why Test-Driven Development is sometimes called <em>Test-Driven Design</em>. We discussed design for testability in
-a previous chapter. You might get information about the quality of your design by looking at the tests during the writing process.
-For example, too many tests for just one class can indicate that the class has too many functionalities and that it should be split up into more classes.
-If we need too many mocks inside of the tests, the class might be too coupled, i.e. it needs too many other classes to function.
-If it is very complex to set everything up for the test, we may have to think about the pre-conditions that the class uses.
-Maybe there are too many pre-conditions or maybe some are not necessary.
-All of this can be observed in the tests, while doing TDD.
-It is good to think about design early on as it is easier to change the design of a class at the beginning of the development, rather than a few months later.</p>
-</li>
+<li>Programs that don&apos;t work when a loop doesn&apos;t iterate (the loop condition was never evaluated to true, and the program crashed).</li>
+<li>Programs that don&apos;t work because they missed some last iteration (the famous off-by-one error).</li>
+<li>Programs that don&apos;t work when inputs are invalid, such as null, or do not conform to what&apos;s expected (e.g., a string that represents the name of a file to open containing an extra space at the beginning).</li>
+<li>Programs that don&apos;t work because the value is either out of boundaries or in the boundary. For example, if you have an if that expects a number to be greater than 10, what happens if the number is smaller than 10? Or precisely 10?</li>
+<li>Dependencies that are not there, e.g., your program reads from a file, but the file may not be there.</li>
+<li>Among others.</li>
 </ul>
-<h2 id="should-i-do-tdd-100-of-the-time">Should I do TDD 100% of the time?</h2>
-<p>Given all these advantages, should we use TDD 100% of time?
-There is, of course, no universal answer. While some research shows the advantages of TDD, others throw more doubt on it.</p>
-<p>Our pragmatic suggestion is:</p>
+<p>Regardless of your experience, I am sure you also have faced some of these bugs before. <em>But how often do developers actually explore and write such test cases?</em>
+I feel not that much. (If you are an empirical software engineering researcher, this is a good question to answer).</p>
+<p><a href="https://www.amazon.de/Testing-Object-Oriented-Systems-Addison-wesley-Technology/dp/0201809389" target="_blank">Robert Binder in his 2000 book</a> (p.45) makes a distinction between &quot;fault-directed&quot; versus&quot; &quot;conformance directed&quot; testing:</p>
 <ul>
-<li><p>You should use TDD when you do not know how to design and/or architect a part of the system. TDD might help you to explore
-different design decisions.</p>
-</li>
-<li><p>You should use TDD when you are dealing with a complex problem, a problem in which you lack experience. If you are facing a
-new challenging implementation, TDD might help you in taking a step back and learn on the way. The use of baby steps might
-help you to start slowly, to learn more about the requirement, and to get up to speed once you are more familiar with the problem.</p>
-</li>
-<li><p>You should not use TDD when you are familiar with the problem, or the design decisions are clear in your mind.
-If there is &quot;nothing to be learned or explored&quot;, TDD might not really afford any significant benefit. However, we note that, even if you
-are not doing TDD, you should write tests in a timely manner. Do not leave it for the end of the day or the end of a sprint.
-Write them together with the production code, so that the growing automated test suite will give you more and more confidence 
-about the code.</p>
-</li>
+<li>Fault directed: Intent to reveal faults through failures.</li>
+<li>Conformance directed: Intent to demonstrate conformance to required capabilities (e.g. Meets a user story, focus on good weather behavior).</li>
 </ul>
-<h2 id="exercises">Exercises</h2>
-<p><strong>Exercise 1.</strong>
-We have the following skeleton for a diagram illustrating the Test Driven Development cycle.
-What words/sentences should be at the numbers?</p>
-<p><img src="img/tdd/exercises/tdd_skeleton.svg" alt="Test Driven Development exercise skeleton"></p>
-<p>(Try to answer the question without scrolling up!)</p>
-<p><strong>Exercise 2.</strong>
-Remember the <code>RomanNumeral</code> problem?</p>
-<blockquote>
-<p><strong>The Roman Numeral problem</strong></p>
-<p>It is our goal to implement a program that receives a string 
-as a parameter containing a roman number and then 
-converts it to an integer.</p>
-<p>In roman numeral, letters represent values:</p>
+<p>I argue that a strong developer should test from both perspectives. They are complementary.</p>
+<hr>
+<p>It is clear that, when it comes to software testing, <a href="https://ieeexplore.ieee.org/abstract/document/8048625/" target="_blank">researchers and practitioners talk about different topics</a>. Very good pragmatic books, like <a href="https://pragprog.com/book/utj2/pragmatic-unit-testing-in-java-8-with-junit" target="_blank">Pragmatic Unit Testing in Java 8 with JUnit</a>, have a strong focus on how to do test automation. While they provide good tips on what to test (the chapters on <a href="https://media.pragprog.com/titles/utj2/bicep.pdf" target="_blank">CORRECT and RIGHT-BICEP</a> in the PragProg book is definitely interesting), they usually don&apos;t go beyond it.</p>
+<p>On the other hand, software testing books from academia, my favorite being <a href="https://www.amazon.com/Software-Testing-Analysis-Principles-Techniques/dp/0471455938" target="_blank"><em>Software Testing Analysis</em></a> from Young and Pezz&#xE8;, have a strong focus on theories and techniques on how to design test cases that explore as much as one can from the program under test. However, with not so many timely examples on how to apply these ideas, which is definitely a requirement for practitioners.</p>
+<p>As a developer, if you want to take your testing to the next level, you should definitely get familiar with both perspectives. Some examples (but definitely not a complete list):</p>
 <ul>
-<li>I = 1</li>
-<li>V = 5</li>
-<li>X = 10</li>
-<li>L = 50</li>
-<li>C = 100</li>
-<li>D = 500</li>
-<li>M = 1000</li>
+<li>Understand <em>domain testing</em>. Exploring the domain of the problem and its boundaries is still the best way to design good test cases.</li>
+<li>Making use of <a href="http://laser.cs.umass.edu/courses/cs521-621/papers/ZhuHallMay.pdf" target="_blank">structural testing</a> as it was meant to be (and not simply trying to achieve a certain level of code coverage).</li>
+<li>Detecting whether some test suite is able to detect possible bugs. The idea of <a href="https://research.google.com/pubs/archive/46584.pdf" target="_blank">mutation testing has being applied at Google</a>.</li>
+<li>Deriving <a href="https://pure.tudelft.nl/portal/en/publications/an-experience-report-on-applying-passive-learning-in-a-largescale-payment-company(b463c54a-d69f-4db4-9fcc-cbeb6e2ddf09" target="_blank">models from your production system logs and build models</a>.html) that can be analysed by domain experts.</li>
+<li>Automatically generating tests (the famous example is <a href="https://pdfs.semanticscholar.org/216b/98bb3d9221d5f5d261864975612e4d0faaa6.pdf" target="_blank">EvoSuite</a>, which is able to generate tests for Java classes) or to automatically reproduce crashes. I myself worked on <a href="https://pure.tudelft.nl/portal/en/publications/searchbased-test-data-generation-for-sql-queries(90a6431f-f78f-4ac3-bf87-c052cd9cd5d4" target="_blank">automatically generating tests for SQL queries</a>.html).</li>
+<li>Several tools for testing web applications, like automatically exploring the web app looking for crashes as well as <a href="https://github.com/EMResearch/EvoMaster/blob/master/docs/publications/2017_qrs.pdf" target="_blank">finding crashes in REST APIs</a>. More can be found in this <a href="https://www.sciencedirect.com/science/article/pii/S0164121214000223" target="_blank">web testing literature review</a>.</li>
+<li>Property-based testing is also getting to practitioners by means of tools like ScalaCheck and <a href="https://jqwik.net" target="_blank">JQWik</a>.</li>
 </ul>
-<p>Letters can be combined to form numbers.
-For example we make 6 by using <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>5</mn><mo>+</mo><mn>1</mn><mo>=</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">5 + 1 = 6</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">5</span><span class="mbin">+</span><span class="mord mathrm">1</span><span class="mrel">=</span><span class="mord mathrm">6</span></span></span></span> and 
-have the roman number &quot;VI&quot;.
-Example: 7 is &quot;VII&quot;, 11 is &quot;XI&quot; and 101 is &quot;CI&quot;.
-Some numbers need to make use of a subtractive notation 
-to be represented.
-For example we make 40 not by &quot;XXXX&quot;, but 
-instead we use <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>5</mn><mn>0</mn><mo>&#x2212;</mo><mn>1</mn><mn>0</mn><mo>=</mo><mn>4</mn><mn>0</mn></mrow><annotation encoding="application/x-tex">50 - 10 = 40</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">5</span><span class="mord mathrm">0</span><span class="mbin">&#x2212;</span><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mrel">=</span><span class="mord mathrm">4</span><span class="mord mathrm">0</span></span></span></span> and have the roman number &quot;XL&quot;.
-Other examples: 9 is &quot;XI&quot;, 40 is &quot;XL&quot;, 14 is &quot;XIV&quot;.</p>
-<p>The letters should be ordered from the highest to the lowest value.
-The values of each individual letter is added together.
-Unless the subtractive notation is used in which a letter 
-with a lower value is placed in front of a letter with a higher value.</p>
-<p>Combining both these principles we could give our 
-method &quot;MDCCCXLII&quot; and it should return 1842.</p>
-</blockquote>
-<p>Implement this program. Practise TDD!</p>
-<p><strong>Exercise 3.</strong>
-Which of the following <strong>is the least important</strong> reason to do Test-Driven Development?</p>
-<ol>
-<li>As a consequence of the practice of TDD, software systems get tested completely.</li>
-<li>TDD practitioners use the feedback from the test code as a design hint.</li>
-<li>The practice of TDD enables developers to have steady, incremental progress throughout the development of a feature.</li>
-<li>The use of mock objects helps developers to understand the relationships between objects.</li>
-</ol>
-<p><strong>Exercise 4.</strong>
-TDD has become a really popular practice among developers. According to them, TDD has several benefits. Which of the following statements 
-<strong>is not</strong> considered a benefit which results from the practice of TDD?</p>
-<p><em>Note:</em> We are looking from the perspective of developers, which may not always match the results of empirical research.</p>
-<ol>
-<li><p>Better team integration. Writing tests is a social activity and makes the team more aware of their code quality. </p>
-</li>
-<li><p>Baby steps. Developers can take smaller steps whenever they feel this is necessary.</p>
-</li>
-<li><p>Refactoring. The cycle prompts developers to improve their code constantly.</p>
-</li>
-<li><p>Design for testability. Developers are &quot;forced&quot; to write testable code from the beginning.</p>
-</li>
-</ol>
-<h2 id="references">References</h2>
+<hr>
+<p>Writing tests is different from testing. They both provide developers with different outcomes. The former gives confidence and support throughout development. The latter makes sure the software will really work in all cases. While they are both important, it&apos;s about time for both communities to get aligned:</p>
 <ul>
-<li><p>Beck, K. (2003). Test-driven development: by example. Addison-Wesley Professional.</p>
-</li>
-<li><p>Martin R (2006) Agile principles, patterns, and practices in C#. 1st edition. Prentice Hall, Upper Saddle River.</p>
-</li>
-<li><p>Steve Freeman, Nat Pryce (2009) Growing object-oriented software, Guided by Tests. 1st edition. Addison-Wesley Professional, Boston, USA.</p>
-</li>
-<li><p>Astels D (2003) Test-driven development: a practical guide. 2nd edition. Prentice Hall.</p>
-</li>
-<li><p>Janzen D, Saiedian H (2005) Test-driven development concepts, taxonomy, and future direction. Computer 38(9): 43&#x2013;50. doi:10.1109/MC.2005.314.</p>
-</li>
-<li><p>Beck K (2001) Aim, fire. IEEE Softw 18: 87&#x2013;89. doi:10.1109/52.951502.</p>
-</li>
-<li><p>Feathers M (2007) The deep synergy between testability and good design. <a href="https://web.archive.org/web/20071012000838/http://michaelfeathers.typepad.com/michael_feathers_blog/2007/09/the-deep-synerg.html" target="_blank">https://web.archive.org/web/20071012000838/http://michaelfeathers.typepad.com/michael_feathers_blog/2007/09/the-deep-synerg.html</a>.</p>
-</li>
+<li>Developers to get more familiar with more advanced software testing techniques (which researchers have been providing). They are definitely a good addition to their seatbelts and will help them to better test their softwares.</li>
+<li>Educators to teach both perspectives. My perception is that universities teach testing techniques in an abstract way (developers need to learn how to use the tools!), while practitioners only teach how to use the automated tools (developers need to learn how to properly test!).</li>
+<li>Researchers to better understand how practitioners have been evolving the software testing field from their perspective as well as to better share their results, as developers do not read papers. <a href="https://twitter.com/mauricioaniche/status/997498070395949057" target="_blank">Research lingo is for researchers</a>.</li>
 </ul>
+<p><em>(An initial version of this text was published in <a href="https://medium.com/@mauricioaniche/testing-vs-writing-tests-d817bffea6bc" target="_blank">Medium</a>).</em></p>
 
                                 
                                 </section>
@@ -1084,12 +970,12 @@ TDD has become a really popular practice among developers. According to them, TD
 
             
                 
-                <a href="design-for-testability.html" class="navigation navigation-prev " aria-label="Previous page: Design for testability">
+                <a href="test-automation.html" class="navigation navigation-prev " aria-label="Previous page: Software testing automation">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="test-code-quality.html" class="navigation navigation-next " aria-label="Next page: Test code quality and engineering">
+                <a href="developer-testing-workflow.html" class="navigation navigation-next " aria-label="Next page: The developer testing workflow">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -1100,7 +986,7 @@ TDD has become a really popular practice among developers. According to them, TD
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Test-driven development","level":"5.1.4","depth":2,"next":{"title":"Test code quality and engineering","level":"5.1.5","depth":2,"path":"chapters/pragmatic-testing/test-code-quality.md","ref":"chapters/pragmatic-testing/test-code-quality.md","articles":[]},"previous":{"title":"Design for testability","level":"5.1.3","depth":2,"path":"chapters/pragmatic-testing/design-for-testability.md","ref":"chapters/pragmatic-testing/design-for-testability.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/pragmatic-testing/tdd.md","mtime":"2020-05-06T06:51:15.980Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-16T10:49:10.383Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Testing vs writing tests","level":"3.1.4","depth":2,"next":{"title":"The developer testing workflow","level":"3.1.5","depth":2,"path":"chapters/getting-started/developer-testing-workflow.md","ref":"chapters/getting-started/developer-testing-workflow.md","articles":[]},"previous":{"title":"Software testing automation","level":"3.1.3","depth":2,"path":"chapters/getting-started/test-automation.md","ref":"chapters/getting-started/test-automation.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/getting-started/testing-vs-writing-tests.md","mtime":"2020-05-16T09:52:23.877Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-16T10:49:10.383Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

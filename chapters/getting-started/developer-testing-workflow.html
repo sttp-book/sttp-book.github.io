@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Test-driven development · GitBook</title>
+        <title>The developer testing workflow · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="test-code-quality.html" />
+    <link rel="next" href="../testing-techniques/" />
     
     
-    <link rel="prev" href="design-for-testability.html" />
+    <link rel="prev" href="testing-vs-writing-tests.html" />
     
 
     </head>
@@ -194,9 +194,9 @@
         
         
     
-        <li class="chapter " data-level="3.1" data-path="../getting-started/">
+        <li class="chapter " data-level="3.1" data-path="./">
             
-                <a href="../getting-started/">
+                <a href="./">
             
                     
                     Getting started with software testing
@@ -208,9 +208,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="3.1.1" data-path="../getting-started/why-software-testing.html">
+        <li class="chapter " data-level="3.1.1" data-path="why-software-testing.html">
             
-                <a href="../getting-started/why-software-testing.html">
+                <a href="why-software-testing.html">
             
                     
                     Why software testing?
@@ -221,9 +221,9 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.2" data-path="../getting-started/testing-principles.html">
+        <li class="chapter " data-level="3.1.2" data-path="testing-principles.html">
             
-                <a href="../getting-started/testing-principles.html">
+                <a href="testing-principles.html">
             
                     
                     Principles of software testing
@@ -234,9 +234,9 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.3" data-path="../getting-started/test-automation.html">
+        <li class="chapter " data-level="3.1.3" data-path="test-automation.html">
             
-                <a href="../getting-started/test-automation.html">
+                <a href="test-automation.html">
             
                     
                     Software testing automation
@@ -247,9 +247,9 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.4" data-path="../getting-started/testing-vs-writing-tests.html">
+        <li class="chapter " data-level="3.1.4" data-path="testing-vs-writing-tests.html">
             
-                <a href="../getting-started/testing-vs-writing-tests.html">
+                <a href="testing-vs-writing-tests.html">
             
                     
                     Testing vs writing tests
@@ -260,9 +260,9 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.5" data-path="../getting-started/developer-testing-workflow.html">
+        <li class="chapter active" data-level="3.1.5" data-path="developer-testing-workflow.html">
             
-                <a href="../getting-started/developer-testing-workflow.html">
+                <a href="developer-testing-workflow.html">
             
                     
                     The developer testing workflow
@@ -389,9 +389,9 @@
         
         
     
-        <li class="chapter " data-level="5.1" data-path="./">
+        <li class="chapter " data-level="5.1" data-path="../pragmatic-testing/">
             
-                <a href="./">
+                <a href="../pragmatic-testing/">
             
                     
                     Pragmatic software testing
@@ -403,9 +403,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="5.1.1" data-path="testing-pyramid.html">
+        <li class="chapter " data-level="5.1.1" data-path="../pragmatic-testing/testing-pyramid.html">
             
-                <a href="testing-pyramid.html">
+                <a href="../pragmatic-testing/testing-pyramid.html">
             
                     
                     The testing pyramid
@@ -416,9 +416,9 @@
             
         </li>
     
-        <li class="chapter " data-level="5.1.2" data-path="test-doubles.html">
+        <li class="chapter " data-level="5.1.2" data-path="../pragmatic-testing/test-doubles.html">
             
-                <a href="test-doubles.html">
+                <a href="../pragmatic-testing/test-doubles.html">
             
                     
                     Test doubles
@@ -429,9 +429,9 @@
             
         </li>
     
-        <li class="chapter " data-level="5.1.3" data-path="design-for-testability.html">
+        <li class="chapter " data-level="5.1.3" data-path="../pragmatic-testing/design-for-testability.html">
             
-                <a href="design-for-testability.html">
+                <a href="../pragmatic-testing/design-for-testability.html">
             
                     
                     Design for testability
@@ -442,9 +442,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="5.1.4" data-path="tdd.html">
+        <li class="chapter " data-level="5.1.4" data-path="../pragmatic-testing/tdd.html">
             
-                <a href="tdd.html">
+                <a href="../pragmatic-testing/tdd.html">
             
                     
                     Test-driven development
@@ -455,9 +455,9 @@
             
         </li>
     
-        <li class="chapter " data-level="5.1.5" data-path="test-code-quality.html">
+        <li class="chapter " data-level="5.1.5" data-path="../pragmatic-testing/test-code-quality.html">
             
-                <a href="test-code-quality.html">
+                <a href="../pragmatic-testing/test-code-quality.html">
             
                     
                     Test code quality and engineering
@@ -880,7 +880,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="../.." >Test-driven development</a>
+        <a href="../.." >The developer testing workflow</a>
     </h1>
 </div>
 
@@ -895,168 +895,41 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="test-driven-development">Test-Driven Development</h1>
-<p>So far in this book, our approach to testing has been the following: we wrote the production code first, and after that we moved on to writing the tests.
-One disadvantage of this approach is that this creates a delay before we have tests, causing us to miss the &quot;design feedback&quot; that our tests can give us.</p>
-<p>Test-Driven Development (TDD) proposes the opposite: to write the tests before the production code.</p>
-<p>In this chapter, we will:</p>
-<ol>
-<li>Introduce the reader to the TDD cycle.</li>
-<li>Discuss the advantages of TDD.</li>
-<li>Discuss whether developers should adhere 100% to TDD.</li>
-</ol>
-<h2 id="the-tdd-cycle">The TDD cycle</h2>
-<p>The TDD cycle is illustrated in the diagram below:</p>
-<p><img src="img/tdd/tdd_cycle.svg" alt="Test Driven Development Cycle"></p>
-<p>With a given requirement, we start by thinking of test cases. 
-Often the simplest test case we can think of will take us a step further in implementing this requirement.
-We try to answer the question: what is the next input we want our code to be able to handle, and what output should it give?
-We then write the corresponding test.
-The test will probably fail, as we have not written the production code yet.
-With this failing test, we write the production code that makes the test pass.
-In doing this, the aim is to write the simplest production code that makes the test pass.
-Once this is achieved, it is time to refactor the code we have written. This is because, when focusing on making the test
-pass, we might have ignored the quality of our production code.
-We then repeat the process from the beginning. We stop once we are satisfied with our implementation and
-the requirement is met.</p>
-<h2 id="advantages-of-tdd">Advantages of TDD</h2>
-<p>TDD has several advantages:</p>
+                                <h1 id="the-developer-testing-workflow">The developer testing workflow</h1>
+<p>Modern software testing is about <strong>testing and designing, designing and testing</strong>. It is only when we combine both perspectives and their respective techniques that we achieve high-quality systems. </p>
+<p>See the workflow below:</p>
+<p><img src="img/dtw.svg" alt="The developer testing workflow"></p>
+<p>Let us walk through the main flow (indicated by the solid dashes in the diagram):</p>
 <ul>
-<li><p><strong>By creating the test first, we also look at the requirements first.</strong>
-This makes us write the code for the specific problem that it is supposed to solve.
-In turn, this prevents us from writing unnecessary code.</p>
-</li>
-<li><p><strong>We can control our pace of writing production code.</strong>
-Once we have a failing test, our goal is clear: to make the test pass.
-With the test that we create, we can control the pace we follow when writing the production code.
-If we are confident about how to solve the problem, we can make a big step by creating a complicated test.
-However, if we are not sure how to tackle the problem, we can break it into smaller parts and start by creating tests for these and then proceed with the other parts.</p>
-</li>
-<li><p><strong>The tests are derived from the requirements.</strong>
-Therefore, we know that, when the tests pass, the code does what it is supposed to do.
-If we write tests using code that has already been written, the tests might pass but the code might not be doing the right thing.
-The tests also show us how easy it is to use the class we just made.
-We are using the class directly in the tests so we know immediately when we can improve something.</p>
-</li>
-<li><p><strong>Testable code from the beginning.</strong>
-Creating the tests first makes us think about the way to test the classes before implementing them. After all, we need testable classes from the beginning, if we start from the test code. Because TDD forces developers to change how they design their code, it improves the testability, and more specifically also the controllability of our code. We already talked about the importance of this aspect when creating automated tests. Controllable code will be easier to test, resulting in improved code quality. </p>
-</li>
-<li><p><strong>Quick feedback on the code that we are writing.</strong>
-Instead of writing a lot of code and then a lot of tests, i.e. getting a lot of feedback at once after a long period of time, we create a test and then write a small piece of code for that test.
-It becomes easier to identify new problems as they arise, because they relate to the small amount of code that was added last.
-In addition, if we want to change something, it will be easier to do on a relatively small amount of code.</p>
-</li>
-<li><p><strong>Baby steps</strong>: TDD encourages developers to work in small (baby) steps: first define the smallest possible functionality, then write the simplest code that makes the test green, and carry out one refactoring at a time.</p>
-</li>
-<li><p><strong>Feedback on design</strong>. The properties of the tests we write can indicate certain types of problems in the code.
-This is why Test-Driven Development is sometimes called <em>Test-Driven Design</em>. We discussed design for testability in
-a previous chapter. You might get information about the quality of your design by looking at the tests during the writing process.
-For example, too many tests for just one class can indicate that the class has too many functionalities and that it should be split up into more classes.
-If we need too many mocks inside of the tests, the class might be too coupled, i.e. it needs too many other classes to function.
-If it is very complex to set everything up for the test, we may have to think about the pre-conditions that the class uses.
-Maybe there are too many pre-conditions or maybe some are not necessary.
-All of this can be observed in the tests, while doing TDD.
-It is good to think about design early on as it is easier to change the design of a class at the beginning of the development, rather than a few months later.</p>
-</li>
+<li>Any software development activity starts with <strong>requirements</strong>. These requirements are often in form of text (e.g., UML use cases, agile user stories).</li>
+<li>A first step of a developer is to explore whether s/he might derive some <strong>abstract model</strong> that would facilitate testing. Common models are <em>state machines</em>, <em>decision tables</em>, activity diagrams, etc.</li>
+<li>Given the requirement (and maybe some abstract model), the developer then performs <strong>domain analysis</strong>. The developer explores the input and output domains, and judiciously partitions the domain into a set of <em>equivalent classes</em>.</li>
+<li>With a better understanding of the domain, the developer then dives into (<strong>TDD</strong>) development cycles, with the goal of building the feature itself. In these cycles, developers:<ul>
+<li>Use <strong>good weather/conformance tests</strong> to support the development of the feature.</li>
+<li>Design their classes with <strong>testability in mind</strong>.</li>
+<li>Think of the <strong>contracts</strong> (i.e., pre-conditions, post-conditions, and invariants) that classes/components will offer, and even automate some of them as property-based testings.</li>
+<li>Build enough <strong>test infrastructure</strong> to support the fast development and execution of the test cases.</li>
+<li>Continuously <strong>refactor production and test code</strong>.</li>
+<li>Perform <strong>state testing</strong> or <strong>interaction testing</strong>, according to the problem in hands. <em>Mock objects</em> and clear <em>contracts</em> play an important role in case of interaction testing.</li>
 </ul>
-<h2 id="should-i-do-tdd-100-of-the-time">Should I do TDD 100% of the time?</h2>
-<p>Given all these advantages, should we use TDD 100% of time?
-There is, of course, no universal answer. While some research shows the advantages of TDD, others throw more doubt on it.</p>
-<p>Our pragmatic suggestion is:</p>
+</li>
+<li>With the new set of (apparently working) classes, the developer changes its focus to <strong>rigorous testing</strong>. The goal is clear: to find as many bugs and to devise strong test suites that would alarm them in case of regressions.</li>
+<li>The set of new classes (each of them with a specific architectural role and responsibility within the software system) goes through <strong>test level analysis</strong>. In other words, developers decide whether to apply unit, integration, or system testing for each of the emerged classes.</li>
+<li>Developers exercise the <strong>boundaries</strong> of the system (using the <em>equivalence partitioning</em> devised during domain analysis) as well as the <strong>structure of the produced source code</strong> (which might as well contain implementation details that were not captured by the requirements). The <strong>context</strong> and the <strong>test level analysis</strong> are taken into consideration, e.g., a database-related class will be exercised by means of an integration testing.</li>
+<li>With the best set of test cases, developers then rely on <strong>intelligent testing tools</strong> to complement their test cases. <strong>Mutation testing</strong>, <strong>test case generation</strong>, and <strong>static analysis</strong> tools are among the recommended intelligent testing tools. Depending on the domain, (automated) <strong>fuzz and security testing</strong> might also be leveraged.</li>
+</ul>
+<p>Note that, although the diagram makes the workflow to look linear, in practice, it is <em>extremely incremental</em>. Based on what they learn in their current step, developers often take a step back and re-think of the decisions taken in the previous step (indicated by the dashed arrows in the diagram):</p>
 <ul>
-<li><p>You should use TDD when you do not know how to design and/or architect a part of the system. TDD might help you to explore
-different design decisions.</p>
-</li>
-<li><p>You should use TDD when you are dealing with a complex problem, a problem in which you lack experience. If you are facing a
-new challenging implementation, TDD might help you in taking a step back and learn on the way. The use of baby steps might
-help you to start slowly, to learn more about the requirement, and to get up to speed once you are more familiar with the problem.</p>
-</li>
-<li><p>You should not use TDD when you are familiar with the problem, or the design decisions are clear in your mind.
-If there is &quot;nothing to be learned or explored&quot;, TDD might not really afford any significant benefit. However, we note that, even if you
-are not doing TDD, you should write tests in a timely manner. Do not leave it for the end of the day or the end of a sprint.
-Write them together with the production code, so that the growing automated test suite will give you more and more confidence 
-about the code.</p>
-</li>
+<li>The domain analysis might indicate problems in the requirements. </li>
+<li>During the design cycle, developers might observe partitions they did not see during domain analysis.</li>
+<li>Structural, boundary, and intelligent testing might raise questions that can only be answered through more domain analysis.</li>
 </ul>
-<h2 id="exercises">Exercises</h2>
-<p><strong>Exercise 1.</strong>
-We have the following skeleton for a diagram illustrating the Test Driven Development cycle.
-What words/sentences should be at the numbers?</p>
-<p><img src="img/tdd/exercises/tdd_skeleton.svg" alt="Test Driven Development exercise skeleton"></p>
-<p>(Try to answer the question without scrolling up!)</p>
-<p><strong>Exercise 2.</strong>
-Remember the <code>RomanNumeral</code> problem?</p>
-<blockquote>
-<p><strong>The Roman Numeral problem</strong></p>
-<p>It is our goal to implement a program that receives a string 
-as a parameter containing a roman number and then 
-converts it to an integer.</p>
-<p>In roman numeral, letters represent values:</p>
+<p>Clearly, not all steps (design or testing techniques) have to be done for each and every feature of the software system. However, the developer <em>should</em> explicitly analyse the trade-offs: </p>
 <ul>
-<li>I = 1</li>
-<li>V = 5</li>
-<li>X = 10</li>
-<li>L = 50</li>
-<li>C = 100</li>
-<li>D = 500</li>
-<li>M = 1000</li>
+<li>Do the benefits of the technique outperform its costs? After all, some bugs are more expensive than others.</li>
+<li>What is the chance of the technique to reveal unforeseen bugs? As we saw, variation is important, but context is king.</li>
 </ul>
-<p>Letters can be combined to form numbers.
-For example we make 6 by using <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>5</mn><mo>+</mo><mn>1</mn><mo>=</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">5 + 1 = 6</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">5</span><span class="mbin">+</span><span class="mord mathrm">1</span><span class="mrel">=</span><span class="mord mathrm">6</span></span></span></span> and 
-have the roman number &quot;VI&quot;.
-Example: 7 is &quot;VII&quot;, 11 is &quot;XI&quot; and 101 is &quot;CI&quot;.
-Some numbers need to make use of a subtractive notation 
-to be represented.
-For example we make 40 not by &quot;XXXX&quot;, but 
-instead we use <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>5</mn><mn>0</mn><mo>&#x2212;</mo><mn>1</mn><mn>0</mn><mo>=</mo><mn>4</mn><mn>0</mn></mrow><annotation encoding="application/x-tex">50 - 10 = 40</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">5</span><span class="mord mathrm">0</span><span class="mbin">&#x2212;</span><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mrel">=</span><span class="mord mathrm">4</span><span class="mord mathrm">0</span></span></span></span> and have the roman number &quot;XL&quot;.
-Other examples: 9 is &quot;XI&quot;, 40 is &quot;XL&quot;, 14 is &quot;XIV&quot;.</p>
-<p>The letters should be ordered from the highest to the lowest value.
-The values of each individual letter is added together.
-Unless the subtractive notation is used in which a letter 
-with a lower value is placed in front of a letter with a higher value.</p>
-<p>Combining both these principles we could give our 
-method &quot;MDCCCXLII&quot; and it should return 1842.</p>
-</blockquote>
-<p>Implement this program. Practise TDD!</p>
-<p><strong>Exercise 3.</strong>
-Which of the following <strong>is the least important</strong> reason to do Test-Driven Development?</p>
-<ol>
-<li>As a consequence of the practice of TDD, software systems get tested completely.</li>
-<li>TDD practitioners use the feedback from the test code as a design hint.</li>
-<li>The practice of TDD enables developers to have steady, incremental progress throughout the development of a feature.</li>
-<li>The use of mock objects helps developers to understand the relationships between objects.</li>
-</ol>
-<p><strong>Exercise 4.</strong>
-TDD has become a really popular practice among developers. According to them, TDD has several benefits. Which of the following statements 
-<strong>is not</strong> considered a benefit which results from the practice of TDD?</p>
-<p><em>Note:</em> We are looking from the perspective of developers, which may not always match the results of empirical research.</p>
-<ol>
-<li><p>Better team integration. Writing tests is a social activity and makes the team more aware of their code quality. </p>
-</li>
-<li><p>Baby steps. Developers can take smaller steps whenever they feel this is necessary.</p>
-</li>
-<li><p>Refactoring. The cycle prompts developers to improve their code constantly.</p>
-</li>
-<li><p>Design for testability. Developers are &quot;forced&quot; to write testable code from the beginning.</p>
-</li>
-</ol>
-<h2 id="references">References</h2>
-<ul>
-<li><p>Beck, K. (2003). Test-driven development: by example. Addison-Wesley Professional.</p>
-</li>
-<li><p>Martin R (2006) Agile principles, patterns, and practices in C#. 1st edition. Prentice Hall, Upper Saddle River.</p>
-</li>
-<li><p>Steve Freeman, Nat Pryce (2009) Growing object-oriented software, Guided by Tests. 1st edition. Addison-Wesley Professional, Boston, USA.</p>
-</li>
-<li><p>Astels D (2003) Test-driven development: a practical guide. 2nd edition. Prentice Hall.</p>
-</li>
-<li><p>Janzen D, Saiedian H (2005) Test-driven development concepts, taxonomy, and future direction. Computer 38(9): 43&#x2013;50. doi:10.1109/MC.2005.314.</p>
-</li>
-<li><p>Beck K (2001) Aim, fire. IEEE Softw 18: 87&#x2013;89. doi:10.1109/52.951502.</p>
-</li>
-<li><p>Feathers M (2007) The deep synergy between testability and good design. <a href="https://web.archive.org/web/20071012000838/http://michaelfeathers.typepad.com/michael_feathers_blog/2007/09/the-deep-synerg.html" target="_blank">https://web.archive.org/web/20071012000838/http://michaelfeathers.typepad.com/michael_feathers_blog/2007/09/the-deep-synerg.html</a>.</p>
-</li>
-</ul>
+<p>In the remaining of this book, we will explore how to perform each of these techniques in a systematic and productive manner.</p>
 
                                 
                                 </section>
@@ -1084,12 +957,12 @@ TDD has become a really popular practice among developers. According to them, TD
 
             
                 
-                <a href="design-for-testability.html" class="navigation navigation-prev " aria-label="Previous page: Design for testability">
+                <a href="testing-vs-writing-tests.html" class="navigation navigation-prev " aria-label="Previous page: Testing vs writing tests">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="test-code-quality.html" class="navigation navigation-next " aria-label="Next page: Test code quality and engineering">
+                <a href="../testing-techniques/" class="navigation navigation-next " aria-label="Next page: Testing techniques">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -1100,7 +973,7 @@ TDD has become a really popular practice among developers. According to them, TD
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Test-driven development","level":"5.1.4","depth":2,"next":{"title":"Test code quality and engineering","level":"5.1.5","depth":2,"path":"chapters/pragmatic-testing/test-code-quality.md","ref":"chapters/pragmatic-testing/test-code-quality.md","articles":[]},"previous":{"title":"Design for testability","level":"5.1.3","depth":2,"path":"chapters/pragmatic-testing/design-for-testability.md","ref":"chapters/pragmatic-testing/design-for-testability.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/pragmatic-testing/tdd.md","mtime":"2020-05-06T06:51:15.980Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-16T10:49:10.383Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"The developer testing workflow","level":"3.1.5","depth":2,"next":{"title":"Testing techniques","level":"4.1","depth":1,"path":"chapters/testing-techniques/README.md","ref":"chapters/testing-techniques/README.md","articles":[{"title":"Specification-based testing","level":"4.1.1","depth":2,"path":"chapters/testing-techniques/specification-based-testing.md","ref":"chapters/testing-techniques/specification-based-testing.md","articles":[]},{"title":"Boundary testing","level":"4.1.2","depth":2,"path":"chapters/testing-techniques/boundary-testing.md","ref":"chapters/testing-techniques/boundary-testing.md","articles":[]},{"title":"Structural testing","level":"4.1.3","depth":2,"path":"chapters/testing-techniques/structural-testing.md","ref":"chapters/testing-techniques/structural-testing.md","articles":[]},{"title":"Model-based testing","level":"4.1.4","depth":2,"path":"chapters/testing-techniques/model-based-testing.md","ref":"chapters/testing-techniques/model-based-testing.md","articles":[]},{"title":"Design-by-contracts","level":"4.1.5","depth":2,"path":"chapters/testing-techniques/design-by-contracts.md","ref":"chapters/testing-techniques/design-by-contracts.md","articles":[]},{"title":"Property-based testing","level":"4.1.6","depth":2,"path":"chapters/testing-techniques/property-based-testing.md","ref":"chapters/testing-techniques/property-based-testing.md","articles":[]}]},"previous":{"title":"Testing vs writing tests","level":"3.1.4","depth":2,"path":"chapters/getting-started/testing-vs-writing-tests.md","ref":"chapters/getting-started/testing-vs-writing-tests.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/getting-started/developer-testing-workflow.md","mtime":"2020-05-16T10:48:22.189Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-16T10:49:10.383Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

@@ -1106,9 +1106,9 @@ This phase is usually done by means of one or many method calls.</p>
 the system behaved as expected. In terms of code, it is where the <code>assert</code> instructions are.</p>
 </li>
 </ul>
-<p>Using one of the test methods above 
-to illustrate the different
-different parts of an automated test code:</p>
+<p>Using one of the test methods above to illustrate the different parts of an automated test code 
+(note that the Arrange/Act/Assert comments here are just to help you visualize the three parts, 
+ we would not usually add them in real test code):</p>
 <pre><code class="lang-java"><span class="hljs-meta">@Test</span>
 <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">convertSingleDigit</span><span class="hljs-params">()</span> </span>{
   <span class="hljs-comment">// Arrange: we define the input values</span>
@@ -1125,7 +1125,9 @@ different parts of an automated test code:</p>
 (and possible test code smells) in each one of them. From now on, we will use the
 terms <em>arrange</em>, <em>act</em>, and <em>assert</em> to talk about the different parts of an
 automated test case.</p>
-<p><div class="alert alert-success hints-alert"><div class="hints-icon"><i class="fa fa-mortar-board"></i></div><div class="hints-container"><p>The comments identifying each of the parts in the source code are just to help you visualize the three parts. In real test code, we do not add these comments.</p>
+<p><div class="alert alert-success hints-alert"><div class="hints-icon"><i class="fa fa-mortar-board"></i></div><div class="hints-container"><p>AAA is a good structure for most tests, and a good way to think about what you&apos;re trying to show about the code.
+As you learn more techniques, you will find that there other valuable ways to think about the structure of a test.
+We&apos;ll discuss these in a later chapter.</p>
 </div></div></p>
 <h2 id="advantages-of-test-automation">Advantages of test automation</h2>
 <p>Having an automated test suite brings several advantages to software
@@ -1228,7 +1230,7 @@ your intuition. </p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Software testing automation","level":"3.1.3","depth":2,"next":{"title":"Testing vs writing tests","level":"3.1.4","depth":2,"path":"chapters/getting-started/testing-vs-writing-tests.md","ref":"chapters/getting-started/testing-vs-writing-tests.md","articles":[]},"previous":{"title":"Principles of software testing","level":"3.1.2","depth":2,"path":"chapters/getting-started/testing-principles.md","ref":"chapters/getting-started/testing-principles.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/getting-started/test-automation.md","mtime":"2020-05-17T14:30:11.007Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-17T14:35:37.697Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Software testing automation","level":"3.1.3","depth":2,"next":{"title":"Testing vs writing tests","level":"3.1.4","depth":2,"path":"chapters/getting-started/testing-vs-writing-tests.md","ref":"chapters/getting-started/testing-vs-writing-tests.md","articles":[]},"previous":{"title":"Principles of software testing","level":"3.1.2","depth":2,"path":"chapters/getting-started/testing-principles.md","ref":"chapters/getting-started/testing-principles.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/getting-started/test-automation.md","mtime":"2020-05-17T15:25:02.023Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-17T15:25:04.892Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

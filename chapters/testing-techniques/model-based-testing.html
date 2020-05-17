@@ -1,0 +1,1639 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Model-based testing · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-hints/plugin-hints.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-katex/katex.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+        <link rel="stylesheet" href="../../assets/css/website.css">
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="design-by-contracts.html" />
+    
+    
+    <link rel="prev" href="structural-testing.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../preface/authors.html">
+            
+                <a href="../preface/authors.html">
+            
+                    
+                    Authors and Acknowledgements
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../preface/use.html">
+            
+                <a href="../preface/use.html">
+            
+                    
+                    Using this book
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../preface/contribute.html">
+            
+                <a href="../preface/contribute.html">
+            
+                    
+                    Contribute to this book
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../preface/license.html">
+            
+                <a href="../preface/license.html">
+            
+                    
+                    License
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../preface/structure.html">
+            
+                <a href="../preface/structure.html">
+            
+                    
+                    Structure of the book
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../getting-started/">
+            
+                <a href="../getting-started/">
+            
+                    
+                    Getting started with software testing
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1.1" data-path="../getting-started/why-software-testing.html">
+            
+                <a href="../getting-started/why-software-testing.html">
+            
+                    
+                    Why software testing?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.2" data-path="../getting-started/testing-principles.html">
+            
+                <a href="../getting-started/testing-principles.html">
+            
+                    
+                    Principles of software testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.3" data-path="../getting-started/test-automation.html">
+            
+                <a href="../getting-started/test-automation.html">
+            
+                    
+                    Software testing automation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.4" data-path="../getting-started/testing-vs-writing-tests.html">
+            
+                <a href="../getting-started/testing-vs-writing-tests.html">
+            
+                    
+                    Testing vs writing tests
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.5" data-path="../getting-started/developer-testing-workflow.html">
+            
+                <a href="../getting-started/developer-testing-workflow.html">
+            
+                    
+                    The developer testing workflow
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Testing techniques
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1.1" data-path="specification-based-testing.html">
+            
+                <a href="specification-based-testing.html">
+            
+                    
+                    Specification-based testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.2" data-path="boundary-testing.html">
+            
+                <a href="boundary-testing.html">
+            
+                    
+                    Boundary testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.3" data-path="structural-testing.html">
+            
+                <a href="structural-testing.html">
+            
+                    
+                    Structural testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="4.1.4" data-path="model-based-testing.html">
+            
+                <a href="model-based-testing.html">
+            
+                    
+                    Model-based testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.5" data-path="design-by-contracts.html">
+            
+                <a href="design-by-contracts.html">
+            
+                    
+                    Design-by-contracts
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.6" data-path="property-based-testing.html">
+            
+                <a href="property-based-testing.html">
+            
+                    
+                    Property-based testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="5.1" data-path="../pragmatic-testing/">
+            
+                <a href="../pragmatic-testing/">
+            
+                    
+                    Pragmatic software testing
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1.1" data-path="../pragmatic-testing/testing-pyramid.html">
+            
+                <a href="../pragmatic-testing/testing-pyramid.html">
+            
+                    
+                    The testing pyramid
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.2" data-path="../pragmatic-testing/test-doubles.html">
+            
+                <a href="../pragmatic-testing/test-doubles.html">
+            
+                    
+                    Test doubles
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.3" data-path="../pragmatic-testing/design-for-testability.html">
+            
+                <a href="../pragmatic-testing/design-for-testability.html">
+            
+                    
+                    Design for testability
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.4" data-path="../pragmatic-testing/tdd.html">
+            
+                <a href="../pragmatic-testing/tdd.html">
+            
+                    
+                    Test-driven development
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.5" data-path="../pragmatic-testing/test-code-quality.html">
+            
+                <a href="../pragmatic-testing/test-code-quality.html">
+            
+                    
+                    Test code quality and engineering
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="6.1" data-path="../testing-into-context/">
+            
+                <a href="../testing-into-context/">
+            
+                    
+                    Testing in the context
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="6.1.1" data-path="../testing-into-context/web-testing.html">
+            
+                <a href="../testing-into-context/web-testing.html">
+            
+                    
+                    Web testing (soon)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.2" data-path="../testing-into-context/sql-testing.html">
+            
+                <a href="../testing-into-context/sql-testing.html">
+            
+                    
+                    SQL testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.3" >
+            
+                <span>
+            
+                    
+                    Mobile testing (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="7.1" data-path="../non-functional-testing/">
+            
+                <a href="../non-functional-testing/">
+            
+                    
+                    Non-functional testing
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="7.1.1" data-path="../non-functional-testing/security-testing.html">
+            
+                <a href="../non-functional-testing/security-testing.html">
+            
+                    
+                    Security testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.1.2" >
+            
+                <span>
+            
+                    
+                    Performance testing (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="8.1" data-path="../intelligent-testing/">
+            
+                <a href="../intelligent-testing/">
+            
+                    
+                    Intelligent testing
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.1.1" data-path="../intelligent-testing/static-testing.html">
+            
+                <a href="../intelligent-testing/static-testing.html">
+            
+                    
+                    Static testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.2" data-path="../intelligent-testing/mutation-testing.html">
+            
+                <a href="../intelligent-testing/mutation-testing.html">
+            
+                    
+                    Mutation testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.3" data-path="../intelligent-testing/fuzzing.html">
+            
+                <a href="../intelligent-testing/fuzzing.html">
+            
+                    
+                    Fuzz testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.4" data-path="../intelligent-testing/sbst.html">
+            
+                <a href="../intelligent-testing/sbst.html">
+            
+                    
+                    Search-based testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="9.1" >
+            
+                <span>
+            
+                    
+                    Appendix
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="9.1.1" data-path="../appendix/answers.html">
+            
+                <a href="../appendix/answers.html">
+            
+                    
+                    Answers to the exercises
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.1.2" data-path="domain-testing.html">
+            
+                <a href="domain-testing.html">
+            
+                    
+                    Domain testing examples
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.1.3" data-path="../appendix/2020-midterm-preparation.html">
+            
+                <a href="../appendix/2020-midterm-preparation.html">
+            
+                    
+                    2020 midterm mock exam
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.1.4" data-path="../appendix/2020-midterm-preparation-answers.html">
+            
+                <a href="../appendix/2020-midterm-preparation-answers.html">
+            
+                    
+                    2020 midterm mock exam (answers)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.1.5" data-path="../appendix/changelog.html">
+            
+                <a href="../appendix/changelog.html">
+            
+                    
+                    Change log
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >Model-based testing</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="model-based-testing">Model-Based Testing</h1>
+<p>In software testing, a model is a simpler way to describe the program under test.
+A model holds some of the attributes of the program for which the model is built.
+Given that the model preserves some of the original attributes of the system under test, it can be used to analyse and test the system.</p>
+<p>Why should we use models at all? A model gives us a structured way to understand how the program operates (or should operate).
+Model-based testing makes use of models of the system to derive tests.</p>
+<p>In this chapter, we show what a model is (or can be) and go over some of the models used in software testing.
+The two models covered in this chapter are decision tables and state machines.</p>
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/5yuFf4-4JnE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+
+
+
+<h2 id="decision-tables">Decision Tables</h2>
+<p>Decision tables are used to model how a combination of conditions should lead to a certain action.
+These tables are easy to understand and can be validated by the client for whom the software is created.
+Developers can use the decision tables to derive tests that verify the correct implementation of the requirements with respect to the conditions.</p>
+<h3 id="creating-decision-tables">Creating decision tables</h3>
+<p>A decision table is a table containing the conditions and the actions performed by the system based on these conditions. In this section, we discuss how to build them.</p>
+<p>In general, a decision table looks like the following:</p>
+<table>
+  <tr><th></th><th></th><th colspan="4">Variants</th></tr>
+  <tr><td rowspan="2"><br><i>Conditions</i></td>
+  <td>&lt;Condition1&gt;</td><td>T</td><td>T</td><td>F<br></td><td>F</td></tr>
+  <tr><td>&lt;Condition2&gt;</td><td>T<br></td><td>F</td><td>T</td><td>F</td></tr>
+  <tr><td><i>Action</i></td><td>&lt;Action&gt;</td><td>value1<br></td><td>value2</td><td>value3</td><td>value4</td></tr>
+</table>
+
+<p>This table contains all the combinations of conditions explicitly.
+Later we will look at ways to reduce the number of combinations in the table and in this way reduce the cost of testing all the combinations.</p>
+<p>The selected conditions should always be independent of each other.
+Also, in this type of decision table, the order of the conditions does not matter, e.g., making <code>&lt;Condition2&gt;</code> true and <code>&lt;Condition1&gt;</code> false or making <code>&lt;Condition1&gt;</code> false and after that <code>&lt;Condition2&gt;</code> true, should result in the same outcome.
+(If the order <em>does</em> matter in some way, a state machine might be a better model. We cover state machines later in this chapter.)</p>
+<p>Let us devise a first concrete decision table for an example program.</p>
+<blockquote>
+<p><strong>Requirement: Phone Subscription</strong></p>
+<p>When choosing a phone subscription, there are a couple of options you could choose.
+Depending on these options a price per month is given.
+We consider the two options: international services and automatic renewal.
+International services increase the price per month.
+Automatic renewal decreases the price per month.</p>
+</blockquote>
+<p>In the decision table, international services and
+automatic renewal will be turned into conditions.
+True then corresponds to a chosen option and false
+corresponds to an option that is not chosen.</p>
+<p>The decision table is as follows:</p>
+<table>
+  <tr><th></th><th></th><th colspan="4">Variants</th></tr>
+  <tr><td rowspan="2"><br><i>Conditions</i></td>
+  <td>International</td><td>T</td><td>T</td><td>F<br></td><td>F</td></tr>
+  <tr><td>Auto-renewal</td><td>T<br></td><td>F</td><td>T</td><td>F</td></tr>
+  <tr><td><i>Action</i></td><td>price/month</td><td>30<br></td><td>32</td><td>10</td><td>15</td></tr>
+</table>
+
+<p>You can see the different prices for the combinations of international services and automatic renewal.</p>
+<p><strong>Don&apos;t care values:</strong> In some cases, the value of a condition might not influence the action.
+This is represented as a &quot;don&apos;t care&quot; value, or &quot;dc&quot;.</p>
+<p>Essentially, &quot;dc&quot; is a combination of two columns.
+These two columns have the same values for the conditions and the same result, except the condition that had the dc value which has different values in the expanded form.</p>
+<p>If the decision table is as follows:</p>
+<table>
+  <tr><th></th><th></th><th colspan="3">Variants</th></tr>
+  <tr><td rowspan="2"><br><i>Conditions</i></td>
+  <td>&lt;Condition1&gt;</td><td>T</td><td>dc</td><td>F<br></td></tr>
+  <tr><td>&lt;Condition2&gt;</td><td>dc</td><td>T</td><td>F</td></tr>
+  <tr><td><i>Action</i></td><td>&lt;Action&gt;</td><td>value1<br></td><td>value1</td><td>value2</td></tr>
+</table>
+
+<p>It can be expanded to:</p>
+<table>
+  <tr><th></th><th></th><th colspan="5">Variants</th></tr>
+  <tr><td rowspan="2"><br><i>Conditions</i></td>
+  <td>&lt;Condition1&gt;</td><td>T</td><td>T</td><td>T<br></td><td>F</td><td>F</td></tr>
+  <tr><td>&lt;Condition2&gt;</td><td>T<br></td><td>F</td><td>T</td><td>T</td><td>F</td></tr>
+  <tr><td><i>Action</i></td><td>&lt;Action&gt;</td><td>value1<br></td><td>value1</td><td>value1</td><td>value1</td><td>value2</td></tr>
+</table>
+
+<p>After expanding we can remove the duplicate columns.
+We end up with the decision table below:</p>
+<table>
+  <tr><th></th><th></th><th colspan="4">Variants</th></tr>
+  <tr><td rowspan="2"><br><i>Conditions</i></td>
+  <td>&lt;Condition1&gt;</td><td>T</td><td>T</td><td>F<br></td><td>F</td></tr>
+  <tr><td>&lt;Condition2&gt;</td><td>T<br></td><td>F</td><td>T</td><td>F</td></tr>
+  <tr><td><i>Action</i></td><td>&lt;Action&gt;</td><td>value1<br></td><td>value1</td><td>value1</td><td>value2</td></tr>
+</table>
+
+<p>Let us now go back to the <em>Phone Subscription</em> example, and add another condition to it:</p>
+<blockquote>
+<p>A loyal customer receives the same discount as a
+customer who chooses the automatic renewal option.
+However, a customer is only entitled to the discount from one of the two options.</p>
+</blockquote>
+<p>The new decision table is below:</p>
+<table>
+  <tr><th></th><th></th><th colspan="6">Variants</th></tr>
+  <tr><td rowspan="3"><br><i>Conditions</i></td>
+  <td>International</td><td>F</td><td>F</td><td>F</td><td>T</td><td>T</td><td>T</td></tr>
+  <tr><td>Auto-renewal</td><td>T</td><td>dc</td><td>F</td><td>T</td><td>dc</td><td>F</td></tr>
+  <tr><td>Loyal</td><td>dc</td><td>T</td><td>F</td><td>dc</td><td>T</td><td>F</td></tr>
+  <tr><td><i>Action</i></td><td>price / month</td><td>10</td><td>10</td><td>15</td><td>30</td><td>30</td><td>32</td></tr>
+</table>
+
+<p>Note that when automatic renewal is true, the loyalty condition does not change the outcome and vice versa.</p>
+<p><strong>Default behaviour</strong>: Usually, <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.10903em;">N</span></span></span></span> conditions lead to <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mi>N</mi></msup></mrow><annotation encoding="application/x-tex">2^N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8413309999999999em;"></span><span class="strut bottom" style="height:0.8413309999999999em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathrm">2</span><span class="msupsub"><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle uncramped mtight"><span class="mord mathit mtight" style="margin-right:0.10903em;">N</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span></span></span></span> combinations or columns.
+However, the number of columns that are specified in the decision table can be smaller. Even if we expand all the dc values.</p>
+<p>This is achieved by using a default action.
+A default action means that if a combination of condition outcomes is not present in the decision table, the default action should be the result.</p>
+<p>If we set the default charge rate to 10 per month the new decision table can be a bit smaller:</p>
+<table>
+  <tr><th></th><th></th><th colspan="4">Variants</th></tr>
+  <tr><td rowspan="3"><br><i>Conditions</i></td>
+  <td>International</td><td>F</td><td>T</td><td>T</td><td>T</td></tr>
+  <tr><td>Auto-renewal</td><td>F</td><td>T</td><td>dc</td><td>F</td></tr>
+  <tr><td>Loyal</td><td>F</td><td>dc</td><td>T</td><td>F</td></tr>
+  <tr><td><i>Action</i></td><td>price / month</td><td>15</td><td>30</td><td>30</td><td>32</td></tr>
+</table>
+
+
+
+
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/1u1qfJ2IrpU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+
+
+
+<h3 id="testing-decision-tables">Testing decision tables</h3>
+<p>We can derive tests based on the decision tables, in such a way that we test whether the expected logic is implemented correctly.
+There are multiple ways to derive tests for a decision table:</p>
+<ul>
+<li><strong>All explicit variants:</strong> Derive a test case for each column. The number of tests equals the number of columns in the decision table.</li>
+<li><strong>All possible variants:</strong> Derive a test case for each possible combination of condition values. For <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.10903em;">N</span></span></span></span> conditions this leads to <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mi>N</mi></msup></mrow><annotation encoding="application/x-tex">2^N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8413309999999999em;"></span><span class="strut bottom" style="height:0.8413309999999999em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathrm">2</span><span class="msupsub"><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle uncramped mtight"><span class="mord mathit mtight" style="margin-right:0.10903em;">N</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span></span></span></span> test cases. Often, this approach is unrealistic because of the exponential relationship between the number of conditions and the number of test cases.</li>
+<li><strong>Every unique outcome / All decisions:</strong> One test case for each unique outcome or action. The number of tests depends on the actions in the decision table.</li>
+<li><strong>Each condition T/F:</strong> Make sure that each condition is true and false at least once in the test suite. This often results in two tests: all conditions true and all conditions false.</li>
+</ul>
+<p>One more way to derive test cases from a decision table is by using the <strong>Modified Condition / Decision Coverage (MC/DC)</strong>.
+This is a combination of the last two ways of deriving tests demonstrated above.</p>
+<p>We have already discussed MC/DC in the Structural-Based Testing chapter.
+MC/DC has the two characteristics of All decisions and Each condition T/F with an additional characteristic that makes MC/DC special:</p>
+<ol>
+<li>Each condition is at least once true and once false in the test suite;</li>
+<li>Each unique action should be tested at least once;</li>
+<li>Each condition should individually determine the action or outcome.</li>
+</ol>
+<p>The third point is achieved by making two test cases for each condition.
+In these two test cases, the condition being tested should have a different value, the outcome should be different, and the other conditions should have the same value in both test cases.
+With this the condition that is being tested individually influences the outcome, as the other conditions stay the same and therefore do not influence the outcome.</p>
+<p>By choosing the test cases efficiently, MC/DC needs fewer tests than all variants, while still exercising the important parts of the system.
+With fewer tests it will take less time to write the tests and the test suite will be executed quicker.</p>
+<p>In order to derive the tests, we expand and rearrange the decision table of the <em>Phone Subscription</em> example as follows:</p>
+<table>
+  <tr><th></th><th></th><th>v1</th><th>v2</th><th>v3</th><th>v4</th><th>v5</th><th>v6</th><th>v7</th><th>v8</th></tr>
+  <tr><td rowspan="3"><br><i>Conditions</i></td>
+  <td>International</td><td>T</td><td>T</td><td>T</td><td>T</td><td>F</td><td>F</td><td>F</td><td>F</td></tr>
+  <tr><td>Auto-renewal</td><td>T</td><td>T</td><td>F</td><td>F</td><td>T</td><td>T</td><td>F</td><td>F</td></tr>
+  <tr><td>Loyal</td><td>T</td><td>F</td><td>T</td><td>F</td><td>T</td><td>F</td><td>T</td><td>F</td></tr>
+  <tr><td><i>Action</i></td><td>price / month</td><td>30</td><td>30</td><td>30</td><td>32</td><td>10</td><td>10</td><td>10</td><td>15</td></tr>
+</table>
+
+<p>First, we look at the first condition (v1) and we try to find pairs of combinations that would cover this condition according to MC/DC.
+We look for combinations where only International Services and the price/month change.
+The possible pairs are: {v1, v5}, {v2, v6}, {v3, v7} and {v4, v8}.
+<!-- TODO FM: What do we mean by this sentence? Is the sentence correctly formulated now?
+ Before Marsha's change, this was "Testing both combinations of any of these pairs would give MC/DC for the first condition." -->
+Testing both of the combinations in any of these pairs would give MC/DC for the first condition.</p>
+<p>Then with Automatic Renewal we find these pairs: {v2, v4}, {v6, v8}.
+For this condition {v1, v3} and {v5, v7} are not viable pairs, because both combinations of each pair involve the same action.</p>
+<p>The last condition, Loyal, gives the following pairs: {v3, v4}, {v7, v8}.</p>
+<p>By choosing the test cases efficiently we should be able to achieve full MC/DC by choosing four of the combinations.
+We want to cover all the actions in the test suite.
+Therefore, we need at least v4 and v8.
+With these decisions we also have covered the International Services condition.
+We need one of v1, v2, v3 and one of v5, v6, v7.
+To cover Loyal, we add v7 and to cover Automatic Renewal we add v2.
+All the possible actions have now been covered.</p>
+<p>For full MC/DC, we test the decisions: v2, v4, v7, v8.</p>
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/TxAFPJx6yKI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+
+
+
+<h3 id="implementing-automated-test-cases-for-decision-tables">Implementing automated test cases for decision tables</h3>
+<p>Now that we know how to derive the test cases from the decision tables, it is time to implement them as automated test cases.</p>
+<p>The most obvious way to test the combinations is to create a single test for each of the conditions.
+Let us continue with the example for which we created the decision table earlier.
+We write the tests for combinations v2 and v3.
+Assuming that we can use some implemented methods in a <code>PhonePlan</code> class, the tests look like this:</p>
+<pre><code class="lang-java"><span class="hljs-meta">@Test</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">internationalAutoRenewalTest</span><span class="hljs-params">()</span> </span>{
+  PhonePlan plan = <span class="hljs-keyword">new</span> PhonePlan();
+
+  plan.setInternational(<span class="hljs-keyword">true</span>);
+  plan.setAutoRenewal(<span class="hljs-keyword">true</span>);
+  plan.setLoyal(<span class="hljs-keyword">false</span>);
+
+  assertEquals(<span class="hljs-number">30</span>, plan.pricePerMonth());
+}
+
+<span class="hljs-meta">@Test</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">internationalLoyalTest</span><span class="hljs-params">()</span> </span>{
+  PhonePlan plan = <span class="hljs-keyword">new</span> PhonePlan();
+
+  plan.setInternational(<span class="hljs-keyword">true</span>);
+  plan.setAutoRenewal(<span class="hljs-keyword">false</span>);
+  plan.setLoyal(<span class="hljs-keyword">true</span>);
+
+  assertEquals(<span class="hljs-number">30</span>, plan.pricePerMonth());
+}
+</code></pre>
+<p><div class="alert alert-success hints-alert"><div class="hints-icon"><i class="fa fa-mortar-board"></i></div><div class="hints-container"><p>Note that, in order to improve readability, we use setters to define whether a plan is for international services, automatic renewal or loyalty. The best way of designing the <code>PhonePlan</code> class would be to receive such parameters in the constructor.
+This would force all clients of the class to provide these configurations at the moment of instantiation, preventing instances of <code>PhonePlan</code> to be in an inconsistent state.</p>
+<p>We discuss more about such contracts in the design-by-contracts chapter.</p>
+</div></div></p>
+<p>In the example above, it should be noted that the different tests for the different combinations are similar.
+The tests are the same but they operate on different values.
+To avoid the code duplication that comes with this approach to implementing decision table tests, we can use parameterised tests (as we have done before):</p>
+<pre><code class="lang-java"><span class="hljs-meta">@ParameterizedTest</span>
+<span class="hljs-meta">@CsvSource</span>({
+  <span class="hljs-string">&quot;true, true, false, 30&quot;</span>,   <span class="hljs-comment">// v2</span>
+  <span class="hljs-string">&quot;true, false, true, 30&quot;</span>,   <span class="hljs-comment">// v3</span>
+  <span class="hljs-string">&quot;true, false, false, 32&quot;</span>,  <span class="hljs-comment">// v4</span>
+  <span class="hljs-string">&quot;false, false, false, 15&quot;</span>  <span class="hljs-comment">// v8</span>
+})
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">pricePerMonthTest</span><span class="hljs-params">(<span class="hljs-keyword">boolean</span> international, <span class="hljs-keyword">boolean</span> autoRenewal,
+    <span class="hljs-keyword">boolean</span> loyal, <span class="hljs-keyword">int</span> price)</span> </span>{
+
+  PhonePlan plan = <span class="hljs-keyword">new</span> PhonePlan();
+
+  plan.setInternational(international);
+  plan.setAutoRenewal(autoRenewal);
+  plan.setLoyal(loyal);
+
+  assertEquals(price, plan.pricePerMonth());
+}
+</code></pre>
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/tzcjDhdQfvM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+
+
+<h3 id="non-binary-choices-and-final-guidelines">Non-binary choices and final guidelines</h3>
+<p>So far, all the decision tables we have discussed have boolean conditions (i.e., values in the cells were either <code>true</code> or <code>false</code>).
+The decision tables can be generalized to contain non-boolean values (non-binary choices). In other words, instead of only <code>true</code> and <code>false</code>, the values can now also be, e.g., a number.</p>
+<p>Take the decision table for the phone subscriptions, discussed earlier.
+Initially, this only contained the international and auto-renewal conditions.
+A non-boolean can be introduced to represent a data limit.
+The amount of data can be unlimited (&#x221E;), 8 GB, or none (0 GB).</p>
+<table>
+  <tr><th></th><th></th><th colspan="6">Variants</th></tr>
+  <tr><td rowspan="3"><br><i>Conditions</i></td>
+  <td>International</td><td>T</td><td>T</td><td>F<br></td><td>F</td><td>F</td><td>F</td></tr>
+  <tr><td>Auto-renewal</td><td>T<br></td><td>F</td><td>T</td><td>T</td><td>F</td><td>F</td></tr>
+  <tr><td>Data limit</td><td>&#x221E;</td><td>&#x221E;</td><td>8</td><td>0</td><td>8</td><td>0</td></tr>
+  <tr><td><i>Action</i></td><td>price / month</td><td>32<br></td><td>30</td><td>12</td><td>10</td><td>17</td><td>15</td></tr>
+</table>
+
+<p>With two boolean conditions and one condition with three possible values, the possible number of variants is <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn><mo>&#x22C5;</mo><mn>2</mn><mo>&#x22C5;</mo><mn>3</mn><mo>=</mo><mn>1</mn><mn>2</mn></mrow><annotation encoding="application/x-tex">2 \cdot 2 \cdot 3 = 12</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">2</span><span class="mbin">&#x22C5;</span><span class="mord mathrm">2</span><span class="mbin">&#x22C5;</span><span class="mord mathrm">3</span><span class="mrel">=</span><span class="mord mathrm">1</span><span class="mord mathrm">2</span></span></span></span>.
+The decision table only shows <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>6</mn></mrow><annotation encoding="application/x-tex">6</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">6</span></span></span></span>.
+The unspecified columns implicitly represent invalid combinations.
+For example, an international subscription without data would not be possible.</p>
+<p>In small decision tables, non-boolean conditions can be useful.
+However, with many non-boolean conditions, the amount of possible combinations in the decision table can be large.
+Due to this combinatorial explosion of possible variants, the decision table becomes very hard to work with.
+For example, a decision table with three conditions, each having <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>4</mn></mrow><annotation encoding="application/x-tex">4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">4</span></span></span></span> possible values, results in <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>4</mn><mo>&#x22C5;</mo><mn>4</mn><mo>&#x22C5;</mo><mn>4</mn><mo>=</mo><mn>6</mn><mn>4</mn></mrow><annotation encoding="application/x-tex">4 \cdot 4 \cdot 4 = 64</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">4</span><span class="mbin">&#x22C5;</span><span class="mord mathrm">4</span><span class="mbin">&#x22C5;</span><span class="mord mathrm">4</span><span class="mrel">=</span><span class="mord mathrm">6</span><span class="mord mathrm">4</span></span></span></span> possible combinations.
+In such cases, other strategies like <em>pair-wise combinatorial testing</em> offer better scalability. </p>
+<p>The testing techniques for decision tables with only boolean conditions can also be generalized to tables with non-boolean conditions.
+For the MC/DC criteria (discussed in the structural testing chapter), this requires modifying one of its three properties: instead of making each condition <code>true</code> and <code>false</code> at least once in the test suite, each of its possible values should appear at least once in the test suite.</p>
+<p>Finally, these are some general guidelines to keep in mind when designing decision tables:</p>
+<ol>
+<li><strong>Keep conditions independent.</strong> The order of the conditions should not matter, otherwise a state machine might be more fitting.</li>
+<li><strong>Use DC values when possible.</strong> This decreases the amount of variants, making the decision table easier to read and easier to understand.</li>
+<li><strong>Variants with DC values should not overlap.</strong> If they do, they should at least have the same action.</li>
+<li><strong>Add a default column.</strong> This provides an action for the variants that are not in the decision table, allowing the decision table to not include all possible variants.</li>
+<li><strong>Consider non-boolean conditions if conditions are mutually exclusive.</strong> Mutually exclusive means that the conditions can never be true at the same time. These conditions then probably encode a single non-boolean condition.</li>
+<li><strong>If most conditions are non-boolean, consider using a different combinatorial testing technique instead</strong>. One example would be pair-wise testing.</li>
+</ol>
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/RHB_HaGfNjM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+
+
+
+
+
+<h2 id="state-machines">State Machines</h2>
+<p>A state machine is a model that describes the software system by describing its states.
+A system often has multiple states and various transitions between these states.
+The state machine model uses these states and transitions to illustrate the system&apos;s behaviour.</p>
+<p>The main focus of a state machine is, as the name suggests, the states of a system.
+So, it is useful to think about what a state actually is.
+The states in a state machine model describe where a program is in its execution. 
+Transitions are actions that take the system from one state to another.
+We can use as many states as we need to describe the system&apos;s behaviour well.</p>
+<p>Besides states and transitions, a state machine has an initial state and events.
+The initial state is the state that the system starts in.
+From that state the system can transition to other states.
+Each transition is paired with an event.
+This event is usually one or two words that describe what has to happen to make the transition.</p>
+<p>There are some agreements on how to make the models.
+The notation we use is the Unified Modelling Language, UML.
+For the state diagrams that means we use the following symbols:</p>
+<ul>
+<li>State: <img src="img/model-based-testing/uml/state_symbol.svg" alt=""></li>
+<li>Transition: <img src="img/model-based-testing/uml/transition_symbol.svg" alt=""></li>
+<li>Event: <img src="img/model-based-testing/uml/event_symbol.svg" alt=""></li>
+<li>Initial state: <img src="img/model-based-testing/uml/initial_state_symbol.svg" alt=""></li>
+</ul>
+<p>For the following examples we model a (part of a) phone.
+We start simply with a state machine that models the phone&apos;s ability to be locked or unlocked.</p>
+<p>A phone that can be either locked or unlocked has two states: locked and unlocked.
+Before there were face recognition and fingerprint sensors, you had to enter a password to unlock the phone.
+A correct password unlocks the phone and if an incorrect password is given, the phone stays locked.
+Finally, an unlocked phone can be locked again by pushing the lock button.
+We can use these events in the state machine.</p>
+<p><img src="img/model-based-testing/examples/locked_unlocked_machine.svg" alt=""></p>
+<p>In the diagram the initial state is <code>LOCKED</code>, because usually when someone starts using their phone, it is locked.
+This should be represented in the initial state of the state machine.</p>
+<p>Sometimes an event can lead to multiple states, depending on a certain condition.
+To model this in the state machines, we use <em>conditional transitions</em>.
+These transitions are only performed if the event happens and if the condition is true.
+The conditions often depend on a certain value being used in the state machine.
+To modify these values when a transition is taken in the state machine, we use actions.
+Actions are associated with a transition and are performed when the system uses that transition to go into another state.
+The notation for conditions and actions is as follows:</p>
+<ul>
+<li>Conditional transition: <img src="img/model-based-testing/uml/conditional_symbol.svg" alt=""></li>
+<li>Action: <img src="img/model-based-testing/uml/action_symbol.svg" alt=""></li>
+</ul>
+<p>When a user types the wrong password four times in a row, the phone becomes blocked.
+We use <code>n</code> in the model to represent the number of failed attempts.
+Let us look at the conditional transitions that we need to model this behaviour.</p>
+<p><img src="img/model-based-testing/examples/blocked_condition_machine.svg" alt=""></p>
+<p>When <code>n</code> (the number of failed unlock attempts) is smaller than 3, the phone stays in <code>LOCKED</code> state.
+However, when <code>n</code> is equal to 3, the phone goes to <code>BLOCKED</code>.
+Here we have an event, wrong password, that can lead to different states based on the condition.</p>
+<p>In the previous state machine, <code>n</code> never changes.
+This means that the phone will never go to its <code>BLOCKED</code> state, as that requires <code>n</code> to be equal to 3.
+We can add actions to the state machine to make <code>n</code> change correctly.</p>
+<p><img src="img/model-based-testing/examples/blocked_complete_machine.svg" alt=""></p>
+<p>These added actions are to set <code>n</code> to <code>n+1</code> when an incorrect password is given and to 0 when a correct password is given.
+This way the state machine will be in the <code>BLOCKED</code> state when a wrong password is given four times in a row.</p>
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/h4u9k-P3W0U" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+
+
+
+
+
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/O1_oC-7I5E4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+
+
+
+<h3 id="testing-state-machines">Testing state-machines</h3>
+<p>Like with the decision tables, we want to use the state machine model to derive tests for the software system.</p>
+<p>First of all, we look at what might be implemented incorrectly.
+An obvious potential error is a transition to the wrong state.
+This will cause the system to act incorrectly, so we want the tests to catch such errors.
+Additionally, the conditions in conditional transitions and the actions in transition can be wrong.
+Finally, the behaviour of a state should stay the same at all times.
+This means that moving from and to a state should not change the behaviour of that state.</p>
+<p>For state machines, we have a couple of test coverages.
+In this chapter we go over three main ways to define test coverage:</p>
+<ul>
+<li><strong>State coverage:</strong> each state has to be reached at least once</li>
+<li><strong>Transition coverage:</strong> each transition has to be exercised at least once</li>
+<li><strong>Paths:</strong> not exactly a way of describing test coverage, but we use paths to derive test cases</li>
+</ul>
+<p>To achieve the state coverage, we generally bring the system into a state through transitions and then assert that the system is in that state.
+To test a single transition (for transition coverage), more steps are needed:</p>
+<ol>
+<li>Bring the system into the state that the transition being tested goes out of;</li>
+<li>Assert that the system is in that state;</li>
+<li>Trigger the transition event;</li>
+<li>If there is an action, check if this action has happened;</li>
+<li>Assert that the system is in the new state that the transition points to.</li>
+</ol>
+<p>To achieve full state coverage, we need to arrive in each state once.
+For the phone example we have three states so we can make three tests.</p>
+<ul>
+<li>Check that the system is <code>LOCKED</code> when it is started;</li>
+<li>Give the correct password and check that the system is <code>UNLOCKED</code>;</li>
+<li>Give an incorrect password four times and check that the system is <code>BLOCKED</code>.</li>
+</ul>
+<p>With these three tests we achieve full state coverage, as the system is in each state at a certain point.</p>
+<p>With the tests above, we have covered most of the transitions as well.
+The only untested transition is the <code>lock button</code> from <code>UNLOCKED</code> to <code>LOCKED</code>.
+To test this transition, we make the system <code>UNLOCKED</code> by giving the correct password.
+Then we trigger the <code>lock button</code> and assert that the system is <code>LOCKED</code>.</p>
+<h3 id="paths-and-transition-trees">Paths and Transition trees</h3>
+<p>Besides the individual transitions, we can also test the combinations of transitions.
+These combinations of transitions are called paths.</p>
+<p>A logical thought might be: let&apos;s test all the paths in the state machine.
+While this looks like a good objective, the number of paths will probably be too high.
+Take a state machine that has a loop, i.e., a transition from state X to Y and a transition from state Y to X.
+When creating paths, we can keep going back and forth between these two states.
+This leads to an infinite number of paths.
+Obviously, we cannot test all the paths, so we need to take a different approach.</p>
+<p>The idea is that when using paths to derive test cases, we want each loop to be executed once.
+This way we have a finite number of paths to be tested.
+We derive these tests by using a transition tree, which spans the graph of the state machine.
+Such a transition tree is created as follows:</p>
+<ol>
+<li>The root node is the initial state of the state machine;</li>
+<li>For each of the nodes at the lowest level of the transition tree:<ul>
+<li>If the state that the node corresponds to has not been covered before:
+For each of the outgoing transitions of this node&apos;s state:
+ Add a child node that has the name of the state the transition points to. If this state is already in the tree, add or increment a number after the state&apos;s name to keep the node unique.</li>
+<li>If any nodes were added: 
+Repeat from step 2. <!-- TODO: Marsha: this is already step 2. I find this whole point from point 1 not clear! --></li>
+</ul>
+</li>
+</ol>
+<p>This is demonstrated in the example below.</p>
+<p>To make the transition tree more interesting, we modify the phone&apos;s state machine to have an <code>OFF</code> state instead of a <code>BLOCKED</code> state.
+See the state machine below:</p>
+<p><img src="img/model-based-testing/examples/phone_off_machine.svg" alt="Phone state machine with off"></p>
+<p>The root node of the transition tree is the initial state of the state machine.
+We append a number to make it easier to distinguish this node from other nodes of the same state.</p>
+<p><img src="img/model-based-testing/examples/transition_tree/transition_tree_0.svg" alt="Root node transition tree"></p>
+<p>For each outgoing transition from the <code>OFF</code> state we add a child node to <code>OFF_0</code>.</p>
+<p><img src="img/model-based-testing/examples/transition_tree/transition_tree_1.svg" alt="Two level transition tree"></p>
+<p>One node was added, so we continue by adding children to that node.</p>
+<p><img src="img/model-based-testing/examples/transition_tree/transition_tree_2.svg" alt="Three level transition tree"></p>
+<p>The only state we have not seen yet is <code>UNLOCKED</code> in the <code>UNLOCKED_0</code> node.
+Therefore, this is the only node we should add children to.</p>
+<p><img src="img/model-based-testing/examples/transition_tree/transition_tree_3.svg" alt="Final phone transition tree"></p>
+<p>Now all the states of the nodes in the lowest layer have been visited so the transition tree is done.</p>
+<p>From a complete transition tree, we can derive tests.
+Each leaf node in the transition tree represents one path to test.
+This path is shown by going from the root node to this leaf node.
+In the tests, we assume that we are starting in the correct state.
+Then, we trigger the next event that is needed for the given path and assume that we are in the next correct state.
+These events that we need to trigger can be found in the state machine.
+This process continues until the whole path has been followed.</p>
+<p>In the transition tree of the previous example there are four leaf nodes: <code>OFF_1</code>, <code>OFF_2</code>, <code>LOCKED_1</code>, <code>LOCKED_2</code>.
+We want a test for each of these leaf nodes, that follows the path leading to that node.
+For <code>OFF_1</code> the test should &apos;move&apos; the system from <code>OFF</code> to <code>LOCKED</code> and back to <code>OFF</code>.
+Looking at the state machine this gives the events <code>home</code>, <code>long lock button</code>.
+In the test we check that the system is <code>OFF</code>, then we trigger <code>home</code> and check that the system is <code>LOCKED</code>, then we trigger <code>long lock button</code> and assert that the system is <code>OFF</code>.</p>
+<p>The tests for the other three paths can be derived in a similar fashion.</p>
+<p>Using the transition tree, each loop that is in the state machine is executed once and while testing most of the important paths in the state machine, the number of tests is manageable.</p>
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/pvFPzvp5Dk0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+
+
+
+<h3 id="sneak-paths-and-transition-tables">Sneak paths and transition tables</h3>
+<p>In the previous section, we discussed transition trees and how to use them to derive tests.
+These tests check if the system behaves correctly when following different paths in the state machine.
+With this way of testing, we check if the existing transitions in a state machine behave correctly.
+However, we do not check whether there are any more transitions; transitions that should not be there.
+We call these paths, &quot;sneak paths&quot;.</p>
+<p>A <strong>sneak path</strong> is a path in the state machine that should not exist.
+So, for example, we have state X and Y and the system should not be able to transition directly from X to Y.
+If the system can in some way transition directly from X to Y, we have a sneak path.
+We need to test to see if such sneak paths exist in the system.
+To achieve this, we make use of transition tables.</p>
+<p>A transition table is a table containing each transition that is in the state machine.
+The transition is given by the state it is going out of, the event that triggers the transition, and the state the transition goes to.</p>
+<p>We construct a transition table as follows:</p>
+<ul>
+<li>List all the state machine&apos;s states along the rows;</li>
+<li>List all events along the columns;</li>
+<li>For each transition in the state machine note its destination state in the correct cell of the transition table.</li>
+</ul>
+<p>We take a look at the same state machine for which we created a transition table:
+<img src="img/model-based-testing/examples/phone_off_machine.svg" alt=""></p>
+<p>To make the transition table we list all the states and events in the table:</p>
+<table>
+  <tr>
+    <td>STATES</td>
+    <td colspan="5">Events</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>home</td>
+    <td>wrong password</td>
+    <td>correct password</td>
+    <td>lock button</td>
+    <td>long lock button</td>
+  </tr>
+  <tr>
+    <td>OFF</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>LOCKED</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>UNLOCKED</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+</table>
+
+<p>Then we fill the table with the states that the transitions in the state machine point to:</p>
+<table>
+  <tr>
+    <td>STATES</td>
+    <td colspan="5">Events</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>home</td>
+    <td>wrong password</td>
+    <td>correct password</td>
+    <td>lock button</td>
+    <td>long lock button</td>
+  </tr>
+  <tr>
+    <td>OFF</td>
+    <td>LOCKED</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>LOCKED</td>
+    <td></td>
+    <td>LOCKED</td>
+    <td>UNLOCKED</td>
+    <td></td>
+    <td>OFF</td>
+  </tr>
+  <tr>
+    <td>UNLOCKED</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>LOCKED</td>
+    <td>OFF</td>
+  </tr>
+</table>
+
+<p>We can see that there is, for example, a transition from <code>UNLOCKED</code> to <code>LOCKED</code> when the event <code>lock button</code> is triggered.</p>
+<p>When we have the transition table, we have to decide the intended behaviour for the cells that are empty.
+The default is to ignore the event and stay in the same state.
+In some cases, one might want the system to throw an exception.
+These decisions depend on the project and the customer&apos;s needs.</p>
+<p>As discussed earlier, we can use the transition table to derive tests for sneak paths.
+Usually, we want the system to remain in its current state when we trigger an event that has an empty cell in the transition table.
+To test for all possible sneak paths, we create a test case for each empty cell in the transition table.
+First of all, the test will bring the system to the state corresponding to the empty cell&apos;s row (you can use the transition tree to find a suitable path). Then the test triggers the event that corresponds to the empty cell&apos;s column. Finally, the test asserts that the system is in the same state as before triggering the event.
+The number of &apos;sneak path tests&apos; is equal to the number of empty cells in the transition table.</p>
+<p>With these tests we can verify both existing and non-existing paths.
+Together these techniques produce a good testing suite from a state machine.</p>
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/EMZB2IZT8WA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+
+
+
+
+<h3 id="super-states-and-regions">Super states and regions</h3>
+<p>Up till now, we have looked at simple and small state machines.
+When the modelled system becomes large and complex, it is typical for the state machine to develop in the same way.
+At some point the state machine will consist of so many states and transitions, that it becomes unclear and impractical to manage.
+To resolve this issue and make a state machine more scalable we use <strong>super states</strong> and <strong>regions</strong>.</p>
+<p><strong>Super state</strong>: A super state is a state that consists of a state machine.
+Basically, we wrap a state machine in a super-state which is used as a state in another state machine.</p>
+<p>The notation of the super-state is as follows:</p>
+<p><img src="img/model-based-testing/uml/super_state_symbol.svg" alt="Super state notation"></p>
+<p>As a super state is, in essence, a state machine that can be used as a state, we know what should be inside the super state.
+The super state generally consists of multiple states and transitions, and it always has to have an initial state.
+Any transition going into the super state goes to the initial state of the super state.
+A transition going out of the super state means that if the event on this transition is triggered in any of the super state&apos;s states, the system transitions into the state this transition points to.</p>
+<p>We can choose to show the super state fully or we can collapse it.
+A collapsed super state is just a normal state in the state machine.
+This state has the super state&apos;s name and the same incoming and outgoing transitions as the super state.</p>
+<p>With the super states and the collapsing of super states we can modularise and combine state machines.
+This allows us to shift the state machine&apos;s focus to different parts of the system&apos;s behaviour.</p>
+<p>We can use a super state even in the small example of a phone&apos;s state machine.
+The two states <code>LOCKED</code> and <code>UNLOCKED</code> both represent the system in some sort of <code>ON</code> state.
+We can use this to create a super state called <code>ON</code>.</p>
+<p><img src="img/model-based-testing/examples/phone_super_state.svg" alt="Super state example"></p>
+<p>Now we can also simplify the state machine by collapsing the super state:</p>
+<p><img src="img/model-based-testing/examples/phone_collapsed.svg" alt="Collapsed super state example"></p>
+<p><strong>Regions</strong>:
+So far, we have had super states that contain one state machine.
+Here, the system is in only one state of the super state at once.
+In some cases, it may be useful to allow the system to be in multiple states at once.
+This is achieved with regions.</p>
+<p>A super state can be split into multiple regions.
+These are orthogonal regions, meaning that the state machines in the regions are independent of each other; they do not influence the state machines in other regions.
+Each region contains one state machine.
+When the system enters the super state, it enters all the initial states of the regions.
+This means that the system is in multiple states at once.</p>
+<p>The notation of regions is: <img src="img/model-based-testing/uml/region_symbol.svg" alt="Region notation"></p>
+<p>Expanding regions is possible, but is highly impractical and usually not wanted, because expanding a region requires the creation of a state for each combination of states in the different regions.
+This causes the number of states and transitions to explode quickly.
+For this reason, we will not cover how to expand regions.</p>
+<p>In general, it is best to use small state machines and to link these together using super states and regions.</p>
+<p>So far when the phone was <code>ON</code>, we modelled the <code>LOCKED</code> and <code>UNLOCKED</code> state.
+When the phone is on, it drains the battery.
+The system keeps track of the level of the battery.
+Let&apos;s assume that our phone has two battery levels: low and normal.
+The draining of the battery and the transitions between the states of the battery run in parallel to the phone being locked or unlocked.
+With parallel behaviour like this, we can use the regions in the state machine model, which looks like the following, with the new battery states and the regions:</p>
+<p><img src="img/model-based-testing/examples/phone_region.svg" alt="Region state machine example"></p>
+<p>You see that we assume that the battery starts in the normal level state.
+Therefore, when the system transitions to the <code>ON</code> state, it will be in both <code>LOCKED</code> and <code>NORMAL BATTERY</code> states at once.</p>
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/D0IQxdjI0M0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+
+
+
+
+<h3 id="implementing-state-based-testing-in-practice">Implementing state-based testing in practice</h3>
+<p>You have now learnt a lot about state machines as a model.
+One thing we have not looked at yet is how these state machines are represented in the actual code.</p>
+<p>States are very common in programming.
+Most classes in Object-Oriented-Programming correspond to their own small state machine.</p>
+<p>In these classes, we distinguish two types of methods: <strong>inspection</strong> and <strong>trigger</strong> methods.
+An <strong>inspection</strong> method only provides information about an object&apos;s state.
+This information consists of the values or fields of an object.
+The inspection methods only provide information. They do not change the state (or values) of an object.
+<strong>Trigger</strong> methods bring the class into a new state.
+This can be done by changing some of the class&apos;s values.
+These trigger methods correspond to the events on the transitions in the state machine.</p>
+<p>In a test, we want to bring the class to different states and assert that after each transition, the class is in the expected state.
+In other words, a <strong>test scenario</strong> is basically a series of calls on the class&apos;s trigger methods.
+Between these calls, we can call the inspection methods to check the state.</p>
+<p>When a state machine corresponds to a single class, we can easily use the methods described above to test the state machine.
+However, sometimes the state machine spans over multiple classes.
+In that case, you might not be able to identify the inspection and trigger methods easily.
+In this scenario, the state machines can even correspond to <em>end-to-end / system testing</em>.
+Here, the flow of the entire system is under test, from input to output.</p>
+<p>The system under test does not always provide a programming interface (API) to inspect the state or trigger the event for the transitions.
+A common example of such a system is a web application.
+In the end, the web application works through a browser.
+To access the state or to trigger the transitions you would then need to use a dedicated tool, like <a href="https://webdriver.io/" target="_blank">webdriver</a>.
+Using such a dedicated tool directly is not ideal, as you would have to specify each individual click on the web page to trigger events.
+What we need is an abstraction layer on top of the system being tested.
+This abstraction can be a Java class, with the methods that we need to be able to test the system as its state machine.
+In this way, the abstraction layer will contain the inspection method to check the state and the trigger methods to perform the transitions.</p>
+<p>With this small abstraction layer, we can formulate the tests clearly.
+Triggering a transition is a single method call and checking the state also requires only one method call.</p>
+<h2 id="another-example-of-a-real-world-model">Another example of a real-world model</h2>
+<p>Slack shared their internal flow chart that decides whether to send a notification of a message:</p>
+<p><img src="img/model-based-testing/examples/slack.jpg" alt="How Slack decides to send notifications to users"></p>
+<h2 id="exercises">Exercises</h2>
+<p><strong>Exercise 1.</strong>
+The <em>ColdHot</em> air conditioning system has the following requirements:</p>
+<ul>
+<li>When the user turns it on, the machine is in an <em>idle</em> state. This is the initial state.</li>
+<li>If it is <em>too hot</em>, then, the <em>cooling</em> process starts. It goes back to <em>idle</em> when the defined <em>temperature is reached</em>.</li>
+<li>If it is <em>too cold</em>, then, the <em>heating</em> process starts. It goes back to <em>idle</em> when the defined <em>temperature is reached</em>.</li>
+<li>If the user <em>turns it off</em>, the machine is <em>off</em>. If the user <em>turns it on</em> again, the machine is back to <em>idle</em>.</li>
+</ul>
+<p>Draw a minimal state machine to represent these requirements.</p>
+<p><strong>Exercise 2.</strong>
+Derive the transition tree from the state machine of the assignment above.</p>
+<p><strong>Exercise 3.</strong>
+Derive the transition table of the <em>ColdHot</em> state machine.</p>
+<p>How many sneaky paths can be tested based on this transition table?</p>
+<p><strong>Exercise 4.</strong>
+Draw the transition tree of the following state machine:</p>
+<p><img src="img/model-based-testing/exercises/statemachine-order.png" alt=""></p>
+<p><strong>Exercise 5.</strong>
+With the transition tree you devised in the previous exercise and the state machine in that exercise, what is the transition coverage of a test that includes the following events: [order placed, order received, order fulfilled, order delivered]?</p>
+<p><strong>Exercise 6.</strong>
+Devise the transition table of the state machine that was given in the exercise above.
+(Note that the initial transition <code>Order placed</code> should not be represented in the transition table; this transition is there as a way to indicate the developer what &quot;external action&quot; has to happen for this state machine to start).</p>
+<p><strong>Exercise 7.</strong>
+How many sneak paths are there in the state machine we used in the previous exercises?
+(Again, ignore the initial <code>Order placed</code> transition.)</p>
+<p><strong>Exercise 8.</strong>
+Consider the following decision table:</p>
+<table>
+  <tr><th>Criteria</th><th colspan="6">Options</th></tr>
+  <tr><td>C1: Employed for 1 year</td><td>T</td><td>F</td><td>F</td><td>T</td><td>T</td><td>T</td></tr>
+  <tr><td>C2: Achieved last year&apos;s goal</td><td>T</td><td>dc</td><td>dc</td><td>F</td><td>T</td><td>F</td></tr>
+  <tr><td>C3: Positive evaluation from peers</td><td>T</td><td>F</td><td>T</td><td>F</td><td>F</td><td>T</td></tr>
+  <tr><td></td><td>10%</td><td>0%</td><td>5%</td><td>2%</td><td>6%</td><td>3%</td></tr>
+</table>
+
+<p>Which decisions do we have to test for full MC/DC?</p>
+<p>Use as few decisions as possible.</p>
+<p><strong>Exercise 9.</strong>
+See the following generic state machine.</p>
+<p><img src="img/model-based-testing/exercises/generic_state_machine.svg" alt=""></p>
+<p>Draw the transition tree of this state machine.</p>
+<p><strong>Exercise 10.</strong>
+The advertisement (ad) feature is an important source of income for the company. Because of that, the life cycle of an ad needs to be better modelled.
+Our product team defined the following rules:</p>
+<ul>
+<li>The life cycle of an ad starts with an &apos;empty&apos; ad being created.</li>
+<li>The company provides information about the ad. More specifically, the company defines an image, a description, and how many times it should appear. When all this information is set, the ad then needs to wait for approval.</li>
+<li>An administrator checks the content of the ad. If it follows all the rules, the ad then waits for payment. If the ad contains anything illegal, it then goes back to the beginning of the process.</li>
+<li>As soon as the company makes the payment, the ad becomes available to users.</li>
+<li>When the target number of visualisations is reached, the ad is considered done. At this time, the company might consider running the campaign again, which moves the ad to wait for payment again. The company might also decide to end the campaign at that moment, which puts the ad in a final state.  </li>
+<li>While appearing for the users, if more than 10% of the users complain about the ad, the ad is then marked as blocked. The company then gets contacted. After understanding the case, the ad either starts to appear again, or is labelled as inappropriate. An inappropriate ad will never be shown again.</li>
+</ul>
+<p>Devise a state diagram that describes the life cycle of an ad.</p>
+<p><strong>Exercise 11.</strong>
+A microwave oven has the following requirements:</p>
+<ul>
+<li>Its initial state is <code>OFF</code>.</li>
+<li>When the user <code>turns it on</code>, the machine goes to an <code>ON</code> state.</li>
+<li>If the user selects <code>warm meal</code>, then, the <code>WARMING</code> process starts. It goes back to <code>ON</code> when the defined <code>time is reached</code>. A user may <code>cancel</code> it at any time, taking the microwave back to the <code>ON</code> state.</li>
+<li>If the user selects <code>defrost meal</code>, then, the <code>DEFROSTING</code> process starts. It goes back to <code>ON</code> when the defined <code>time is reached</code>. A user may <code>cancel</code> it at any time, taking the microwave back to the <code>ON</code> state.</li>
+<li>The user can <code>turn off</code> the microwave (after which it is <code>OFF</code>), but only if the microwave is not warming up or defrosting food.</li>
+</ul>
+<p>Draw a minimal state machine to represent the requirements. For this question do not make use of super (OR) states.
+Also, remember that, if a transition is not specified in the requirements, it simply does not exist, and thus, should not be represented in the state machine.</p>
+<p><strong>Exercise 12.</strong>
+Devise a state transition tree for the microwave state machine.</p>
+<p><strong>Exercise 13.</strong>
+Again, consider the state machine requirements for the microwave.
+There appears to be some redundancy in the defrosting and warming up functionality, which potentially can be described using super states (also called OR-states).</p>
+<p>Make use of super states and re-design the state machine.</p>
+<p><strong>Exercise 14.</strong>
+See the requirement below:</p>
+<pre><code>Stefan works for Foodgram, a piece of software that enables users to send pictures of the dishes they prepare themselves. Foodgram&apos;s upload system has specific rules:
+
+* The software should only accept images in JPG format.
+* The software should not accept images that are bigger than 20MB.
+* The software accepts images in both high and low resolution.
+
+As soon as a user uploads a photo, the aforementioned rules are applied.
+The software then either says *&quot;Congratulations! Your picture was uploaded successfully&quot;*, or *&quot;Ooops, something went wrong!&quot;*&quot; (without any specific details about why it happened).
+</code></pre><p>Create a decision table that takes the three conditions and their respective outcomes into account.</p>
+<p><em>Note: conditions should be modelled as Boolean decisions.</em></p>
+<p><strong>Exercise 15</strong>
+Twitter is a software system that enables users to share short messages with their friends.
+Twitter&apos;s revenue model is ultimately based on advertisements (ads).
+Twitter&apos;s system needs to decide when to show ads to its users, and which ones. For a given user a given ad can be <em>highly-relevant</em>, and the system seeks to serve the most relevant ads as often as possible without scaring users away.</p>
+<p>To that end, assume that the system employs the following rules to decide whether a user <em>U</em> gets served an ad <em>A</em> at the moment user <em>U</em> opens their Twitter app:</p>
+<ul>
+<li>If the user <em>U</em> has not been active during the past two weeks, she will not get to see ad <em>A</em>;</li>
+<li>If the user <em>U</em> has already been served an ad during her last hour of activity, she will not get to see ad <em>A</em>;</li>
+<li>Furthermore, if the user <em>U</em> has over 1000 followers (an influencer), she will only get to see ad <em>A</em> if <em>A</em> is labelled as <em>highly-relevant</em> for <em>U</em>. Otherwise, user <em>U</em> will see <em>A</em> even if it is not <em>highly-relevant</em>.</li>
+</ul>
+<p>We can model this procedure in a decision table, in various ways.
+The complete table would have four conditions and 16 variants. We will try to create a more compact decision table. Note: We will use Boolean conditions only.</p>
+<p>One way is to focus on the positive cases only, i.e., specify only the variants in which ad <em>A</em> is being served to user <em>U</em>. If you do not use &apos;DC&apos; (don&apos;t care) values, how will the decision table look?</p>
+<h2 id="references">References</h2>
+<ul>
+<li>Chapter 4 of the Foundations of software testing: ISTQB certification. Graham, Dorothy, Erik Van Veenendaal, and Isabel Evans, Cengage Learning EMEA, 2008.</li>
+</ul>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="structural-testing.html" class="navigation navigation-prev " aria-label="Previous page: Structural testing">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="design-by-contracts.html" class="navigation navigation-next " aria-label="Next page: Design-by-contracts">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Model-based testing","level":"4.1.4","depth":2,"next":{"title":"Design-by-contracts","level":"4.1.5","depth":2,"path":"chapters/testing-techniques/design-by-contracts.md","ref":"chapters/testing-techniques/design-by-contracts.md","articles":[]},"previous":{"title":"Structural testing","level":"4.1.3","depth":2,"path":"chapters/testing-techniques/structural-testing.md","ref":"chapters/testing-techniques/structural-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/testing-techniques/model-based-testing.md","mtime":"2020-05-06T07:30:02.649Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-17T14:30:21.918Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-ga/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

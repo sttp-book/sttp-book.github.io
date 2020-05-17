@@ -1,0 +1,1180 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Design for testability · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-hints/plugin-hints.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-katex/katex.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+        <link rel="stylesheet" href="../../assets/css/website.css">
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="tdd.html" />
+    
+    
+    <link rel="prev" href="test-doubles.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../preface/authors.html">
+            
+                <a href="../preface/authors.html">
+            
+                    
+                    Authors and Acknowledgements
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../preface/use.html">
+            
+                <a href="../preface/use.html">
+            
+                    
+                    Using this book
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../preface/contribute.html">
+            
+                <a href="../preface/contribute.html">
+            
+                    
+                    Contribute to this book
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../preface/license.html">
+            
+                <a href="../preface/license.html">
+            
+                    
+                    License
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../preface/structure.html">
+            
+                <a href="../preface/structure.html">
+            
+                    
+                    Structure of the book
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../getting-started/">
+            
+                <a href="../getting-started/">
+            
+                    
+                    Getting started with software testing
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1.1" data-path="../getting-started/why-software-testing.html">
+            
+                <a href="../getting-started/why-software-testing.html">
+            
+                    
+                    Why software testing?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.2" data-path="../getting-started/testing-principles.html">
+            
+                <a href="../getting-started/testing-principles.html">
+            
+                    
+                    Principles of software testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.3" data-path="../getting-started/test-automation.html">
+            
+                <a href="../getting-started/test-automation.html">
+            
+                    
+                    Software testing automation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.4" data-path="../getting-started/testing-vs-writing-tests.html">
+            
+                <a href="../getting-started/testing-vs-writing-tests.html">
+            
+                    
+                    Testing vs writing tests
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.5" data-path="../getting-started/developer-testing-workflow.html">
+            
+                <a href="../getting-started/developer-testing-workflow.html">
+            
+                    
+                    The developer testing workflow
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" data-path="../testing-techniques/">
+            
+                <a href="../testing-techniques/">
+            
+                    
+                    Testing techniques
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1.1" data-path="../testing-techniques/specification-based-testing.html">
+            
+                <a href="../testing-techniques/specification-based-testing.html">
+            
+                    
+                    Specification-based testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.2" data-path="../testing-techniques/boundary-testing.html">
+            
+                <a href="../testing-techniques/boundary-testing.html">
+            
+                    
+                    Boundary testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.3" data-path="../testing-techniques/structural-testing.html">
+            
+                <a href="../testing-techniques/structural-testing.html">
+            
+                    
+                    Structural testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.4" data-path="../testing-techniques/model-based-testing.html">
+            
+                <a href="../testing-techniques/model-based-testing.html">
+            
+                    
+                    Model-based testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.5" data-path="../testing-techniques/design-by-contracts.html">
+            
+                <a href="../testing-techniques/design-by-contracts.html">
+            
+                    
+                    Design-by-contracts
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.6" data-path="../testing-techniques/property-based-testing.html">
+            
+                <a href="../testing-techniques/property-based-testing.html">
+            
+                    
+                    Property-based testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="5.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Pragmatic software testing
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1.1" data-path="testing-pyramid.html">
+            
+                <a href="testing-pyramid.html">
+            
+                    
+                    The testing pyramid
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.2" data-path="test-doubles.html">
+            
+                <a href="test-doubles.html">
+            
+                    
+                    Test doubles
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="5.1.3" data-path="design-for-testability.html">
+            
+                <a href="design-for-testability.html">
+            
+                    
+                    Design for testability
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.4" data-path="tdd.html">
+            
+                <a href="tdd.html">
+            
+                    
+                    Test-driven development
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.5" data-path="test-code-quality.html">
+            
+                <a href="test-code-quality.html">
+            
+                    
+                    Test code quality and engineering
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="6.1" data-path="../testing-into-context/">
+            
+                <a href="../testing-into-context/">
+            
+                    
+                    Testing in the context
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="6.1.1" data-path="../testing-into-context/web-testing.html">
+            
+                <a href="../testing-into-context/web-testing.html">
+            
+                    
+                    Web testing (soon)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.2" data-path="../testing-into-context/sql-testing.html">
+            
+                <a href="../testing-into-context/sql-testing.html">
+            
+                    
+                    SQL testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.3" >
+            
+                <span>
+            
+                    
+                    Mobile testing (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="7.1" data-path="../non-functional-testing/">
+            
+                <a href="../non-functional-testing/">
+            
+                    
+                    Non-functional testing
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="7.1.1" data-path="../non-functional-testing/security-testing.html">
+            
+                <a href="../non-functional-testing/security-testing.html">
+            
+                    
+                    Security testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.1.2" >
+            
+                <span>
+            
+                    
+                    Performance testing (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="8.1" data-path="../intelligent-testing/">
+            
+                <a href="../intelligent-testing/">
+            
+                    
+                    Intelligent testing
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.1.1" data-path="../intelligent-testing/static-testing.html">
+            
+                <a href="../intelligent-testing/static-testing.html">
+            
+                    
+                    Static testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.2" data-path="../intelligent-testing/mutation-testing.html">
+            
+                <a href="../intelligent-testing/mutation-testing.html">
+            
+                    
+                    Mutation testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.3" data-path="../intelligent-testing/fuzzing.html">
+            
+                <a href="../intelligent-testing/fuzzing.html">
+            
+                    
+                    Fuzz testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.4" data-path="../intelligent-testing/sbst.html">
+            
+                <a href="../intelligent-testing/sbst.html">
+            
+                    
+                    Search-based testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="9.1" >
+            
+                <span>
+            
+                    
+                    Appendix
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="9.1.1" data-path="../appendix/answers.html">
+            
+                <a href="../appendix/answers.html">
+            
+                    
+                    Answers to the exercises
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.1.2" data-path="../testing-techniques/domain-testing.html">
+            
+                <a href="../testing-techniques/domain-testing.html">
+            
+                    
+                    Domain testing examples
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.1.3" data-path="../appendix/2020-midterm-preparation.html">
+            
+                <a href="../appendix/2020-midterm-preparation.html">
+            
+                    
+                    2020 midterm mock exam
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.1.4" data-path="../appendix/2020-midterm-preparation-answers.html">
+            
+                <a href="../appendix/2020-midterm-preparation-answers.html">
+            
+                    
+                    2020 midterm mock exam (answers)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.1.5" data-path="../appendix/changelog.html">
+            
+                <a href="../appendix/changelog.html">
+            
+                    
+                    Change log
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >Design for testability</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="design-for-testability">Design for Testability</h1>
+<p>We just learned how the use of mocks and stubs can help developers in being highly productive and efficient in writing test code.
+In our previous chapter, it was easy to pass an <code>IssuedInvoices</code> stub to the <code>InvoiceFilter</code> class. The refactoring operation we performed (where we made the class receive its dependencies via constructors) facilitated the testing of the <code>InvoiceFilter</code> class.
+Note, however, that this was not the case at the beginning of that chapter. We had to refactor the code for that to happen.</p>
+<p>Software systems are often not ready/prepared to be tested, as seen in the classes in our previous chapter.
+And so this chapter will show <strong>how to design and build a software system in a way that increases its testability.</strong></p>
+<p>Testability is the term used to describe how easy it is to write automated tests for the system, class, or method to be tested.
+We already know that automated tests are crucial for high-quality software; it is, therefore, essential that our code is testable.</p>
+<p>In this chapter, we&apos;ll discuss some design practices that increase the testability of software systems. This idea is referred to as <strong>design for testability</strong>. Specifically it involves:</p>
+<ul>
+<li>Dependency injection;</li>
+<li>The separation between domain and infrastructure code;</li>
+<li>Implementation-level tips.</li>
+</ul>
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/iVJNaG3iqrQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+
+
+
+<h2 id="dependency-injection">Dependency injection</h2>
+<p>Dependency injection is a design choice we can use to make our code more testable.
+We will illustrate what dependency injection is by means of this analogy:</p>
+<blockquote>
+<p>We need a hammer to perform a certain task.
+When we are asked to do this task, we find the hammer by ourselves and once we have the hammer, we use it to perform the task.
+However, another approach is to say that, while we still need a hammer when someone asks us to perform the task, instead of getting the hammer ourselves, we get it from the person that wants us to do the task.</p>
+</blockquote>
+<p>We can do the same when managing the dependencies in our systems.
+Simply put, instead of the class instantiating the dependency itself,
+the class asks for the dependency (via constructor or a setter, for example).</p>
+<p>But let&apos;s revisit how we applied this idea in the previous chapter.
+Let&apos;s assume that the <code>InvoiceFilter</code> was implemented as follows:</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">InvoiceFilter</span> </span>{
+
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">filter</span><span class="hljs-params">()</span> </span>{
+    IssuedInvoices dao = <span class="hljs-keyword">new</span> IssuedInvoices();
+
+    <span class="hljs-comment">// ...</span>
+  }
+
+}
+</code></pre>
+<p>In our analogy, the <code>InvoiceFilter</code> (the worker) itself instantiates (searches for) the <code>IssuedInvoices</code> (hammer) class. 
+With an implementation like this, there is no easy way to pass any mocks to the <code>InvoiceFilter</code>.
+Any test code we devise will necessarily use a concrete instance of <code>IssuedInvoices</code>. As we know, <code>IssuedInvoices</code> goes to a database, which is something we have been trying to avoid.
+Thus, we cannot control the way the <code>IssuedInvoice</code> operates, at least for testing purposes.
+This makes it harder for developers to write automated tests.</p>
+<p>Instead, we can design our class in a way that it allows dependencies to be injected. Note how we receive the dependency via constructor now:</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">InvoiceFilter</span> </span>{
+
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> IssuedInvoices issuedInvoices;
+
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">InvoiceFilter</span><span class="hljs-params">(IssuedInvoices issuedInvoices)</span> </span>{
+    <span class="hljs-keyword">this</span>.issuedInvoices = issuedInvoices;
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">lowValuedInvoices</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-comment">// ...</span>
+  }
+}
+</code></pre>
+<p>In this new implementation, we can now instantiate
+the <code>InvoiceFilter</code> class and pass it a mocked/stubbed version of <code>IssuedInvoices</code> in the test code.
+This simple change in the design of the class makes the creation of automated tests easier and, therefore, increases the testability of the code.</p>
+<p>Note that with such a design decision, the <code>InvoiceFilter</code> class also enables the production code to pass a concrete instance of
+<code>IssueInvoices</code>. After all, when the program is running &quot;for real&quot;, we want the real implementation of <code>IssuedInvoices</code> to work.</p>
+<p>More formally, <em>Dependency injection</em> is a technique where one object supplies the required dependencies of the another object. As in our example, whenever a client decides to make use of <code>InvoiceFilter</code>, it will have to also supply an <code>IssuedInvoice</code>. The term &quot;injection&quot; is about &quot;injecting&quot; a dependency, in this case the <code>IssuedInvoice</code>, to another class, in this case <code>InvoiceFilter</code>.</p>
+<p>The use of dependency injection improves our code in many ways:</p>
+<ul>
+<li>It enables us to mock/stub the dependencies in the test code, increasing the productivity of the developer during the testing phase.</li>
+<li>It makes all the dependencies more explicit; after all, they all need to be injected (via constructor, for example).</li>
+<li>It affords better separation of concerns: classes now do not need to worry about how to build their dependencies, as they are injected to them.</li>
+<li>The class becomes more extensible. As a client of the class, you can pass any dependency via the constructor. Suppose a class depends on a type <code>A</code> (and receives it via constructor). As a client, you can pass <code>A</code> or any implementation of <code>A</code>, e.g., if <code>A</code> is <code>List</code>, you can pass <code>ArrayList</code> or <code>LinkedList</code>. Your class can now work with many different implementations of <code>A</code>.</li>
+</ul>
+<p><div class="alert alert-success hints-alert"><div class="hints-icon"><i class="fa fa-mortar-board"></i></div><div class="hints-container"><p>If you want to understand more advanced OOP concepts, we suggest reading more about:</p>
+<ul>
+<li>The Open-Closed Principle;</li>
+<li>Inversion of Control;</li>
+<li>Separation of concerns.</li>
+</ul>
+</div></div></p>
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/mGdsdBEWB5E" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+
+
+
+
+<h2 id="domain-vs-infrastructure">Domain vs infrastructure</h2>
+<p>A general recommendation to design for testability comes down to separating <em>domain</em> from <em>infrastructure</em>.
+The <em>domain</em> is where the core of the system lies, i.e. where all the business rules, logics, entities, services, etc, reside.
+Throughout this book we have been using business systems as examples. Entities like <code>Invoice</code>, <code>ChristmasDiscountCalculator</code>
+are examples of domain classes.</p>
+<p><em>Infrastructure</em> relates to all code that handles some infrastructure. For example, pieces of code that handle database queries, or webservice calls, or file reads and writes.
+In our examples, all our Data Access Objects are part of what we call infrastructure code.</p>
+<p>We observe that, when domain code and infrastructure code are mixed up together, the system becomes harder to test.
+Let us go back to our <code>InvoiceFilter</code> example with it now containing the SQL logic, instead of it depending on a Data Access Object:</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">InvoiceFilter</span> </span>{
+
+  <span class="hljs-comment">// accessing the database</span>
+  <span class="hljs-function"><span class="hljs-keyword">private</span> List&lt;IssuedInvoice&gt; <span class="hljs-title">all</span><span class="hljs-params">()</span> </span>{
+    Connection connection = DriverManager.getConnection(<span class="hljs-string">&quot;db&quot;</span>, <span class="hljs-string">&quot;root&quot;</span>, <span class="hljs-string">&quot;&quot;</span>);
+
+    <span class="hljs-keyword">return</span> withSql( () -&gt; {
+        <span class="hljs-keyword">try</span> (var ps = connection.prepareStatement(<span class="hljs-string">&quot;select * from invoice&quot;</span>)) {
+            <span class="hljs-keyword">final</span> var rs = ps.executeQuery();
+
+            List&lt;Invoice&gt; allInvoices = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+            <span class="hljs-keyword">while</span> (rs.next()) {
+                allInvoices.add(<span class="hljs-keyword">new</span> Invoice(rs.getString(<span class="hljs-string">&quot;name&quot;</span>), rs.getInt(<span class="hljs-string">&quot;value&quot;</span>)));
+            }
+            <span class="hljs-keyword">return</span> allInvoices;
+        }
+    });
+
+    connection.close();
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;Invoice&gt; <span class="hljs-title">lowValueInvoices</span><span class="hljs-params">()</span> </span>{
+
+    var issuedInvoices = all();
+
+    <span class="hljs-keyword">return</span> issuedInvoices.all().stream()
+        .filter(invoice -&gt; invoice.value &lt; <span class="hljs-number">100</span>)
+        .collect(toList());
+  }
+
+}
+</code></pre>
+<p>We can make the following observations about the code above:</p>
+<ul>
+<li>The code is less cohesive. It knows how to extract data from the database and it also knows the &quot;low value invoices&quot; business rule. This class now requires test cases that cover both responsibilities.</li>
+<li>Domain code and infrastructure code are mixed up. This means a tester will not be able to avoid database access when
+testing the &quot;low value invoices&quot; rule. As we have seen many times already, this will incur higher costs.</li>
+<li>This new version of the <code>InvoiceFilter</code> class is definitely more complex than our previous version and complex code are more prone to defects.</li>
+</ul>
+<p>Our previous version was indeed better. It was more cohesive and simpler. More importantly it also had a clear separation between domain code and infrastructure code. This is what software developers should always do when they design systems in order to ensure these two responsibilities are separated from each other.</p>
+<p>This idea of separating infrastructure and domain is explored in the following literature:</p>
+<ul>
+<li>In the <strong>Ports and Adapters</strong> (also called the <strong>Hexagonal Architecture</strong>) idea, as proposed by Alistair Cockburn, the domain (business logic) depends on &quot;Ports&quot;, rather than directly on the infrastructure.
+These ports are interfaces that define what the infrastructure is able to do.
+These ports are completely separated from the implementation of the infrastructure.
+The &quot;adapters&quot;, on the other hand, are very close to the infrastructure.
+These are the implementations of the ports that talk to the database, webservice, etc.
+They know how the infrastructure works and how to communicate with it.</li>
+</ul>
+<p>In the schema below, you can see that the ports are part of the domain.</p>
+<p><img src="img/design-for-testability/hexagonal_architecture.svg" alt="Hexagonal Architecture"></p>
+<p>Ports and Adapters help us a lot with the testability of our code.
+If our core domain depends only on ports, we can easily stub/mock them.</p>
+<ul>
+<li>In his <strong>Domain-Driven Design</strong> work, Eric Evans proposes that the domain (the core of the system) will be isolated from the infrastructure layer. Besides all the design benefits that Eric cites in his book, testers benefit from this separation, as it enables them to exercise parts of code without having to depend on heavy infrastructure.</li>
+</ul>
+<p>In practice, we observe that separating the infrastructure from domain is often challenging. The database example, where we move all the code to another class, is rather a simplistic one. When building software, we frequently rely on different libraries and frameworks that are often opinionated and require you to follow certain design decisions that might not be ideal, from a testability perspective. It is the duty of a developer to be able to abstract these problems, making sure that the domain concerns are always separated from the infrastructure concerns.</p>
+<p><div class="alert alert-success hints-alert"><div class="hints-icon"><i class="fa fa-mortar-board"></i></div><div class="hints-container"><p>You see developers vouching for domain objects not to depend on concrete implementations of the infrastructure code, but rather, to depend solely on abstractions. In our example, the <code>InvoiceFilter</code> domain object, instead of depending on a concrete implementation of <code>IssuedInvoices</code> (one that right now contains SQL code and knows how to communicate with the database), it would depend on an abstraction/interface.</p>
+<p>By devising interfaces that represent the abstract interaction that domains and infrastructure classes will have with each other, the developer ends up separating the concerns in a better way, reducing the coupling between both layers, and devising simpler flows of interactions between both layers.</p>
+<p>The dependency inversion principle (note the <em>inversion</em> and not <em>injection</em>) helps us to formalise these concepts:</p>
+<ul>
+<li>High-level modules should not depend on low-level modules. Both should depend on abstractions (e.g. interfaces).</li>
+<li>Abstractions should not depend on details. Details (concrete implementations) should depend on abstractions.</li>
+</ul>
+</div></div></p>
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/hv1XV87lJgA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+
+
+
+
+<h2 id="implementation-level-tips-on-designing-for-testability">Implementation-level tips on designing for testability</h2>
+<p>We end this chapter with a couple of practical tips that will help you to devise testable systems/classes:</p>
+<ul>
+<li><strong>Cohesion and testability</strong>: cohesive classes are classes that do only one thing.
+Cohesive classes tend to be easier to test. This is because fewer responsibilities imply fewer test cases and fewer responsibilities often imply fewer dependencies (as you need fewer to compose the required functionality) which in turn incurs lower testing costs.</li>
+</ul>
+<p>On the other hand, a non-cohesive class tends to consume a large amount of testing effort from developers. You might notice that a non-cohesive class requires so many test cases, that you often feel like &quot;the testing is never-ending&quot;.</p>
+<p>Refactoring non-cohesive classes is therefore an important task when it comes to testability. A common way to do this is by splitting the non-cohesive class into several smaller-but-cohesive classes. Each small class can then be tested separately, and the class that combines them  might rely either on mock objects to assert the correctness of the interactions among the dependencies or on an integration test (or both).</p>
+<ul>
+<li><strong>Coupling and testability</strong>: Coupling refers to the number of classes that a class depends on. A highly coupled class requires several other
+classes to do its work. Coupling decreases testability. A tester trying to test a highly dependent class ends up having to test all its dependencies together. If the tester then decides to use stubs/mocks, the costs of setting them up will also be higher than it needed to be (just imagine yourself setting up 10 or 15 stubs/mocks to test a single class). Moreover, the number of test cases that would be required to achieve a minimum amount of coverage is too high, as each dependency probably brings together a whole set of requirements and conditions.</li>
+</ul>
+<p>Reducing coupling, however, is often tricky, and maybe one of the biggest challenges in software design.
+A common coupling-related refactoring is to group dependencies together into a higher and meaningful abstraction.
+Imagine that class A depends on B, C, D and E. After inspection, you notice that B interacts with C, and D interacts with E.
+Devising a new class that handles the communication between B and C (let us call it BC), and other one that handles the communication between D and E (let us call it DE), already reduces A&apos;s coupling. After all, it now depends only on BC, and DE. In general, pushing responsibilities and dependencies to smaller classes and later connecting them via larger abstractions is the way to go.</p>
+<ul>
+<li><strong>Complex conditions and testability</strong>: We have seen in previous chapters that conditions that are very complex (e.g., an <code>if</code> statement composed of multiple Boolean operations) require great effort from testers. For example, the number of tests one might devise after applying some boundary testing or condition+branch coverage criteria might be
+too high. </li>
+</ul>
+<p>Reducing the complexity of such conditions, for example by breaking it into multiple smaller conditions, will not reduce the overall complexity of the problem, but will &quot;spread&quot; it.</p>
+<ul>
+<li><strong>Private methods and testability</strong>: A common question among developers is whether to test private methods or not.
+In principle, testers should test private methods only through their public methods. However, testers often feel the urge to test a particular private method in isolation. One common cause for this feeling is the lack of cohesion or the complexity of this private method. In other words, this method does something so different to the public method, and/or its task is so complex, that it has to be tested separately. This is a good example of when &quot;the test speaks to the developer&quot; (a common saying among Test-Driven Developers).</li>
+</ul>
+<p>In terms of the design this might mean that this private method does not belong in its current place. A common refactoring is to extract this method, maybe to a brand new class. There, the former private method, now a public method, can be tested normally by the developer. The original class, where the private method used to be, should now depend on this new class.</p>
+<ul>
+<li><strong>Static methods and testability</strong>: As we have seen before, static methods adversely affect testability, as they can not be stubbed easily. Therefore, a good rule of thumb is to avoid the creation of static methods whenever possible.
+Exceptions to this rule are utility methods. As we saw before, utility methods are often not mocked.</li>
+</ul>
+<p>If your system has to depend on a specific static method, e.g., because it comes with the framework your software depends on, adding an abstraction on top of it, similar to what we did with the <code>Calendar</code> class in the previous chapter, might be a good decision to facilitate testability.</p>
+<p>The same recommendation applies when your system needs code from others or external dependencies.
+Again, creating layers/classes that abstract away the dependency might help you in increasing testability.
+We emphasise that developers should not be afraid to create these extra layers. While it might seem that these layers will increase the overall complexity of the design, the increased testability pays off.</p>
+<p>Finally, note how there is a <a href="https://www.youtube.com/watch?v=4cVZvoFGJTU" target="_blank">deep synergy between well designed production code and testability</a>.
+We repeat that focusing only on testing techniques (like the ones we discussed in the <em>Testing Techniques</em> section of this book), or only on design techniques (like the ones we have been focusing on in this section of the book), is not enough. High-quality software is only achieved when software systems are designed with testability in mind, and rigorous testing techniques are applied.</p>
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/VaScxLhsDBQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+
+
+
+
+<h2 id="exercises">Exercises</h2>
+<p><strong>Exercise 1.</strong>
+How can we improve the testability of the <code>OrderDeliveryBatch</code> class?</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OrderDeliveryBatch</span> </span>{
+
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">runBatch</span><span class="hljs-params">()</span> </span>{
+
+    OrderDao dao = <span class="hljs-keyword">new</span> OrderDao();
+    DeliveryStartProcess delivery = <span class="hljs-keyword">new</span> DeliveryStartProcess();
+
+    List&lt;Order&gt; orders = dao.paidButNotDelivered();
+
+    <span class="hljs-keyword">for</span> (Order order : orders) {
+      delivery.start(order);
+
+      <span class="hljs-keyword">if</span> (order.isInternational()) {
+        order.setDeliveryDate(<span class="hljs-string">&quot;5 days from now&quot;</span>);
+      } <span class="hljs-keyword">else</span> {
+        order.setDeliveryDate(<span class="hljs-string">&quot;2 days from now&quot;</span>);
+      }
+    }
+  }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OrderDao</span> </span>{
+  <span class="hljs-comment">// accesses a database</span>
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DeliveryStartProcess</span> </span>{
+  <span class="hljs-comment">// communicates with a third-party webservice</span>
+}
+</code></pre>
+<p>Which techniques can we apply? What would the new implementation look like? Think about what you would need to include in order to test the <code>OrderDeliveryBatch</code> class.</p>
+<p><strong>Exercise 2.</strong>
+Consider the following requirement and implementation.</p>
+<pre><code class="lang-text">A webshop gives a discount of 15% on King&apos;s Day.
+</code></pre>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">KingsDayDiscount</span> </span>{
+
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">discount</span><span class="hljs-params">(<span class="hljs-keyword">double</span> value)</span> </span>{
+
+    Calendar today = Calendar.getInstance();
+
+    <span class="hljs-keyword">boolean</span> isKingsDay = today.get(MONTH) == Calendar.APRIL
+        &amp;&amp; today.get(DAY_OF_MONTH) == <span class="hljs-number">27</span>;
+
+    <span class="hljs-keyword">return</span> isKingsDay ? value * <span class="hljs-number">0.15</span> : <span class="hljs-number">0</span>;
+
+  }
+}
+</code></pre>
+<p>We want to create a unit test for this class.</p>
+<p>Why does this class have bad testability?
+What can we do to improve the testability?
+I.e. why is it difficult to test the method?</p>
+<p><strong>Exercise 3.</strong>
+Sarah has joined a mobile app team that has been trying to write automated tests for a while.
+The team wants to write unit tests for part of their code, but &quot;that&apos;s really hard&quot;, according to the developers.</p>
+<p>After some code review, the developers themselves listed the following
+problems in their codebase:</p>
+<ol>
+<li>Many classes mix infrastructure and business rules</li>
+<li>The database has large tables and no indexes</li>
+<li>Use of static methods</li>
+<li>Some classes have too many attributes/fields</li>
+</ol>
+<p>To increase the testability, the team has a budget to work on two out of the four issues above.
+Which items should Sarah recommend them to tackle first?</p>
+<p>Note: All of the four issues should obviously be fixed.
+However, try to prioritise the two most important ones: which influence the testability the most?</p>
+<p><strong>Exercise 4.</strong>
+Observability and controllability are two important concepts when it comes to software testing.
+Three developers could benefit from improving either the observability or the controllability of the system/class which they are testing but each developer encounters a problem:</p>
+<ol>
+<li>&quot;I can&apos;t really assert that the method under test worked well.&quot;</li>
+<li>&quot;I need to make sure this class starts with that Boolean set to false, but I simply can&apos;t do it.&quot;</li>
+<li>&quot;I just instantiated the mock object, but there&apos;s no way to inject it in the class.&quot;</li>
+</ol>
+<p>State for each of the problems above whether it relates to observability or controllability.</p>
+<h2 id="references">References</h2>
+<ul>
+<li><p>Cockburn, Alistair. The Hexagonal Architecture. <a href="https://wiki.c2.com/?HexagonalArchitecture" target="_blank">https://wiki.c2.com/?HexagonalArchitecture</a></p>
+</li>
+<li><p>Hevery, Misko. The Testability Guide. <a href="http://misko.hevery.com/attachments/Guide-Writing%20Testable%20Code.pdf" target="_blank">http://misko.hevery.com/attachments/Guide-Writing%20Testable%20Code.pdf</a></p>
+</li>
+<li><p>Michael Feathers. The deep synergy between well design production code and testability. <a href="https://www.youtube.com/watch?v=4cVZvoFGJTU" target="_blank">https://www.youtube.com/watch?v=4cVZvoFGJTU</a></p>
+</li>
+<li><p>Martin, Robert C. The Dependency Inversion Principle. C++ Report. Archived from the original (PDF) on 2011-07-14: <a href="https://web.archive.org/web/20110714224327/http://www.objectmentor.com/resources/articles/dip.pdf" target="_blank">https://web.archive.org/web/20110714224327/http://www.objectmentor.com/resources/articles/dip.pdf</a></p>
+</li>
+</ul>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="test-doubles.html" class="navigation navigation-prev " aria-label="Previous page: Test doubles">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="tdd.html" class="navigation navigation-next " aria-label="Next page: Test-driven development">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Design for testability","level":"5.1.3","depth":2,"next":{"title":"Test-driven development","level":"5.1.4","depth":2,"path":"chapters/pragmatic-testing/tdd.md","ref":"chapters/pragmatic-testing/tdd.md","articles":[]},"previous":{"title":"Test doubles","level":"5.1.2","depth":2,"path":"chapters/pragmatic-testing/test-doubles.md","ref":"chapters/pragmatic-testing/test-doubles.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/pragmatic-testing/design-for-testability.md","mtime":"2020-05-15T17:45:52.069Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-17T14:30:21.918Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-ga/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

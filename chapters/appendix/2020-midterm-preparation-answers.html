@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Using this book · GitBook</title>
+        <title>2020 midterm mock exam (answers) · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="contribute.html" />
+    <link rel="next" href="changelog.html" />
     
     
-    <link rel="prev" href="authors.html" />
+    <link rel="prev" href="2020-midterm-preparation.html" />
     
 
     </head>
@@ -102,9 +102,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2" data-path="authors.html">
+        <li class="chapter " data-level="1.2" data-path="../preface/authors.html">
             
-                <a href="authors.html">
+                <a href="../preface/authors.html">
             
                     
                     Authors and Acknowledgements
@@ -115,9 +115,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.3" data-path="use.html">
+        <li class="chapter " data-level="1.3" data-path="../preface/use.html">
             
-                <a href="use.html">
+                <a href="../preface/use.html">
             
                     
                     Using this book
@@ -128,9 +128,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4" data-path="contribute.html">
+        <li class="chapter " data-level="1.4" data-path="../preface/contribute.html">
             
-                <a href="contribute.html">
+                <a href="../preface/contribute.html">
             
                     
                     Contribute to this book
@@ -141,9 +141,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5" data-path="license.html">
+        <li class="chapter " data-level="1.5" data-path="../preface/license.html">
             
-                <a href="license.html">
+                <a href="../preface/license.html">
             
                     
                     License
@@ -161,9 +161,9 @@
         
         
     
-        <li class="chapter " data-level="2.1" data-path="structure.html">
+        <li class="chapter " data-level="2.1" data-path="../preface/structure.html">
             
-                <a href="structure.html">
+                <a href="../preface/structure.html">
             
                     
                     Structure of the book
@@ -676,9 +676,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="9.1.1" data-path="../appendix/answers.html">
+        <li class="chapter " data-level="9.1.1" data-path="answers.html">
             
-                <a href="../appendix/answers.html">
+                <a href="answers.html">
             
                     
                     Answers to the exercises
@@ -702,9 +702,9 @@
             
         </li>
     
-        <li class="chapter " data-level="9.1.3" data-path="../appendix/2020-midterm-preparation.html">
+        <li class="chapter " data-level="9.1.3" data-path="2020-midterm-preparation.html">
             
-                <a href="../appendix/2020-midterm-preparation.html">
+                <a href="2020-midterm-preparation.html">
             
                     
                     2020 midterm mock exam
@@ -715,9 +715,9 @@
             
         </li>
     
-        <li class="chapter " data-level="9.1.4" data-path="../appendix/2020-midterm-preparation-answers.html">
+        <li class="chapter active" data-level="9.1.4" data-path="2020-midterm-preparation-answers.html">
             
-                <a href="../appendix/2020-midterm-preparation-answers.html">
+                <a href="2020-midterm-preparation-answers.html">
             
                     
                     2020 midterm mock exam (answers)
@@ -728,9 +728,9 @@
             
         </li>
     
-        <li class="chapter " data-level="9.1.5" data-path="../appendix/changelog.html">
+        <li class="chapter " data-level="9.1.5" data-path="changelog.html">
             
-                <a href="../appendix/changelog.html">
+                <a href="changelog.html">
             
                     
                     Change log
@@ -776,7 +776,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="../.." >Using this book</a>
+        <a href="../.." >2020 midterm mock exam (answers)</a>
     </h1>
 </div>
 
@@ -791,17 +791,195 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="using-this-book">Using this book</h1>
-<p>Feel free to use this book in your software testing course.
-The slides we use in the background of our videos can be found
-in our <a href="https://github.com/sttp-book/video-slides" target="_blank">video slides repository</a>.
-We should release our accompanying lecture slides soon. <em>If you adopt
-this book, please let us know!</em></p>
-<p>This book is currently being used by: </p>
+                                <h1 id="2020-midterm-preparation---answers">2020 Midterm preparation - Answers</h1>
+<hr>
+<p>Method under test <code>deleteWhitespace(final String str)</code> from class <code>org.apache.commons.lang3.StringUtils</code>.</p>
+<p>Source code of the entire class: <a href="https://github.com/apache/commons-lang/tree/e0b474c0d015f89a52c4cf8866fa157dd89e7d1c/src/main/java/org/apache/commons/lang3/StringUtils.java#L1564" target="_blank">https://github.com/apache/commons-lang/tree/e0b474c0d015f89a52c4cf8866fa157dd89e7d1c/src/main/java/org/apache/commons/lang3/StringUtils.java#L1564</a></p>
+<p>Snippet of the method you should test:</p>
+<pre><code class="lang-java"><span class="hljs-comment">/**
+ * &lt;p&gt;Deletes all whitespaces from a String as defined by
+ * {<span class="hljs-doctag">@link</span> Character#isWhitespace(char)}.&lt;/p&gt;
+ *
+ *
+ * <span class="hljs-doctag">@param</span> str  the String to delete whitespace from, may be null
+ * <span class="hljs-doctag">@return</span> the String without whitespaces, {<span class="hljs-doctag">@code</span> null} if null String input
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title">deleteWhitespace</span><span class="hljs-params">(<span class="hljs-keyword">final</span> String str)</span> </span>{
+    <span class="hljs-keyword">if</span> (isEmpty(str)) {
+        <span class="hljs-keyword">return</span> str;
+    }
+    <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> sz = str.length();
+    <span class="hljs-keyword">final</span> <span class="hljs-keyword">char</span>[] chs = <span class="hljs-keyword">new</span> <span class="hljs-keyword">char</span>[sz];
+    <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; sz; i++) {
+        <span class="hljs-keyword">if</span> (!Character.isWhitespace(str.charAt(i))) {
+            chs[count++] = str.charAt(i);
+        }
+    }
+    <span class="hljs-keyword">if</span> (count == sz) {
+        <span class="hljs-keyword">return</span> str;
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> String(chs, <span class="hljs-number">0</span>, count);
+}
+</code></pre>
+<hr>
+<h2 id="exercise-domain-testing">Exercise: Domain testing</h2>
+<p>Variables:</p>
 <ul>
-<li>Delft University of Technology (<a href="https://www.mauricioaniche.com" target="_blank">Dr. Maur&#xED;cio Aniche</a>)</li>
-<li>University of Zurich (<a href="https://sback.it" target="_blank">Prof. Dr. Alberto Bacchelli</a>)</li>
-<li>PUC-RS/Brazil (<a href="https://www.linkedin.com/in/bernardo-copstein-3226095" target="_blank">Prof. Dr. Bernardo Copstein</a>)</li>
+<li>We see a single input variable, <code>str</code> (String).</li>
+<li>The program outputs a String.</li>
+</ul>
+<p>Dependency among variables:</p>
+<ul>
+<li>No dependencies (just a single input variable).</li>
+</ul>
+<p>Equivalence and boundary analysis:</p>
+<ul>
+<li><p>Variable str: </p>
+<ul>
+<li>null</li>
+<li>empty</li>
+<li>with a single whitespace</li>
+<li>with many whitespaces</li>
+<li>without whitespace</li>
+</ul>
+</li>
+<li><p>Boundaries: Boundaries between partitions happen when the string goes from no whitespaces, to a single whitespace, to many whitespaces. These boundaries are already covered by the partitions above.</p>
+</li>
+</ul>
+<p>(Note that others can see cases, such as whitespaces at the beginning or whitespaces at end. We do not see a need for this, given the implementation. Nevertheless, as a black-box tester, these tests are totally valid!)</p>
+<p>Strategy: The number of partitions is manageable. Let&apos;s write tests to all of them.</p>
+<p>Test cases:</p>
+<ul>
+<li>T1 null string = (null string) -&gt; (null)</li>
+<li>T2 empty string = &quot;&quot; -&gt; &quot;&quot;</li>
+<li>T3 no whitespace = &quot;abc&quot; -&gt; &quot;abc&quot;</li>
+<li>T4 single whitespace = &quot;abc &quot; -&gt; &quot;abc&quot;</li>
+<li>T5 multiple whitespaces = &quot; a b c &quot; -&gt; &quot;abc&quot;</li>
+</ul>
+<h2 id="exercise-control-flow-graph">Exercise: Control-flow graph</h2>
+<p><img src="img/midterm-mock/cfg.png" alt="CFG of the deleteWhitespace() method"></p>
+<p><em>Note: Considering the <code>for(int i = 0)</code> as part of the previous block is also an acceptable solution.</em></p>
+<h2 id="exercise-structural-testing">Exercise: Structural testing</h2>
+<p>The tests we devised in the domain testing already achieve 100% full condition coverage.</p>
+<p>From structural testing, we note that the <code>if (count == sz)</code> is not really needed. It seems to be there to avoid the allocation of a new string in the memory (i.e., if the string has no whitespaces, it just returns the same string). While not an explicit requirement, it was already covered by the &quot;no whitespace&quot; partition. To make the tests to capture such implicit requirement, we added an assertion that checks whether the String instance returned by the <code>deleteWhitespace()</code> is the same as the one provided in the input (i.e., <code>assertSame</code>).</p>
+<h2 id="exercise-junit-code">Exercise: JUnit code</h2>
+<pre><code class="lang-java"><span class="hljs-keyword">import</span> org.apache.commons.lang3.StringUtils;
+<span class="hljs-keyword">import</span> org.junit.jupiter.params.ParameterizedTest;
+<span class="hljs-keyword">import</span> org.junit.jupiter.params.provider.Arguments;
+<span class="hljs-keyword">import</span> org.junit.jupiter.params.provider.MethodSource;
+
+<span class="hljs-keyword">import</span> java.util.stream.Stream;
+
+<span class="hljs-keyword">import</span> <span class="hljs-keyword">static</span> org.assertj.core.api.Assertions.assertThat;
+
+<span class="hljs-comment">// UTest is the name required by WebLab</span>
+<span class="hljs-comment">// otherwise, a more elegant name would be better.</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UTest</span> </span>{
+
+    <span class="hljs-meta">@ParameterizedTest</span>(name = <span class="hljs-string">&quot;{0}&quot;</span>)
+    <span class="hljs-meta">@MethodSource</span>(<span class="hljs-string">&quot;generator&quot;</span>)
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">deleteWhitespace</span><span class="hljs-params">(String description, String str, String expectedResult)</span> </span>{
+        assertThat(StringUtils.deleteWhitespace(str)).isEqualTo(expectedResult);
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Stream&lt;Arguments&gt; <span class="hljs-title">generator</span><span class="hljs-params">()</span> </span>{
+        Arguments tc1 = Arguments.of(<span class="hljs-string">&quot;null&quot;</span>, <span class="hljs-keyword">null</span>, <span class="hljs-keyword">null</span>);
+        Arguments tc2 = Arguments.of(<span class="hljs-string">&quot;empty&quot;</span>, <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;&quot;</span>);
+        Arguments tc3 = Arguments.of(<span class="hljs-string">&quot;no withspace&quot;</span>, <span class="hljs-string">&quot;abc&quot;</span>, <span class="hljs-string">&quot;abc&quot;</span>);
+        Arguments tc4 = Arguments.of(<span class="hljs-string">&quot;single withspace&quot;</span>, <span class="hljs-string">&quot;abc &quot;</span>, <span class="hljs-string">&quot;abc&quot;</span>);
+        Arguments tc5 = Arguments.of(<span class="hljs-string">&quot;with multiple withspaces&quot;</span>, <span class="hljs-string">&quot; a b c &quot;</span>, <span class="hljs-string">&quot;abc&quot;</span>);
+
+        <span class="hljs-keyword">return</span> Stream.of(tc1, tc2, tc3, tc4, tc5);
+    }
+
+    <span class="hljs-meta">@Test</span>
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">keepSameReferenceIfNoWhitespaces</span><span class="hljs-params">()</span> </span>{
+        String abc = <span class="hljs-string">&quot;abc&quot;</span>;
+        assertThat(StringUtils.deleteWhitespace(abc)).isSameAs(abc);
+    }
+}
+</code></pre>
+<h2 id="exercise-contracts">Exercise: Contracts</h2>
+<ul>
+<li><p>Pre-conditions: The requirements allow the method to receive a <em>null</em> String. Otherwise, we could formalize <em>string not null</em> as a pre-condition to this method.</p>
+</li>
+<li><p>Post-conditions: The final string has <code>length==count</code>. That could be formalized as a post-condition.</p>
+</li>
+<li><p>Class-invariants: No class invariants. This is a static method. </p>
+</li>
+</ul>
+<h2 id="picking-a-state-machine">Picking a state machine</h2>
+<hr>
+<ul>
+<li><p>The machine begins in state <strong>C</strong>.</p>
+</li>
+<li><p>When the machine is at state <strong>A</strong> and event <strong>T2</strong> is invoked, then the machine proceeds to state <strong>B</strong>.</p>
+</li>
+<li><p>When the machine is at state <strong>C</strong> and reaction <strong>T2</strong> occurs, then the machine proceeds to state <strong>D</strong>.</p>
+</li>
+<li><p>When the machine is at state <strong>C</strong> and operation <strong>T4</strong> is triggered, then the machine enters state <strong>A</strong>.</p>
+</li>
+<li><p>When the machine is at state <strong>D</strong> and event <strong>T3</strong> is invoked, then the machine enters state <strong>D</strong>.</p>
+</li>
+<li><p>When the machine is in state <strong>D</strong> and reaction <strong>T1</strong> is invoked, then the machine enters state <strong>A</strong>.</p>
+</li>
+</ul>
+<hr>
+<h2 id="exercise-drawing-a-state-machine">Exercise: Drawing a state machine</h2>
+<p><img src="img/midterm-mock/state-machine.png" alt="State machine"></p>
+<p>Note that we use double lines to represent the initial state. You could have used the UML way of doing it (dark circle pointing to the initial state). We will accept both styles.</p>
+<h2 id="exercise-transition-tree">Exercise: Transition tree</h2>
+<p><img src="img/midterm-mock/transition-tree.png" alt="State machine"></p>
+<h2 id="exercise-sneaky-paths">Exercise: Sneaky paths</h2>
+<p>Let&apos;s draw the transition table:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>T1</th>
+<th>T2</th>
+<th>T3</th>
+<th>T4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>-</td>
+<td>B</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>B</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>C</td>
+<td>-</td>
+<td>D</td>
+<td>-</td>
+<td>A</td>
+</tr>
+<tr>
+<td>D</td>
+<td>A</td>
+<td>-</td>
+<td>D</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p>Sneaky paths are all the empty cells (11 sneaky paths):</p>
+<ul>
+<li>for state A: T1, T3, T4</li>
+<li>for state B: T1, T2, T3, T4</li>
+<li>for state C: T1, T3</li>
+<li>for state D: T2, T4</li>
 </ul>
 
                                 
@@ -830,12 +1008,12 @@ this book, please let us know!</em></p>
 
             
                 
-                <a href="authors.html" class="navigation navigation-prev " aria-label="Previous page: Authors and Acknowledgements">
+                <a href="2020-midterm-preparation.html" class="navigation navigation-prev " aria-label="Previous page: 2020 midterm mock exam">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="contribute.html" class="navigation navigation-next " aria-label="Next page: Contribute to this book">
+                <a href="changelog.html" class="navigation navigation-next " aria-label="Next page: Change log">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -846,7 +1024,7 @@ this book, please let us know!</em></p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Using this book","level":"1.3","depth":1,"next":{"title":"Contribute to this book","level":"1.4","depth":1,"path":"chapters/preface/contribute.md","ref":"chapters/preface/contribute.md","articles":[]},"previous":{"title":"Authors and Acknowledgements","level":"1.2","depth":1,"path":"chapters/preface/authors.md","ref":"chapters/preface/authors.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/preface/use.md","mtime":"2020-05-06T06:51:15.983Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-17T14:30:21.918Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"2020 midterm mock exam (answers)","level":"9.1.4","depth":2,"next":{"title":"Change log","level":"9.1.5","depth":2,"path":"chapters/appendix/changelog.md","ref":"chapters/appendix/changelog.md","articles":[]},"previous":{"title":"2020 midterm mock exam","level":"9.1.3","depth":2,"path":"chapters/appendix/2020-midterm-preparation.md","ref":"chapters/appendix/2020-midterm-preparation.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/appendix/2020-midterm-preparation-answers.md","mtime":"2020-05-15T11:38:31.186Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-17T14:30:21.918Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

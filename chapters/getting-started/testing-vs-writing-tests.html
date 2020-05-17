@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Using this book · GitBook</title>
+        <title>Testing vs writing tests · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="contribute.html" />
+    <link rel="next" href="developer-testing-workflow.html" />
     
     
-    <link rel="prev" href="authors.html" />
+    <link rel="prev" href="test-automation.html" />
     
 
     </head>
@@ -102,9 +102,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2" data-path="authors.html">
+        <li class="chapter " data-level="1.2" data-path="../preface/authors.html">
             
-                <a href="authors.html">
+                <a href="../preface/authors.html">
             
                     
                     Authors and Acknowledgements
@@ -115,9 +115,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.3" data-path="use.html">
+        <li class="chapter " data-level="1.3" data-path="../preface/use.html">
             
-                <a href="use.html">
+                <a href="../preface/use.html">
             
                     
                     Using this book
@@ -128,9 +128,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4" data-path="contribute.html">
+        <li class="chapter " data-level="1.4" data-path="../preface/contribute.html">
             
-                <a href="contribute.html">
+                <a href="../preface/contribute.html">
             
                     
                     Contribute to this book
@@ -141,9 +141,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5" data-path="license.html">
+        <li class="chapter " data-level="1.5" data-path="../preface/license.html">
             
-                <a href="license.html">
+                <a href="../preface/license.html">
             
                     
                     License
@@ -161,9 +161,9 @@
         
         
     
-        <li class="chapter " data-level="2.1" data-path="structure.html">
+        <li class="chapter " data-level="2.1" data-path="../preface/structure.html">
             
-                <a href="structure.html">
+                <a href="../preface/structure.html">
             
                     
                     Structure of the book
@@ -181,9 +181,9 @@
         
         
     
-        <li class="chapter " data-level="3.1" data-path="../getting-started/">
+        <li class="chapter " data-level="3.1" data-path="./">
             
-                <a href="../getting-started/">
+                <a href="./">
             
                     
                     Getting started with software testing
@@ -195,9 +195,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="3.1.1" data-path="../getting-started/why-software-testing.html">
+        <li class="chapter " data-level="3.1.1" data-path="why-software-testing.html">
             
-                <a href="../getting-started/why-software-testing.html">
+                <a href="why-software-testing.html">
             
                     
                     Why software testing?
@@ -208,9 +208,9 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.2" data-path="../getting-started/testing-principles.html">
+        <li class="chapter " data-level="3.1.2" data-path="testing-principles.html">
             
-                <a href="../getting-started/testing-principles.html">
+                <a href="testing-principles.html">
             
                     
                     Principles of software testing
@@ -221,9 +221,9 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.3" data-path="../getting-started/test-automation.html">
+        <li class="chapter " data-level="3.1.3" data-path="test-automation.html">
             
-                <a href="../getting-started/test-automation.html">
+                <a href="test-automation.html">
             
                     
                     Software testing automation
@@ -234,9 +234,9 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.4" data-path="../getting-started/testing-vs-writing-tests.html">
+        <li class="chapter active" data-level="3.1.4" data-path="testing-vs-writing-tests.html">
             
-                <a href="../getting-started/testing-vs-writing-tests.html">
+                <a href="testing-vs-writing-tests.html">
             
                     
                     Testing vs writing tests
@@ -247,9 +247,9 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.5" data-path="../getting-started/developer-testing-workflow.html">
+        <li class="chapter " data-level="3.1.5" data-path="developer-testing-workflow.html">
             
-                <a href="../getting-started/developer-testing-workflow.html">
+                <a href="developer-testing-workflow.html">
             
                     
                     The developer testing workflow
@@ -776,7 +776,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="../.." >Using this book</a>
+        <a href="../.." >Testing vs writing tests</a>
     </h1>
 </div>
 
@@ -791,18 +791,54 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="using-this-book">Using this book</h1>
-<p>Feel free to use this book in your software testing course.
-The slides we use in the background of our videos can be found
-in our <a href="https://github.com/sttp-book/video-slides" target="_blank">video slides repository</a>.
-We should release our accompanying lecture slides soon. <em>If you adopt
-this book, please let us know!</em></p>
-<p>This book is currently being used by: </p>
+                                <h1 id="testing-vs-writing-tests">Testing vs Writing Tests</h1>
+<p><strong>TL;DR: Testing is different from writing tests. Developers write tests as a a way to give them space to think and confidence for refactoring. Testing focuses on finding bugs. Both should be done.</strong></p>
+<p>We are right now at a point where developers do know that they need to write automated tests. After all, ideas such as Kent Beck&apos;s <a href="https://en.wikipedia.org/wiki/Extreme_programming" target="_blank">Extreme Programming</a> and <a href="https://sttp.site/chapters/pragmatic-testing/tdd.html" target="_blank">Test-Driven Development</a>, Michael Feather&apos;s on the <a href="https://medium.com/r/?url=https%3A%2F%2Fvimeo.com%2F15007792" target="_blank">synergy between testing and design</a>, Steve Freeman&apos;s and Nat Pryce&apos;s on <a href="https://medium.com/r/?url=https%3A%2F%2Fwww.amazon.de%2FGrowing-Object-Oriented-Software-Addison-Wesley-Signature%2Fdp%2F0321503627" target="_blank">how to grow an Object-Oriented software guided by tests</a>, DHH and Ruby on Rails on <a href="https://medium.com/r/?url=http%3A%2F%2Fguides.rubyonrails.org%2Ftesting.html" target="_blank">making sure that a web framework comes with a testing framework</a>, etc, really sticked.</p>
+<p>These ideas sticked with me as well. I have been trying to write as many automated tests as I can for the software systems I work since 2007 (I can tell the history of how traumatic my 2006 project was in a later post). I was so excited about Test-Driven Development that I even made it the topic of my MSc thesis. In 2012, I thought I had enough experience with the topic, so I decided to <a href="https://medium.com/r/?url=https%3A%2F%2Fwww.casadocodigo.com.br%2Fproducts%2Flivro-tdd" target="_blank">write a book about how I was practicing TDD</a>, as well as a <a href="https://medium.com/r/?url=https%3A%2F%2Fwww.casadocodigo.com.br%2Fproducts%2Flivro-testes-de-software" target="_blank">book on the basics of tools like JUnit and Selenium</a> (unfortunately, only available in Brazilian Portuguese).
+After many years of pair programming, I see developers using automated test code as a sort of support net. The tests enabled them to clearly think about what they want to implement, and supported them throughout the innumerous refactorings they apply.</p>
+<p>In fact, research has shown quite a few times that doing TDD can improve your class design (see <a href="http://digitalcommons.calpoly.edu/cgi/viewcontent.cgi?article=1039&amp;context=csse_fac" target="_blank">Janzen</a>, <a href="http://digitalcommons.calpoly.edu/cgi/viewcontent.cgi?article=1030&amp;context=csse_fac" target="_blank">Janzen and Saiedian</a>, <a href="https://www.semanticscholar.org/paper/An-Initial-Investigation-of-Test-Driven-Development-George-Williams/66869075d20858a2e9af144b2749a055c6b03177" target="_blank">George and Williams</a>, <a href="http://eisc.univalle.edu.co/materias/TPS/archivos/articulosPruebas/test_first_design.pdf" target="_blank">Langr</a>, <a href="https://link.springer.com/article/10.1007/s11219-011-9130-2" target="_blank">Dogsa and Batic</a>, <a href="https://pdfs.semanticscholar.org/16d4/2a1eaefb1f404f6da91b12d6c0e710dacb9d.pdf" target="_blank">Munir</a>, <a href="https://pdfs.semanticscholar.org/16d4/2a1eaefb1f404f6da91b12d6c0e710dacb9d.pdf" target="_blank">Moyaaed and Petersen</a>, <a href="https://journal-bcs.springeropen.com/articles/10.1186/s13173-015-0034-z" target="_blank">myself</a>, among others). Recently, <a href="https://arxiv.org/pdf/1611.05994.pdf" target="_blank">Fucci et al.</a> even argued that the important part is to write tests (and it doesn&apos;t matter whether it&apos;s before or after). This is also the perception of practitioners, where I quote a recent blog post from Feathers: <em>&quot;That&apos;s the magic, and it&apos;s why unit testing works also. When you write unit tests, TDD-style or after your development, you scrutinize, you think, and often you prevent problems without even encountering a test failure.&quot;</em></p>
+<hr>
+<p>Writing automated tests is therefore something to be recommended.</p>
+<p>Pragmatically speaking, I feel that, when using test code as a way to strengthen confidence, good weather tests are often enough. And indeed, there is no need for a lot of knowledge or theories to test good weather, but knowing how to make testing possible (developers talk a lot about designing for testability) and to use the best tools available (and developers indeed master tools like JUnit, Mockito, and Selenium).</p>
+<p>What I argue is that, after implementing the production code (with all the support from the good weather test code), the next step should then be about testing it properly. Software testing is about finding many bugs; it is about exploring how your system behaves not only in good weather, but also in exceptional and corner cases.</p>
+<p>I recently asked my 1st year CS students on what kinds of mistakes they have done in their programs so far, which have taught them that the testing is important. I got a huge list:</p>
 <ul>
-<li>Delft University of Technology (<a href="https://www.mauricioaniche.com" target="_blank">Dr. Maur&#xED;cio Aniche</a>)</li>
-<li>University of Zurich (<a href="https://sback.it" target="_blank">Prof. Dr. Alberto Bacchelli</a>)</li>
-<li>PUC-RS/Brazil (<a href="https://www.linkedin.com/in/bernardo-copstein-3226095" target="_blank">Prof. Dr. Bernardo Copstein</a>)</li>
+<li>Programs that don&apos;t work when a loop doesn&apos;t iterate (the loop condition was never evaluated to true, and the program crashed).</li>
+<li>Programs that don&apos;t work because they missed some last iteration (the famous off-by-one error).</li>
+<li>Programs that don&apos;t work when inputs are invalid, such as null, or do not conform to what&apos;s expected (e.g., a string that represents the name of a file to open containing an extra space at the beginning).</li>
+<li>Programs that don&apos;t work because the value is either out of boundaries or in the boundary. For example, if you have an if that expects a number to be greater than 10, what happens if the number is smaller than 10? Or precisely 10?</li>
+<li>Dependencies that are not there, e.g., your program reads from a file, but the file may not be there.</li>
+<li>Among others.</li>
 </ul>
+<p>Regardless of your experience, I am sure you also have faced some of these bugs before. <em>But how often do developers actually explore and write such test cases?</em>
+I feel not that much. (If you are an empirical software engineering researcher, this is a good question to answer).</p>
+<p><a href="https://www.amazon.de/Testing-Object-Oriented-Systems-Addison-wesley-Technology/dp/0201809389" target="_blank">Robert Binder in his 2000 book</a> (p.45) makes a distinction between &quot;fault-directed&quot; versus&quot; &quot;conformance directed&quot; testing:</p>
+<ul>
+<li>Fault directed: Intent to reveal faults through failures.</li>
+<li>Conformance directed: Intent to demonstrate conformance to required capabilities (e.g. Meets a user story, focus on good weather behavior).</li>
+</ul>
+<p>I argue that a strong developer should test from both perspectives. They are complementary.</p>
+<hr>
+<p>It is clear that, when it comes to software testing, <a href="https://ieeexplore.ieee.org/abstract/document/8048625/" target="_blank">researchers and practitioners talk about different topics</a>. Very good pragmatic books, like <a href="https://pragprog.com/book/utj2/pragmatic-unit-testing-in-java-8-with-junit" target="_blank">Pragmatic Unit Testing in Java 8 with JUnit</a>, have a strong focus on how to do test automation. While they provide good tips on what to test (the chapters on <a href="https://media.pragprog.com/titles/utj2/bicep.pdf" target="_blank">CORRECT and RIGHT-BICEP</a> in the PragProg book is definitely interesting), they usually don&apos;t go beyond it.</p>
+<p>On the other hand, software testing books from academia, my favorite being <a href="https://www.amazon.com/Software-Testing-Analysis-Principles-Techniques/dp/0471455938" target="_blank"><em>Software Testing Analysis</em></a> from Young and Pezz&#xE8;, have a strong focus on theories and techniques on how to design test cases that explore as much as one can from the program under test. However, with not so many timely examples on how to apply these ideas, which is definitely a requirement for practitioners.</p>
+<p>As a developer, if you want to take your testing to the next level, you should definitely get familiar with both perspectives. Some examples (but definitely not a complete list):</p>
+<ul>
+<li>Understand <em>domain testing</em>. Exploring the domain of the problem and its boundaries is still the best way to design good test cases.</li>
+<li>Making use of <a href="http://laser.cs.umass.edu/courses/cs521-621/papers/ZhuHallMay.pdf" target="_blank">structural testing</a> as it was meant to be (and not simply trying to achieve a certain level of code coverage).</li>
+<li>Detecting whether some test suite is able to detect possible bugs. The idea of <a href="https://research.google.com/pubs/archive/46584.pdf" target="_blank">mutation testing has being applied at Google</a>.</li>
+<li>Deriving <a href="https://pure.tudelft.nl/portal/en/publications/an-experience-report-on-applying-passive-learning-in-a-largescale-payment-company(b463c54a-d69f-4db4-9fcc-cbeb6e2ddf09" target="_blank">models from your production system logs and build models</a>.html) that can be analysed by domain experts.</li>
+<li>Automatically generating tests (the famous example is <a href="https://pdfs.semanticscholar.org/216b/98bb3d9221d5f5d261864975612e4d0faaa6.pdf" target="_blank">EvoSuite</a>, which is able to generate tests for Java classes) or to automatically reproduce crashes. I myself worked on <a href="https://pure.tudelft.nl/portal/en/publications/searchbased-test-data-generation-for-sql-queries(90a6431f-f78f-4ac3-bf87-c052cd9cd5d4" target="_blank">automatically generating tests for SQL queries</a>.html).</li>
+<li>Several tools for testing web applications, like automatically exploring the web app looking for crashes as well as <a href="https://github.com/EMResearch/EvoMaster/blob/master/docs/publications/2017_qrs.pdf" target="_blank">finding crashes in REST APIs</a>. More can be found in this <a href="https://www.sciencedirect.com/science/article/pii/S0164121214000223" target="_blank">web testing literature review</a>.</li>
+<li>Property-based testing is also getting to practitioners by means of tools like ScalaCheck and <a href="https://jqwik.net" target="_blank">JQWik</a>.</li>
+</ul>
+<hr>
+<p>Writing tests is different from testing. They both provide developers with different outcomes. The former gives confidence and support throughout development. The latter makes sure the software will really work in all cases. While they are both important, it&apos;s about time for both communities to get aligned:</p>
+<ul>
+<li>Developers to get more familiar with more advanced software testing techniques (which researchers have been providing). They are definitely a good addition to their seatbelts and will help them to better test their softwares.</li>
+<li>Educators to teach both perspectives. My perception is that universities teach testing techniques in an abstract way (developers need to learn how to use the tools!), while practitioners only teach how to use the automated tools (developers need to learn how to properly test!).</li>
+<li>Researchers to better understand how practitioners have been evolving the software testing field from their perspective as well as to better share their results, as developers do not read papers. <a href="https://twitter.com/mauricioaniche/status/997498070395949057" target="_blank">Research lingo is for researchers</a>.</li>
+</ul>
+<p><em>(An initial version of this text was published in <a href="https://medium.com/@mauricioaniche/testing-vs-writing-tests-d817bffea6bc" target="_blank">Medium</a>).</em></p>
 
                                 
                                 </section>
@@ -830,12 +866,12 @@ this book, please let us know!</em></p>
 
             
                 
-                <a href="authors.html" class="navigation navigation-prev " aria-label="Previous page: Authors and Acknowledgements">
+                <a href="test-automation.html" class="navigation navigation-prev " aria-label="Previous page: Software testing automation">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="contribute.html" class="navigation navigation-next " aria-label="Next page: Contribute to this book">
+                <a href="developer-testing-workflow.html" class="navigation navigation-next " aria-label="Next page: The developer testing workflow">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -846,7 +882,7 @@ this book, please let us know!</em></p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Using this book","level":"1.3","depth":1,"next":{"title":"Contribute to this book","level":"1.4","depth":1,"path":"chapters/preface/contribute.md","ref":"chapters/preface/contribute.md","articles":[]},"previous":{"title":"Authors and Acknowledgements","level":"1.2","depth":1,"path":"chapters/preface/authors.md","ref":"chapters/preface/authors.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/preface/use.md","mtime":"2020-05-06T06:51:15.983Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-17T14:30:21.918Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Testing vs writing tests","level":"3.1.4","depth":2,"next":{"title":"The developer testing workflow","level":"3.1.5","depth":2,"path":"chapters/getting-started/developer-testing-workflow.md","ref":"chapters/getting-started/developer-testing-workflow.md","articles":[]},"previous":{"title":"Software testing automation","level":"3.1.3","depth":2,"path":"chapters/getting-started/test-automation.md","ref":"chapters/getting-started/test-automation.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/getting-started/testing-vs-writing-tests.md","mtime":"2020-05-16T09:52:23.877Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-17T14:30:21.918Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

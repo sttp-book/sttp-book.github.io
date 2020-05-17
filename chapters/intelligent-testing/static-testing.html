@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Using this book · GitBook</title>
+        <title>Static testing · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="contribute.html" />
+    <link rel="next" href="mutation-testing.html" />
     
     
-    <link rel="prev" href="authors.html" />
+    <link rel="prev" href="./" />
     
 
     </head>
@@ -102,9 +102,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2" data-path="authors.html">
+        <li class="chapter " data-level="1.2" data-path="../preface/authors.html">
             
-                <a href="authors.html">
+                <a href="../preface/authors.html">
             
                     
                     Authors and Acknowledgements
@@ -115,9 +115,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.3" data-path="use.html">
+        <li class="chapter " data-level="1.3" data-path="../preface/use.html">
             
-                <a href="use.html">
+                <a href="../preface/use.html">
             
                     
                     Using this book
@@ -128,9 +128,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4" data-path="contribute.html">
+        <li class="chapter " data-level="1.4" data-path="../preface/contribute.html">
             
-                <a href="contribute.html">
+                <a href="../preface/contribute.html">
             
                     
                     Contribute to this book
@@ -141,9 +141,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5" data-path="license.html">
+        <li class="chapter " data-level="1.5" data-path="../preface/license.html">
             
-                <a href="license.html">
+                <a href="../preface/license.html">
             
                     
                     License
@@ -161,9 +161,9 @@
         
         
     
-        <li class="chapter " data-level="2.1" data-path="structure.html">
+        <li class="chapter " data-level="2.1" data-path="../preface/structure.html">
             
-                <a href="structure.html">
+                <a href="../preface/structure.html">
             
                     
                     Structure of the book
@@ -584,9 +584,9 @@
         
         
     
-        <li class="chapter " data-level="8.1" data-path="../intelligent-testing/">
+        <li class="chapter " data-level="8.1" data-path="./">
             
-                <a href="../intelligent-testing/">
+                <a href="./">
             
                     
                     Intelligent testing
@@ -598,9 +598,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="8.1.1" data-path="../intelligent-testing/static-testing.html">
+        <li class="chapter active" data-level="8.1.1" data-path="static-testing.html">
             
-                <a href="../intelligent-testing/static-testing.html">
+                <a href="static-testing.html">
             
                     
                     Static testing
@@ -611,9 +611,9 @@
             
         </li>
     
-        <li class="chapter " data-level="8.1.2" data-path="../intelligent-testing/mutation-testing.html">
+        <li class="chapter " data-level="8.1.2" data-path="mutation-testing.html">
             
-                <a href="../intelligent-testing/mutation-testing.html">
+                <a href="mutation-testing.html">
             
                     
                     Mutation testing
@@ -624,9 +624,9 @@
             
         </li>
     
-        <li class="chapter " data-level="8.1.3" data-path="../intelligent-testing/fuzzing.html">
+        <li class="chapter " data-level="8.1.3" data-path="fuzzing.html">
             
-                <a href="../intelligent-testing/fuzzing.html">
+                <a href="fuzzing.html">
             
                     
                     Fuzz testing
@@ -637,9 +637,9 @@
             
         </li>
     
-        <li class="chapter " data-level="8.1.4" data-path="../intelligent-testing/sbst.html">
+        <li class="chapter " data-level="8.1.4" data-path="sbst.html">
             
-                <a href="../intelligent-testing/sbst.html">
+                <a href="sbst.html">
             
                     
                     Search-based testing
@@ -776,7 +776,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="../.." >Using this book</a>
+        <a href="../.." >Static testing</a>
     </h1>
 </div>
 
@@ -791,17 +791,69 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="using-this-book">Using this book</h1>
-<p>Feel free to use this book in your software testing course.
-The slides we use in the background of our videos can be found
-in our <a href="https://github.com/sttp-book/video-slides" target="_blank">video slides repository</a>.
-We should release our accompanying lecture slides soon. <em>If you adopt
-this book, please let us know!</em></p>
-<p>This book is currently being used by: </p>
+                                <h1 id="static-testing">Static testing</h1>
+<p>Static testing analyses the code characteristics without executing the application. It can be considered as an automated code review. It checks the style and structure of the code, and can be used to <em>statically</em> evaluate all possible code paths in the System Under Test (SUT).
+Static analysis can quickly find <em>low-hanging fruit</em> bugs that can be found in the source code, e.g. using deprecated functions. Static analysis tools are scalable and generally require less time to set up. <em>PMD</em>, <em>Checkstyle</em>, <em>Checkmarx</em> are some common static analysis tools.</p>
+<p>The classical approach underlying static analysis is checking the code for potential structural and/or stylistic rule violations. A code checker typically contains a parser and an acceptable rule set. We look at the following techniques for static analysis:</p>
+<ol>
+<li>Pattern matching via <em>Regular expressions</em></li>
+<li>Syntax analysis via <em>Abstract Syntax Trees</em></li>
+</ol>
+<h2 id="pattern-matching">Pattern matching</h2>
+<p>Pattern matching is a code checking approach that searches for pre-defined patterns in code. A <strong>Regular expression</strong> or RegEx is a sequence of characters that represent a pattern. Simply put, a regex engine reads code character-by-character and upon every character-match, progresses through the regular expression until no more characters remain. Depending on the logic, either a positive/negative reaction is returned indicating whether the final state was an accepting/rejecting state, or all code snippets that matched the pattern are returned.</p>
+<p>Regular expressions are usually represented using <strong><em>Finite State Automaton</em></strong>. Each <em>node</em> represents a state. We move from one state to the next by taking the <em>transition</em> that matches the input symbol. Below you see a few examples of regular expressions and their corresponding finite state automata. The node with an arrow is called the <em>starting state</em>. <em>Green states</em> are accepting states, and <em>red states</em> are rejecting states.</p>
+<p>The regular expression that results in the following automata is &apos;<strong>bug</strong>&apos;. An input of the string <code>bug</code> will transition from left to right, until we end up in the green state. However, an input of <code>bag</code> will move from first state to the second state, and then to the red state. Since there is no transition out of this state, we will stay here until the input finishes.</p>
+<p><img src="img/static-testing/regex1.png" alt="FSM for bug"></p>
+<p>Regex also have options to introduce wildcard characters. For example, the regular expression &apos;<strong>.*bug</strong>&apos; results in the following automata. <code>.</code> denotes any possible character, and <code>*</code> denotes <em>0 or many times</em>. Hence, the following strings will be accepted by this pattern: <code>bug</code> and <code>this is a bug</code>. The following strings will be rejected by this pattern: <code>bug!</code>, <code>bugs</code>, <code>bad bug</code>.</p>
+<p><img src="img/static-testing/regex2.png" alt="FSM for .*bug"></p>
+<p>The automata for &apos;<strong>.*bug.*</strong>&apos; is given below. It will accept any string that contains the characters <code>b</code>, <code>u</code>, <code>g</code> consecutively, at least once, before the occurrence of <code>b</code>, <code>u</code>, or <code>g</code> separately.</p>
+<p><img src="img/static-testing/regex3.png" alt="FSM for .*bug.*"></p>
+<p>Regular expressions have some limitations: First, they cannot count, so we need to explicitly program each scenario in the regex, which reduces flexibility. For example, if we wanted to <em>allow at most 3 methods</em>, we would need to create a regex with three explicit sub-patterns, one for each function occurrence. Second, regular expressions don&apos;t take semantics into account, so they create many false positives. For example, consider the following code snippet. Suppose that the regular expression, <code>(\s)*System.out.println\(.*\);</code>, searches for all print statements in the code to remove them before deployment. It will find three occurrences in the code snippet, which are all FPs because the code is already disabled by a flag.</p>
+<pre><code class="lang-java"><span class="hljs-keyword">boolean</span> DEBUG = <span class="hljs-keyword">false</span>;
+
+<span class="hljs-keyword">if</span> (DEBUG){
+  System.out.println(<span class="hljs-string">&quot;Debug line 1&quot;</span>);
+  System.out.println(<span class="hljs-string">&quot;Debug line 2&quot;</span>);
+  System.out.println(<span class="hljs-string">&quot;Debug line 3&quot;</span>);
+}
+</code></pre>
+<h2 id="syntax-analysis">Syntax analysis</h2>
+<p>A more advanced code checking approach is syntax analysis. It works by deconstructing input code into a stream of characters, that are eventually turned into a Parse Tree. <em>Tokens</em> are hierarchal data structures that are put together according to the code&apos;s logical structure.</p>
+<p><img src="img/static-testing/lexer.png" alt="Parser pipeline"></p>
+<p>A <strong>Parse Tree</strong> is a concrete instantiation of the code, where each character is explicitly placed in the tree, whereas an <strong>Abstract Syntax Tree (AST)</strong> is an abstract version of the parse tree in which syntax-related characters, such as semi-colon and parentheses, are removed. An example of the AST of the code snippet above is given below.</p>
+<p><img src="img/static-testing/ast-example.png" alt="AST example"></p>
+<p>A static analysis tool using syntax analysis takes as input (a) an AST, and (b) a rule-set, and raises an alarm in case a rule is violated.
+For example, for a rule <em>allowing at most 3 methods</em>, and the following code snippet, the AST will be parsed and an error will be raised for violating the rule. Contrarily, a very complicated regular expression would be needed to handle the varying characteristics of the four available methods, potentially resulting in false positives.</p>
+<p><img src="img/static-testing/ast-usecase1.png" alt="AST rule enforcement"></p>
+<p>Abstract Syntax Trees are used by compilers to find sematic errors &#x2014; compile-time errors associated to the <em>meaning</em> of the program. ASTs can also be used for program verification, type-checking, and translating the program from one language to another.  </p>
+<h2 id="performance-of-static-analysis">Performance of static analysis</h2>
+<p> Typically, static analysis produces <em>sound</em> results, i.e. zero false negatives. This is because the tools have access to the whole codebase, and they can track all the possible execution paths a program might take. So, if there are <em>any</em> vulnerabilities, the tool should be able to find them. However, this comes at the cost of <em>Completeness</em>. Because it tracks all possible execution paths without seeing how the application behaves in action, some of the results might never be reached in an actual execution scenario, resulting in false positives.</p>
+<blockquote>
+<p>Note that static analysis <em>can produce unsound results</em> if a piece of code is added at runtime, because then the analysis will not be done on the new code-piece. This is one reason why the signatures that static analysis uses to detect bugs need to be kept up-to-date as the codebase evolves. However, this strategy will still not work for dynamically induced bugs.</p>
+</blockquote>
+<p><div class="alert alert-success hints-alert"><div class="hints-icon"><i class="fa fa-mortar-board"></i></div><div class="hints-container"><p> <em>Soundness</em> and <em>Completeness</em> are defined more extensively in the Security testing chapter. </p>
+</div></div></p>
+<h2 id="exercises">Exercises</h2>
+<p><strong>Exercise 1.</strong> Regular expressions <em>CANNOT DO</em> which of the following tasks?</p>
+<ol>
+<li>Matching patterns</li>
+<li>Count instances</li>
+<li>Define wild cards</li>
+<li>Detect coding mistakes</li>
+</ol>
+<p><strong>Exercise 2.</strong> Given that a static analysis tool can view the entire codebase, what is the quality of results that the analysis will produce?</p>
+<ol>
+<li>Sound and Precise</li>
+<li>Sound but Imprecise</li>
+<li>Unsound but Precise</li>
+<li>Unsound and Imprecise</li>
+</ol>
+<h2 id="references">References</h2>
 <ul>
-<li>Delft University of Technology (<a href="https://www.mauricioaniche.com" target="_blank">Dr. Maur&#xED;cio Aniche</a>)</li>
-<li>University of Zurich (<a href="https://sback.it" target="_blank">Prof. Dr. Alberto Bacchelli</a>)</li>
-<li>PUC-RS/Brazil (<a href="https://www.linkedin.com/in/bernardo-copstein-3226095" target="_blank">Prof. Dr. Bernardo Copstein</a>)</li>
+<li>Grune, D., Van Reeuwijk, K., Bal, H.E., Jacobs, C.J. and Langendoen, K., 2012. Modern compiler design. Springer Science &amp; Business Media.</li>
+<li>Abstract Syntax Trees. <a href="https://en.wikipedia.org/wiki/Abstract_syntax_tree" target="_blank">https://en.wikipedia.org/wiki/Abstract_syntax_tree</a></li>
+<li>Sematic analysis. <a href="https://www.cs.usfca.edu/~galles/cs414S05/lecture/old2/lecture7.java.pdf" target="_blank">https://www.cs.usfca.edu/~galles/cs414S05/lecture/old2/lecture7.java.pdf</a></li>
+<li>Regular expressions in Java. <a href="https://www.tutorialspoint.com/java/java_regular_expressions.htm" target="_blank">https://www.tutorialspoint.com/java/java_regular_expressions.htm</a></li>
 </ul>
 
                                 
@@ -830,12 +882,12 @@ this book, please let us know!</em></p>
 
             
                 
-                <a href="authors.html" class="navigation navigation-prev " aria-label="Previous page: Authors and Acknowledgements">
+                <a href="./" class="navigation navigation-prev " aria-label="Previous page: Intelligent testing">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="contribute.html" class="navigation navigation-next " aria-label="Next page: Contribute to this book">
+                <a href="mutation-testing.html" class="navigation navigation-next " aria-label="Next page: Mutation testing">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -846,7 +898,7 @@ this book, please let us know!</em></p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Using this book","level":"1.3","depth":1,"next":{"title":"Contribute to this book","level":"1.4","depth":1,"path":"chapters/preface/contribute.md","ref":"chapters/preface/contribute.md","articles":[]},"previous":{"title":"Authors and Acknowledgements","level":"1.2","depth":1,"path":"chapters/preface/authors.md","ref":"chapters/preface/authors.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/preface/use.md","mtime":"2020-05-06T06:51:15.983Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-17T14:30:21.918Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Static testing","level":"8.1.1","depth":2,"next":{"title":"Mutation testing","level":"8.1.2","depth":2,"path":"chapters/intelligent-testing/mutation-testing.md","ref":"chapters/intelligent-testing/mutation-testing.md","articles":[]},"previous":{"title":"Intelligent testing","level":"8.1","depth":1,"path":"chapters/intelligent-testing/README.md","ref":"chapters/intelligent-testing/README.md","articles":[{"title":"Static testing","level":"8.1.1","depth":2,"path":"chapters/intelligent-testing/static-testing.md","ref":"chapters/intelligent-testing/static-testing.md","articles":[]},{"title":"Mutation testing","level":"8.1.2","depth":2,"path":"chapters/intelligent-testing/mutation-testing.md","ref":"chapters/intelligent-testing/mutation-testing.md","articles":[]},{"title":"Fuzz testing","level":"8.1.3","depth":2,"path":"chapters/intelligent-testing/fuzzing.md","ref":"chapters/intelligent-testing/fuzzing.md","articles":[]},{"title":"Search-based testing","level":"8.1.4","depth":2,"path":"chapters/intelligent-testing/sbst.md","ref":"chapters/intelligent-testing/sbst.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/intelligent-testing/static-testing.md","mtime":"2020-05-15T11:38:06.329Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-17T14:30:21.918Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

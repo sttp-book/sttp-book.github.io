@@ -974,9 +974,9 @@ As we last step we can identify duplicate tests and remove those.</p>
 <li>Derive characteristics of parameters:<ul>
 <li>int legs: [0,2,4,6,8,10,integer.MAX_VALUE], [1,3,5,7,9,integer.MAX_VALUE], [negative value]</li>
 <li>bool tail: [true], [false]</li>
-<li>int lives: [1-9], no lives, more than 10 lives</li>
+<li>int lives: [1-9], no lives, more than 9 lives, negative amount of lives</li>
 <li>bool sharp nails: [true], [false]</li>
-<li>string sound: [&apos;miauw&apos;], [&apos;woof&apos;], [empty]</li>
+<li>string sound: [&apos;miauw&apos;], [&apos;woof&apos;], [&quot;&quot;] (empty string), [null] (null string)</li>
 </ul>
 </li>
 <li>Add constraints:<ul>
@@ -1148,7 +1148,7 @@ into two decision blocks for the CFG. In total, we will have 8 conditions:</p>
 <li>condition 4 = [true: not exercised, false: not exercised].</li>
 </ul>
 <p>At this moment, condition coverage = 2/8.</p>
-<p>For T2, the input number 8 is neither divisible by 3, nor divisible by 5. However, since the &amp;&amp; operator only evaluates the second condition when the first one is true, condition 2 is not reached. Therefore this test only covers condition 1, 2 and 3 to be false. We now have:</p>
+<p>For T2, the input number 8 is neither divisible by 3, nor divisible by 5. However, since the &amp;&amp; operator only evaluates the second condition when the first one is true, condition 2 is not reached. Therefore this test covers condition 1, 3 and 4 as false. We now have:</p>
 <ul>
 <li>condition 1 = [true: exercised, false: exercised]</li>
 <li>condition 2 = [true: exercised, false: not exercised]</li>
@@ -1456,6 +1456,7 @@ To achieve this we add the FFF and TFF decision as test cases.</p>
 </tbody>
 </table>
 <p><strong>Exercise 15</strong></p>
+<p>Focusing on the positive cases:</p>
 <table>
 <thead>
 <tr>
@@ -1498,6 +1499,61 @@ To achieve this we add the FFF and TFF decision as test cases.</p>
 </tr>
 </tbody>
 </table>
+<p>As a curiosity, if we were to use &apos;DC&apos; values, the decision table would look like:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>C1</th>
+<th>C2</th>
+<th>C3</th>
+<th>C4</th>
+<th>C5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>User active in past two weeks</td>
+<td>T</td>
+<td>T</td>
+<td>T</td>
+<td>T</td>
+<td>F</td>
+</tr>
+<tr>
+<td>User has seen ad in last two hours</td>
+<td>T</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+<td>DC</td>
+</tr>
+<tr>
+<td>User has over 1000 followers</td>
+<td>DC</td>
+<td>T</td>
+<td>T</td>
+<td>F</td>
+<td>DC</td>
+</tr>
+<tr>
+<td>Ad is highly relevant to user</td>
+<td>DC</td>
+<td>T</td>
+<td>F</td>
+<td>DC</td>
+<td>DC</td>
+</tr>
+<tr>
+<td>Serve ad?</td>
+<td>F</td>
+<td>T</td>
+<td>F</td>
+<td>T</td>
+<td>F</td>
+</tr>
+</tbody>
+</table>
 <h2 id="design-by-contracts">Design-by-contracts</h2>
 <p><strong>Exercise 1</strong></p>
 <p><code>board != null</code></p>
@@ -1533,6 +1589,9 @@ This corresponds to failing to meet a post-condition.</p>
 <p><strong>Exercise 7</strong></p>
 <p>Statement 4 is correct:
 <em>To make debugging easier.</em></p>
+<p><strong>Exercise 8</strong></p>
+<p>Static methods do not have invariants. 
+Class invariants are related to the entire object, while static methods do not belong to any object (they are &quot;stateless&quot;), so the idea of (class) invariants does not apply to static methods.</p>
 <h2 id="property-based-testing">Property-based testing</h2>
 <ol>
 <li>See the domain testing problems implemented as property-based tests in the <a href="https://github.com/sttp-book/code-examples/tree/master/src/test/java/tudelft/pbt" target="_blank">code-examples repo</a></li>
@@ -1567,6 +1626,27 @@ This corresponds to failing to meet a post-condition.</p>
 <p><strong>Exercise 7</strong></p>
 <p>Correct answer: System tests tend to be slow and are difficult to make deterministic (4)</p>
 <p>See <a href="https://martinfowler.com/bliki/TestPyramid.html" target="_blank">https://martinfowler.com/bliki/TestPyramid.html</a> !</p>
+<p><strong>Exercise 8</strong></p>
+<p>Suppose that you have designed your system in a way that domain/business code can be easily tested via unit tests.
+Therefore, database access is, for example, hidden in a Data Access Object class.
+This class can easily be mocked, which enables you to apply all testing techniques in your domain we have discussed so far.</p>
+<p>You can now test the Data Access Object class, as it contains lots of SQL queries. But, before diving into specific testing strategies, you should be aware that testing with real databases includes a certain risk.</p>
+<p>Make sure that whenever you test against real databases, you always clean-up whatever you have created. 
+Left-over rows that shouldn&apos;t be there could lead to fails further down your testing suite.</p>
+<p>One could start with JUnit tests as you have done with all previous tests.
+Instead of simulating the database, you should test your DAO sending SQL queries to a real database. 
+This enhances the feedback you will receive on your tests and enables real integration testing.</p>
+<p>The structure of your tests will also remain the same, but includes INSERT statements at the beginning of your tests.
+Suppose you want to test a <code>SELECT * FROM product WHERE price &lt; 50</code>. 
+Using boundary analysis techniques you would create a test-product where <code>price &gt; 50</code>, one where <code>price &lt; 50</code> and most likely one where <code>price == 50</code>. 
+These tests will actually create this data in the database. 
+As SQL queries are full of predicates, you can include branch/condition coverage in your tests. Likewise, including code coverage.</p>
+<p>Avoid flakyness in your integration tests. Make sure your test suite cleans up the database after each test.
+Therefore, giving each test a new fresh database instance. </p>
+<p>One could also opt to use fake databases. For example, in Java, HSQLDB, is a full-fledged database that works in memory.
+Although HSQLDB speeds up your tests as you don&apos;t have to rely on a network connection and disk reads, note that it isn&apos;t a real database like MySQL or Oracle.
+On the other hand, with a real database, you can better simulate situations like how your database reacts to transitions or failures. </p>
+<p>(We discuss more about it in the &quot;SQL testing&quot; chapter.)</p>
 <p><strong>Exercise 8</strong></p>
 <p>At some point, it&apos;s important to test code with external dependencies, such as a database, against those dependencies. 
 Apart from testing the SQL, which in principle is just more code, we need to check, for example
@@ -1788,7 +1868,7 @@ y = {<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Answers to the exercises","level":"9.1.1","depth":2,"next":{"title":"Domain testing examples","level":"9.1.2","depth":2,"path":"chapters/testing-techniques/domain-testing.md","ref":"chapters/testing-techniques/domain-testing.md","articles":[]},"previous":{"title":"Appendix","level":"9.1","depth":1,"ref":"","articles":[{"title":"Answers to the exercises","level":"9.1.1","depth":2,"path":"chapters/appendix/answers.md","ref":"chapters/appendix/answers.md","articles":[]},{"title":"Domain testing examples","level":"9.1.2","depth":2,"path":"chapters/testing-techniques/domain-testing.md","ref":"chapters/testing-techniques/domain-testing.md","articles":[]},{"title":"2020 midterm mock exam","level":"9.1.3","depth":2,"path":"chapters/appendix/2020-midterm-preparation.md","ref":"chapters/appendix/2020-midterm-preparation.md","articles":[]},{"title":"2020 midterm mock exam (answers)","level":"9.1.4","depth":2,"path":"chapters/appendix/2020-midterm-preparation-answers.md","ref":"chapters/appendix/2020-midterm-preparation-answers.md","articles":[]},{"title":"Change log","level":"9.1.5","depth":2,"path":"chapters/appendix/changelog.md","ref":"chapters/appendix/changelog.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/appendix/answers.md","mtime":"2020-05-20T15:01:17.535Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-26T10:36:29.714Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Answers to the exercises","level":"9.1.1","depth":2,"next":{"title":"Domain testing examples","level":"9.1.2","depth":2,"path":"chapters/testing-techniques/domain-testing.md","ref":"chapters/testing-techniques/domain-testing.md","articles":[]},"previous":{"title":"Appendix","level":"9.1","depth":1,"ref":"","articles":[{"title":"Answers to the exercises","level":"9.1.1","depth":2,"path":"chapters/appendix/answers.md","ref":"chapters/appendix/answers.md","articles":[]},{"title":"Domain testing examples","level":"9.1.2","depth":2,"path":"chapters/testing-techniques/domain-testing.md","ref":"chapters/testing-techniques/domain-testing.md","articles":[]},{"title":"2020 midterm mock exam","level":"9.1.3","depth":2,"path":"chapters/appendix/2020-midterm-preparation.md","ref":"chapters/appendix/2020-midterm-preparation.md","articles":[]},{"title":"2020 midterm mock exam (answers)","level":"9.1.4","depth":2,"path":"chapters/appendix/2020-midterm-preparation-answers.md","ref":"chapters/appendix/2020-midterm-preparation-answers.md","articles":[]},{"title":"Change log","level":"9.1.5","depth":2,"path":"chapters/appendix/changelog.md","ref":"chapters/appendix/changelog.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/appendix/answers.md","mtime":"2020-05-26T14:13:29.099Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-26T14:13:38.642Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

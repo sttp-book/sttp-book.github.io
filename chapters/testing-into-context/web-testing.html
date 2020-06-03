@@ -861,7 +861,7 @@ When performing end-to-end tests, you may have to wait for a certain element to 
 This can easily lead to <em>flaky tests</em> (as discussed in the chapter on Test Code Quality). 
 You either have to write custom code to make your tests more robust, or use a tool like Cypress, which has retry-and-timeout logic built-in.</p>
 <h2 id="javascript-unit-testing-without-a-framework">JavaScript unit testing (without a framework)</h2>
-<p>We will now tackle several of the aforementioned challenges that relate to the front end of a web application. We show how to design your JavaScript and HTML for testability, how to write unit tests for JavaScript functions, and how to unit test UI components. We demonstrate this using both plain JavaScript and a more modern example that uses a JavaScript framework.</p>
+<p>We will now tackle several of the aforementioned challenges that relate to the front end of a web application by showing you how to design your JavaScript and HTML for testability, how to write unit tests for JavaScript functions, and how to unit test UI components. We will demonstrate this using both plain JavaScript and a more modern example that uses a JavaScript framework.</p>
 <h3 id="design-for-testability">Design for testability</h3>
 <p>Let us look at an example of a very simple web application (without a back end) that looks like this: </p>
 <p><img src="img/web-testing/dateIncrementer.png" alt="Date incrementing application screenshot"></p>
@@ -986,7 +986,7 @@ We should now be ready to write some tests!</p>
 <h3 id="writing-the-tests">Writing the tests</h3>
 <p>At this point, you should apply the testing principles you have learned so far in this book to come up with a good set of tests for the implementation above. 
 In this section, we will just show a small number of tests to get you started.</p>
-<p>Before we discuss JavaScript unit testing frameworks, let us see how far we can get with a manual implementation. This should give us some insight into how those frameworks work and allows us to think about JavaScript testing without being biased by a particular framework.</p>
+<p>Before we discuss JavaScript unit testing frameworks, let us see how far we can get with a manual implementation. This should give us some insight into how those frameworks work and allow us to think about JavaScript testing without being biased by a particular framework.</p>
 <p>We first write some tests for the functions in <code>dateUtils.js</code> by creating an HTML file, calling the functions and doing some light-weight assertions:</p>
 <pre><code class="lang-html"><span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span>
@@ -1107,7 +1107,7 @@ The state of the UI is not reset after the UI tests; this becomes a problem when
 <h3 id="choosing-a-unit-testing-framework">Choosing a unit testing framework</h3>
 <p>In the JavaScript world, there is an abundance of tools and frameworks to choose from. The same holds for unit testing frameworks: there are many options, and contrary to Java there is certainly no de facto standard framework. Moreover, new frameworks are developed and adopted every year.</p>
 <p>When working on an existing application that already has a testing framework in place, it probably makes sense to stick to that. 
-For new projects, it is useful to make yourself up-to-date with the currently popular JavaScript testing frameworks. 
+For new projects, it is useful to get yourself up-to-date with the currently popular JavaScript testing frameworks. 
 Articles like <a href="https://medium.com/welldone-software/an-overview-of-javascript-testing-7ce7298b9870" target="_blank">An Overview of JavaScript Testing in 2020</a> give you a nice summary of the current state of affairs.</p>
 <p>Choosing a framework that is used by many people means that you are more likely to get support in their online community. 
 You should also consider using the testing framework that is recommended by the JavaScript library/framework you use. 
@@ -1348,7 +1348,7 @@ Because we are using methods that correspond to the application itself, they wil
 This is already better than using the API for the HTML elements in the test, but we can take it a bit further.
 We can make the page objects correspond to the states in the navigational state machine.
 A navigational state machine is a state machine that describes the flow through a web application.
-Each page will be a represented as a state.
+Each page will be represented as a state.
 The events of the transitions between these states show how the user can go from one to another page.</p>
 <p>With this approach, the page objects each correspond to one of the states of the state machine.
 Now we do not call them page objects anymore, but <strong>state objects</strong>.
@@ -1373,7 +1373,7 @@ A scenario consists of the following:</p>
 <p>Let&apos;s look at a scenario for an ATM.
 If we have a balance of $100, a valid card and enough money in the machine, we can give a certain amount of money requested by the user.
 Together with the money, the card should be given back, and the balance of the account should be decreased.
-This can be turned into the scenario 1 below:</p>
+This can be turned into scenario 1 below:</p>
 <pre><code class="lang-text">Story: Account Holder withdraws cash
 
 As an Account Holder
@@ -1497,7 +1497,7 @@ and help you find the parts with performance issues.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Web testing","level":"6.1.1","depth":2,"next":{"title":"SQL testing","level":"6.1.2","depth":2,"path":"chapters/testing-into-context/sql-testing.md","ref":"chapters/testing-into-context/sql-testing.md","articles":[]},"previous":{"title":"Testing in context","level":"6.1","depth":1,"path":"chapters/testing-into-context/README.md","ref":"chapters/testing-into-context/README.md","articles":[{"title":"Web testing","level":"6.1.1","depth":2,"path":"chapters/testing-into-context/web-testing.md","ref":"chapters/testing-into-context/web-testing.md","articles":[]},{"title":"SQL testing","level":"6.1.2","depth":2,"path":"chapters/testing-into-context/sql-testing.md","ref":"chapters/testing-into-context/sql-testing.md","articles":[]},{"title":"Web services testing (soon)","level":"6.1.3","depth":2,"ref":"","articles":[]},{"title":"Mobile testing (soon)","level":"6.1.4","depth":2,"ref":"","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/testing-into-context/web-testing.md","mtime":"2020-05-29T08:30:56.240Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-30T13:14:35.947Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Web testing","level":"6.1.1","depth":2,"next":{"title":"SQL testing","level":"6.1.2","depth":2,"path":"chapters/testing-into-context/sql-testing.md","ref":"chapters/testing-into-context/sql-testing.md","articles":[]},"previous":{"title":"Testing in context","level":"6.1","depth":1,"path":"chapters/testing-into-context/README.md","ref":"chapters/testing-into-context/README.md","articles":[{"title":"Web testing","level":"6.1.1","depth":2,"path":"chapters/testing-into-context/web-testing.md","ref":"chapters/testing-into-context/web-testing.md","articles":[]},{"title":"SQL testing","level":"6.1.2","depth":2,"path":"chapters/testing-into-context/sql-testing.md","ref":"chapters/testing-into-context/sql-testing.md","articles":[]},{"title":"Web services testing (soon)","level":"6.1.3","depth":2,"ref":"","articles":[]},{"title":"Mobile testing (soon)","level":"6.1.4","depth":2,"ref":"","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/testing-into-context/web-testing.md","mtime":"2020-06-03T07:42:51.028Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-03T07:46:11.252Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

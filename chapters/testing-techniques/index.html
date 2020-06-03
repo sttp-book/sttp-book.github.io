@@ -806,22 +806,25 @@
                                 
                                 <h1 id="testing-techniques">Testing techniques</h1>
 <p>In a simplified view of a software testing process, 
-developers perform two distinct tasks: <strong>designing
+developers perform two distinct tasks: <strong>designing 
 test cases</strong>, and <strong>executing test cases</strong>.</p>
 <p>The first task, as we just mentioned, 
-is about analysing and designing test cases. In simple words, the goal of this stage
-is to systematically devise different test cases that together will give us a certain level
-of confidence as to whether the software is ready to be shipped or not.
-Devising test cases is an activity that is often done by humans (although we will explore the state-of-the-art in software testing research, where machines also try to 
-devise test cases for us). After all, it requires good knowledge of the requirements.
-In the <em>Roman Numeral</em> example of a previous chapter, we devised three test cases during
-the test case design phase.</p>
+is about analysing and designing test cases. In simple words, the goal of this stage 
+is to systematically devise different test cases that together will give us a certain level 
+of confidence as to whether the software is ready to be shipped or not. 
+Devising test cases is an activity that is often done by humans 
+(although we will explore the state-of-the-art in software testing research, where machines also try to devise test cases for us). 
+After all, it requires good knowledge of the requirements. 
+In the <em>Roman Numeral</em> example of a previous chapter, we devised three test cases during the test case design phase.</p>
 <p>The second task is about executing the test cases we have devised. 
-We often do it by running the software system, feeding it with the inputs we crafted, 
-and checking whether the system responded in the way we expected.
-Although this phase can also be done by humans, this is an activity that we can easily automate.
-As we discussed before, we can (and should) write a program that runs our software and executes the test cases. </p>
-<p><div class="alert alert-info hints-alert"><div class="hints-icon"><i class="fa fa-info-circle"></i></div><div class="hints-container"><p>As a side note, in industry, the term &quot;automated software testing&quot; is often related to the automatic <em>execution</em> of test cases (that were manually devised). In academia, whenever a research paper says &quot;automated software testing&quot;, it means automatically <em>creating</em> test cases (by means of artificial intelligence techniques, for instance).</p>
+We often do this by running the software system, feeding it with the inputs we crafted, 
+and checking whether the system responded in the way we expected. 
+Although this phase can also be done by humans, this is an activity that we can easily automate. 
+As we discussed before, we can (and should) write a program that runs our software and executes the test cases.</p>
+<p><div class="alert alert-info hints-alert"><div class="hints-icon"><i class="fa fa-info-circle"></i></div><div class="hints-container"><p>As a side note, in industry, the term &quot;automated software testing&quot; often relates 
+to the automatic <em>execution</em> of test cases (that were manually devised). 
+In academia, whenever a research paper says &quot;automated software testing&quot;, 
+it means automatically <em>creating</em> test cases (by means of artificial intelligence techniques, for instance). </p>
 </div></div></p>
 <center>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/pPv37kPqvAE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -829,26 +832,25 @@ As we discussed before, we can (and should) write a program that runs our softwa
 
 
 
-<p>When it comes to devising test cases, while our experience helps us deeply in finding bugs, it might not be enough: </p>
+<p>When it comes to devising test cases, while our experience helps us a lot in finding bugs, it might not be enough:</p>
 <ul>
 <li>Experience-based testing is highly prone to mistakes. The developer might forget to test a corner case.</li>
 <li>It varies from person to person. Our goal is to define techniques such that any developer in the world is able to test any software.</li>
 <li>Without clear criteria, it is difficult to know when to stop testing. Our gut feelings might not be precise enough.</li>
 </ul>
-<p>The following chapters aim at exploring different techniques to effectively,
-rigorously, and systematically test a 
-software system, and how to automate as many steps on the way as possible.
+<p>The following chapters aim at exploring different techniques to test a software system effectively, rigorously, and systematically, 
+and how to automate as many steps as possible along the way. 
 These techniques will rely on the different artefacts that are present during the 
-software development process. </p>
-<p>More specifically, we will discuss the following topics :</p>
+software development process.</p>
+<p>More specifically, we will discuss the following topics:</p>
 <ul>
-<li><p><strong>Specification-based testing</strong>: Techniques to derive tests from textual requirements. Understanding the <em>category/partition method</em> and  <em>equivalence partitioning</em> .</p>
+<li><p><strong>Specification-based testing</strong>: Techniques to derive tests from textual requirements. Understanding the <em>category/partition method</em> and <em>equivalence partitioning</em>.</p>
 </li>
 <li><p><strong>Boundary testing</strong>: Deriving tests that exercise the boundaries of our requirement.</p>
 </li>
 <li><p><strong>Structural testing</strong>: Test cases based on the structure of the source code.</p>
 </li>
-<li><p><strong>Model-based testing</strong>: Leveraging more formal documentation such as state machines and decision tables to derive tests. </p>
+<li><p><strong>Model-based testing</strong>: Leveraging more formal documentation such as state machines and decision tables to derive tests.</p>
 </li>
 <li><p><strong>Design-by-contracts</strong>: Devising explicit contracts for methods and classes to ensure that they behave correctly when these contracts are (and are not) met.</p>
 </li>
@@ -864,7 +866,7 @@ software development process. </p>
 
 <h2 id="references">References</h2>
 <ul>
-<li>Yu, C. S., Treude, C., &amp; Aniche, M. (2019, July). Comprehending Test Code: An Empirical Study. In 2019 IEEE International Conference on Software Maintenance and Evolution (ICSME) (pp. 501-512). IEEE. Chicago    </li>
+<li>Yu, C. S., Treude, C., &amp; Aniche, M. (2019, July). Comprehending Test Code: An Empirical Study. In 2019 IEEE International Conference on Software Maintenance and Evolution (ICSME) (pp. 501-512). IEEE. Chicago</li>
 </ul>
 
                                 
@@ -909,7 +911,7 @@ software development process. </p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Testing techniques","level":"4.1","depth":1,"next":{"title":"Specification-based testing","level":"4.1.1","depth":2,"path":"chapters/testing-techniques/specification-based-testing.md","ref":"chapters/testing-techniques/specification-based-testing.md","articles":[]},"previous":{"title":"The developer testing workflow","level":"3.1.5","depth":2,"path":"chapters/getting-started/developer-testing-workflow.md","ref":"chapters/getting-started/developer-testing-workflow.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/testing-techniques/README.md","mtime":"2020-05-06T06:51:15.983Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-03T07:46:11.252Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Testing techniques","level":"4.1","depth":1,"next":{"title":"Specification-based testing","level":"4.1.1","depth":2,"path":"chapters/testing-techniques/specification-based-testing.md","ref":"chapters/testing-techniques/specification-based-testing.md","articles":[]},"previous":{"title":"The developer testing workflow","level":"3.1.5","depth":2,"path":"chapters/getting-started/developer-testing-workflow.md","ref":"chapters/getting-started/developer-testing-workflow.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/testing-techniques/README.md","mtime":"2020-06-03T16:49:37.856Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-03T16:53:36.886Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

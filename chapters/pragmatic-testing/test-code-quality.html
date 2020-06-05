@@ -904,7 +904,7 @@ the behaviour of development teams towards writing automated test code can still
 
 <h2 id="test-desiderata">Test Desiderata</h2>
 <p>Kent Beck, the &quot;creator&quot; of Test-Driven Development (and author of the 
-<a href="https://www.amazon.com/Test-Driven-Development-Kent-Beck/dp/0321146530" target="_blank">&quot;Test-Driven Development: By Example&quot;</a> book), recently wrote a list of eleven
+<a href="https://www.amazon.com/Test-Driven-Development-Kent-Beck/dp/0321146530" target="_blank">&quot;Test-Driven Development: By Example&quot;</a> book), recently wrote a list of twelve
 properties that good tests have (the <a href="https://medium.com/@kentbeck_7670/test-desiderata-94150638a4b3" target="_blank">test desiderata</a>). </p>
 <p>The following list comes directly from his blog post. Note how some of these properties
 are also part of the FIRST properties.</p>
@@ -1003,7 +1003,7 @@ that the environments where the tests are executed have the required resources a
 Continuous integration tools like Jenkins, CircleCI, and Travis can help developers in 
 making sure that tests are being run in the correct environment.</p>
 <p><strong>Test Run War</strong>:
-The war is an analogy for when two tests are &quot;fighting&quot; for the same resources.
+The war is an analogy for when two tests are &quot;fighting&quot; over the same resources.
 One can observe a test run war when tests start to fail as soon as more than one developer
 run their test suites.
 Imagine a test suite that uses a centralised database. When developer A runs the test, the test changes the state of the database. At the same time, 
@@ -1012,7 +1012,7 @@ Both tests are now using the same database at the same time.
 This unexpected situation might cause the test to fail.</p>
 <p><em>Isolation</em> is key to avoid this test smell. In the example of a centralised database,
 one solution would be to make sure that each developer has their own instance of a database. That would
-avoid the fight for the same resource. (Related to this example, also see the chapter on database testing.)</p>
+avoid the fight over the same resource. (Related to this example, also see the chapter on database testing.)</p>
 <p><strong>General Fixture</strong>:
 A fixture is the set of input values that will be used to exercise the component under test.
 Fixtures are set up in the <em>arrange</em> part of the test, which was discussed in a previous chapter.
@@ -1034,7 +1034,7 @@ relevant for them. In practice, the developer would have to manually
 That is an unnecessary cost.
 Making sure that the fixture of a test is as specific and cohesive as possible helps
 developers to comprehend the essence of a test (which is often highly relevant when
-the test starts fail).</p>
+the test starts to fail).</p>
 <p>Build patterns, with the focus of building test data, 
 might help developers in avoiding such a smell. More specifically, 
 the <strong><a href="http://www.natpryce.com/articles/000714.html" target="_blank">Test Data Builder</a></strong> pattern is
@@ -1049,7 +1049,7 @@ class <code>A</code> should solely focus on testing class <code>A</code>. Even i
 <code>B</code>, requiring <code>ATest</code> to instantiate <code>B</code>, <code>ATest</code> should focus on exercising <code>A</code> and <code>A</code> only.
 The smell emerges when a test class focuses its efforts on testing many classes
 at once. </p>
-<p>Less cohesive tests lead to less productivity. How do developers know where tests for a given <code>B</code> class
+<p>Less cohesive tests lead to less productivity. How do developers know where tests for a given class <code>B</code> 
 are? If test classes focus on more than a single class, tests for <code>B</code> might be anywhere.
 Developers would have to look for them. 
 It is also expected that, without proper care, tests for a single class would live in
@@ -1163,7 +1163,7 @@ for writing the assertion can affect the maintenance of the test in the long run
 The wrong choice of an assertion instruction might give developers less information
 about the failure, making the debugging process more difficult.</p>
 <p>Imagine an implementation of a <code>Cart</code> that receives products
-to be inserted into it. Products can not be repeated. A simple implementation might be:</p>
+to be inserted into it. Products cannot be repeated. A simple implementation might be:</p>
 <pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Cart</span> </span>{
     <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Set&lt;String&gt; items = <span class="hljs-keyword">new</span> HashSet&lt;&gt;();
 
@@ -1307,7 +1307,7 @@ In such cases, <strong>we should make sure that the (meaning of the)
 important information present in a test is easy to understand.</strong></p>
 <p>Giving descriptive names to the information in the test code is helpful with this.
 Let us illustrate this in the example below.
-Suppose we have written a test for an <code>Invoice</code> class, that calculates the tax for
+Suppose we have written a test for an <code>Invoice</code> class, which calculates the tax for
 that invoice.</p>
 <pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Invoice</span> </span>{
 
@@ -1345,7 +1345,7 @@ this invoice looks like. Imagine a real entity from a real enterprise system: an
 class might have dozens of attributes. The name of the test as well as the name of
 the cryptic variable <code>v</code> do not clearly explain what they mean. For developers less fluent
 in JUnit, it may also be hard to understand what the 0.0001 means (it mitigates floating-point errors by making sure that both numbers are equal within the given delta).</p>
-<p>A better version for this test method could be:</p>
+<p>A better version of this test method could be:</p>
 <pre><code class="lang-java"><span class="hljs-meta">@Test</span>
 <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">taxesForCompanies</span><span class="hljs-params">()</span> </span>{
     var invoice = <span class="hljs-keyword">new</span> InvoiceBuilder()
@@ -1359,7 +1359,7 @@ in JUnit, it may also be hard to understand what the 0.0001 means (it mitigates 
     assertThat(calculatedValue).isCloseTo(<span class="hljs-keyword">new</span> BigDecimal(<span class="hljs-string">&quot;250&quot;</span>), within(<span class="hljs-keyword">new</span> BigDecimal(<span class="hljs-string">&quot;0.001&quot;</span>)));
 }
 </code></pre>
-<p>The usage of the <code>InvoiceBuilder</code> clearly expresses what
+<p>The usage of the <code>InvoiceBuilder</code> (the implementation of which we will show shortly) clearly expresses what
 this invoice is about: it is an invoice for a company (as clearly stated by the <code>asCompany()</code> 
 method), &quot;NL&quot; is the country of that invoice, and the invoice has a value of 2500. The
 result of the behaviour now goes to a variable whose name says it all (<code>calculatedValue</code>). 
@@ -1472,7 +1472,7 @@ Suppose that test A somehow influences the result of test B,
 possibly causing it to fail.</p>
 </li>
 </ul>
-<p>As you might have noticed, some of these causes 
+<p>As you may have noticed, some of these causes 
 correspond to scenarios we described when discussing the test smells 
 and emphasise again how important the quality of test code is.</p>
 <p><div class="alert alert-success hints-alert"><div class="hints-icon"><i class="fa fa-mortar-board"></i></div><div class="hints-container"><p>If you want to find the exact cause of a flaky test, 
@@ -1501,7 +1501,7 @@ Jeanette just heard that two tests are behaving strangely as when executed in is
 <li>They do not perform a clean-up operation after execution.</li>
 </ol>
 <p><strong>Exercise 2.</strong>
-RepoDriller is a project that extracts information from Git repositories. Its integration tests use lots of real Git repositories, each one with a different characteristic, e.g., one repository contains a merge commit, another repository contains a revert operation, etc.</p>
+RepoDriller is a project that extracts information from Git repositories. Its integration tests use lots of real Git repositories (that are created solely for the purpose of the test), each one with a different characteristic, e.g., one repository contains a merge commit, another repository contains a revert operation, etc.</p>
 <p>Its tests look like this:</p>
 <pre><code class="lang-java"><span class="hljs-meta">@Test</span>
 <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">test01</span><span class="hljs-params">()</span> </span>{
@@ -1703,7 +1703,7 @@ Authors&apos; version: <a href="http://taoxie.cs.illinois.edu/publications/icst1
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Test code quality and engineering","level":"5.1.5","depth":2,"next":{"title":"Testing in context","level":"6.1","depth":1,"path":"chapters/testing-into-context/README.md","ref":"chapters/testing-into-context/README.md","articles":[{"title":"Web testing","level":"6.1.1","depth":2,"path":"chapters/testing-into-context/web-testing.md","ref":"chapters/testing-into-context/web-testing.md","articles":[]},{"title":"SQL testing","level":"6.1.2","depth":2,"path":"chapters/testing-into-context/sql-testing.md","ref":"chapters/testing-into-context/sql-testing.md","articles":[]},{"title":"Web services testing (soon)","level":"6.1.3","depth":2,"ref":"","articles":[]},{"title":"Mobile testing (soon)","level":"6.1.4","depth":2,"ref":"","articles":[]}]},"previous":{"title":"Test-driven development","level":"5.1.4","depth":2,"path":"chapters/pragmatic-testing/tdd.md","ref":"chapters/pragmatic-testing/tdd.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/pragmatic-testing/test-code-quality.md","mtime":"2020-06-05T14:37:29.377Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-05T14:37:37.301Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Test code quality and engineering","level":"5.1.5","depth":2,"next":{"title":"Testing in context","level":"6.1","depth":1,"path":"chapters/testing-into-context/README.md","ref":"chapters/testing-into-context/README.md","articles":[{"title":"Web testing","level":"6.1.1","depth":2,"path":"chapters/testing-into-context/web-testing.md","ref":"chapters/testing-into-context/web-testing.md","articles":[]},{"title":"SQL testing","level":"6.1.2","depth":2,"path":"chapters/testing-into-context/sql-testing.md","ref":"chapters/testing-into-context/sql-testing.md","articles":[]},{"title":"Web services testing (soon)","level":"6.1.3","depth":2,"ref":"","articles":[]},{"title":"Mobile testing (soon)","level":"6.1.4","depth":2,"ref":"","articles":[]}]},"previous":{"title":"Test-driven development","level":"5.1.4","depth":2,"path":"chapters/pragmatic-testing/tdd.md","ref":"chapters/pragmatic-testing/tdd.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/pragmatic-testing/test-code-quality.md","mtime":"2020-06-05T21:24:13.049Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-05T21:24:19.993Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

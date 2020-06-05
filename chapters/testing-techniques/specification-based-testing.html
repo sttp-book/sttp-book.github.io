@@ -806,17 +806,18 @@
                                 
                                 <h1 id="specification-based-testing">Specification-Based Testing</h1>
 <p>In this chapter, we explore <strong>specification-based testing</strong> techniques. These use the <em>requirements</em> of the program (often written as text; think of user stories and/or UML use cases) as input for testing.</p>
-<p>In simple terms, we devise a set
-of inputs, where each input tackles one part (or <em>partition</em>)
+<p>In simple terms, we devise a set 
+of inputs, where each input tackles one part (or <em>partition</em>) 
 of the program.</p>
-<p>Given that specification-based techniques require no knowledge
-of how the software inside the &#x201C;box&#x201D; is structured
-(i.e., it does not matter if it is developed in Java or Python and concrete implementation details [such as usage of a particular data structure] are not of importance), these techniques are also referred to
-as <strong>black box testing</strong>.</p>
+<p>Given that specification-based techniques require no knowledge 
+of how the software inside the &quot;box&quot; is structured.
+For instance, it does not matter if the software was developed in Java or Python,
+or what particular data structures were used in the implementation.
+Therefore, these techniques are also referred to as <strong>black box testing</strong>.</p>
 <h2 id="partitioning-the-input-space">Partitioning the input space</h2>
 <p>Programs are usually too complex to be tested with just a single test case.
 There are different cases in which the program is executed 
-and its execution often depends on various factors, such as the input
+and its execution often depends on various factors, such as the input 
 to the program.</p>
 <p>Let&apos;s use a small program as an example. The specification below talks about a program that decides whether a given year is a leap year or not. </p>
 <blockquote>
@@ -827,17 +828,17 @@ the provided year is a leap year and <em>false</em> if it is not.</p>
 <ul>
 <li>the year is divisible by 4;</li>
 <li>and the year is not divisible by 100;</li>
-<li>except when the year is divisible by 400 (because then it is still a leap year)</li>
+<li>except when the year is divisible by 400 (because then it is a leap year)</li>
 </ul>
 </blockquote>
-<p>To find a good set of test cases, often referred to as a <em>test suite</em>,
+<p>To find a good set of test cases, often referred to as a <em>test suite</em>, 
 we split the program into <em>classes</em>.
-In other words, we divide the input space of
+In other words, we divide the input space of 
 the program in such a way that:
-1) Each class is different, i.e. it is unique, where
+1) Each class is different, i.e. it is unique, where 
 no two partitions represent/exercise the same behaviour;
 2) We can easily verify whether the behaviour for a given input is correct or not.</p>
-<p>By looking at the requirements above, we can derive the
+<p>By looking at the requirements above, we can derive the 
 following classes/partitions:</p>
 <ul>
 <li>Year is divisible by 4, but not divisible by 100 = <code>leap year, TRUE</code></li>
@@ -856,23 +857,23 @@ following classes/partitions:</p>
 <h2 id="equivalence-partitioning">Equivalence partitioning</h2>
 <p>The partitions above are not test cases that we can implement directly because
 each partition might be instantiated by an infinite number of inputs. For example,
-for the partition &quot;year not divisible by 4&quot;, there are infinitely many numbers
+for the partition &quot;year not divisible by 4&quot;, there are infinitely many numbers 
 that are not divisible by 4 which we could use as concrete inputs to the program.
 So how do we know which concrete input to instantiate for each of the partitions?</p>
 <p>As we discussed earlier, each partition exercises the program in a certain way.
-In other words, all input values from one specific partition will make the program
+In other words, all input values from one specific partition will make the program 
 behave in the same way.
 Therefore, any input we select should give us the same result.
-We assume that, if the program behaves correctly for one given input,
+We assume that, if the program behaves correctly for one given input, 
 it will work correctly for all other inputs from that class.
-This idea of inputs being equivalent to each other
+This idea of inputs being equivalent to each other 
 is called <strong>equivalence partitioning</strong>.
-Thus, it does not matter which precise input we select and one test case per
+Thus, it does not matter which precise input we select and one test case per 
 partition will be enough.</p>
 <p>Let&#x2019;s now write some JUnit tests for the leap year problem. Remember that the name of a test method
 in JUnit can be anything. It is good to name your test method after the 
 partition that the method tests.</p>
-<p><div class="alert alert-success hints-alert"><div class="hints-icon"><i class="fa fa-mortar-board"></i></div><div class="hints-container"><p>We discuss more about test code quality and best practices in writing test code in
+<p><div class="alert alert-success hints-alert"><div class="hints-icon"><i class="fa fa-mortar-board"></i></div><div class="hints-container"><p>We discuss more about test code quality and best practices in writing test code in 
 a future chapter.</p>
 </div></div></p>
 <p>The <em>Leap Year</em> specification has been implemented by a developer in the following way:</p>
@@ -888,9 +889,9 @@ a future chapter.</p>
   }
 }
 </code></pre>
-<p>With the classes we devised above, we have 4 test cases in total (i.e., one test case
+<p>With the classes we devised above, we have 4 test cases in total (i.e., one test case 
 for each class/partition).
-As any input can be used for a given partition,
+As any input can be used for a given partition, 
 the following inputs will be used for the partitions:</p>
 <ul>
 <li>2016, divisible by 4, not divisible by 100.</li>
@@ -929,7 +930,7 @@ the following inputs will be used for the partitions:</p>
 }
 </code></pre>
 <p>Note that each test method covers one of the partitions and the naming of the method refers to the partition it covers.</p>
-<p>For those who are learning JUnit: Note that the <code>setup</code> method is executed 
+<p>For those who are learning JUnit: Note that the <code>setup</code> method is executed
 before each test, thanks to the <code>BeforeEach</code> annotation.
 For each test, it creates a new <code>LeapYear</code> object.
 This object is then used by the tests to execute the method under test.
@@ -945,10 +946,10 @@ After the method returns a value, we assert that this is the expected value.</p>
 <p>So far we have derived partitions by just looking at the specification of the program.
 We basically used our experience and knowledge to derive the test cases.
 In this chapter, we will discuss a more systematic way of deriving these partitions: the <strong>Category-Partition</strong> method.</p>
-<p>The method provides us with a systematic way of deriving test cases, based on the characteristics of the input parameters. It also reduces the number of tests to a feasible number.</p>
-<p>We now set out the steps of this method and then we illustrate the process with an example.</p>
+<p>This method provides us with a systematic way of deriving test cases, based on the characteristics of the input parameters. It also reduces the number of tests to a practical number.</p>
+<p>Here are the steps we follow for this method and then an example to illustrate the process.</p>
 <ol>
-<li>Identify the parameters, or the input of the program. For example, the parameters your classes and methods receive.</li>
+<li>Identify the parameters, or the input for the program. For example, the parameters your classes and methods receive.</li>
 <li><p>Derive characteristics of each parameter. For example, an <code>int year</code> should be a positive integer number between 0 and infinite. </p>
 <ul>
 <li>Some of these characteristics can be found directly in the specification of the program.</li>
@@ -958,7 +959,7 @@ In this chapter, we will discuss a more systematic way of deriving these partiti
 <li><p>Add constraints in order to minimise the test suite.</p>
 <ul>
 <li>Identify invalid combinations. For some characteristics it might not be possible to combine them with other characteristics.</li>
-<li>Exceptional behaviour does not always have to be combined with all the different values of the other inputs. For example, trying a single <code>null</code> input might be enough to test that corner case.</li>
+<li>Exceptional behaviour does not always have to be combined with all of the values of the other inputs. For example, trying a single <code>null</code> input might be enough to test that corner case.</li>
 </ul>
 </li>
 <li><p>Generate combinations of the input values. These are the test cases.</p>
@@ -969,7 +970,7 @@ In this chapter, we will discuss a more systematic way of deriving these partiti
 <p><strong>Requirement: Christmas discount</strong></p>
 <p>The system should give a 25% discount on the cart when it is Christmas.
 The method has two input parameters: the total price of the products in the cart, and the date.
-When it is not Christmas it just returns the original price; otherwise it applies the discount.</p>
+When it is not Christmas, it just returns the original price; otherwise it applies the discount.</p>
 </blockquote>
 <p>Following the category-partition method:</p>
 <ol>
@@ -979,7 +980,7 @@ When it is not Christmas it just returns the original price; otherwise it applie
 <li>The total price</li>
 </ul>
 </li>
-<li><p>Now for each parameter we define the characteristics as:</p>
+<li><p>For each parameter we define the characteristics as:</p>
 <ul>
 <li>Based on the requirements, the only important characteristic is that the date can be either Christmas or not.</li>
 <li>The price can be a positive number, or in certain circumstances it may be 0. Technically the price can also be a negative number. This is an exceptional case, as you cannot pay a negative amount.</li>
@@ -989,15 +990,15 @@ When it is not Christmas it just returns the original price; otherwise it applie
 </li>
 <li><p>We combine the other characteristics to get the following test cases:</p>
 <ul>
-<li>Positive price on Christmas</li>
-<li>Positive price not on Christmas</li>
-<li>Price of 0 on Christmas</li>
-<li>Price of 0 not on Christmas</li>
-<li>Negative price on Christmas</li>
+<li>Positive price at Christmas</li>
+<li>Positive price not at Christmas</li>
+<li>Price of 0 at Christmas</li>
+<li>Price of 0 not at Christmas</li>
+<li>Negative price at Christmas</li>
 </ul>
 </li>
 </ol>
-<p>Now we can implement these test cases.
+<p>We now implement these test cases.
 Each of the test cases corresponds to one of the partitions that we want to test.</p>
 <center>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/frzRmafsPBk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -1007,9 +1008,9 @@ Each of the test cases corresponds to one of the partitions that we want to test
 <h2 id="walking-example">Walking example</h2>
 <blockquote>
 <p><strong>Requirement: Chocolate bars</strong></p>
-<p>A package stores a certain number of chocolate bars in kilos.
+<p>A package contains a certain number of chocolate bars in kilos.
 A package is composed of small bars (1 kilo each) and big bars (5 kilos each).</p>
-<p>Assume that the package is always filled with the maximum number of big bars possible, return the number of small bars required to complete the package. 
+<p>Assuming that the package is always filled with the maximum number of big bars possible, return the number of small bars required to complete the package. 
 Return -1 if it is not possible to fill the package completely.</p>
 <p>The input of the program is: the number of available small bars, the number of available big bars, and the total number of kilos of the package.</p>
 </blockquote>
@@ -1034,15 +1035,15 @@ Return -1 if it is not possible to fill the package completely.</p>
 in order to derive the partitions.</p>
 <p>One way to perform the analysis is to consider how the input variables affect the output variables. We observe that:</p>
 <ul>
-<li>There are three input variables: <em>number of small bars</em>, <em>number of big bars</em>, <em>number of kilos in a package</em>. They are all integers and values can range from 0 to infinite.</li>
-<li>Given a valid <em>number of kilos in a package</em>, the outcome is then based on the <em>number of big bars</em> and <em>number of small bars</em>. This means we can not analyse each variable separately, but only together.</li>
+<li>There are three input variables: <em>number of small bars</em>, <em>number of big bars</em>, <em>number of kilos in a package</em>. They are all integers and values can range from 0 to infinity.</li>
+<li>Given a valid <em>number of kilos in a package</em>, the outcome is then based on the <em>number of big bars</em> and <em>number of small bars</em>. This means we can only analyse the variables together, instead of separately.</li>
 </ul>
 <p>We derive the following classes / partitions:</p>
 <ul>
 <li><strong>Need only small bars</strong>. A solution that only uses small bars (and does not use big bars).</li>
 <li><strong>Need only big bars</strong>. A solution that only uses the big bars (and does not use small bars).</li>
 <li><strong>Need small + big bars</strong>. A solution that has to use both small and big bars.</li>
-<li><strong>Not enough bars</strong>. A case in which it is impossible, because there are not enough bars.</li>
+<li><strong>Not enough bars</strong>. A case for which there is no solution, because there are not enough bars.</li>
 </ul>
 <p>We also derive an invalid class:</p>
 <ul>
@@ -1088,7 +1089,7 @@ in order to derive the partitions.</p>
 </code></pre>
 <p>This example shows a case where deriving good test cases becomes more challenging due to the
 specifications being complex.</p>
-<p><div class="alert alert-success hints-alert"><div class="hints-icon"><i class="fa fa-mortar-board"></i></div><div class="hints-container"><p>If you know some advanced features of JUnit, you might be wondering why we did not use, e.g., Parameterized Tests. We will refactor this test code in a future chapter.</p>
+<p><div class="alert alert-success hints-alert"><div class="hints-icon"><i class="fa fa-mortar-board"></i></div><div class="hints-container"><p>If you know some advanced features of JUnit, you might be wondering why we did not use something like parameterised tests. We will refactor this test code in a future chapter.</p>
 </div></div></p>
 <center>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/T8caAUwgquQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -1101,10 +1102,10 @@ specifications being complex.</p>
 <p><strong>Exercise 1.</strong>
 What is an Equivalence Partition?</p>
 <ol>
-<li>A group of results that is produced by one method</li>
-<li>A group of results that is produced by one input passed into different methods</li>
-<li>A group of inputs that all make a method behave in the same way</li>
-<li>A group of inputs that gives exactly the same output in every method</li>
+<li>A group of results that is produced by one method.</li>
+<li>A group of results that is produced by one input passed into different methods.</li>
+<li>A group of inputs that all make a method behave in the same way.</li>
+<li>A group of inputs that gives exactly the same output in every method.</li>
 </ol>
 <p><strong>Exercise 2.</strong>
 We have a program called FizzBuzz.
@@ -1137,18 +1138,18 @@ She came up with the following tests:</p>
 <p><strong>Exercise 3.</strong>
 See a slightly modified version of the HashMap&apos;s <code>put</code> method Javadoc below. (Source code <a href="http://developer.classpath.org/doc/java/util/HashMap-source.html" target="_blank">here</a>).</p>
 <pre><code class="lang-java"><span class="hljs-comment">/**
- * Puts the supplied value into the Map,
- * mapped by the supplied key.
- * If the key is already in the map, its
- * value will be replaced by the new value.
- *
- * <span class="hljs-doctag">NOTE:</span> Nulls are not accepted as keys;
- *  a RuntimeException is thrown when key is null.
- *
- * <span class="hljs-doctag">@param</span> key the key used to locate the value
- * <span class="hljs-doctag">@param</span> value the value to be stored in the HashMap
- * <span class="hljs-doctag">@return</span> the prior mapping of the key, or null if there was none.
- */</span>
+* Puts the supplied value into the Map,
+* mapped by the supplied key.
+* If the key is already in the map, its
+* value will be replaced by the new value.
+*
+* <span class="hljs-doctag">NOTE:</span> Nulls are not accepted as keys;
+*  a RuntimeException is thrown when key is null.
+*
+* <span class="hljs-doctag">@param</span> key the key used to locate the value
+* <span class="hljs-doctag">@param</span> value the value to be stored in the HashMap
+* <span class="hljs-doctag">@return</span> the prior mapping of the key, or null if there was none.
+*/</span>
 <span class="hljs-function"><span class="hljs-keyword">public</span> V <span class="hljs-title">put</span><span class="hljs-params">(K key, V value)</span> </span>{
   <span class="hljs-comment">// implementation here</span>
 }
@@ -1175,19 +1176,19 @@ Describe these invalid cases and how they might exercise the program based on yo
 See a slightly modified version of the HashSet&apos;s <code>add()</code> Javadoc below.
 Apply the category/partition method. What are the <strong>minimal and most suitable partitions</strong> for the <code>e</code> input parameter? </p>
 <pre><code class="lang-java"><span class="hljs-comment">/**
- * Adds the specified element to this set if it 
+* Adds the specified element to this set if it 
  * is not already present.
- * If this set already contains the element, 
+* If this set already contains the element, 
  * the call leaves the set unchanged
- * and returns false.
- *
- * If the specified element is NULL, the call leaves the
- * set unchanged and returns false.
- *
- * <span class="hljs-doctag">@param</span> e element to be added to this set
- * <span class="hljs-doctag">@return</span> true if this set did not already contain 
+* and returns false.
+*
+* If the specified element is NULL, the call leaves the
+* set unchanged and returns false.
+*
+* <span class="hljs-doctag">@param</span> e element to be added to this set
+* <span class="hljs-doctag">@return</span> true if this set did not already contain 
  *   the specified element
- */</span>
+*/</span>
 <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">add</span><span class="hljs-params">(E e)</span> </span>{
     <span class="hljs-comment">// implementation here</span>
 }
@@ -1195,19 +1196,19 @@ Apply the category/partition method. What are the <strong>minimal and most suita
 <p><strong>Exercise 6.</strong>
 Which of the following statements <strong>is false</strong> about applying the category/partition method in the Java method below?</p>
 <pre><code class="lang-java"><span class="hljs-comment">/**
- * Puts the supplied value into the Map, 
+* Puts the supplied value into the Map, 
  * mapped by the supplied key.
- * If the key is already in the map, its
- * value will be replaced by the new value.
- *
- * <span class="hljs-doctag">NOTE:</span> Nulls are not accepted as keys; 
+* If the key is already in the map, its
+* value will be replaced by the new value.
+*
+* <span class="hljs-doctag">NOTE:</span> Nulls are not accepted as keys; 
  *  a RuntimeException is thrown when key is null.
- *
- * <span class="hljs-doctag">@param</span> key the key used to locate the value
- * <span class="hljs-doctag">@param</span> value the value to be stored in the HashMap
- * <span class="hljs-doctag">@return</span> the prior mapping of the key, 
+*
+* <span class="hljs-doctag">@param</span> key the key used to locate the value
+* <span class="hljs-doctag">@param</span> value the value to be stored in the HashMap
+* <span class="hljs-doctag">@return</span> the prior mapping of the key, 
  *  or null if there was none.
- */</span>
+*/</span>
 <span class="hljs-function"><span class="hljs-keyword">public</span> V <span class="hljs-title">put</span><span class="hljs-params">(K key, V value)</span> </span>{
   <span class="hljs-comment">// implementation here</span>
 }
@@ -1219,11 +1220,11 @@ Which of the following statements <strong>is false</strong> about applying the c
 </li>
 <li><p>In an object-oriented language, besides using the method&apos;s input parameters to explore partitions, we should also consider the internal state of the object (i.e., the class&apos;s attributes), as it can also affect the behaviour of the method.</p>
 </li>
-<li><p>With the information in hands, it is not possible to perform the category/partition method, as the source code is required for the last step of the category/partition method: adding constraints.</p>
+<li><p>With the available information, it is not possible to perform the category/partition method, as the source code is required for the last step of the category/partition method: adding constraints.</p>
 </li>
 </ol>
 <p><strong>Exercise 7.</strong>
-Consider a <code>find</code> program that finds occurrences of a pattern in a file, the program has the following syntax:</p>
+Consider a <code>find</code> program that finds occurrences of a pattern in a file. The program has the following syntax:</p>
 <pre><code>find &lt;pattern&gt; &lt;file&gt;
 </code></pre><p>A tester, after reading the specs and following the Category-Partition method, devised the following test specification:</p>
 <ul>
@@ -1237,23 +1238,23 @@ Consider a <code>find</code> program that finds occurrences of a pattern in a fi
 <p><strong>Exercise 8.</strong>
 What test cases should be created when taking both the partition of the input parameters <em>and</em> the internal state of the object into account?</p>
 <pre><code class="lang-java"><span class="hljs-comment">/**
- * Adds the specified element to this set if it 
+* Adds the specified element to this set if it 
  * is not already present.
- * If this set already contains the element, 
+* If this set already contains the element, 
  * the call leaves the set unchanged
- * and returns false.
- *
- * If the specified element is NULL, the call leaves the
- * set unchanged and returns false.
- *
- * If the set is full, 
+* and returns false.
+*
+* If the specified element is NULL, the call leaves the
+* set unchanged and returns false.
+*
+* If the set is full, 
  * the call leaves the set unchanged and return false.
- * Use private method `isFull` to know whether the set is already full.
- *
- * <span class="hljs-doctag">@param</span> e element to be added to this set
- * <span class="hljs-doctag">@return</span> true if this set did not already contain 
+* Use private method `isFull` to know whether the set is already full.
+*
+* <span class="hljs-doctag">@param</span> e element to be added to this set
+* <span class="hljs-doctag">@return</span> true if this set did not already contain 
  *   the specified element
- */</span>
+*/</span>
 <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">add</span><span class="hljs-params">(E e)</span> </span>{
     <span class="hljs-comment">// implementation here</span>
 }
@@ -1312,7 +1313,7 @@ What test cases should be created when taking both the partition of the input pa
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Specification-based testing","level":"4.1.1","depth":2,"next":{"title":"Boundary testing","level":"4.1.2","depth":2,"path":"chapters/testing-techniques/boundary-testing.md","ref":"chapters/testing-techniques/boundary-testing.md","articles":[]},"previous":{"title":"Testing techniques","level":"4.1","depth":1,"path":"chapters/testing-techniques/README.md","ref":"chapters/testing-techniques/README.md","articles":[{"title":"Specification-based testing","level":"4.1.1","depth":2,"path":"chapters/testing-techniques/specification-based-testing.md","ref":"chapters/testing-techniques/specification-based-testing.md","articles":[]},{"title":"Boundary testing","level":"4.1.2","depth":2,"path":"chapters/testing-techniques/boundary-testing.md","ref":"chapters/testing-techniques/boundary-testing.md","articles":[]},{"title":"Structural testing","level":"4.1.3","depth":2,"path":"chapters/testing-techniques/structural-testing.md","ref":"chapters/testing-techniques/structural-testing.md","articles":[]},{"title":"Model-based testing","level":"4.1.4","depth":2,"path":"chapters/testing-techniques/model-based-testing.md","ref":"chapters/testing-techniques/model-based-testing.md","articles":[]},{"title":"Design-by-contracts","level":"4.1.5","depth":2,"path":"chapters/testing-techniques/design-by-contracts.md","ref":"chapters/testing-techniques/design-by-contracts.md","articles":[]},{"title":"Property-based testing","level":"4.1.6","depth":2,"path":"chapters/testing-techniques/property-based-testing.md","ref":"chapters/testing-techniques/property-based-testing.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/testing-techniques/specification-based-testing.md","mtime":"2020-05-18T08:10:02.049Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-03T16:53:36.886Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Specification-based testing","level":"4.1.1","depth":2,"next":{"title":"Boundary testing","level":"4.1.2","depth":2,"path":"chapters/testing-techniques/boundary-testing.md","ref":"chapters/testing-techniques/boundary-testing.md","articles":[]},"previous":{"title":"Testing techniques","level":"4.1","depth":1,"path":"chapters/testing-techniques/README.md","ref":"chapters/testing-techniques/README.md","articles":[{"title":"Specification-based testing","level":"4.1.1","depth":2,"path":"chapters/testing-techniques/specification-based-testing.md","ref":"chapters/testing-techniques/specification-based-testing.md","articles":[]},{"title":"Boundary testing","level":"4.1.2","depth":2,"path":"chapters/testing-techniques/boundary-testing.md","ref":"chapters/testing-techniques/boundary-testing.md","articles":[]},{"title":"Structural testing","level":"4.1.3","depth":2,"path":"chapters/testing-techniques/structural-testing.md","ref":"chapters/testing-techniques/structural-testing.md","articles":[]},{"title":"Model-based testing","level":"4.1.4","depth":2,"path":"chapters/testing-techniques/model-based-testing.md","ref":"chapters/testing-techniques/model-based-testing.md","articles":[]},{"title":"Design-by-contracts","level":"4.1.5","depth":2,"path":"chapters/testing-techniques/design-by-contracts.md","ref":"chapters/testing-techniques/design-by-contracts.md","articles":[]},{"title":"Property-based testing","level":"4.1.6","depth":2,"path":"chapters/testing-techniques/property-based-testing.md","ref":"chapters/testing-techniques/property-based-testing.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/testing-techniques/specification-based-testing.md","mtime":"2020-06-05T14:37:29.277Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-05T14:37:37.301Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

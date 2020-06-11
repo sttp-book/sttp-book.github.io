@@ -805,14 +805,14 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="fuzz-testing">Fuzz testing</h1>
-<p>Fuzzing is a popular dynamic testing technique used for automatically generating complex test cases. 
-Fuzzers bombard the System Under Test (SUT) with randomly generated inputs in the hope to cause crashes. 
-A crash can either originate from <em>failing assertions</em>, <em>memory leaks</em>, or <em>improper error handling</em>. 
+<p>Fuzzing is a popular dynamic testing technique used for automatically generating complex test cases.
+Fuzzers bombard the System Under Test (SUT) with randomly generated inputs in the hope to cause crashes.
+A crash can either originate from <em>failing assertions</em>, <em>memory leaks</em>, or <em>improper error handling</em>.
 Fuzzing has been successful in discovering <a href="https://lcamtuf.coredump.cx/afl/" target="_blank">unknown bugs</a> in software.</p>
 <p><div class="alert alert-success hints-alert"><div class="hints-icon"><i class="fa fa-mortar-board"></i></div><div class="hints-container"><p>Note that fuzzing cannot identify flaws that do not trigger a crash.</p>
 </div></div></p>
-<p><strong>Random fuzzing</strong> is the most primitive type of fuzzing, where the SUT is considered as a completely black box, with no assumptions about the type and format of the input. 
-It can be used for exploratory purposes, but it takes a long time to generate any meaningful test cases. 
+<p><strong>Random fuzzing</strong> is the most primitive type of fuzzing, where the SUT is considered as a completely black box, with no assumptions about the type and format of the input.
+It can be used for exploratory purposes, but it takes a long time to generate any meaningful test cases.
 In practice, most software takes some form of <em>structured input</em> that is pre-specified, so we can exploit that knowledge to build more efficient fuzzers.</p>
 <p>There are two ways of generating fuzzing test cases:</p>
 <ol>
@@ -821,11 +821,11 @@ In practice, most software takes some form of <em>structured input</em> that is 
 <li><p><strong>Generation-based Fuzzing</strong>, also known as <em>Protocol fuzzing</em>, takes the file format and protocol specification of the SUT into account when generating test cases. Generative fuzzers take a data model as input that specifies the input format, and the fuzzer generates test cases that only alter the values while conforming to the specified format. For example, for an application that takes <code>JPEG</code> files as input, a generative fuzzer would fuzz the image pixel values while keeping the <code>JPEG</code> file format intact. <em>PeachFuzzer</em> is an example of a generative fuzzer.</p>
 </li>
 </ol>
-<p>Compared to mutative fuzzers, generative fuzzers are <em>less generalisable</em> and <em>difficult to set up</em> because they require input format specifications. 
+<p>Compared to mutative fuzzers, generative fuzzers are <em>less generalisable</em> and <em>more difficult to set up</em> because they require input format specifications.
 However, they produce higher-quality test cases and result in better code coverage.</p>
 <h2 id="maximising-code-coverage">Maximising code coverage</h2>
-<p>One of the challenges of effective software testing is to generate test cases that not only <em>maximise the code coverage, but do so in a way that tests for a wide range of possible values</em>. 
-Fuzzing helps achieve this goal by generating wildly diverse test cases. 
+<p>One of the challenges of effective software testing is to generate test cases that not only <em>maximise the code coverage, but do so in a way that tests for a wide range of possible values</em>.
+Fuzzing helps achieve this goal by generating wildly diverse test cases.
 For example, <a href="https://blog.regehr.org/archives/896" target="_blank">this blog post by Regehr</a> describes the use of fuzzing in order to optimally test an ADT implementation.</p>
 <p>We want the fuzzer to generate these test cases in a reasonable time.
 There are various ways in which we achieve maximal code coverage in less time:</p>
@@ -835,14 +835,13 @@ There are various ways in which we achieve maximal code coverage in less time:</
 <li>Symbolic execution</li>
 </ol>
 <h3 id="multiple-tools">Multiple tools</h3>
-<p>A simple yet effective way to maximise code coverage is to use multiple fuzzing tools. 
-Each fuzzer performs mutations in a different way, so they can be run together to cover different parts of the search space in parallel. 
+<p>A simple yet effective way to maximise code coverage is to use multiple fuzzing tools.
+Each fuzzer performs mutations in a different way, so they can be run together to cover different parts of the search space in parallel.
 For example, using a combination of a mutative and generative fuzzer can help to generate diverse test cases while also ensuring valid inputs.</p>
 <h3 id="telemetry-as-heuristics">Telemetry as heuristics</h3>
-<p>If the code structure is known (i.e., in a white-box setting), telemetry about code coverage can help constrain the applied mutations. 
-For example, for the <code>if</code> statement in the following code snippet, a heuristic based on <strong><em>branch coverage</em></strong> requires 3 test cases to fully cover it, while one based on <strong><em>statement coverage</em></strong> requires 2 test cases. 
-Using branch coverage ensures that all three branches are tested at least once. 
-Such heuristics can be used to select only those mutations that increase code coverage.</p>
+<p>If the code structure is known (i.e., in a white-box setting), telemetry about code coverage can help constrain the applied mutations.<br>For example, for the <code>if</code> statement in the following code snippet, a heuristic based on <strong><em>branch coverage</em></strong> requires 3 test cases to fully cover it, while one based on <strong><em>statement coverage</em></strong> requires 2 test cases.
+Using branch coverage ensures that all three branches are tested at least once.
+While telemetry data does not directly help in generating valid test cases, it helps in selecting only those mutations that increase code coverage, for example. Code coverage metrics can also provide a stopping criteria for the fuzzer, reducing its the run-time.</p>
 <pre><code class="lang-java"><span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">func</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b)</span></span>{
     a = a + b;
     b = a - b;
@@ -855,13 +854,13 @@ Such heuristics can be used to select only those mutations that increase code co
 }
 </code></pre>
 <h3 id="symbolic-execution">Symbolic execution</h3>
-<p>We can specify the potential values of variables that allow the program to reach a desired path, using so-called <strong>symbolic variables</strong>. 
+<p>We can specify the potential values of variables that allow the program to reach a desired path, using so-called <strong>symbolic variables</strong>.
 We assign symbolic values to these variables rather than explicitly enumerating each possible value.</p>
-<p>We can then construct the formula of a <strong>path predicate</strong> that answers this question: 
-<em>Given the path constraints, is there any input that satisfies the path predicate?</em>. 
-We then only fuzz the values that satisfy these constraints. 
-A popular tool for symbolic execution is <em>Z3</em>. 
-It is a combinatorial solver that, when given path constraints, can find all combinations of values that satisfy the constraints. 
+<p>We can then construct the formula of a <strong>path predicate</strong> that answers this question:
+<em>Given the path constraints, is there any input that satisfies the path predicate?</em>.
+We then only fuzz the values that satisfy these constraints.
+A popular tool for symbolic execution is <em>Z3</em>.
+It is a combinatorial solver that, when given path constraints, can find all combinations of values that satisfy the constraints.
 The output of <em>Z3</em> can be given as an input to a generative or mutative fuzzer to optimally test various code paths of the SUT.</p>
 <p>The path predicate for the <code>else if</code> branch in the previous code snippet will be: <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mo>(</mo><mi>N</mi><mo>+</mo><mi>M</mi><mo>&#x2264;</mo><mn>2</mn><mo>)</mo><mi mathvariant="normal">&amp;</mi><mo>(</mo><mi>N</mi><mo>&lt;</mo><mn>1</mn><mn>0</mn><mn>0</mn><mo>)</mo><mo>)</mo></mrow><annotation encoding="application/x-tex">((N+M \leq 2) \&amp; (N &lt; 100))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">(</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.10903em;">N</span><span class="mbin">+</span><span class="mord mathit" style="margin-right:0.10903em;">M</span><span class="mrel">&#x2264;</span><span class="mord mathrm">2</span><span class="mclose">)</span><span class="mord mathrm">&amp;</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.10903em;">N</span><span class="mrel">&lt;</span><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span>. The procedure to derive it is as follows:</p>
 <ol>
@@ -934,7 +933,7 @@ The output of <em>Z3</em> can be given as an input to a generative or mutative f
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Fuzz testing","level":"8.1.3","depth":2,"next":{"title":"Search-based testing","level":"8.1.4","depth":2,"path":"chapters/intelligent-testing/sbst.md","ref":"chapters/intelligent-testing/sbst.md","articles":[]},"previous":{"title":"Mutation testing","level":"8.1.2","depth":2,"path":"chapters/intelligent-testing/mutation-testing.md","ref":"chapters/intelligent-testing/mutation-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/intelligent-testing/fuzzing.md","mtime":"2020-06-09T16:05:14.697Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-09T16:05:33.339Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Fuzz testing","level":"8.1.3","depth":2,"next":{"title":"Search-based testing","level":"8.1.4","depth":2,"path":"chapters/intelligent-testing/sbst.md","ref":"chapters/intelligent-testing/sbst.md","articles":[]},"previous":{"title":"Mutation testing","level":"8.1.2","depth":2,"path":"chapters/intelligent-testing/mutation-testing.md","ref":"chapters/intelligent-testing/mutation-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/intelligent-testing/fuzzing.md","mtime":"2020-06-11T13:23:32.071Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-11T13:23:35.357Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

@@ -905,35 +905,34 @@ the following inputs will be used for the partitions:</p>
   <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> LeapYear leapYear = <span class="hljs-keyword">new</span> LeapYear();
 
   <span class="hljs-meta">@Test</span>
-  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">leapYearsNotCenturialTest</span><span class="hljs-params">()</span> </span>{
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">divisibleBy4_notDivisibleBy100</span><span class="hljs-params">()</span> </span>{
     <span class="hljs-keyword">boolean</span> leap = leapYear.isLeapYear(<span class="hljs-number">2016</span>);
     assertTrue(leap);
   }
 
   <span class="hljs-meta">@Test</span>
-  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">leapYearsCenturialTest</span><span class="hljs-params">()</span> </span>{
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">divisibleBy4_100_400</span><span class="hljs-params">()</span> </span>{
     <span class="hljs-keyword">boolean</span> leap = leapYear.isLeapYear(<span class="hljs-number">2000</span>);
     assertTrue(leap);
   }
 
   <span class="hljs-meta">@Test</span>
-  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">nonLeapYearsTest</span><span class="hljs-params">()</span> </span>{
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">notDivisibleBy4</span><span class="hljs-params">()</span> </span>{
     <span class="hljs-keyword">boolean</span> leap = leapYear.isLeapYear(<span class="hljs-number">39</span>);
     assertFalse(leap);
   }
 
   <span class="hljs-meta">@Test</span>
-  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">nonLeapYearsCenturialTest</span><span class="hljs-params">()</span> </span>{
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">divisibleBy4_and_100_not_400</span><span class="hljs-params">()</span> </span>{
     <span class="hljs-keyword">boolean</span> leap = leapYear.isLeapYear(<span class="hljs-number">1900</span>);
     assertFalse(leap);
   }
 }
 </code></pre>
 <p>Note that each test method covers one of the partitions and the naming of the method refers to the partition it covers.</p>
-<p>For those who are learning JUnit: Note that the <code>setup</code> method is executed
-before each test, thanks to the <code>BeforeEach</code> annotation.
-For each test, it creates a new <code>LeapYear</code> object.
-This object is then used by the tests to execute the method under test.
+<p>For those who are learning JUnit: Note that a new instance of the test class is created before each test,
+so each test has a new <code>LeapYear</code> object. In this example, the <code>LeapYear</code> object has no state, so refreshing
+the object under test is not significant, but this is good practice to observe in general.
 In each test we first determine the result of the method.
 After the method returns a value, we assert that this is the expected value.</p>
 <center>
@@ -1313,7 +1312,7 @@ What test cases should be created when taking both the partition of the input pa
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Specification-based testing","level":"4.1.1","depth":2,"next":{"title":"Boundary testing","level":"4.1.2","depth":2,"path":"chapters/testing-techniques/boundary-testing.md","ref":"chapters/testing-techniques/boundary-testing.md","articles":[]},"previous":{"title":"Testing techniques","level":"4.1","depth":1,"path":"chapters/testing-techniques/README.md","ref":"chapters/testing-techniques/README.md","articles":[{"title":"Specification-based testing","level":"4.1.1","depth":2,"path":"chapters/testing-techniques/specification-based-testing.md","ref":"chapters/testing-techniques/specification-based-testing.md","articles":[]},{"title":"Boundary testing","level":"4.1.2","depth":2,"path":"chapters/testing-techniques/boundary-testing.md","ref":"chapters/testing-techniques/boundary-testing.md","articles":[]},{"title":"Structural testing","level":"4.1.3","depth":2,"path":"chapters/testing-techniques/structural-testing.md","ref":"chapters/testing-techniques/structural-testing.md","articles":[]},{"title":"Model-based testing","level":"4.1.4","depth":2,"path":"chapters/testing-techniques/model-based-testing.md","ref":"chapters/testing-techniques/model-based-testing.md","articles":[]},{"title":"Design-by-contracts","level":"4.1.5","depth":2,"path":"chapters/testing-techniques/design-by-contracts.md","ref":"chapters/testing-techniques/design-by-contracts.md","articles":[]},{"title":"Property-based testing","level":"4.1.6","depth":2,"path":"chapters/testing-techniques/property-based-testing.md","ref":"chapters/testing-techniques/property-based-testing.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/testing-techniques/specification-based-testing.md","mtime":"2020-06-05T14:37:29.277Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-11T16:25:52.815Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Specification-based testing","level":"4.1.1","depth":2,"next":{"title":"Boundary testing","level":"4.1.2","depth":2,"path":"chapters/testing-techniques/boundary-testing.md","ref":"chapters/testing-techniques/boundary-testing.md","articles":[]},"previous":{"title":"Testing techniques","level":"4.1","depth":1,"path":"chapters/testing-techniques/README.md","ref":"chapters/testing-techniques/README.md","articles":[{"title":"Specification-based testing","level":"4.1.1","depth":2,"path":"chapters/testing-techniques/specification-based-testing.md","ref":"chapters/testing-techniques/specification-based-testing.md","articles":[]},{"title":"Boundary testing","level":"4.1.2","depth":2,"path":"chapters/testing-techniques/boundary-testing.md","ref":"chapters/testing-techniques/boundary-testing.md","articles":[]},{"title":"Structural testing","level":"4.1.3","depth":2,"path":"chapters/testing-techniques/structural-testing.md","ref":"chapters/testing-techniques/structural-testing.md","articles":[]},{"title":"Model-based testing","level":"4.1.4","depth":2,"path":"chapters/testing-techniques/model-based-testing.md","ref":"chapters/testing-techniques/model-based-testing.md","articles":[]},{"title":"Design-by-contracts","level":"4.1.5","depth":2,"path":"chapters/testing-techniques/design-by-contracts.md","ref":"chapters/testing-techniques/design-by-contracts.md","articles":[]},{"title":"Property-based testing","level":"4.1.6","depth":2,"path":"chapters/testing-techniques/property-based-testing.md","ref":"chapters/testing-techniques/property-based-testing.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/testing-techniques/specification-based-testing.md","mtime":"2020-06-15T07:34:48.372Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-15T07:34:52.513Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

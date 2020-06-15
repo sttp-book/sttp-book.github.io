@@ -1099,7 +1099,7 @@ The class has the following implementation:</p>
 
     <span class="hljs-meta">@Override</span>
     <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">toString</span><span class="hljs-params">()</span> </span>{
-        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Product &quot;</span> + name + <span class="hljs-string">&quot; times&quot;</span> + qty + <span class="hljs-string">&quot; = &quot;</span> + finalAmount();
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Product &quot;</span> + name + <span class="hljs-string">&quot; times &quot;</span> + qty + <span class="hljs-string">&quot; = &quot;</span> + finalAmount();
     }
 }
 </code></pre>
@@ -1538,7 +1538,7 @@ In the code below, we present the source code of an automated test.</p>
 <pre><code class="lang-java"><span class="hljs-meta">@Test</span>
 <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">flightMileage</span><span class="hljs-params">()</span> </span>{
   <span class="hljs-comment">// setup fixture</span>
-  <span class="hljs-comment">// exercise contructor</span>
+  <span class="hljs-comment">// exercise constructor</span>
   Flight newFlight = <span class="hljs-keyword">new</span> Flight(validFlightNumber);
   <span class="hljs-comment">// verify constructed object</span>
   assertEquals(validFlightNumber, newFlight.number);
@@ -1546,7 +1546,7 @@ In the code below, we present the source code of an automated test.</p>
   assertNull(newFlight.airline);
   <span class="hljs-comment">// setup mileage</span>
   newFlight.setMileage(<span class="hljs-number">1122</span>);
-  <span class="hljs-comment">// exercise mileage translater</span>
+  <span class="hljs-comment">// exercise mileage translator</span>
   <span class="hljs-keyword">int</span> actualKilometres = newFlight.getMileageAsKm();    
   <span class="hljs-comment">// verify results</span>
   <span class="hljs-keyword">int</span> expectedKilometres = <span class="hljs-number">1810</span>;
@@ -1705,7 +1705,7 @@ Authors&apos; version: <a href="http://taoxie.cs.illinois.edu/publications/icst1
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Test code quality and engineering","level":"5.1.5","depth":2,"next":{"title":"Testing in context","level":"6.1","depth":1,"path":"chapters/testing-into-context/README.md","ref":"chapters/testing-into-context/README.md","articles":[{"title":"Web testing","level":"6.1.1","depth":2,"path":"chapters/testing-into-context/web-testing.md","ref":"chapters/testing-into-context/web-testing.md","articles":[]},{"title":"SQL testing","level":"6.1.2","depth":2,"path":"chapters/testing-into-context/sql-testing.md","ref":"chapters/testing-into-context/sql-testing.md","articles":[]},{"title":"Web services testing (soon)","level":"6.1.3","depth":2,"ref":"","articles":[]},{"title":"Mobile testing (soon)","level":"6.1.4","depth":2,"ref":"","articles":[]}]},"previous":{"title":"Test-driven development","level":"5.1.4","depth":2,"path":"chapters/pragmatic-testing/tdd.md","ref":"chapters/pragmatic-testing/tdd.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/pragmatic-testing/test-code-quality.md","mtime":"2020-06-09T16:05:14.704Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-11T16:25:52.815Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Test code quality and engineering","level":"5.1.5","depth":2,"next":{"title":"Testing in context","level":"6.1","depth":1,"path":"chapters/testing-into-context/README.md","ref":"chapters/testing-into-context/README.md","articles":[{"title":"Web testing","level":"6.1.1","depth":2,"path":"chapters/testing-into-context/web-testing.md","ref":"chapters/testing-into-context/web-testing.md","articles":[]},{"title":"SQL testing","level":"6.1.2","depth":2,"path":"chapters/testing-into-context/sql-testing.md","ref":"chapters/testing-into-context/sql-testing.md","articles":[]},{"title":"Web services testing (soon)","level":"6.1.3","depth":2,"ref":"","articles":[]},{"title":"Mobile testing (soon)","level":"6.1.4","depth":2,"ref":"","articles":[]}]},"previous":{"title":"Test-driven development","level":"5.1.4","depth":2,"path":"chapters/pragmatic-testing/tdd.md","ref":"chapters/pragmatic-testing/tdd.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/pragmatic-testing/test-code-quality.md","mtime":"2020-06-15T07:34:48.371Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-15T07:34:52.513Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

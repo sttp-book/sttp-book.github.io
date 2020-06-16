@@ -908,7 +908,7 @@ This is done by manipulating bits of the source code and running the tests with 
 If we have a good test suite, at least one of the tests will fail on this changed (i.e., buggy) code.
 Following this procedure, we get a sense of the fault error capability of our test suite.</p>
 <p>In mutation testing, we use <strong>mutants</strong>.
-The mutants are the defects, or faults, that we introduce in the source code and then use to determine the quality of the test suite.</p>
+Mutants are modified programs which contain the defects, or faults that we introduce in the source code to be then used for determining the quality of the test suite.</p>
 <p>A big question regarding the mutants is what their size should be.
 We can change single operations, whole lines or even multiple lines of code.
 What would work best?</p>
@@ -1016,7 +1016,7 @@ Instead of <code>-numerator</code> we just say <code>numerator</code>.</p>
 <p>If we execute the test suite on this mutant, the <code>testInvertNegative()</code> test will fail, as <code>result.getFloat()</code> would be positive instead of negative.</p>
 <p>Another mistake could be made in line 1.
 When we studied boundary analysis, we saw that it is important to test the boundaries due to off-by-one errors.
-We can make a syntactic change by introducing such an off-by-on error.
+We can make a syntactic change by introducing such an off-by-one error.
 Instead of <code>numerator == 0</code>, in our new mutant we make it <code>numerator == 1</code>:</p>
 <pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Fraction</span> </span>{
   <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> numerator;
@@ -1039,7 +1039,7 @@ Instead of <code>numerator == 0</code>, in our new mutant we make it <code>numer
 }
 </code></pre>
 <p>We see that, again, the test suite catches this error.
-The test <code>testInvertZero()</code> will fail, as it expects an exception, but none is thrown in the mutant.</p>
+The test <code>testInvertZero()</code> will fail, as it expects an exception but none is thrown in the mutant. The test <code>testInvert()</code> will also fail since it has a 1 in the numerator which wrongly triggers an exception.</p>
 <h2 id="automation">Automation</h2>
 <p>Writing the mutations of our programs manually might take a lot of time. 
 Moreover, we probably would only think of the cases that are already tested.
@@ -1261,6 +1261,9 @@ This is a very simple, yet effective way to reduce the execution time.</p>
 </li>
 </ul>
 <p>There are other heuristics to decrease the execution time, like e-selective or cluster mutants and operators, but we will not go into detail about those heuristics here.</p>
+<p><div class="alert alert-success hints-alert"><div class="hints-icon"><i class="fa fa-mortar-board"></i></div><div class="hints-container"><p>Note that, for now, we talked about <em>first-order mutation</em>. Mutants are created by just a single mutation operator. In other words, each mutant contains just a single mistake. However, we can also consider <em>higher-order mutations</em>, where we apply more than a single mutation operator to generate a mutant exists. The idea is that, by combining different mutation operations, we end up with mutants that are harder to be killed.</p>
+<p>For interested readers, we suggest the paper <a href="https://www.sciencedirect.com/science/article/abs/pii/S0950584909000688" target="_blank"><em>Higher Order Mutation Testing</em></a> by Jia and Harman.</p>
+</div></div></p>
 <h2 id="tools">Tools</h2>
 <p>To perform mutation testing you can use one of many publicly available tools.
 These tools are often made for specific programming languages.
@@ -1369,7 +1372,7 @@ Take a look at the method <code>min(int a, final int b, final int c)</code> from
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Mutation testing","level":"8.1.2","depth":2,"next":{"title":"Fuzz testing","level":"8.1.3","depth":2,"path":"chapters/intelligent-testing/fuzzing.md","ref":"chapters/intelligent-testing/fuzzing.md","articles":[]},"previous":{"title":"Static testing","level":"8.1.1","depth":2,"path":"chapters/intelligent-testing/static-testing.md","ref":"chapters/intelligent-testing/static-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/intelligent-testing/mutation-testing.md","mtime":"2020-06-15T07:34:48.369Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-15T12:06:34.027Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Mutation testing","level":"8.1.2","depth":2,"next":{"title":"Fuzz testing","level":"8.1.3","depth":2,"path":"chapters/intelligent-testing/fuzzing.md","ref":"chapters/intelligent-testing/fuzzing.md","articles":[]},"previous":{"title":"Static testing","level":"8.1.1","depth":2,"path":"chapters/intelligent-testing/static-testing.md","ref":"chapters/intelligent-testing/static-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/intelligent-testing/mutation-testing.md","mtime":"2020-06-16T11:52:52.942Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-16T11:59:16.639Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

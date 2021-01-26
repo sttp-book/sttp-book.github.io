@@ -1,0 +1,625 @@
+\hypertarget{software-testing-automation-with-junit}{%
+\section{Software testing automation (with
+JUnit)}\label{software-testing-automation-with-junit}}
+
+Before we dive into the different testing techniques, let us first get
+used to software testing automation frameworks. In this book, we will
+use JUnit, as all our code examples are written in Java. If you are
+using a different programming language in your daily work, note that
+testing frameworks in other languages offer similar functionalities.
+
+We will now introduce an example program and then use it to demonstrate
+how to write JUnit tests.
+
+\{\% hint style=`tip' \%\} All the production and test code used in this
+book can be found in the
+\href{https://github.com/sttp-book/code-examples/}{code examples}
+repository. \{\% endhint \%\}
+
+\begin{quote}
+\textbf{Requirement: Roman numerals}
+
+Implement a program that receives a string as a parameter containing a
+roman number and then converts it to an integer.
+
+In roman numerals, letters represent values:
+
+\begin{itemize}
+\tightlist
+\item
+  I = 1
+\item
+  V = 5
+\item
+  X = 10
+\item
+  L = 50
+\item
+  C = 100
+\item
+  D = 500
+\item
+  M = 1000
+\end{itemize}
+
+Letters can be combined to form numbers. For example we make 6 by using
+\[5 + 1 = 6\] and have the roman number \texttt{VI} Example: 7 is
+\texttt{VII}, 11 is \texttt{XI} and 101 is \texttt{CI}. Some numbers
+need to make use of a subtractive notation to be represented. For
+example we make 40 not by \texttt{XXXX}, but instead we use
+\(50 - 10 = 40\) and have the roman number \texttt{XL}. Other examples:
+9 is \texttt{IX}, 40 is \texttt{XL}, 14 is \texttt{XIV}.
+
+The letters should be ordered from the highest to the lowest value. The
+values of each individual letter is added together. Unless the
+subtractive notation is used in which a letter with a lower value is
+placed in front of a letter with a higher value.
+
+Combining both these principles we could give our method
+\texttt{MDCCCXLII} and it should return 1842.
+\end{quote}
+
+\{\% set video\_id = ``srJ91NRpT\_w'' \%\} \{\% include
+``/includes/youtube.md'' \%\}
+
+A possible implementation for the \emph{Roman Numerals} requirement is
+as follows:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{public} \KeywordTok{class}\NormalTok{ RomanNumeral \{}
+  \KeywordTok{private} \DataTypeTok{static} \BuiltInTok{Map}\NormalTok{\textless{}}\BuiltInTok{Character}\NormalTok{, }\BuiltInTok{Integer}\NormalTok{\textgreater{} map;}
+
+  \DataTypeTok{static}\NormalTok{ \{}
+\NormalTok{    map = }\KeywordTok{new} \BuiltInTok{HashMap}\NormalTok{\textless{}\textgreater{}();}
+\NormalTok{    map.}\FunctionTok{put}\NormalTok{(}\CharTok{\textquotesingle{}I\textquotesingle{}}\NormalTok{, }\DecValTok{1}\NormalTok{);}
+\NormalTok{    map.}\FunctionTok{put}\NormalTok{(}\CharTok{\textquotesingle{}V\textquotesingle{}}\NormalTok{, }\DecValTok{5}\NormalTok{);}
+\NormalTok{    map.}\FunctionTok{put}\NormalTok{(}\CharTok{\textquotesingle{}X\textquotesingle{}}\NormalTok{, }\DecValTok{10}\NormalTok{);}
+\NormalTok{    map.}\FunctionTok{put}\NormalTok{(}\CharTok{\textquotesingle{}L\textquotesingle{}}\NormalTok{, }\DecValTok{50}\NormalTok{);}
+\NormalTok{    map.}\FunctionTok{put}\NormalTok{(}\CharTok{\textquotesingle{}C\textquotesingle{}}\NormalTok{, }\DecValTok{100}\NormalTok{);}
+\NormalTok{    map.}\FunctionTok{put}\NormalTok{(}\CharTok{\textquotesingle{}D\textquotesingle{}}\NormalTok{, }\DecValTok{500}\NormalTok{);}
+\NormalTok{    map.}\FunctionTok{put}\NormalTok{(}\CharTok{\textquotesingle{}M\textquotesingle{}}\NormalTok{, }\DecValTok{1000}\NormalTok{);}
+\NormalTok{  \}}
+
+  \KeywordTok{public} \DataTypeTok{int} \FunctionTok{convert}\NormalTok{(}\BuiltInTok{String}\NormalTok{ s) \{}
+    \DataTypeTok{int}\NormalTok{ convertedNumber = }\DecValTok{0}\NormalTok{;}
+
+    \KeywordTok{for}\NormalTok{ (}\DataTypeTok{int}\NormalTok{ i = }\DecValTok{0}\NormalTok{; i \textless{} s.}\FunctionTok{length}\NormalTok{(); i++) \{}
+      \DataTypeTok{int}\NormalTok{ currentNumber = map.}\FunctionTok{get}\NormalTok{(s.}\FunctionTok{charAt}\NormalTok{(i));}
+      \DataTypeTok{int}\NormalTok{ next = i + }\DecValTok{1}\NormalTok{ \textless{} s.}\FunctionTok{length}\NormalTok{() ? map.}\FunctionTok{get}\NormalTok{(s.}\FunctionTok{charAt}\NormalTok{(i + }\DecValTok{1}\NormalTok{)) : }\DecValTok{0}\NormalTok{;}
+
+      \KeywordTok{if}\NormalTok{ (currentNumber \textgreater{}= next) \{}
+\NormalTok{        convertedNumber += currentNumber;}
+\NormalTok{      \} }\KeywordTok{else}\NormalTok{ \{}
+\NormalTok{        convertedNumber {-}= currentNumber;}
+\NormalTok{      \}}
+\NormalTok{    \}}
+
+    \KeywordTok{return}\NormalTok{ convertedNumber;}
+\NormalTok{  \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+With the implementation in hands, the next step is to devise test cases
+for the program. Use your experience as a developer to devise as many
+test cases as you can. To get you started, a few examples:
+
+\begin{itemize}
+\tightlist
+\item
+  T1 = Just one letter, e.g., C should equal 100
+\item
+  T2 = Different letters combined, e.g., CLV = 155
+\item
+  T3 = Subtractive notation, e.g., CM = 900
+\end{itemize}
+
+In future chapters, we will explore how to devise those test cases. The
+output of that stage will often be similar to the one above: a test case
+number, an explanation of what the test is about (we will later call it
+\emph{class} or \emph{partition}), and a concrete instance of input that
+exercises the program in that way, together with the expected output.
+
+Once you are done with the ``manual task of devising test cases'', you
+are ready to move on to the next section, which shows how to turn them
+into automated test cases using JUnit.
+
+\hypertarget{the-junit-framework}{%
+\subsection{The JUnit Framework}\label{the-junit-framework}}
+
+Testing frameworks enable us to write test cases in a way that they can
+be easily executed by the machine. In Java, the standard framework to
+write automated tests is JUnit, and its most recent version is 5.x.
+
+The steps to create a JUnit class/test is often the following:
+
+\begin{itemize}
+\item
+  Create a Java class under the directory \texttt{/src/test/java/roman/}
+  (or whatever test directory your project structure uses). As a
+  convention, the name of the test class is similar to the name of the
+  class under test. For example, a class that tests the
+  \texttt{RomanNumeral} class is often called \texttt{RomanNumeralTest}.
+  In terms of package structure, the test class also inherits the same
+  package as the class under test.
+\item
+  For each test case we devise for the program/class, we write a test
+  method. A JUnit test method returns \texttt{void} and is annotated
+  with \texttt{@Test} (an annotation that comes from JUnit 5's
+  \texttt{org.junit.jupiter.api.Test}). The name of the test method does
+  not matter to JUnit, but it does matter to us. A best practice is to
+  name the test after the case it tests.
+\item
+  The test method instantiates the class under test and invokes the
+  method under test. The test method passes the previously defined input
+  in the test case definition to the method/class. The test method then
+  stores the result of the method call (e.g., in a variable).
+\item
+  The test method asserts that the actual output matches the expected
+  output. The expected output was defined during the test case
+  definition phase. To check the outcome with the expected value, we use
+  assertions. An assertion checks whether a certain expectation is met;
+  if not, it throws an \texttt{AssertionError} and thereby causes the
+  test to fail. A couple of useful assertions are:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{Assertions.assertEquals(expected,\ actual)}: Compares
+    whether the expected and actual values are equal. The test fails
+    otherwise. Be sure to pass the expected value as the first argument,
+    and the actual value (the value that comes from the program under
+    test) as the second argument. Otherwise the fail message of the test
+    will not make sense.
+  \item
+    \texttt{Assertions.assertTrue(condition)}: Passes if the condition
+    evaluates to true, fails otherwise.
+  \item
+    \texttt{Assertions.assertFalse(condition)}: Passes if the condition
+    evaluates to false, fails otherwise.
+  \item
+    More assertions and additional arguments can be found in
+    \href{https://junit.org/junit5/docs/current/api/org.junit.jupiter.api/org/junit/jupiter/api/Assertions.html}{JUnit's
+    documentation}. To make easy use of the assertions and to import
+    them all in one go, you can use
+    \texttt{import\ static\ org.junit.jupiter.api.Assertions.*;}.
+  \end{itemize}
+\end{itemize}
+
+The three test cases we have devised can be automated as follows:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{import static}\ImportTok{ org.junit.jupiter.api.Assertions.*;}
+\KeywordTok{import}\ImportTok{ org.junit.jupiter.api.Test;}
+
+\KeywordTok{public} \KeywordTok{class}\NormalTok{ RomanNumeralTest \{}
+
+  \AttributeTok{@Test}
+  \DataTypeTok{void} \FunctionTok{convertSingleDigit}\NormalTok{() \{}
+\NormalTok{    RomanNumeral roman = }\KeywordTok{new} \FunctionTok{RomanNumeral}\NormalTok{();}
+    \DataTypeTok{int}\NormalTok{ result = roman.}\FunctionTok{convert}\NormalTok{(}\StringTok{"C"}\NormalTok{);}
+
+    \FunctionTok{assertEquals}\NormalTok{(}\DecValTok{100}\NormalTok{, result);}
+\NormalTok{  \}}
+
+  \AttributeTok{@Test}
+  \DataTypeTok{void} \FunctionTok{convertNumberWithDifferentDigits}\NormalTok{() \{}
+\NormalTok{    RomanNumeral roman = }\KeywordTok{new} \FunctionTok{RomanNumeral}\NormalTok{();}
+    \DataTypeTok{int}\NormalTok{ result = roman.}\FunctionTok{convert}\NormalTok{(}\StringTok{"CCXVI"}\NormalTok{);}
+
+    \FunctionTok{assertEquals}\NormalTok{(}\DecValTok{216}\NormalTok{, result);}
+\NormalTok{  \}}
+
+  \AttributeTok{@Test}
+  \DataTypeTok{void} \FunctionTok{convertNumberWithSubtractiveNotation}\NormalTok{() \{}
+\NormalTok{    RomanNumeral roman = }\KeywordTok{new} \FunctionTok{RomanNumeral}\NormalTok{();}
+    \DataTypeTok{int}\NormalTok{ result = roman.}\FunctionTok{convert}\NormalTok{(}\StringTok{"XL"}\NormalTok{);}
+
+    \FunctionTok{assertEquals}\NormalTok{(}\DecValTok{40}\NormalTok{, result);}
+\NormalTok{  \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+At this point, if you see other possible test cases (there are!), go
+ahead and implement them.
+
+\{\% set video\_id = ``XS4-93Q4Zy8'' \%\} \{\% include
+``/includes/youtube.md'' \%\}
+
+\hypertarget{test-code-engineering-matters}{%
+\subsection{Test code engineering
+matters}\label{test-code-engineering-matters}}
+
+In practice, developers write (and maintain!) thousands of test code
+lines. Taking care of the quality of test code is therefore of utmost
+importance. Whenever possible, we will introduce you to some best
+practices in test code engineering.
+
+In the test code above, we create the \texttt{roman} object four times.
+Having a fresh clean instance of an object for each test method is a
+good idea, as we do not want ``objects that might be already dirty''
+(and thus, being the cause for the test to fail, and not because there
+was a bug in the code) in our test. However, having duplicated code is
+not desirable. The problem with duplicated test code is the same as in
+production code: if there is a change to be made, the change has to be
+made in all the points where the duplicated code exists.
+
+In this example, in order to reduce some duplication, we could try to
+isolate the line of code responsible for creating the class under test.
+To that aim, we can use the \texttt{@BeforeEach} feature that JUnit
+provides. JUnit runs methods that are annotated with
+\texttt{@BeforeEach} before every test method. We therefore can
+instantiate the \texttt{roman} object inside a method annotated with
+\texttt{BeforeEach}.
+
+Although you might be asking yourself: ``But it is just a single line of
+code\ldots{} Does it really matter?'', remember that as test code
+becomes more complicated, the more important test code quality becomes.
+
+The new test code would look as follows:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{import}\ImportTok{ org.junit.jupiter.api.BeforeEach;}
+\KeywordTok{import}\ImportTok{ org.junit.jupiter.api.Test;}
+
+\KeywordTok{import static}\ImportTok{ org.junit.jupiter.api.Assertions.*;}
+
+\KeywordTok{class}\NormalTok{ RomanNumeralTest \{}
+  
+  \KeywordTok{private}\NormalTok{ RomanNumeral roman;}
+  
+  \AttributeTok{@BeforeEach}
+  \DataTypeTok{void} \FunctionTok{setup}\NormalTok{() \{}
+\NormalTok{    roman = }\KeywordTok{new} \FunctionTok{RomanNumeral}\NormalTok{();}
+\NormalTok{  \}}
+
+  \AttributeTok{@Test}
+  \DataTypeTok{void} \FunctionTok{convertSingleDigit}\NormalTok{() \{}
+    \DataTypeTok{int}\NormalTok{ result = roman.}\FunctionTok{convert}\NormalTok{(}\StringTok{"C"}\NormalTok{);}
+    \FunctionTok{assertEquals}\NormalTok{(}\DecValTok{100}\NormalTok{, result);}
+\NormalTok{  \}}
+
+  \AttributeTok{@Test}
+  \DataTypeTok{void} \FunctionTok{convertNumberWithDifferentDigits}\NormalTok{() \{}
+    \DataTypeTok{int}\NormalTok{ result = roman.}\FunctionTok{convert}\NormalTok{(}\StringTok{"CCXVI"}\NormalTok{);}
+    \FunctionTok{assertEquals}\NormalTok{(}\DecValTok{216}\NormalTok{, result);}
+\NormalTok{  \}}
+
+  \AttributeTok{@Test}
+  \DataTypeTok{void} \FunctionTok{convertNumberWithSubtractiveNotation}\NormalTok{() \{}
+    \DataTypeTok{int}\NormalTok{ result = roman.}\FunctionTok{convert}\NormalTok{(}\StringTok{"XL"}\NormalTok{);}
+    \FunctionTok{assertEquals}\NormalTok{(}\DecValTok{40}\NormalTok{, result);}
+\NormalTok{  \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\{\% hint style=`tip' \%\} Note that moving the instantiation of the
+class to a \texttt{@BeforeEach} method would work if all tests make use
+of the same constructor. Classes that offer more than a single
+constructor might need a different approach to avoid duplication. Can
+you think of any? We discuss test code quality in a more systematic way
+in a future chapter. \{\% endhint \%\}
+
+You can also see a video of us refactoring the \texttt{MinMax} test
+cases. Although the test suite was still small, it had many
+opportunities for better test code.
+
+\{\% set video\_id = ``q5mq\_Bkc8-s'' \%\} \{\% include
+``/includes/youtube.md'' \%\}
+
+\hypertarget{tests-and-refactoring}{%
+\subsection{Tests and refactoring}\label{tests-and-refactoring}}
+
+A more experienced Java developer might be looking at our implementation
+of the Roman Numeral problem and thinking that there are more elegant
+ways of implementing it. That is indeed true. \emph{Software
+refactoring} is a constant activity in software development.
+
+However, how can one refactor the code and still make sure it presents
+the same behaviour? Without automated tests, that might be a costly
+activity. Developers would have to perform manual tests after every
+single refactoring operation. Software refactoring activities benefit
+from extensive automated test suites, as developers can refactor their
+code and, in a matter of seconds or minutes, get a clear feedback from
+the tests.
+
+See this new version of the \texttt{RomanNumeral} class, where we deeply
+refactored the code:
+
+\begin{itemize}
+\tightlist
+\item
+  We gave a better name to the method: we call it \texttt{asArabic()}
+  now.
+\item
+  We made a method for single char conversion using method overloading
+  with \texttt{asArabic()}
+\item
+  We inlined the declaration of the Map, and used the \texttt{Map.of}
+  utility method.
+\item
+  We create an array of characters from the string
+\item
+  We make a stream of indices of the character array
+\item
+  We map each character to its subtractive value
+\item
+  We extracted a private method that decides whether it is a subtractive
+  operation \texttt{isSubtractive()}.
+\item
+  We extracted \texttt{getSubtractiveValue()} to return a negative
+  number if it's subtractive
+\item
+  We made use of the \texttt{var} keyword, as introduced in Java 10.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{public} \KeywordTok{class}\NormalTok{ RomanNumeral \{}
+  \KeywordTok{private} \DataTypeTok{final} \DataTypeTok{static} \BuiltInTok{Map}\NormalTok{\textless{}}\BuiltInTok{Character}\NormalTok{, }\BuiltInTok{Integer}\NormalTok{\textgreater{} CHAR\_TO\_DIGIT = }
+          \BuiltInTok{Map}\NormalTok{.}\FunctionTok{of}\NormalTok{(}\CharTok{\textquotesingle{}I\textquotesingle{}}\NormalTok{, }\DecValTok{1}\NormalTok{, }\CharTok{\textquotesingle{}V\textquotesingle{}}\NormalTok{, }\DecValTok{5}\NormalTok{, }\CharTok{\textquotesingle{}X\textquotesingle{}}\NormalTok{, }\DecValTok{10}\NormalTok{, }\CharTok{\textquotesingle{}L\textquotesingle{}}\NormalTok{, }\DecValTok{50}\NormalTok{, }\CharTok{\textquotesingle{}C\textquotesingle{}}\NormalTok{, }\DecValTok{100}\NormalTok{, }\CharTok{\textquotesingle{}D\textquotesingle{}}\NormalTok{, }\DecValTok{500}\NormalTok{, }\CharTok{\textquotesingle{}M\textquotesingle{}}\NormalTok{, }\DecValTok{1000}\NormalTok{);}
+
+  \KeywordTok{public} \DataTypeTok{static} \DataTypeTok{int} \FunctionTok{asArabic}\NormalTok{(}\BuiltInTok{String}\NormalTok{ roman) \{}
+\NormalTok{    var chars = roman.}\FunctionTok{toCharArray}\NormalTok{();}
+    \KeywordTok{return}\NormalTok{ IntStream.}\FunctionTok{range}\NormalTok{(}\DecValTok{0}\NormalTok{, chars.}\FunctionTok{length}\NormalTok{)}
+\NormalTok{            .}\FunctionTok{map}\NormalTok{(i {-}\textgreater{} }\FunctionTok{getSubtractiveValue}\NormalTok{(chars, i, }\FunctionTok{asArabic}\NormalTok{(chars[i])))}
+\NormalTok{            .}\FunctionTok{sum}\NormalTok{();}
+\NormalTok{  \}}
+
+  \KeywordTok{public} \DataTypeTok{static} \DataTypeTok{int} \FunctionTok{asArabic}\NormalTok{(}\DataTypeTok{char}\NormalTok{ c) \{}
+    \KeywordTok{return}\NormalTok{ CHAR\_TO\_DIGIT.}\FunctionTok{get}\NormalTok{(c);}
+\NormalTok{  \}}
+
+  \KeywordTok{private} \DataTypeTok{static} \DataTypeTok{int} \FunctionTok{getSubtractiveValue}\NormalTok{(}\DataTypeTok{char}\NormalTok{[] chars, }\DataTypeTok{int}\NormalTok{ i, }\DataTypeTok{int}\NormalTok{ currentNumber) \{}
+    \KeywordTok{return} \FunctionTok{isSubtractive}\NormalTok{(chars, i, currentNumber) ? {-}currentNumber : currentNumber;}
+\NormalTok{  \}}
+
+  \KeywordTok{private} \DataTypeTok{static} \DataTypeTok{boolean} \FunctionTok{isSubtractive}\NormalTok{(}\DataTypeTok{char}\NormalTok{[] chars, }\DataTypeTok{int}\NormalTok{ i, }\DataTypeTok{int}\NormalTok{ currentNumber) \{}
+    \KeywordTok{return}\NormalTok{ i + }\DecValTok{1}\NormalTok{ \textless{} chars.}\FunctionTok{length}\NormalTok{ \&\& currentNumber \textless{} }\FunctionTok{asArabic}\NormalTok{(chars[i + }\DecValTok{1}\NormalTok{]);}
+\NormalTok{  \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+The number of refactoring operations is not small. And experience shows
+us that a lot of things can go wrong. Luckily, we now have an automated
+test suite that we can run and get some feedback.
+
+Let us also take the opportunity and improve our test code:
+
+\begin{itemize}
+\tightlist
+\item
+  Given that our goal was to isolate the single line of code that
+  instantiated the class under test, instead of using the
+  \texttt{@BeforeEach}, we now instantiate it directly in the class.
+  JUnit creates a new instance of the test class before each test
+  (again, as a way to help developers in avoiding test cases that fail
+  due to previous test executions). This allows us to mark the field as
+  \texttt{final}.
+\item
+  We inlined the method call and the assertion. Now tests are written in
+  a single line.
+\item
+  We give test methods better names. It is common to rename test
+  methods; the more we understand the problem, the more we can give good
+  names to the test cases.
+\item
+  We devised one more test case and added it to the test suite.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{public} \KeywordTok{class}\NormalTok{ RomanNumeralTest \{}
+  \CommentTok{/*}
+\CommentTok{  JUnit creates a new instance of the class before each test,}
+\CommentTok{  so test setup can be assigned as instance fields.}
+\CommentTok{  This has the advantage that references can be made final}
+\CommentTok{  */}
+  \DataTypeTok{final} \KeywordTok{private}\NormalTok{ RomanNumeral roman = }\KeywordTok{new} \FunctionTok{RomanNumeral}\NormalTok{();}
+
+  \AttributeTok{@Test}
+  \KeywordTok{public} \DataTypeTok{void} \FunctionTok{singleNumber}\NormalTok{() \{}
+\NormalTok{      Assertions.}\FunctionTok{assertEquals}\NormalTok{(}\DecValTok{1}\NormalTok{, roman.}\FunctionTok{asArabic}\NormalTok{(}\StringTok{"I"}\NormalTok{));}
+\NormalTok{  \}}
+
+  \AttributeTok{@Test}
+  \KeywordTok{public} \DataTypeTok{void} \FunctionTok{numberWithManyDigits}\NormalTok{() \{}
+\NormalTok{      Assertions.}\FunctionTok{assertEquals}\NormalTok{(}\DecValTok{8}\NormalTok{, roman.}\FunctionTok{asArabic}\NormalTok{(}\StringTok{"VIII"}\NormalTok{));}
+\NormalTok{  \}}
+
+  \AttributeTok{@Test}
+  \KeywordTok{public} \DataTypeTok{void} \FunctionTok{numberWithSubtractiveNotation}\NormalTok{() \{}
+\NormalTok{      Assertions.}\FunctionTok{assertEquals}\NormalTok{(}\DecValTok{4}\NormalTok{, roman.}\FunctionTok{asArabic}\NormalTok{(}\StringTok{"IV"}\NormalTok{));}
+\NormalTok{  \}}
+
+  \AttributeTok{@Test}
+  \KeywordTok{public} \DataTypeTok{void} \FunctionTok{numberWithAndWithoutSubtractiveNotation}\NormalTok{() \{}
+\NormalTok{      Assertions.}\FunctionTok{assertEquals}\NormalTok{(}\DecValTok{44}\NormalTok{, roman.}\FunctionTok{asArabic}\NormalTok{(}\StringTok{"XLIV"}\NormalTok{));}
+\NormalTok{  \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Lessons to be learned:
+
+\begin{itemize}
+\tightlist
+\item
+  Get to know your testing framework.
+\item
+  Never stop refactoring your production code.
+\item
+  Never stop refactoring your test code.
+\end{itemize}
+
+\{\% hint style=`tip' \%\} While building this book, we have noticed
+that different people had different suggestions on how to implement this
+roman numeral converter! See our
+\href{https://github.com/sttp-book/code-examples/tree/master/src/main/java/tudelft/dbc/roman}{code-examples}
+for the different implementations we have received as suggestions.
+
+Interestingly, we can test them all together, as they should have the
+same behaviour. See our
+\href{https://github.com/sttp-book/code-examples/blob/master/src/test/java/tudelft/dbc/roman/RomanConverterTest.java}{RomanConverterTest}
+as an example of how to reuse the same test suite to all the different
+implementations! Note that, for that to happen, we defined a common
+interface among all the implementations: the \emph{RomanConverterTest}.
+This testing strategy is quite common in object-oriented systems, and we
+will discuss more about it in the design by contracts chapter. \{\%
+endhint \%\}
+
+\hypertarget{the-structure-of-an-automated-test-case}{%
+\subsection{The structure of an automated test
+case}\label{the-structure-of-an-automated-test-case}}
+
+Automated tests are very similar in structure. They almost always follow
+the \textbf{AAA} (``triple A'') structure. The acronym stands for
+\textbf{Arrange}, \textbf{Act}, and \textbf{Assert}.
+
+\begin{itemize}
+\item
+  In the \textbf{Arrange} phase, the test defines all the input values
+  that will then be passed to the class/method under test. In terms of
+  code, it can vary from a single value to complex business entities.
+\item
+  The \textbf{Act} phase is where the test ``acts'' or, calls the
+  behavior under test, passing the input values that were set up in the
+  Arrange phase. This phase is usually done by means of one or many
+  method calls.
+\item
+  The result is then used in the \textbf{Assert} phase, where the test
+  asserts that the system behaved as expected. In terms of code, it is
+  where the \texttt{assert} instructions are.
+\end{itemize}
+
+Using one of the test methods above to illustrate the different parts of
+an automated test code (note that the Arrange/Act/Assert comments here
+are just to help you visualize the three parts, we would not usually add
+them in real test code):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\AttributeTok{@Test}
+\DataTypeTok{void} \FunctionTok{convertSingleDigit}\NormalTok{() \{}
+  \CommentTok{// Arrange: we define the input values}
+  \BuiltInTok{String}\NormalTok{ romanToBeConverted = }\StringTok{"C"}\NormalTok{;}
+
+  \CommentTok{// Act: we invoke the method under test}
+  \DataTypeTok{int}\NormalTok{ result = roman.}\FunctionTok{convert}\NormalTok{(romanToBeConverted);}
+
+  \CommentTok{// Assert: we check whether the output matches the expected result}
+  \FunctionTok{assertEquals}\NormalTok{(}\DecValTok{100}\NormalTok{, result);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Understanding the structure of a test method enables us to explore best
+practices (and possible test code smells) in each one of them. From now
+on, we will use the terms \emph{arrange}, \emph{act}, and \emph{assert}
+to talk about the different parts of an automated test case.
+
+\{\% hint style=`tip' \%\} AAA is a good structure for most tests, and a
+good way to think about what you're trying to show about the code. As
+you learn more techniques, you will find that there other valuable ways
+to think about the structure of a test. We'll discuss these in a later
+chapter. \{\% endhint \%\}
+
+\hypertarget{advantages-of-test-automation}{%
+\subsection{Advantages of test
+automation}\label{advantages-of-test-automation}}
+
+Having an automated test suite brings several advantages to software
+development teams. Automated test suites:
+
+\begin{itemize}
+\item
+  \textbf{Are less prone to obvious mistakes.} Developers who perform
+  manual testing several times a day might make mistakes, e.g., by
+  forgetting to execute a test case, by mistakenly marking a test as
+  passed when the software actually exhibited faulty behaviour, etc.
+\item
+  \textbf{Execute tests faster than developers.} The machine can run
+  test cases way faster than developers can. Just imagine more
+  complicated scenarios where the developers would have to type long
+  sequences of inputs, verify the output at several different parts of
+  the system. An automated test runs and gives feedback orders of
+  magnitude faster than developers.
+\item
+  \textbf{Brings confidence during refactoring.} As we just saw in the
+  example, automated test suites enables developers to refactor their
+  code more constantly. After all, developers know that they have a
+  safety net; if something goes wrong, the test will fail.
+\end{itemize}
+
+Clearly, at first, one might argue that writing test code might feel
+like a loss in productivity. After all, developers now have to not only
+write production code, but also test code. Developers now have to not
+only maintain production code, but also maintain test code. \emph{This
+could not be further from the truth}. Once you master the tools and
+techniques, formalising test cases as JUnit methods will actually save
+you time; imagine how many times you have executed the same manual test
+over and over. How much time have you lost by doing the same task
+repeatedly?
+
+Studies have shown that developers who write tests spend less time
+debugging their systems when compared to developers who do not (Janzen),
+that the impact in productivity is not as significant as one would think
+(Maximilien and Williams), and that bugs are fixed faster (Lui and
+Chen). Truth be told: these experiments compared teams using Test-Driven
+Development (TDD) against teams not using TDD, and not the existence of
+a test suite per se. Still, the presence of test code is the remarking
+characteristic that emerges from TDD. Nevertheless, as a society, we
+might not need more evidence on the benefits of test automation. If we
+look around, from small and big companies to big open source projects,
+they all rely on extensive test suites to ensure quality.
+\textbf{Testing (and test automation) pays off.}
+
+\hypertarget{exercises}{%
+\subsection{Exercises}\label{exercises}}
+
+\textbf{Exercise 1.} Implement the \texttt{RomanNumeral} class. Then,
+write as many tests as you can for it, using JUnit.
+
+For now, do not worry about how to derive test cases. Just follow your
+intuition.
+
+\textbf{Exercise 2.} Choose a problem from
+\href{https://codingbat.com/java/Logic-2}{CodingBat}. Solve it. Then,
+write as many tests as you can for it, using JUnit.
+
+For now, do not worry about how to derive test cases. Just follow your
+intuition.
+
+\hypertarget{references}{%
+\subsection{References}\label{references}}
+
+\begin{itemize}
+\item
+  Pragmatic Unit Testing in Java 8 with Junit. Langr, Hunt, and Thomas.
+  Pragmatic Programmers, 2015.
+\item
+  JUnit's manual: https://junit.org/junit5/docs/current/user-guide/.
+\item
+  JUnit's manual, Annotations:
+  https://junit.org/junit5/docs/current/user-guide/\#writing-tests-annotations.
+\item
+  Janzen, D. S. (2005, October). Software architecture improvement
+  through test-driven development. In Companion to the 20th annual ACM
+  SIGPLAN conference on Object-oriented programming, systems, languages,
+  and applications (pp.~240-241).
+\item
+  Maximilien, E. M., \& Williams, L. (2003, May). Assessing test-driven
+  development at IBM. In 25th International Conference on Software
+  Engineering, 2003. Proceedings. (pp.~564-569). IEEE.
+\item
+  Lui, K. M., \& Chan, K. C. (2004, June). Test driven development and
+  software process improvement in china. In International Conference on
+  Extreme Programming and Agile Processes in Software Engineering
+  (pp.~219-222). Springer, Berlin, Heidelberg.
+\end{itemize}

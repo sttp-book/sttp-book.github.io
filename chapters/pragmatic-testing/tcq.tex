@@ -1,0 +1,1278 @@
+\hypertarget{test-code-quality-and-engineering}{%
+\section{Test code quality and
+engineering}\label{test-code-quality-and-engineering}}
+
+You probably noticed that, once \emph{test infected}, the amount of
+JUnit code that a software development team writes and maintains is
+quite significant. In practice, test code bases tend to grow quickly.
+Empirically, we have been observing that Lehman's laws of evolution also
+apply to test code: code tends to rot, unless one actively works against
+it. Therefore, as with production code, \textbf{developers have to put
+extra effort into making high-quality test code bases, so that these can
+be maintained and developed in a sustainable way}.
+
+In this chapter, we address the following best practices in test code
+engineering:
+
+\begin{itemize}
+\tightlist
+\item
+  A set of principles that should guide developers when writing test
+  code. For these, we discuss both the FIRST principles (from the
+  Pragmatic Unit Testing book), as well as the recent Test Desiderata
+  (proposed by Kent Beck).
+\item
+  A set of well-known test smells that might emerge in test code.
+\item
+  Some tips on how to make tests more readable.
+\item
+  What flaky tests are and their possible causes.
+\end{itemize}
+
+\hypertarget{the-first-properties}{%
+\subsection{The FIRST properties}\label{the-first-properties}}
+
+In the Pragmatic Unit Testing book, the authors discuss the ``FIRST
+Properties of Good Tests''. FIRST is an acronym for fast, isolated,
+repeatable, self-validating, and timely:
+
+\begin{itemize}
+\item
+  \textbf{Fast}: Tests are the safety net of a developer. Whenever
+  developers perform any maintenance or evolution in the source code,
+  they use the feedback of the test suite to understand whether the
+  system is still working as expected. The faster the developer gets
+  feedback from their test code, the better. Slower test suites force
+  developers to simply run the tests less often, making them less
+  effective. Therefore, good tests are fast. There is no hard line that
+  separates slow from fast tests. It is fundamental to apply common
+  sense. Once you are facing a slow test, you may consider to:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Make use of mocks/stubs to replace slower components that are part
+    of the test
+  \item
+    Re-design the production code so that slower pieces of code can be
+    tested separately from fast pieces of code
+  \item
+    Move slower tests to a different test suite, one that developers may
+    run less often. It is not uncommon to see developers having sets of
+    unit tests that run fast and all day long, and sets of slower
+    integration and system tests that run once or twice a day on the
+    Continuous Integration server.
+  \end{itemize}
+\item
+  \textbf{Isolated}: Tests should be as cohesive, as independent, and as
+  isolated as possible. Ideally, a single test method should test just a
+  single functionality or behaviour of the system. Fat tests (or, as the
+  test smells community calls them, eager tests) which test multiple
+  functionalities are often complex in terms of implementation. Complex
+  test code reduces the ability of developers to understand at a glance
+  what is being tested, and makes future maintenance harder. If you are
+  facing such a test, break it into multiple smaller tests. Simpler and
+  shorter code is always better.
+
+  Moreover, tests should not depend on other tests to run. The result of
+  a test should be the same, whether the test is executed in isolation
+  or together with the rest of the test suite. It is not uncommon to see
+  cases where for example test B only works if test A is executed first.
+  This is often the case when test B relies on the work of test A to set
+  up the environment for it. Such tests become highly unreliable. In
+  such cases, refactor the test code so that the tests are responsible
+  for setting up the whole environment they need. If tests A and B
+  depend on similar resources, make sure they can share the same code,
+  so that you avoid duplicating code. JUnit's \texttt{@BeforeEach} or
+  \texttt{@BeforeAll} methods can become handy. Make sure that your
+  tests ``clean up their messes'', e.g., by deleting any possible files
+  they created on the disk, or cleaning up values they inserted into a
+  database.
+\item
+  \textbf{Repeatable}: A repeatable test is a test that gives the same
+  result, no matter how many times it is executed. Developers tend to
+  lose their trust in tests that present flaky behaviour (i.e., it
+  sometimes passes, and sometimes fails without any changes in the
+  system and/or in the test code). Flaky tests can happen for different
+  reasons, and some of the causes can be tricky to identify. (Companies
+  have reported extreme examples where a test presented flaky behaviour
+  only once in a month.) Common causes are dependencies on external
+  resources, not waiting long enough for an external resource to finish
+  its task, and concurrency.
+\item
+  \textbf{Self-validating}: The tests should validate/assert the result
+  themselves. This might seem an unnecessary principle to mention.
+  However, it is not uncommon for developers to make mistakes and not
+  write any assertions in a test, causing the test to always pass. In
+  other more complex cases, writing the assertions or, in other words,
+  verifying the expected behaviour, might not be possible. In cases
+  where observing the outcome of behaviour is not easily achievable, we
+  suggest the developer to refactor the class or method under test to
+  increase its observability (revisit our chapter on design for
+  testability).
+\item
+  \textbf{Timely}: Developers should be \emph{test infected}. They
+  should write and run tests as often as possible. While less technical
+  than the other principles in this list, changing the behaviour of
+  development teams towards writing automated test code can still be
+  challenging.
+
+  Leaving the test phase to the very end of the development process, as
+  commonly done in the past, can result in unnecessary costs. After all,
+  at that point, the system might be simply too hard to test. Moreover,
+  as we have seen, tests serve as a safety net for developers.
+  Developing large complex systems without such a net is highly
+  unproductive and likely to fail.
+\end{itemize}
+
+\{\% set video\_id = ``5wLrj-cr9Cs'' \%\} \{\% include
+``/includes/youtube.md'' \%\}
+
+\hypertarget{test-desiderata}{%
+\subsection{Test Desiderata}\label{test-desiderata}}
+
+Kent Beck, the ``creator'' of Test-Driven Development (and author of the
+\href{https://www.amazon.com/Test-Driven-Development-Kent-Beck/dp/0321146530}{``Test-Driven
+Development: By Example''} book), recently wrote a list of twelve
+properties that good tests have (the
+\href{https://medium.com/@kentbeck_7670/test-desiderata-94150638a4b3}{test
+desiderata}).
+
+The following list comes directly from his blog post. Note how some of
+these properties are also part of the FIRST properties.
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://www.youtube.com/watch?v=HApI2cspQus}{Isolated}: tests
+  should return the same results regardless of the order in which they
+  are run.
+\item
+  \href{https://www.youtube.com/watch?v=Wf3WXYaMt8E}{Composable}: if
+  tests are isolated, then I can run 1 or 10 or 100 or 1,000,000 and get
+  the same results.
+\item
+  \href{https://www.youtube.com/watch?v=L0dZ7MmW6xc}{Fast}: tests should
+  run quickly.
+\item
+  \href{https://www.youtube.com/watch?v=2Q1O8XBVbZQ}{Inspiring}: passing
+  the tests should inspire confidence.
+\item
+  \href{https://www.youtube.com/watch?v=CAttTEUE9HM}{Writable}: tests
+  should be cheap to write relative to the cost of the code being
+  tested.
+\item
+  \href{https://www.youtube.com/watch?v=bDaFPACTjj8}{Readable}: tests
+  should be comprehensible for their readers, and it should be clear why
+  they were written.
+\item
+  \href{https://www.youtube.com/watch?v=5LOdKDqdWYU}{Behavioural}: tests
+  should be sensitive to changes in the behaviour of the code under
+  test. If the behaviour changes, the test result should change.
+\item
+  \href{https://www.youtube.com/watch?v=bvRRbWbQwDU}{Structure-insensitive}:
+  tests should not change their result if the structure of the code
+  changes.
+\item
+  \href{https://www.youtube.com/watch?v=YQlmP08dj6g}{Automated}: tests
+  should run without human intervention.
+\item
+  \href{https://www.youtube.com/watch?v=8lTfrCtPPNE}{Specific}: if a
+  test fails, the cause of the failure should be obvious.
+\item
+  \href{https://www.youtube.com/watch?v=PwWyp-wpFiw}{Deterministic}: if
+  nothing changes, the test result should not change.
+\item
+  \href{https://www.youtube.com/watch?v=7o5qxxx7SmI}{Predictive}: if the
+  tests all pass, then the code under test should be suitable for
+  production.
+\end{itemize}
+
+For more interested readers, watch
+\href{https://www.youtube.com/watch?v=lXTwxMxNx-Y}{Kent Beck talking
+about it in an open talk}.
+
+\hypertarget{test-code-smells}{%
+\subsection{Test code smells}\label{test-code-smells}}
+
+Now that we have covered some best practices, let us look at the other
+side of the coin: \textbf{test code smells}.
+
+The term \emph{code smell} is a well-known term that indicates possible
+symptoms that might indicate deeper problems in the source code of the
+system. Some well-known examples are \emph{Long Method}, \emph{Long
+Class}, or \emph{God Class}. A number of research papers show us that
+code smells hinder the comprehensibility and the maintainability of
+software systems.
+
+While the term has long been applied to production code, given the rise
+of test code, our community has been developing catalogues of smells
+that are now specific to test code. Research has also shown that test
+smells are prevalent in real life and, unsurprisingly, often have a
+negative impact on the maintenance and comprehensibility of the test
+suite.
+
+We discuss below several of the well-known test smells. A more
+comprehensive list can be found in the xUnit Test Patterns book, by
+Meszaros.
+
+\textbf{Code Duplication}: It is not surprising that code duplication
+can also happen in test code, as it is very common in production code.
+Tests are often similar in structure. You may have noticed it in several
+of the code examples throughout this book. We even made use of
+parameterised tests to reduce some of the duplication. A less attentive
+developer might end up writing duplicated code (copying and pasting
+often happens in real life) instead of putting some effort into
+implementing a better solution.
+
+Duplicated code can reduce the productivity of software testers. After
+all, if there is a need for a change in a duplicated piece of code, a
+developer will have to apply the same change in all the places where the
+code was duplicated. In practice, it is easy to forget one of these
+places, which causes one to end up with problematic test code. Note that
+the effects are similar to the effects of code duplication in production
+code.
+
+We advise developers to refactor their test code ruthlessly. The
+extraction of a duplicated piece of code to private methods or external
+classes is often a good solution for the problem.
+
+\textbf{Assertion Roulette}: Assertions are the first thing a developer
+looks at when a test is failing. Assertions, have to communicate clearly
+what is going wrong with the component under test. The test smell
+emerges when it is hard to understand the assertions themselves, or why
+they are failing.
+
+There are several reasons for this smell to happen. Some features or
+business rules are so complex that they require a complex set of
+assertions to ensure their behaviour. In these situations, developers
+end up writing complex assert instructions that are not easy to
+understand. To help with such cases, we recommend developers to:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Write customised assert instructions that abstract away part of the
+  complexity of the assertion code itself.
+\item
+  Write code comments that explain quickly and in natural language what
+  those assertions are about. (This mainly applies when the assertions
+  are not self-explanatory.)
+\end{enumerate}
+
+Interestingly, a common best practice that is often found in the test
+best practice literature is the ``one assertion per method'' strategy.
+While forcing developers to have a single assertion per test method is
+too extremist, the idea of minimising the number of assertions in a test
+method is valid.
+
+Note that a high number of simple assertions in a single test can be as
+harmful as a complex set of assertions. In such cases, we provide a
+similar recommendation: write a customised assertion instruction to
+abstract away the need for long sequences of assertions.
+
+Empirically, we also observe that the number of assertions in a test is
+often large, because developers tend to write more than one test case in
+a single test method. We have done this in this book too (see the
+boundary testing chapter, where we test both sides of the boundary in a
+single test method). However, parsimony is fundamental. Splitting up a
+large test method that contains multiple test cases can reduce the
+cognitive load required by the developer to understand it.
+
+\textbf{Resource Optimism}: Resource optimism happens when a test
+assumes that a necessary resource (e.g., a database) is readily
+available at the start of its execution. This is related to the
+\emph{isolated} principle of the FIRST principles and of Beck's test
+desiderata.
+
+To avoid resource optimism, a test should not assume that the resource
+is already in the correct state. The test should be the one responsible
+for setting up the state itself. This can mean that the test is the one
+responsible for populating a database, for writing the required files in
+the disk, or for starting up a Tomcat server. (This set up might require
+complex code, and developers should also do their best effort in
+abstracting way such complexity by, e.g., moving such code to other
+classes, like \texttt{DatabaseInitialization} or \texttt{TomcatLoader},
+allowing the test code to focus on the test cases themselves).
+
+Similarly, another incarnation of the resource optimism smell happens
+when the test assumes that the resource is available all the time.
+Imagine a test method that interacts with a webservice, which might be
+down for reasons we do not control.
+
+To avoid this test smell, developers have two options:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Avoid using external resources, by using stubs and mocks.
+\item
+  If the test cannot avoid using the external dependency, make it robust
+  enough. Make your test suite skip that test when the resource is
+  unavailable, and provide a message explaining why that was the case.
+  This seems counterintuitive, but again, remember that developers trust
+  their test suites. Having a single test failing for the wrong reasons
+  makes developers lose their confidence in the entire test suite.
+\end{enumerate}
+
+In addition to changing the tests, developers must make sure that the
+environments where the tests are executed have the required resources
+available. Continuous integration tools like Jenkins, CircleCI, and
+Travis can help developers in making sure that tests are being run in
+the correct environment.
+
+\textbf{Test Run War}: The war is an analogy for when two tests are
+``fighting'' over the same resources. One can observe a test run war
+when tests start to fail as soon as more than one developer run their
+test suites. Imagine a test suite that uses a centralised database. When
+developer A runs the test, the test changes the state of the database.
+At the same time, developer B runs the same test, which also uses the
+same database. Both tests are now using the same database at the same
+time. This unexpected situation may cause the test to fail.
+
+\emph{Isolation} is key to avoid this test smell. In the example of a
+centralised database, one solution would be to make sure that each
+developer has their own instance of a database. That would avoid the
+fight over the same resource. (Related to this example, also see the
+chapter on database testing.)
+
+\textbf{General Fixture}: A fixture is the set of input values that will
+be used to exercise the component under test. Fixtures are set up in the
+\emph{arrange} part of the test, which was discussed in a previous
+chapter. As you may have noticed, fixtures are the ``stars'' of the test
+method, as they derive naturally from the test cases we devised using
+any of the techniques we have discussed.
+
+When testing more complex components, developers may need to make use of
+several different fixtures: one for each partition they want to
+exercise. These fixtures can then become complex. And to make the
+situation worse, while tests are different from each other, their
+fixtures might have some intersection.
+
+Given this possible intersection amongst the different fixtures, as well
+as the difficulty with building these complex entities and fixtures, a
+less attentive developer could decide to declare a ``large'' fixture
+that works for many different tests. Each test would then use a small
+part of this large fixture.
+
+While this approach might work and the tests might correctly implement
+the test cases, they are hard to maintain. Once a test fails, developers
+who try to understand the cause of the failure, will face a large
+fixture that is not totally relevant for them. In practice, the
+developer would have to manually ``filter out'' parts of the fixture
+that are not really exercised by the failing test. That is an
+unnecessary cost. Making sure that the fixture of a test is as specific
+and cohesive as possible helps developers to comprehend the essence of a
+test (which is often highly relevant when the test starts to fail).
+
+Build patterns, with the focus of building test data, can help
+developers in avoiding such a smell. More specifically, the
+\textbf{\href{http://www.natpryce.com/articles/000714.html}{Test Data
+Builder}} pattern is often used in test code of enterprise applications
+(we give an example of a Test Data Builder later in this chapter). Such
+applications often have to deal with the creation of complex sets of
+interrelated business entities, which can easily lead developers to
+write general fixtures.
+
+\textbf{Indirect tests} and \textbf{eager tests}: Tests should be as
+cohesive and as focused as possible. A testing class \texttt{ATest} that
+aims at testing class \texttt{A} should solely focus on testing class
+\texttt{A}. Even if it depends on class \texttt{B}, requiring
+\texttt{ATest} to instantiate \texttt{B}, \texttt{ATest} should focus on
+exercising \texttt{A} and \texttt{A} only. The smell emerges when a test
+class focuses its efforts on testing many classes at once.
+
+Less cohesive tests lead to less productivity. How do developers know
+where tests for a given class \texttt{B} are? If test classes focus on
+more than a single class, tests for \texttt{B} could be anywhere.
+Developers would have to look for them. It is also expected that,
+without proper care, tests for a single class would live in many other
+test classes, e.g., tests for \texttt{B} might exist in \texttt{ATest},
+\texttt{BTest}, \texttt{CTest}, etc.
+
+Tests, and more specifically, unit test classes and methods, should have
+a clear focus. They should test a single unit. If they have to depend on
+other classes, the use of mocks and stubs can help the developer in
+isolating that test and avoid \emph{indirect testing}. If the use of
+mocks and stubs is not possible, make sure that assertions focus on the
+real class under test, and that failures caused by dependencies (and not
+by the class under test) are clearly indicated in the outcome of the
+test method.
+
+Similar to what we discussed when talking about the excessive number of
+assertions in a single test, avoiding \emph{eager tests}, or tests that
+exercise more than a unique behaviour of the component is also best
+practice. Test methods that exercise multiple behaviours at once tend to
+be overly long and complex, making it harder for developers to
+comprehend them quickly.
+
+\textbf{Sensitive Equality}: Good assertions are fundamental in test
+cases. A bad assertion may cause a test to not fail when it should.
+However, a bad assertion may also cause a test \emph{to fail when it
+should not}. Engineering a good assertion statement is challenging. Even
+more so when components produce fragile outputs, i.e., outputs that tend
+to change often. Test code should be as resilient as possible to the
+implementation details of the component under test. Assertions should
+also not be oversensitive to internal changes.
+
+Imagine a class \texttt{Item} that represents an item in a shopping
+cart. An item is composed of a name, a quantity, and an individual
+price. The final price of the item is the multiplication of its quantity
+per its individual price. The class has the following implementation:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{import}\ImportTok{ java.math.BigDecimal;}
+
+\KeywordTok{public} \KeywordTok{class}\NormalTok{ Item \{}
+
+    \KeywordTok{private} \DataTypeTok{final} \BuiltInTok{String}\NormalTok{ name;}
+    \KeywordTok{private} \DataTypeTok{final} \DataTypeTok{int}\NormalTok{ qty;}
+    \KeywordTok{private} \DataTypeTok{final} \BuiltInTok{BigDecimal}\NormalTok{ individualPrice;}
+
+    \KeywordTok{public} \FunctionTok{Item}\NormalTok{(}\BuiltInTok{String}\NormalTok{ name, }\DataTypeTok{int}\NormalTok{ qty, }\BuiltInTok{BigDecimal}\NormalTok{ individualPrice) \{}
+        \KeywordTok{this}\NormalTok{.}\FunctionTok{name}\NormalTok{ = name;}
+        \KeywordTok{this}\NormalTok{.}\FunctionTok{qty}\NormalTok{ = qty;}
+        \KeywordTok{this}\NormalTok{.}\FunctionTok{individualPrice}\NormalTok{ = individualPrice;}
+\NormalTok{    \}}
+
+    \CommentTok{// getters ...}
+
+    \KeywordTok{public} \BuiltInTok{BigDecimal} \FunctionTok{finalAmount}\NormalTok{() \{}
+        \KeywordTok{return}\NormalTok{ individualPrice.}\FunctionTok{multiply}\NormalTok{(}\KeywordTok{new} \BuiltInTok{BigDecimal}\NormalTok{(qty));}
+\NormalTok{    \}}
+
+    \AttributeTok{@Override}
+    \KeywordTok{public} \BuiltInTok{String} \FunctionTok{toString}\NormalTok{() \{}
+        \KeywordTok{return} \StringTok{"Product "}\NormalTok{ + name + }\StringTok{" times "}\NormalTok{ + qty + }\StringTok{" = "}\NormalTok{ + }\FunctionTok{finalAmount}\NormalTok{();}
+\NormalTok{    \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Suppose now that a less attentive developer writes the following test to
+exercise the \texttt{finalAmount} behaviour:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{public} \KeywordTok{class}\NormalTok{ ItemTest \{}
+
+    \AttributeTok{@Test}
+    \DataTypeTok{void} \FunctionTok{qtyTimesIndividualPrice}\NormalTok{() \{}
+\NormalTok{        var item = }\KeywordTok{new} \FunctionTok{Item}\NormalTok{(}\StringTok{"Playstation IV with 64 GB and super wi{-}fi"}\NormalTok{,}
+                \DecValTok{3}\NormalTok{,}
+                \KeywordTok{new} \BuiltInTok{BigDecimal}\NormalTok{(}\StringTok{"599.99"}\NormalTok{));}
+
+        \CommentTok{// this is too sensitive!}
+\NormalTok{        Assertions.}\FunctionTok{assertEquals}\NormalTok{(}\StringTok{"Product Playstation IV with 64 GB "}\NormalTok{ +}
+                \StringTok{"and super wi{-}fi times "}\NormalTok{ + }\DecValTok{3}\NormalTok{ + }\StringTok{" = 1799.97"}\NormalTok{, item.}\FunctionTok{toString}\NormalTok{());}
+\NormalTok{    \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+The test above does exercise the calculation of the final amount.
+However, one can see that the developer took a shortcut. She decided to
+assert the overall behaviour by making use of the \texttt{toString}
+method of the class. Maybe because the developer felt that this
+assertion was stricter, as it asserts not only the final price, but also
+the name of the product and its quantity.
+
+While this seems to work at first, this assertion is sensitive to
+changes in the implementation of the \texttt{toString}.
+
+Clearly, the tester only wants the test to fail if the
+\texttt{finalAmount} method changes, and not if the \texttt{toString}
+method changes. That is not what happens. Suppose that another developer
+decided to shorten the length of the outcome of the \texttt{toString}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\AttributeTok{@Override}
+\KeywordTok{public} \BuiltInTok{String} \FunctionTok{toString}\NormalTok{() \{}
+    \KeywordTok{return} \StringTok{"Product "}\NormalTok{ + name.}\FunctionTok{substring}\NormalTok{(}\DecValTok{0}\NormalTok{, }\BuiltInTok{Math}\NormalTok{.}\FunctionTok{min}\NormalTok{(}\DecValTok{11}\NormalTok{, name.}\FunctionTok{length}\NormalTok{())) + }
+      \StringTok{" times "}\NormalTok{ + qty + }\StringTok{" = "}\NormalTok{ + }\FunctionTok{finalAmount}\NormalTok{();}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Suddenly, our \texttt{qtyTimesIndividualPrice} test fails:
+
+\begin{verbatim}
+org.opentest4j.AssertionFailedError: 
+Expected :Product Playstation IV with 64 GB and super wi-fi times 3 = 1799.97
+Actual   :Product Playstation times 3 = 1799.97
+\end{verbatim}
+
+A better assertion for this would be to assert precisely what is wanted
+from that behaviour. In this case, assert that the final amount of the
+item is correctly calculated. Then the implementation for the test would
+be better like this:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\AttributeTok{@Test}
+\DataTypeTok{void} \FunctionTok{qtyTimesIndividualPrice\_lessSensitiveAssertion}\NormalTok{() \{}
+\NormalTok{    var item = }\KeywordTok{new} \FunctionTok{Item}\NormalTok{(}\StringTok{"Playstation IV with 64 GB and super wi{-}fi"}\NormalTok{,}
+            \DecValTok{3}\NormalTok{,}
+            \KeywordTok{new} \BuiltInTok{BigDecimal}\NormalTok{(}\StringTok{"599.99"}\NormalTok{));}
+
+\NormalTok{    Assertions.}\FunctionTok{assertEquals}\NormalTok{(}\KeywordTok{new} \BuiltInTok{BigDecimal}\NormalTok{(}\StringTok{"1799.97"}\NormalTok{), item.}\FunctionTok{finalAmount}\NormalTok{());}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Remember our discussion regarding design for testability. It may be
+better to create a method with the sole purpose of facilitating the test
+(or, in this case, the assertion) rather than having to rely on
+sensitive assertions that will possibly break the test for the wrong
+reason in the future.
+
+\textbf{Inappropriate assertions}: Having the proper assertions makes a
+huge difference between a good and a bad test case. While we have
+discussed how to derive good test cases (and therefore also good
+assertions), choosing the right implementation strategy for writing the
+assertion can affect the maintenance of the test in the long run. The
+wrong choice of an assertion instruction may give developers less
+information about the failure, making the debugging process more
+difficult.
+
+Imagine an implementation of a \texttt{Cart} that receives products to
+be inserted into it. Products cannot be repeated. A simple
+implementation could be:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{public} \KeywordTok{class}\NormalTok{ Cart \{}
+    \KeywordTok{private} \DataTypeTok{final} \BuiltInTok{Set}\NormalTok{\textless{}}\BuiltInTok{String}\NormalTok{\textgreater{} items = }\KeywordTok{new} \BuiltInTok{HashSet}\NormalTok{\textless{}\textgreater{}();}
+
+    \KeywordTok{public} \DataTypeTok{void} \FunctionTok{add}\NormalTok{(}\BuiltInTok{String}\NormalTok{ product) \{}
+\NormalTok{        items.}\FunctionTok{add}\NormalTok{(product);}
+\NormalTok{    \}}
+
+    \KeywordTok{public} \DataTypeTok{int} \FunctionTok{numberOfItems}\NormalTok{() \{}
+        \KeywordTok{return}\NormalTok{ items.}\FunctionTok{size}\NormalTok{();}
+\NormalTok{    \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Now, a developer decided to test the \texttt{numberOfItems} behaviour.
+He then wrote the following test cases:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{public} \KeywordTok{class}\NormalTok{ CartTest \{}
+    \KeywordTok{private} \DataTypeTok{final}\NormalTok{ Cart cart = }\KeywordTok{new} \FunctionTok{Cart}\NormalTok{();}
+
+    \AttributeTok{@Test}
+    \DataTypeTok{void} \FunctionTok{numberOfItems}\NormalTok{() \{}
+\NormalTok{        cart.}\FunctionTok{add}\NormalTok{(}\StringTok{"Playstation"}\NormalTok{);}
+\NormalTok{        cart.}\FunctionTok{add}\NormalTok{(}\StringTok{"Big TV"}\NormalTok{);}
+
+        \FunctionTok{assertTrue}\NormalTok{(cart.}\FunctionTok{numberOfItems}\NormalTok{() == }\DecValTok{2}\NormalTok{);}
+\NormalTok{    \}}
+
+    \AttributeTok{@Test}
+    \DataTypeTok{void} \FunctionTok{ignoreDuplicatedEntries}\NormalTok{() \{}
+\NormalTok{        cart.}\FunctionTok{add}\NormalTok{(}\StringTok{"Playstation"}\NormalTok{);}
+\NormalTok{        cart.}\FunctionTok{add}\NormalTok{(}\StringTok{"Big TV"}\NormalTok{);}
+\NormalTok{        cart.}\FunctionTok{add}\NormalTok{(}\StringTok{"Playstation"}\NormalTok{);}
+
+        \FunctionTok{assertTrue}\NormalTok{(cart.}\FunctionTok{numberOfItems}\NormalTok{() == }\DecValTok{2}\NormalTok{);}
+\NormalTok{    \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Note that the less attentive developer opted for an \texttt{assertTrue}.
+While the test works as expected, if it ever fails (which we can easily
+force by replacing the Set for a List in the \texttt{Cart}
+implementation), the assertion error message will be something like
+this:
+
+\begin{verbatim}
+org.opentest4j.AssertionFailedError: 
+Expected :<true> 
+Actual   :<false>
+\end{verbatim}
+
+The error message does not explicitly show the difference in the values.
+In this simple example, it may not seem very important, but with more
+complicated test cases, a developer would have to add some debugging
+code (\texttt{System.out.println}s) to print the actual value that was
+produced by the method.
+
+The test could help the developer by giving as much information as
+possible. With that aim, choosing the right assertions is important, as
+they tend to give more information. In this case, the use of an
+\texttt{assertEquals} is a better fit:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\AttributeTok{@Test}
+\DataTypeTok{void} \FunctionTok{numberOfItems}\NormalTok{() \{}
+\NormalTok{    cart.}\FunctionTok{add}\NormalTok{(}\StringTok{"Playstation"}\NormalTok{);}
+\NormalTok{    cart.}\FunctionTok{add}\NormalTok{(}\StringTok{"Big TV"}\NormalTok{);}
+
+    \CommentTok{// assertTrue(cart.numberOfItems() == 2);}
+    \FunctionTok{assertEquals}\NormalTok{(}\DecValTok{2}\NormalTok{, cart.}\FunctionTok{numberOfItems}\NormalTok{());}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Libraries such as AssertJ, besides making the assertions more legible,
+also help us in providing better error messages. Suppose our
+\texttt{Cart} class now has an \texttt{allItems()} method that returns
+all items that were previously stored in this cart:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{public} \BuiltInTok{Set}\NormalTok{\textless{}}\BuiltInTok{String}\NormalTok{\textgreater{} }\FunctionTok{allItems}\NormalTok{() \{}
+    \KeywordTok{return} \BuiltInTok{Collections}\NormalTok{.}\FunctionTok{unmodifiableSet}\NormalTok{(items);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Asserting the outcome of this method using plain old JUnit assertions
+would look like the following:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\AttributeTok{@Test}
+\DataTypeTok{void} \FunctionTok{allItems}\NormalTok{() \{}
+\NormalTok{    cart.}\FunctionTok{add}\NormalTok{(}\StringTok{"Playstation"}\NormalTok{);}
+\NormalTok{    cart.}\FunctionTok{add}\NormalTok{(}\StringTok{"Big TV"}\NormalTok{);}
+
+\NormalTok{    var items = cart.}\FunctionTok{allItems}\NormalTok{();}
+
+    \FunctionTok{assertTrue}\NormalTok{(items.}\FunctionTok{contains}\NormalTok{(}\StringTok{"Playstation"}\NormalTok{));}
+    \FunctionTok{assertTrue}\NormalTok{(items.}\FunctionTok{contains}\NormalTok{(}\StringTok{"Big TV"}\NormalTok{));}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+AssertJ enables us to not only write assertions about the items, but
+also about the structure of the set itself. In the following example, we
+use a single assertion to make sure the set \emph{only} contains two
+specific items. The method \texttt{containsExactlyInAnyOrder()} does
+exactly what its name says:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\AttributeTok{@Test}
+\DataTypeTok{void} \FunctionTok{allItems}\NormalTok{() \{}
+\NormalTok{    cart.}\FunctionTok{add}\NormalTok{(}\StringTok{"Playstation"}\NormalTok{);}
+\NormalTok{    cart.}\FunctionTok{add}\NormalTok{(}\StringTok{"Big TV"}\NormalTok{);}
+
+\NormalTok{    var items = cart.}\FunctionTok{allItems}\NormalTok{();}
+
+    \FunctionTok{assertThat}\NormalTok{(items).}\FunctionTok{containsExactlyInAnyOrder}\NormalTok{(}\StringTok{"Playstation"}\NormalTok{, }\StringTok{"Big TV"}\NormalTok{);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+We therefore recommend that developers choose wisely how to write the
+assertion statements. A good assertion clearly reveals its reason for
+failing, is legible, and is as specific and insensitive as possible.
+
+\textbf{Mystery Guest}: Integration tests often rely on external
+dependencies. These dependencies, or ``guests'', can be things like
+databases, files on the disk, or webservices. While such dependencies
+are unavoidable in these types of tests, making them explicit in the
+test code may help developers in cases where these tests suddenly start
+to fail. A test that makes use of a guest, but hides it from the
+developer (making it a ``mystery guest'') is simply harder to
+comprehend.
+
+Make sure your test gives proper error messages, differentiating between
+a fail in the expected behaviour and a fail due to a problem in the
+guest. Having assertions dedicated to ensuring that the guest is in the
+right state before running the tests is often the remedy that is applied
+to this smell.
+
+\{\% set video\_id = ``QE-L818PDjA'' \%\} \{\% include
+``/includes/youtube.md'' \%\}
+
+\{\% set video\_id = ``DLfeGM84bzg'' \%\} \{\% include
+``/includes/youtube.md'' \%\}
+
+\hypertarget{test-code-readability}{%
+\subsection{Test code readability}\label{test-code-readability}}
+
+We have discussed several test code best practices and smells. In many
+situations, we have argued for the need of comprehensible, i.e., easy to
+read, test code.
+
+We reinforce the fact that it is crucial that the developers can
+understand the test code easily. \textbf{We need readable and
+understandable test code.} Note that ``readability'' is one of the test
+desiderata we mentioned above.
+
+In the following subsections we provide advice on how to write readable
+test code.
+
+\hypertarget{test-structure}{%
+\subsubsection{Test structure}\label{test-structure}}
+
+As you have seen earlier, tests all follow the same structure: the
+Arrange, Act and Assert structure. When \textbf{these three parts are
+clearly separated, it is easier for a developer to see what is happening
+in the test}. Your tests should make sure that a developer can identify
+these parts quickly and get the answers to the following questions:
+Where is the fixture? Where is the behaviour/method under test? Where
+are the assertions?
+
+\hypertarget{comprehensibility-of-the-information}{%
+\subsubsection{Comprehensibility of the
+information}\label{comprehensibility-of-the-information}}
+
+Test code is full of information, i.e., the input values that will be
+provided to the class under test, how the information flows up to the
+method under test, how the output comes back from the exercise
+behaviour, and what the expected outcomes are.
+
+Often we have to deal with complex data structures and information,
+which makes the test code also complex. In such cases, \textbf{we should
+make sure that the (meaning of the) important information present in a
+test is easy to understand.}
+
+Giving descriptive names to the information in the test code is helpful
+with this. Let us illustrate this in the example below. Suppose we have
+written a test for an \texttt{Invoice} class, which calculates the tax
+for that invoice.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{public} \KeywordTok{class}\NormalTok{ Invoice \{}
+
+    \KeywordTok{private} \DataTypeTok{final} \BuiltInTok{BigDecimal}\NormalTok{ value;}
+    \KeywordTok{private} \DataTypeTok{final} \BuiltInTok{String}\NormalTok{ country;}
+    \KeywordTok{private} \DataTypeTok{final}\NormalTok{ CustomerType customerType;}
+
+    \KeywordTok{public} \FunctionTok{Invoice}\NormalTok{(}\BuiltInTok{BigDecimal}\NormalTok{ value, }\BuiltInTok{String}\NormalTok{ country, CustomerType customerType) \{}
+        \KeywordTok{this}\NormalTok{.}\FunctionTok{value}\NormalTok{ = value;}
+        \KeywordTok{this}\NormalTok{.}\FunctionTok{country}\NormalTok{ = country;}
+        \KeywordTok{this}\NormalTok{.}\FunctionTok{customerType}\NormalTok{ = customerType;}
+\NormalTok{    \}}
+
+    \KeywordTok{public} \BuiltInTok{BigDecimal} \FunctionTok{calculate}\NormalTok{() \{}
+        \DataTypeTok{double}\NormalTok{ ratio = }\FloatTok{0.}\DecValTok{1}\NormalTok{;}
+
+        \CommentTok{// some business rule here to calculate the ratio}
+        \CommentTok{// depending on the value, company/person, country ...}
+
+        \KeywordTok{return}\NormalTok{ value.}\FunctionTok{multiply}\NormalTok{(}\KeywordTok{new} \BuiltInTok{BigDecimal}\NormalTok{(ratio));}
+\NormalTok{    \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Not-so-clear test code for the \texttt{calculate()} method could look
+like this:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\AttributeTok{@Test}
+\DataTypeTok{void} \FunctionTok{test1}\NormalTok{() \{}
+\NormalTok{    var invoice = }\KeywordTok{new} \FunctionTok{Invoice}\NormalTok{(}\KeywordTok{new} \BuiltInTok{BigDecimal}\NormalTok{(}\StringTok{"2500"}\NormalTok{), }\StringTok{"NL"}\NormalTok{, CustomerType.}\FunctionTok{COMPANY}\NormalTok{);}
+\NormalTok{    var v = invoice.}\FunctionTok{calculate}\NormalTok{();}
+    \FunctionTok{assertEquals}\NormalTok{(}\DecValTok{250}\NormalTok{, v.}\FunctionTok{doubleValue}\NormalTok{(), }\FloatTok{0.}\BaseNTok{0001}\NormalTok{);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Note how, at first glance, it may be hard to understand what all the
+information in the code means. It may require some extra effort to
+understand what this invoice looks like. Imagine a real entity from a
+real enterprise system: an \texttt{Invoice} class might have dozens of
+attributes. The name of the test as well as the name of the cryptic
+variable \texttt{v} do not clearly explain what they mean. For
+developers less fluent in JUnit, it may also be hard to understand what
+the 0.0001 means (it mitigates floating-point errors by making sure that
+both numbers are equal within the given delta).
+
+A better version of this test method could be:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\AttributeTok{@Test}
+\DataTypeTok{void} \FunctionTok{taxesForCompanies}\NormalTok{() \{}
+\NormalTok{    var invoice = }\KeywordTok{new} \FunctionTok{InvoiceBuilder}\NormalTok{()}
+\NormalTok{            .}\FunctionTok{asCompany}\NormalTok{()}
+\NormalTok{            .}\FunctionTok{withCountry}\NormalTok{(}\StringTok{"NL"}\NormalTok{)}
+\NormalTok{            .}\FunctionTok{withAValueOf}\NormalTok{(}\StringTok{"2500"}\NormalTok{)}
+\NormalTok{            .}\FunctionTok{build}\NormalTok{();}
+
+\NormalTok{    var calculatedValue = invoice.}\FunctionTok{calculate}\NormalTok{();}
+
+    \FunctionTok{assertThat}\NormalTok{(calculatedValue).}\FunctionTok{isCloseTo}\NormalTok{(}\KeywordTok{new} \BuiltInTok{BigDecimal}\NormalTok{(}\StringTok{"250"}\NormalTok{), }\FunctionTok{within}\NormalTok{(}\KeywordTok{new} \BuiltInTok{BigDecimal}\NormalTok{(}\StringTok{"0.001"}\NormalTok{)));}
+\NormalTok{\} }
+\end{Highlighting}
+\end{Shaded}
+
+The usage of the \texttt{InvoiceBuilder} (the implementation of which we
+will show shortly) clearly expresses what this invoice is about: it is
+an invoice for a company (as clearly stated by the \texttt{asCompany()}
+method), ``NL'' is the country of that invoice, and the invoice has a
+value of 2500. The result of the behaviour now goes to a variable whose
+name says it all (\texttt{calculatedValue}). The assertion then
+explicitly mentions that, given this is a float number, the best we can
+do is to compare whether they are close enough.
+
+The \texttt{InvoiceBuilder} is an example of an implementation of a
+\textbf{Test Data Builder}, the design pattern we mentioned before. The
+builder helps developers in creating fixtures, by providing them with a
+clear and expressive API. The use of fluent interfaces (e.g.,
+\texttt{asCompany().withAValueOf()...}) is also a common implementation
+choice. In terms of its implementation, the \texttt{InvoiceBuilder} is
+simply a Java class. The trick that allows methods to be chained is to
+return the class itself in the methods (note that methods return
+\texttt{this}).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{public} \KeywordTok{class}\NormalTok{ InvoiceBuilder \{}
+
+    \KeywordTok{private} \BuiltInTok{String}\NormalTok{ country = }\StringTok{"NL"}\NormalTok{;}
+    \KeywordTok{private}\NormalTok{ CustomerType customerType = CustomerType.}\FunctionTok{PERSON}\NormalTok{;}
+    \KeywordTok{private} \BuiltInTok{BigDecimal}\NormalTok{ value = }\KeywordTok{new} \BuiltInTok{BigDecimal}\NormalTok{(}\StringTok{"500.0"}\NormalTok{);}
+
+    \KeywordTok{public}\NormalTok{ InvoiceBuilder }\FunctionTok{withCountry}\NormalTok{(}\BuiltInTok{String}\NormalTok{ country) \{}
+        \KeywordTok{this}\NormalTok{.}\FunctionTok{country}\NormalTok{ = country;}
+        \KeywordTok{return} \KeywordTok{this}\NormalTok{;}
+\NormalTok{    \}}
+
+    \KeywordTok{public}\NormalTok{ InvoiceBuilder }\FunctionTok{asCompany}\NormalTok{() \{}
+        \KeywordTok{this}\NormalTok{.}\FunctionTok{customerType}\NormalTok{ = CustomerType.}\FunctionTok{COMPANY}\NormalTok{;}
+        \KeywordTok{return} \KeywordTok{this}\NormalTok{;}
+\NormalTok{    \}}
+
+    \KeywordTok{public}\NormalTok{ InvoiceBuilder }\FunctionTok{withAValueOf}\NormalTok{(}\BuiltInTok{String}\NormalTok{ value) \{}
+        \KeywordTok{this}\NormalTok{.}\FunctionTok{value}\NormalTok{ = }\KeywordTok{new} \BuiltInTok{BigDecimal}\NormalTok{(value);}
+        \KeywordTok{return} \KeywordTok{this}\NormalTok{;}
+\NormalTok{    \}}
+
+    \KeywordTok{public}\NormalTok{ Invoice }\FunctionTok{build}\NormalTok{() \{}
+        \KeywordTok{return} \KeywordTok{new} \FunctionTok{Invoice}\NormalTok{(value, country, customerType);}
+\NormalTok{    \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Developers should feel free to customise their builders as much as they
+want. A common trick is to make the builder build a ``common'' version
+of the class, without requiring the call to all the setup methods. A
+developer can then write:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{var invoice = }\KeywordTok{new} \FunctionTok{InvoiceBuilder}\NormalTok{().}\FunctionTok{build}\NormalTok{();}
+\end{Highlighting}
+\end{Shaded}
+
+In such a case, the \texttt{build} method, without any setup, will
+always build an invoice for a person, with a value of 500.0, and having
+NL as country (see the initialised values in the
+\texttt{InvoiceBuilder}).
+
+Other developers may write several shortcut methods that build other
+``common'' fixtures for the class. In the following example, the
+\texttt{anyCompany()} method returns an Invoice that belongs to a
+company (and the default value for the other fields). The
+\texttt{anyUS()} method builds an Invoice for someone in the US:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{public}\NormalTok{ Invoice }\FunctionTok{anyCompany}\NormalTok{() \{}
+    \KeywordTok{return} \KeywordTok{new} \FunctionTok{Invoice}\NormalTok{(value, country, CustomerType.}\FunctionTok{COMPANY}\NormalTok{);}
+\NormalTok{\}}
+
+\KeywordTok{public}\NormalTok{ Invoice }\FunctionTok{anyUS}\NormalTok{() \{}
+    \KeywordTok{return} \KeywordTok{new} \FunctionTok{Invoice}\NormalTok{(value, }\StringTok{"US"}\NormalTok{, customerType);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Note how test data builders can help developers to avoid general
+fixtures. Given that the builder makes it easier to build complex
+objects, developers may not feel the need to rely so much on a general
+fixture.
+
+Introducing test data builders, making good use of variable names to
+explain the meaning of the information, having clear assertions, and
+(although not exemplified here) adding comments in cases where code is
+not expressive enough will help developers in better comprehending test
+code.
+
+\{\% set video\_id = ``RlqLCUl2b0g'' \%\} \{\% include
+``/includes/youtube.md'' \%\}
+
+\hypertarget{flaky-tests}{%
+\subsection{Flaky tests}\label{flaky-tests}}
+
+Flaky tests (or \emph{erratic tests}, as Meszaros calls them in his
+book) are tests that present ``flaky'' behaviour: they sometimes pass
+and sometimes fail, even though developers have not performed any
+changes in their software systems.
+
+Such tests have a negative impact on the productivity of software
+development teams. It is hard to know whether a flaky test is failing
+because the behaviour is buggy, or because it is simply flaky. Little by
+little, the excessive presence of flaky tests can make developers lose
+confidence in their test suites. Such lack of confidence might lead them
+to deploy their systems even though the tests are failing (after all,
+they might be broken just because of flakiness, and not because the
+system is misbehaving).
+
+The prevalence and consequential impact of flaky tests in the software
+development world has been increasing over time. Companies like Google
+and Facebook as well as software engineering researchers have been
+working extensively on automated ways to detect and fix flaky tests.
+
+Flaky tests can have many causes, of which we can name these:
+
+\begin{itemize}
+\item
+  A test can be flaky because it \textbf{depends on external and/or
+  shared resources}. For example, when we need a database to run our
+  tests, any of the following things can happen:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Sometimes the test passes, because the database is available.
+  \item
+    Sometimes it fails, because the database is not available.
+  \item
+    Sometimes the test passes because the database is clean and ready
+    for that test.
+  \item
+    Sometimes the test fails because the same test was being run by the
+    next developer and the database was not in a clean state.
+  \end{itemize}
+\item
+  The tests can be flaky due to improper time-outs. This is a common
+  cause in web testing. Suppose a test has to wait for something to
+  happen in the system, e.g., a request coming back from a webservice,
+  which is then displayed in some HTML element. If the web application
+  is a bit slower than normal, the test might fail, just because ``it
+  did not wait long enough''.
+\item
+  Tests can be flaky due to a possible hidden interaction between
+  different test methods. Suppose that test A somehow influences the
+  result of test B, possibly causing it to fail.
+\end{itemize}
+
+As you may have noticed, some of these causes correspond to scenarios we
+described when discussing the test smells and emphasise again how
+important the quality of test code is.
+
+\{\% hint style=`tip' \%\} If you want to find the exact cause of a
+flaky test, the author of the XUnit Test Patterns book has made a whole
+decision table. You can find it in the book or on Gerard Meszaros'
+website \href{http://xunitpatterns.com/Erratic\%20Test.html}{here}.
+Using the decision table you can find a probable cause for the flakiness
+of your test.
+
+We list several interesting research papers on flaky tests, their impact
+on software testing, and current state-of-the-art detection tools in our
+references section. \{\% endhint \%\}
+
+\{\% set video\_id = ``-OQgBMSBL5c'' \%\} \{\% include
+``/includes/youtube.md'' \%\}
+
+\hypertarget{exercises}{%
+\subsection{Exercises}\label{exercises}}
+
+\textbf{Exercise 1.} Jeanette just heard that two tests are behaving
+strangely as when executed in isolation, both of them pass, but when
+executed together, they fail. Which one of the following \textbf{is not}
+the cause of this?
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Both tests are very slow.
+\item
+  They depend upon the same external resources.
+\item
+  The execution order of the tests matters.
+\item
+  They do not perform a clean-up operation after execution.
+\end{enumerate}
+
+\textbf{Exercise 2.} RepoDriller is a project that extracts information
+from Git repositories. Its integration tests use lots of real Git
+repositories (that are created solely for the purpose of the test), each
+one with a different characteristic, e.g., one repository contains a
+merge commit, another repository contains a revert operation, etc.
+
+Its tests look like this:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\AttributeTok{@Test}
+\KeywordTok{public} \DataTypeTok{void} \FunctionTok{test01}\NormalTok{() \{}
+
+  \CommentTok{// arrange: specific repo}
+  \BuiltInTok{String}\NormalTok{ path = }\StringTok{"test{-}repos/git{-}4"}\NormalTok{;}
+
+  \CommentTok{// act}
+\NormalTok{  TestVisitor visitor = }\KeywordTok{new} \FunctionTok{TestVisitor}\NormalTok{();}
+  \KeywordTok{new} \FunctionTok{RepositoryMining}\NormalTok{()}
+\NormalTok{  .}\FunctionTok{in}\NormalTok{(GitRepository.}\FunctionTok{singleProject}\NormalTok{(path))}
+\NormalTok{  .}\FunctionTok{through}\NormalTok{(Commits.}\FunctionTok{all}\NormalTok{())}
+\NormalTok{  .}\FunctionTok{process}\NormalTok{(visitor)}
+\NormalTok{  .}\FunctionTok{mine}\NormalTok{();}
+  
+  \CommentTok{// assert}
+\NormalTok{  Assert.}\FunctionTok{assertEquals}\NormalTok{(}\DecValTok{3}\NormalTok{, visitor.}\FunctionTok{getVisitedHashes}\NormalTok{().}\FunctionTok{size}\NormalTok{());}
+\NormalTok{  Assert.}\FunctionTok{assertTrue}\NormalTok{(visitor.}\FunctionTok{getVisitedHashes}\NormalTok{().}\FunctionTok{get}\NormalTok{(}\DecValTok{2}\NormalTok{).}\FunctionTok{equals}\NormalTok{(}\StringTok{"b8c2"}\NormalTok{));}
+\NormalTok{  Assert.}\FunctionTok{assertTrue}\NormalTok{(visitor.}\FunctionTok{getVisitedHashes}\NormalTok{().}\FunctionTok{get}\NormalTok{(}\DecValTok{1}\NormalTok{).}\FunctionTok{equals}\NormalTok{(}\StringTok{"375d"}\NormalTok{));}
+\NormalTok{  Assert.}\FunctionTok{assertTrue}\NormalTok{(visitor.}\FunctionTok{getVisitedHashes}\NormalTok{().}\FunctionTok{get}\NormalTok{(}\DecValTok{0}\NormalTok{).}\FunctionTok{equals}\NormalTok{(}\StringTok{"a1b6"}\NormalTok{));}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Which test smell does this piece of code \emph{might} suffer from?
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Mystery guest.
+\item
+  Condition logic in test.
+\item
+  General fixture.
+\item
+  Flaky test.
+\end{enumerate}
+
+\textbf{Exercise 3.} In the code below, we present the source code of an
+automated test.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\AttributeTok{@Test}
+\KeywordTok{public} \DataTypeTok{void} \FunctionTok{flightMileage}\NormalTok{() \{}
+  \CommentTok{// setup fixture}
+  \CommentTok{// exercise constructor}
+\NormalTok{  Flight newFlight = }\KeywordTok{new} \FunctionTok{Flight}\NormalTok{(validFlightNumber);}
+  \CommentTok{// verify constructed object}
+  \FunctionTok{assertEquals}\NormalTok{(validFlightNumber, newFlight.}\FunctionTok{number}\NormalTok{);}
+  \FunctionTok{assertEquals}\NormalTok{(}\StringTok{""}\NormalTok{, newFlight.}\FunctionTok{airlineCode}\NormalTok{);}
+  \FunctionTok{assertNull}\NormalTok{(newFlight.}\FunctionTok{airline}\NormalTok{);}
+  \CommentTok{// setup mileage}
+\NormalTok{  newFlight.}\FunctionTok{setMileage}\NormalTok{(}\DecValTok{1122}\NormalTok{);}
+  \CommentTok{// exercise mileage translator}
+  \DataTypeTok{int}\NormalTok{ actualKilometres = newFlight.}\FunctionTok{getMileageAsKm}\NormalTok{();    }
+  \CommentTok{// verify results}
+  \DataTypeTok{int}\NormalTok{ expectedKilometres = }\DecValTok{1810}\NormalTok{;}
+  \FunctionTok{assertEquals}\NormalTok{(expectedKilometres, actualKilometres);}
+  \CommentTok{// now try it with a canceled flight}
+\NormalTok{  newFlight.}\FunctionTok{cancel}\NormalTok{();}
+  \DataTypeTok{boolean}\NormalTok{ flightCanceledStatus = newFlight.}\FunctionTok{isCancelled}\NormalTok{();}
+  \FunctionTok{assertTrue}\NormalTok{(flightCanceledStatus);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+However, Joe, our new test specialist, believes this test is smelly and
+that it can be improved. Which of the following should be Joe's main
+concern?
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  The test contains code that may or may not be executed, making the
+  test less readable.
+\item
+  It is hard to tell which of several assertions within the same test
+  method will cause a test failure.
+\item
+  The test depends on external resources and has nondeterministic
+  results depending on when/where it is run.
+\item
+  The test reader is not able to see the cause and effect between
+  fixture and verification logic because part of it is done outside the
+  test method.
+\end{enumerate}
+
+\textbf{Exercise 4.} Look at the test code below. What is the most
+likely test code smell that this piece of code presents?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\AttributeTok{@Test}
+\DataTypeTok{void} \FunctionTok{test1}\NormalTok{() \{}
+  \CommentTok{// webservice that communicates with the bank}
+\NormalTok{  BankWebService bank = }\KeywordTok{new} \FunctionTok{BankWebService}\NormalTok{();}
+
+\NormalTok{  User user = }\KeywordTok{new} \FunctionTok{User}\NormalTok{(}\StringTok{"d.bergkamp"}\NormalTok{, }\StringTok{"nl123"}\NormalTok{);}
+\NormalTok{  bank.}\FunctionTok{authenticate}\NormalTok{(user);}
+  \BuiltInTok{Thread}\NormalTok{.}\FunctionTok{sleep}\NormalTok{(}\DecValTok{5000}\NormalTok{); }\CommentTok{// sleep for 5 seconds}
+
+  \DataTypeTok{double}\NormalTok{ balance = bank.}\FunctionTok{getBalance}\NormalTok{();}
+  \BuiltInTok{Thread}\NormalTok{.}\FunctionTok{sleep}\NormalTok{(}\DecValTok{2000}\NormalTok{);}
+
+\NormalTok{  Payment bill = }\KeywordTok{new} \FunctionTok{Payment}\NormalTok{();}
+\NormalTok{  bill.}\FunctionTok{setOrigin}\NormalTok{(user);}
+\NormalTok{  bill.}\FunctionTok{setValue}\NormalTok{(}\FloatTok{150.}\DecValTok{0}\NormalTok{);}
+\NormalTok{  bill.}\FunctionTok{setDescription}\NormalTok{(}\StringTok{"Energy bill"}\NormalTok{);}
+\NormalTok{  bill.}\FunctionTok{setCode}\NormalTok{(}\StringTok{"YHG45LT"}\NormalTok{);}
+
+\NormalTok{  bank.}\FunctionTok{pay}\NormalTok{(bill);}
+  \BuiltInTok{Thread}\NormalTok{.}\FunctionTok{sleep}\NormalTok{(}\DecValTok{5000}\NormalTok{);}
+
+  \DataTypeTok{double}\NormalTok{ newBalance = bank.}\FunctionTok{getBalance}\NormalTok{();}
+  \BuiltInTok{Thread}\NormalTok{.}\FunctionTok{sleep}\NormalTok{(}\DecValTok{2000}\NormalTok{);}
+  
+  \CommentTok{// new balance should be previous balance {-} 150}
+\NormalTok{  Assertions.}\FunctionTok{assertEquals}\NormalTok{(newBalance, balance {-} }\DecValTok{150}\NormalTok{);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Flaky test.
+\item
+  Test code duplication.
+\item
+  Obscure test.
+\item
+  Long method.
+\end{enumerate}
+
+\textbf{Exercise 5.} In the code below, we show an actual test from
+Apache Commons Lang, a very popular open source Java library. This test
+focuses on the static \texttt{random()} method, which is responsible for
+generating random characters. An interesting detail in this test is the
+comment: \emph{Will fail randomly about 1 in 1000 times.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{/**}
+ \CommentTok{*}\NormalTok{ Test homogeneity of random strings generated }\CommentTok{{-}{-}}
+ \CommentTok{*}\NormalTok{ i}\CommentTok{.}\NormalTok{e}\CommentTok{.,}\NormalTok{ test that characters show up with expected frequencies}
+ \CommentTok{*}\NormalTok{ in generated strings}\CommentTok{. }\NormalTok{ Will fail randomly about }\CommentTok{1}\NormalTok{ in }\CommentTok{1000}\NormalTok{ times}\CommentTok{.}
+ \CommentTok{*}\NormalTok{ Repeated failures indicate a problem}\CommentTok{.}
+ \CommentTok{*/}
+\AttributeTok{@Test}
+\KeywordTok{public} \DataTypeTok{void} \FunctionTok{testRandomStringUtilsHomog}\NormalTok{() \{}
+    \DataTypeTok{final} \BuiltInTok{String}\NormalTok{ set = }\StringTok{"abc"}\NormalTok{;}
+    \DataTypeTok{final} \DataTypeTok{char}\NormalTok{[] chars = set.}\FunctionTok{toCharArray}\NormalTok{();}
+    \BuiltInTok{String}\NormalTok{ gen = }\StringTok{""}\NormalTok{;}
+    \DataTypeTok{final} \DataTypeTok{int}\NormalTok{[] counts = \{}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{\};}
+    \DataTypeTok{final} \DataTypeTok{int}\NormalTok{[] expected = \{}\DecValTok{200}\NormalTok{,}\DecValTok{200}\NormalTok{,}\DecValTok{200}\NormalTok{\};}
+    \KeywordTok{for}\NormalTok{ (}\DataTypeTok{int}\NormalTok{ i = }\DecValTok{0}\NormalTok{; i\textless{} }\DecValTok{100}\NormalTok{; i++) \{}
+\NormalTok{       gen = RandomStringUtils.}\FunctionTok{random}\NormalTok{(}\DecValTok{6}\NormalTok{,chars);}
+       \KeywordTok{for}\NormalTok{ (}\DataTypeTok{int}\NormalTok{ j = }\DecValTok{0}\NormalTok{; j \textless{} }\DecValTok{6}\NormalTok{; j++) \{}
+           \KeywordTok{switch}\NormalTok{ (gen.}\FunctionTok{charAt}\NormalTok{(j)) \{}
+               \KeywordTok{case} \CharTok{\textquotesingle{}a\textquotesingle{}}\NormalTok{: \{counts[}\DecValTok{0}\NormalTok{]++; }\KeywordTok{break}\NormalTok{;\}}
+               \KeywordTok{case} \CharTok{\textquotesingle{}b\textquotesingle{}}\NormalTok{: \{counts[}\DecValTok{1}\NormalTok{]++; }\KeywordTok{break}\NormalTok{;\}}
+               \KeywordTok{case} \CharTok{\textquotesingle{}c\textquotesingle{}}\NormalTok{: \{counts[}\DecValTok{2}\NormalTok{]++; }\KeywordTok{break}\NormalTok{;\}}
+               \KeywordTok{default}\NormalTok{: \{}\FunctionTok{fail}\NormalTok{(}\StringTok{"generated character not in set"}\NormalTok{);\}}
+\NormalTok{           \}}
+\NormalTok{       \}}
+\NormalTok{    \}}
+    \CommentTok{// Perform chi{-}square test with df = 3{-}1 = 2, testing at .001 level}
+    \FunctionTok{assertTrue}\NormalTok{(}\StringTok{"test homogeneity {-}{-} will fail about 1 in 1000 times"}\NormalTok{,}
+        \FunctionTok{chiSquare}\NormalTok{(expected,counts) \textless{} }\FloatTok{13.}\DecValTok{82}\NormalTok{);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Which one of the following \textbf{is incorrect} about the test?
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  The test is flaky because of the randomness that exists in generating
+  characters.
+\item
+  The test checks for invalidly generated characters, and that
+  characters are picked in the same proportion.
+\item
+  The method being static has nothing to do with its flakiness.
+\item
+  To avoid the flakiness, a developer should have mocked the random
+  function.
+\end{enumerate}
+
+\hypertarget{references}{%
+\subsection{References}\label{references}}
+
+Test code best practices:
+
+\begin{itemize}
+\tightlist
+\item
+  Chapter 5 of Pragmatic Unit Testing in Java 8 with Junit. Langr, Hunt,
+  and Thomas. Pragmatic Programmers, 2015.
+\item
+  Meszaros, G. (2007). xUnit test patterns: Refactoring test code.
+  Pearson Education.
+\end{itemize}
+
+Empirical studies:
+
+\begin{itemize}
+\tightlist
+\item
+  Pryce, N. Test Data Builders: an alternative to the Object Mother
+  pattern. http://natpryce.com/articles/000714.html. Last accessed in
+  March, 2020.
+\item
+  Bavota, G., Qusef, A., Oliveto, R., De Lucia, A., \& Binkley, D.
+  (2012, September). An empirical analysis of the distribution of unit
+  test smells and their impact on software maintenance. In 2012 28th
+  IEEE International Conference on Software Maintenance (ICSM)
+  (pp.~56-65). IEEE.
+\end{itemize}
+
+Flaky tests:
+
+\begin{itemize}
+\tightlist
+\item
+  Luo, Q., Hariri, F., Eloussi, L., \& Marinov, D. (2014, November). An
+  empirical analysis of flaky tests. In Proceedings of the 22nd ACM
+  SIGSOFT International Symposium on Foundations of Software Engineering
+  (pp.~643-653). ACM. Authors' version:
+  \url{http://mir.cs.illinois.edu/~eloussi2/publications/fse14.pdf}
+\item
+  Bell, J., Legunsen, O., Hilton, M., Eloussi, L., Yung, T., \& Marinov,
+  D. (2018, May). DeFlaker: automatically detecting flaky tests. In
+  Proceedings of the 40th International Conference on Software
+  Engineering (pp.~433-444). ACM. Authors' version:
+  \url{http://mir.cs.illinois.edu/legunsen/pubs/BellETAL18DeFlaker.pdf}
+\item
+  Lam, W., Oei, R., Shi, A., Marinov, D., \& Xie, T. (2019, April).
+  iDFlakies: A Framework for Detecting and Partially Classifying Flaky
+  Tests. In 2019 12th IEEE Conference on Software Testing, Validation
+  and Verification (ICST) (pp.~312-322). IEEE. Authors' version:
+  \url{http://taoxie.cs.illinois.edu/publications/icst19-idflakies.pdf}
+\item
+  Listfield, J. Where do our flaky tests come from?\\
+  Link:
+  \url{https://testing.googleblog.com/2017/04/where-do-our-flaky-tests-come-from.html},
+  2017.
+\item
+  Micco, J. Flaky tests at Google and How We Mitigate Them.\\
+  Link:
+  \url{https://testing.googleblog.com/2016/05/flaky-tests-at-google-and-how-we.html},
+  2017.
+\item
+  Fowler, M. Eradicating Non-Determinism in Tests. Link:
+  \url{https://martinfowler.com/articles/nonDeterminism.html}, 2011.
+\end{itemize}

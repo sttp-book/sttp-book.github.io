@@ -1,0 +1,1528 @@
+\hypertarget{structural-testing}{%
+\section{Structural Testing}\label{structural-testing}}
+
+In a previous chapter, we discussed how to test software using
+requirements as the main element to guide the testing. In this chapter,
+we will use the source code itself as a source of information to create
+tests. Techniques that use the structure of the source code as a way to
+guide the testing, are called \textbf{structural testing} techniques.
+
+Understanding structural testing techniques means understanding the
+different \emph{coverage criteria}. These coverage criteria relate
+closely to \emph{test coverage}, a concept that many developers know. By
+test coverage, we mean the amount (or percentage) of production code
+that is exercised by the tests.
+
+We will cover the following coverage criteria:
+
+\begin{itemize}
+\tightlist
+\item
+  Line coverage (and statement coverage)
+\item
+  Block coverage
+\item
+  Branch/Decision coverage
+\item
+  Condition (Basic and Condition+Branch) coverage
+\item
+  Path coverage
+\item
+  MC/DC coverage
+\end{itemize}
+
+Watch a summary of one of our lectures in structural testing:
+
+\{\% set video\_id = ``busfqNkpgKI'' \%\} \{\% include
+``/includes/youtube.md'' \%\}
+
+\hypertarget{why-do-we-need-structural-testing}{%
+\subsection{Why do we need structural
+testing?}\label{why-do-we-need-structural-testing}}
+
+In a nutshell, for two reasons: 1) to systematically derive tests from
+source code; 2) to know when to stop testing;
+
+As a tester, when performing specification-based testing, your goal was
+clear: to derive classes out of the requirement specifications, and then
+to derive test cases for each of the classes. You were satisfied once
+all the classes and boundaries were systematically exercised.
+
+The same idea applies to structural testing. First, it gives us a
+systematic way to devise tests. As we will see, a tester might focus on
+testing all the lines of a program; or focus on the branches and
+conditions of the program. Different criteria produce different test
+cases.
+
+Second, to know when to stop. It is easy to imagine that the number of
+possible paths in a mildly complex piece of code is just too large, and
+exhaustive testing is impossible. Therefore, having clear criteria on
+when to stop helps testers in understanding the costs of their testing.
+
+\hypertarget{line-and-statement-coverage}{%
+\subsection{Line (and statement)
+coverage}\label{line-and-statement-coverage}}
+
+As the name suggests, when determining the line coverage, we look at the
+number of lines of code that are covered by the tests (more
+specifically, by at least one test).
+
+See the following example:
+
+\begin{quote}
+\textbf{Requirement}: Black-jack
+
+The program receives the number of points of two blackjack players. The
+program must return the number of points of the winner. In blackjack,
+whoever gets closer to 21 points wins. If a player goes over 21 points,
+the player loses. If both players lose, the program must return 0.
+\end{quote}
+
+See the following implementation for the requirement above:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{public} \KeywordTok{class}\NormalTok{ BlackJack \{}
+  \KeywordTok{public} \DataTypeTok{int} \FunctionTok{play}\NormalTok{(}\DataTypeTok{int}\NormalTok{ left, }\DataTypeTok{int}\NormalTok{ right) \{}
+\FloatTok{1.}  \DataTypeTok{int}\NormalTok{ ln = left;}
+\FloatTok{2.}  \DataTypeTok{int}\NormalTok{ rn = right;}
+\FloatTok{3.}  \KeywordTok{if}\NormalTok{ (ln \textgreater{} }\DecValTok{21}\NormalTok{)}
+\FloatTok{4.}\NormalTok{    ln = }\DecValTok{0}\NormalTok{;}
+\FloatTok{5.}  \KeywordTok{if}\NormalTok{ (rn \textgreater{} }\DecValTok{21}\NormalTok{)}
+\FloatTok{6.}\NormalTok{    rn = }\DecValTok{0}\NormalTok{;}
+\FloatTok{7.}  \KeywordTok{if}\NormalTok{ (ln \textgreater{} rn)}
+\FloatTok{8.}    \KeywordTok{return}\NormalTok{ ln;}
+\FloatTok{9.}  \KeywordTok{else}
+\FloatTok{10.}   \KeywordTok{return}\NormalTok{ rn;}
+\NormalTok{  \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Let us now devise and implement two test cases for this method:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{public} \KeywordTok{class}\NormalTok{ BlackJackTests \{}
+  \AttributeTok{@Test}
+  \DataTypeTok{void} \FunctionTok{bothPlayersGoTooHigh}\NormalTok{() \{}
+    \DataTypeTok{int}\NormalTok{ result = }\KeywordTok{new} \FunctionTok{BlackJack}\NormalTok{().}\FunctionTok{play}\NormalTok{(}\DecValTok{30}\NormalTok{, }\DecValTok{30}\NormalTok{);}
+    \FunctionTok{assertThat}\NormalTok{(result).}\FunctionTok{isEqualTo}\NormalTok{(}\DecValTok{0}\NormalTok{);}
+\NormalTok{  \}}
+
+  \AttributeTok{@Test}
+  \DataTypeTok{void} \FunctionTok{leftPlayerWins}\NormalTok{() \{}
+    \DataTypeTok{int}\NormalTok{ result = }\KeywordTok{new} \FunctionTok{BlackJack}\NormalTok{().}\FunctionTok{play}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{9}\NormalTok{);}
+    \FunctionTok{assertThat}\NormalTok{(result).}\FunctionTok{isEqualTo}\NormalTok{(}\DecValTok{10}\NormalTok{);}
+\NormalTok{  \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+The first test executes lines 1-7, 9, and 10 as both values are higher
+than 21. This means that, after the \texttt{bothPlayersGoTooHigh} test,
+9 out of the 10 lines are covered. Thus, line coverage is
+\[\frac{9}{10}\cdot100\% = 90\%\].
+
+Line 8 is therefore the only line that the first test does not cover.
+The second test, \texttt{leftPlayerWins}, complements the first test,
+and executes lines 1-3, 5, 7 and 8. Both tests together now achieve a
+line coverage of \[100\%\], as together they cover all the 10 different
+lines of the program.
+
+More formally, we can compute line coverage as:
+
+\[\text{line coverage} = \frac{\text{lines covered}}{\text{lines total}} \cdot 100\%\]
+
+\{\% set video\_id = ``rkLsvlPlOHc'' \%\} \{\% include
+``/includes/youtube.md'' \%\}
+
+\hypertarget{why-is-line-coverage-problematic}{%
+\subsection{Why is line coverage
+problematic?}\label{why-is-line-coverage-problematic}}
+
+Using lines of code as a way to determine line coverage is a simple and
+straightforward idea. However, counting the covered lines is not always
+a good way of calculating the coverage. The number of lines in a piece
+of code depends on the decisions taken by the programmer who writes the
+code.
+
+Let us look again at the Black Jack example. The \texttt{play} method
+can also be written in 6 lines, instead of 10:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{public} \DataTypeTok{int} \FunctionTok{play}\NormalTok{(}\DataTypeTok{int}\NormalTok{ left, }\DataTypeTok{int}\NormalTok{ right) \{}
+\FloatTok{1.}  \DataTypeTok{int}\NormalTok{ ln = left;}
+\FloatTok{2.}  \DataTypeTok{int}\NormalTok{ rn = right;}
+\FloatTok{3.}  \KeywordTok{if}\NormalTok{ (ln \textgreater{} }\DecValTok{21}\NormalTok{) ln = }\DecValTok{0}\NormalTok{;}
+\FloatTok{4.}  \KeywordTok{if}\NormalTok{ (rn \textgreater{} }\DecValTok{21}\NormalTok{) rn = }\DecValTok{0}\NormalTok{;}
+\FloatTok{5.}  \KeywordTok{if}\NormalTok{ (ln \textgreater{} rn) }\KeywordTok{return}\NormalTok{ ln;}
+\FloatTok{6.}  \KeywordTok{else} \KeywordTok{return}\NormalTok{ rn;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+The \texttt{leftPlayerWins} test covered \[\frac{6}{10}\] lines in the
+previous implementation of the \texttt{play} method. In this new
+implementation, it covers lines 1-5, or \[\frac{5}{6}\] lines. The line
+coverage went up from \[60\%\] to \[83\%\], while testing the same
+method with the same input.
+
+This urges for a better representation of source code. One that is
+independent of the developers' personal code styles.
+
+\{\% hint style=`tip' \%\} Some coverage tools measure coverage at
+statement level. Statements are the unique instructions that your JVM,
+for example, executes. This is a bit better, as splitting one line of
+code in two would not make a difference, but it is still not good
+enough. \{\% endhint \%\}
+
+\{\% set video\_id = ``iQECMbKLez0'' \%\} \{\% include
+``/includes/youtube.md'' \%\}
+
+\hypertarget{blocks-and-control-flow-graph}{%
+\subsection{Blocks and Control-Flow
+Graph}\label{blocks-and-control-flow-graph}}
+
+A \textbf{control-flow graph} (or CFG) is a representation of all paths
+that might be traversed during the execution of a piece of code. It
+consists of \emph{basic blocks}, \emph{decision blocks}, and
+\emph{arrows/edges} that connect these blocks.
+
+Let us use the Black Jack implementation to illustrate the difference
+between them:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{public} \KeywordTok{class}\NormalTok{ BlackJack \{}
+  \KeywordTok{public} \DataTypeTok{int} \FunctionTok{play}\NormalTok{(}\DataTypeTok{int}\NormalTok{ left, }\DataTypeTok{int}\NormalTok{ right) \{}
+\FloatTok{1.}  \DataTypeTok{int}\NormalTok{ ln = left;}
+\FloatTok{2.}  \DataTypeTok{int}\NormalTok{ rn = right;}
+\FloatTok{3.}  \KeywordTok{if}\NormalTok{ (ln \textgreater{} }\DecValTok{21}\NormalTok{)}
+\FloatTok{4.}\NormalTok{    ln = }\DecValTok{0}\NormalTok{;}
+\FloatTok{5.}  \KeywordTok{if}\NormalTok{ (rn \textgreater{} }\DecValTok{21}\NormalTok{)}
+\FloatTok{6.}\NormalTok{    rn = }\DecValTok{0}\NormalTok{;}
+\FloatTok{7.}  \KeywordTok{if}\NormalTok{ (ln \textgreater{} rn)}
+\FloatTok{8.}    \KeywordTok{return}\NormalTok{ ln;}
+\FloatTok{9.}  \KeywordTok{else}
+\FloatTok{10.}   \KeywordTok{return}\NormalTok{ rn;}
+\NormalTok{  \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+A basic block is composed of ``the maximum number of statements that are
+executed together no matter what happens''. In the code above, lines 1-2
+are always executed together. Basic blocks are often represented by a
+square.
+
+At this moment, our control-flow graph looks like the following:
+
+\begin{figure}
+\centering
+\includegraphics{img/structural-testing/examples/bj-p1.png}
+\caption{Black Jack - CFG part 1}
+\end{figure}
+
+A decision block, on the other hand, represents all the statements in
+the source code that can create different branches. See line 3:
+\texttt{if\ (ln\ \textgreater{}\ 21)}. This \texttt{if} statement
+creates a decision moment in the application: based on the condition, it
+is decided which code block will be executed next. Decision blocks are
+often represented by diamonds. This decision block happens right after
+the basic block we created above, and thus, they are connected by means
+of an edge.
+
+\begin{figure}
+\centering
+\includegraphics{img/structural-testing/examples/bj-p2.png}
+\caption{Black Jack - CFG part 2}
+\end{figure}
+
+A basic block has always a single outgoing edge. A decision block, on
+the other hand, always has two outgoing edges (indicating where you go
+in case of the decision being evaluated to \texttt{true}, and where you
+go in case the decision is evaluated to \texttt{false}).
+
+In case of the decision block being evaluated to \texttt{true}, line 4
+is executed, and the program continues to line 5. Otherwise, it proceeds
+straight to line 5, which is another decision block:
+
+\begin{figure}
+\centering
+\includegraphics{img/structural-testing/examples/bj-p3.png}
+\caption{Black Jack - CFG part 3}
+\end{figure}
+
+When you repeat the approach up to the end of the program, you end up
+with the following CFG:
+
+\begin{figure}
+\centering
+\includegraphics{img/structural-testing/examples/bj-p4.png}
+\caption{Black Jack - CFG part 4}
+\end{figure}
+
+Let us see an example of a more complex CFG:
+
+\begin{quote}
+\textbf{Requirement}: Counting words
+
+Given a sentence, the program should count the number of words that end
+with either an ``s'' or an ``r''. A word ends when a non-letter appears.
+\end{quote}
+
+A possible implementation for this program is:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{public} \KeywordTok{class}\NormalTok{ CountLetters \{}
+  \KeywordTok{public} \DataTypeTok{int} \FunctionTok{count}\NormalTok{(}\BuiltInTok{String}\NormalTok{ str) \{}
+\FloatTok{1.}  \DataTypeTok{int}\NormalTok{ words = }\DecValTok{0}\NormalTok{;}
+\FloatTok{2.}  \DataTypeTok{char}\NormalTok{ last = }\CharTok{\textquotesingle{} \textquotesingle{}}\NormalTok{;}
+\FloatTok{3.}  \KeywordTok{for}\NormalTok{ (}\DataTypeTok{int}\NormalTok{ i = }\DecValTok{0}\NormalTok{; i \textless{} str.}\FunctionTok{length}\NormalTok{(); i++) \{}
+\FloatTok{4.}    \KeywordTok{if}\NormalTok{ (!}\BuiltInTok{Character}\NormalTok{.}\FunctionTok{isLetter}\NormalTok{(str.}\FunctionTok{charAt}\NormalTok{(i))}
+\FloatTok{5.}\NormalTok{        \&\& (last == }\CharTok{\textquotesingle{}s\textquotesingle{}}\NormalTok{ || last == }\CharTok{\textquotesingle{}r\textquotesingle{}}\NormalTok{)) \{}
+\FloatTok{6.}\NormalTok{      words++;}
+\FloatTok{7.}\NormalTok{    \}}
+\FloatTok{8.}\NormalTok{    last = str.}\FunctionTok{charAt}\NormalTok{(i);}
+\FloatTok{9.}\NormalTok{  \}}
+\FloatTok{10.} \KeywordTok{if}\NormalTok{ (last == }\CharTok{\textquotesingle{}r\textquotesingle{}}\NormalTok{ || last == }\CharTok{\textquotesingle{}s\textquotesingle{}}\NormalTok{)}
+\FloatTok{11.}\NormalTok{   words++;}
+\FloatTok{12.} \KeywordTok{return}\NormalTok{ words;}
+\NormalTok{  \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+The corresponding CFG:
+
+\begin{figure}
+\centering
+\includegraphics{img/structural-testing/examples/CFG-branch-example.svg}
+\caption{Control flow graph example}
+\end{figure}
+
+Note that we split the \texttt{for} loop into three blocks: the variable
+initialisation, the decision block, and the increment.
+
+\textbf{Control-Flow Graphs in other languages.} As you can see, this
+CFG representation is quite generic. Even when you use a different
+programming language to write the same program, you might end up with
+the same CFG. We can devise control-flow graphs for programs in any
+programming language. For example, see the piece of Python code below:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# random\_ads is a list of ads.}
+\CommentTok{\# an ad contains three attributes:}
+\CommentTok{\# * available: true/false indicating whether the ad }
+\CommentTok{\#   is still available.}
+\CommentTok{\# * reached: true/false indicating }
+\CommentTok{\#   whether the number of paid prints was reached.}
+\CommentTok{\# * prints: an integer indicating the }
+\CommentTok{\#   number of times that the ad was printed.}
+\KeywordTok{def}\NormalTok{ validate\_ads(random\_ads):}
+\FloatTok{01.}\NormalTok{ valid\_ads }\OperatorTok{=}\NormalTok{ []}
+\FloatTok{02.}\NormalTok{ invalid\_ads }\OperatorTok{=}\NormalTok{ []}
+
+\FloatTok{03.} \ControlFlowTok{for}\NormalTok{ random\_ad }\KeywordTok{in}\NormalTok{ random\_ads:}
+\FloatTok{04.}   \ControlFlowTok{if}\NormalTok{ random\_ad.available }\KeywordTok{and} \KeywordTok{not}\NormalTok{ random\_ad.reached:}
+\FloatTok{05.}\NormalTok{     valid\_ads.append(random\_ad)}
+\FloatTok{06.}   \ControlFlowTok{else}\NormalTok{:}
+\FloatTok{07.}\NormalTok{     invalid\_ads.append(random\_ad)}
+
+\FloatTok{08.} \ControlFlowTok{for}\NormalTok{ valid\_ad }\KeywordTok{in}\NormalTok{ valid\_ads:}
+\FloatTok{09.}\NormalTok{   valid\_ad.prints }\OperatorTok{+=} \DecValTok{1}
+
+\FloatTok{10.} \ControlFlowTok{return}\NormalTok{ valid\_ads, invalid\_ads}
+\end{Highlighting}
+\end{Shaded}
+
+A CFG for this piece of code would look like:
+
+\begin{figure}
+\centering
+\includegraphics{img/structural-testing/examples/cfg-python.png}
+\caption{CFG in Python}
+\end{figure}
+
+We applied the same idea we have seen for Java programs in a Python
+program. The notions of basic and decision blocks are the same. A small
+difference to note is in the \emph{foreach} loop (which is simply
+written using the \texttt{for} keyword in Python). Given that
+\emph{foreach} loops do not follow the same format as traditional
+\texttt{for} loops, we modelled it differently: the \emph{foreach} loop
+is fully represented by a single decision block (i.e., no blocks for the
+increment, or condition). As with any decision blocks, it has two
+outcomes, \texttt{true} and \texttt{false}.
+
+\hypertarget{block-coverage}{%
+\subsection{Block coverage}\label{block-coverage}}
+
+We can use the control-flow graph to derive tests. A first idea would be
+to use \emph{blocks} as a coverage criterion, in the same way we did
+with lines, but instead of aiming at covering 100\% of the lines, we aim
+at covering 100\% of the blocks.
+
+The formula that measures block coverage is similar to the line coverage
+formula:
+
+\[\text{block coverage} = \frac{\text{blocks covered}}{\text{blocks total}} \cdot 100\%\]
+
+Note that blocks do not depend on how the developer wrote the code.
+Thus, it does not suffer from having different coverage numbers due to
+different programming styles.
+
+For the \texttt{CountLetters} program, a test T1 = ``cats and dogs''
+exercises all the blocks, and thus, reaches 100\% block coverage (follow
+the input in the control-flow graph and see all the blocks being
+executed):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\AttributeTok{@Test}
+\DataTypeTok{void} \FunctionTok{multipleWords}\NormalTok{() \{}
+  \DataTypeTok{int}\NormalTok{ words = }\KeywordTok{new} \FunctionTok{CountLetters}\NormalTok{().}\FunctionTok{count}\NormalTok{(}\StringTok{"cats|dogs"}\NormalTok{);}
+  \FunctionTok{assertEquals}\NormalTok{(}\DecValTok{2}\NormalTok{, words);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{branchdecision-coverage}{%
+\subsection{Branch/Decision coverage}\label{branchdecision-coverage}}
+
+Complex programs often rely on lots of complex conditions (e.g.,
+\texttt{if} statements composed of many conditions). When testing these
+programs, aiming at 100\% line or block coverage might not be enough to
+cover all the cases we want. We need a stronger criterion.
+
+Branch coverage (or decision coverage) works similar to line and
+statement coverage, except with branch coverage we count (or aim at
+covering) all the possible decision outcomes.
+
+A test suite will achieve 100\% branch (or decision) coverage when tests
+exercise all the possible outcomes of decision blocks:
+
+\[\text{branch coverage} = \frac{\text{decision outcomes covered}}{\text{decision outcomes total}} \cdot 100\%\]
+
+Decisions (or branches) are easy to identify in a CFG. Arrows with
+either \texttt{true} or \texttt{false} (i.e., both the arrows going out
+of a decision block) are branches, and therefore must be exercised.
+
+Let's aim at 100\% branch coverage for the Count Letter's \texttt{count}
+implementation above:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{public} \KeywordTok{class}\NormalTok{ CountLettersTests \{}
+  \AttributeTok{@Test}
+  \DataTypeTok{void} \FunctionTok{multipleMatchingWords}\NormalTok{() \{}
+
+    \DataTypeTok{int}\NormalTok{ words = }\KeywordTok{new} \FunctionTok{CountLetters}\NormalTok{()}
+\NormalTok{        .}\FunctionTok{count}\NormalTok{(}\StringTok{"cats|dogs"}\NormalTok{);}
+
+    \FunctionTok{assertEquals}\NormalTok{(}\DecValTok{2}\NormalTok{, words);}
+\NormalTok{  \}}
+
+  \AttributeTok{@Test}
+  \DataTypeTok{void} \FunctionTok{lastWordDoesntMatch}\NormalTok{() \{}
+
+    \DataTypeTok{int}\NormalTok{ words = }\KeywordTok{new} \FunctionTok{CountLetters}\NormalTok{()}
+\NormalTok{        .}\FunctionTok{count}\NormalTok{(}\StringTok{"cats|dog"}\NormalTok{);}
+
+    \FunctionTok{assertEquals}\NormalTok{(}\DecValTok{1}\NormalTok{, words);}
+\NormalTok{  \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\item
+  The first test (by providing \texttt{cats\textbar{}dogs} as input)
+  covers all the branches in the left part of the CFG. The right part
+  covers the top \texttt{false} branch, because at some point \texttt{i}
+  will be equal to \texttt{str.length()}. The word ``dogs'' ends with an
+  `s', so it also covers the \texttt{true} branch on the right side of
+  the CFG. This gives the test \[\frac{5}{6} \cdot 100\% = 83\%\] branch
+  coverage.
+\item
+  The only branch that is now not covered is the \texttt{false} branch
+  at the bottom right of the CFG. This branch is executed when the last
+  word does not end with an `r' or an `s'. The second test executes this
+  branch, by providing the string \texttt{cats\textbar{}dog} as input.
+  Thus, the two tests together achieve a branch/decision coverage of
+  \[100\%\].
+\end{itemize}
+
+\{\% hint style=`tip' \%\} In the video, we use \emph{squares} to
+represent decision blocks. We did it just because otherwise the
+control-flow graph would not fit in the video. When doing control-flow
+graphs, please use \emph{diamonds} to represent decision blocks. \{\%
+endhint \%\}
+
+\{\% set video\_id = ``XiWtG8PKH-A'' \%\} \{\% include
+``/includes/youtube.md'' \%\}
+
+\hypertarget{basic-condition-coverage}{%
+\subsection{(Basic) condition coverage}\label{basic-condition-coverage}}
+
+Branch coverage gives two branches for each decision, no matter how
+complicated or complex the decision is. When a decision gets
+complicated, i.e., it contains more than one condition like
+\texttt{a\ \textgreater{}\ 10\ \&\&\ b\ \textless{}\ 20\ \&\&\ c\ \textless{}\ 10},
+branch coverage might not be enough to test all the possible outcomes of
+all these decisions.
+
+For example, suppose one aims at testing the decision above. A test T1
+(a=20, b=10, c=5), which makes the condition \texttt{true}, and a test
+T2 (a=5, b=10, c=5), which makes the condition \texttt{false}, already
+fully cover this decision block, in terms of branch coverage. However,
+these two tests do not cover all the possibilities/different
+combinations for this decision to be evaluated to \texttt{false}; e.g.,
+T3 (a=20, b=30, c=5), etc.
+
+When using \emph{condition coverage} as a criterion, we split each
+compound condition into multiple decision blocks. This means each of the
+conditions will be tested separately, and not only the ``big decision
+block''.
+
+It is common to then re-design the CFG and make sure each decision block
+is now composed of a single condition. With the new CFG in hands (and
+with it new edges to explore), it works the same as branch coverage. The
+formula is basically the same, but now there are more decision outcomes
+to count:
+
+\[\text{condition coverage} = \frac{\text{conditions outcome covered}}{\text{conditions outcome total}} \cdot 100\%\]
+
+We achieve 100\% condition coverage when all of the outcomes of all the
+conditions in our program have been exercised. In other words, whenever
+all the conditions have been \texttt{true} and \texttt{false} at least
+once.
+
+Once again we look at the program that counts the words ending with an
+`r or an 's'. Let us now focus on achieving 100\% (basic) condition
+coverage.
+
+We start by building a more granular CFG:
+
+\begin{figure}
+\centering
+\includegraphics{img/structural-testing/examples/CFG-condition-example.svg}
+\caption{Control Flow Graph example with conditions}
+\end{figure}
+
+You can see that this new CFG has more decision blocks than the previous
+one (six instead of three).
+
+The \texttt{multipleMatchingWords} test now covers 7 out of 12 different
+decision outcomes. Condition coverage is thus
+\[\frac{7}{12} \cdot 100\% = 58\%\]. This is significantly less than the
+\[83\%\] branch coverage that we obtain from the same
+\texttt{multipleMatchingWords} test, showing how many more tests one
+would need to achieve 100\% condition coverage.
+
+\hypertarget{condition-branch-coverage}{%
+\subsection{Condition + Branch
+coverage}\label{condition-branch-coverage}}
+
+Let's think carefully about condition coverage. If we only focus on
+exercising the individual conditions themselves, but do not think of the
+overall decision, we might end up in a situation like the one below.
+
+Imagine the following program and its respective CFG:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DataTypeTok{void} \FunctionTok{hello}\NormalTok{(}\DataTypeTok{int}\NormalTok{ a, }\DataTypeTok{int}\NormalTok{ b) \{}
+  \KeywordTok{if}\NormalTok{(a \textgreater{} }\DecValTok{10}\NormalTok{ \& b \textgreater{} }\DecValTok{20}\NormalTok{) \{}
+    \BuiltInTok{System}\NormalTok{.}\FunctionTok{out}\NormalTok{.}\FunctionTok{println}\NormalTok{(}\StringTok{"Hello"}\NormalTok{);}
+\NormalTok{  \} }\KeywordTok{else}\NormalTok{ \{}
+    \BuiltInTok{System}\NormalTok{.}\FunctionTok{out}\NormalTok{.}\FunctionTok{println}\NormalTok{(}\StringTok{"Hi"}\NormalTok{);}
+\NormalTok{  \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+\centering
+\includegraphics{img/structural-testing/examples/cond_plus_branch.png}
+\caption{Example of why condition+branch coverage is needed, when
+compared to basic condition coverage}
+\end{figure}
+
+A test \texttt{T1\ =\ (20,\ 10)} causes the first condition
+\texttt{a\ \textgreater{}\ 10} to be \texttt{true}, and the second
+condition \texttt{b\ \textgreater{}\ 20} to be \texttt{false}. A test
+\texttt{T2\ =\ (5,\ 30)} makes the first condition \texttt{false}, and
+the second condition \texttt{true}. Note that T1 and T2 together achieve
+100\% \textbf{basic condition} coverage. After all, both conditions
+\texttt{a} and \texttt{b} have been exercised as both \texttt{true} and
+\texttt{false}.
+
+However, the final outcome of the entire decision was \texttt{false} in
+both tests. We never saw this program printing ``Hello''. We found a
+case where we achieved 100\% basic condition coverage, but only 50\%
+branch coverage. This is not a smart testing strategy. This is why
+looking only at the conditions themselves while ignoring the overall
+outcome of the decision block is called \textbf{basic condition
+coverage}.
+
+In practice, whenever we use condition coverage, we actually perform
+\textbf{branch + condition coverage}. In other words, we make sure that
+we achieve 100\% condition coverage (i.e., all the outcomes of all
+conditions are exercised) and 100\% branch coverage (all the outcomes of
+the compound decisions are exercised).
+
+The formula to calculate branch+condition coverage is as follows. Note
+how this formula gives us a clear differentiation between basic
+condition and decision+condition coverage:
+
+\[\text{C/DC coverage} = \frac{\text{conditions outcome covered + decisions outcome covered}}{\text{conditions outcome total + decisions outcome total}} \cdot 100\%\]
+
+\{\% hint style=`tip' \%\} While there is some confusion among the
+different terms, in this book, whenever we mention condition coverage or
+full condition coverage, we mean condition+branch coverage.
+
+In addition, another common criterion is the \emph{Multiple Condition
+Coverage}, or MCC. To satisfy the MCC criterion, a condition needs to be
+exercised in \emph{all} its possible combinations. That would imply in
+2\^{}N tests, given N conditions. \{\% endhint \%\}
+
+\{\% set video\_id = ``oWPprB9GBdE'' \%\} \{\% include
+``/includes/youtube.md'' \%\}
+
+\hypertarget{path-coverage}{%
+\subsection{Path coverage}\label{path-coverage}}
+
+With branch+condition coverage, we looked at each condition and branch
+individually. Such a criterion gives testers more branches to generate
+tests, especially when compared to the first criterion we discussed
+(line coverage).
+
+However, although we are testing each condition to be evaluated as
+\texttt{true} and \texttt{false}, this does not ensure testing of
+\emph{all the paths} that a program can have.
+
+Path coverage does not consider the conditions individually. Rather, it
+considers the (full) combination of the conditions in a decision. Each
+of these combinations is a path. You might see a path as a unique way to
+traverse the CFG.
+
+The calculation is the same as the other coverages:
+
+\[\text{path coverage} = \frac{\text{paths covered}}{\text{paths total}} \cdot 100\%\]
+
+See the following example that focus on a small piece of the
+\texttt{count} method:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{if}\NormalTok{ (!}\BuiltInTok{Character}\NormalTok{.}\FunctionTok{isLetter}\NormalTok{(str.}\FunctionTok{charAt}\NormalTok{(i)) }
+\NormalTok{        \& (last == }\CharTok{\textquotesingle{}s\textquotesingle{}}\NormalTok{ | last == }\CharTok{\textquotesingle{}r\textquotesingle{}}\NormalTok{)) \{}
+\NormalTok{    words++;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+The decision in this if-statement contains three conditions and can be
+generalised to \texttt{(A\ \&\ (B\ \textbar{}\ C))}, with: * A =
+\texttt{!Character.isLetter(str.charAt(i))} * B =
+\texttt{last\ ==\ \textquotesingle{}s\textquotesingle{}} * C =
+\texttt{last\ ==\ \textquotesingle{}r\textquotesingle{}}
+
+To get \[100\%\] path coverage, we would have to test all the possible
+combinations of these three conditions.
+
+We make a truth table to find the combinations:
+
+\begin{longtable}[]{@{}lllll@{}}
+\toprule
+Tests & A & B & C & Outcome\tabularnewline
+\midrule
+\endhead
+1 & T & T & T & T\tabularnewline
+2 & T & T & F & T\tabularnewline
+3 & T & F & T & T\tabularnewline
+4 & T & F & F & F\tabularnewline
+5 & F & T & T & F\tabularnewline
+6 & F & T & F & F\tabularnewline
+7 & F & F & T & F\tabularnewline
+8 & F & F & F & F\tabularnewline
+\bottomrule
+\end{longtable}
+
+This means that, for full path coverage, we would need 8 tests just to
+cover this \texttt{if} statement. It is a large number for just a single
+statement.
+
+While this seems similar to the MCC criterion we quickly discussed
+above, imagine programs that rely on loops:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DataTypeTok{boolean}\NormalTok{ shouldRun = }\KeywordTok{true}\NormalTok{;}
+\KeywordTok{while}\NormalTok{(shouldRun) \{}
+  \FunctionTok{something}\NormalTok{();}
+  \FunctionTok{something2}\NormalTok{();}
+
+\NormalTok{  shouldRun = }\FunctionTok{something3}\NormalTok{();}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+To satisfy all the criteria we studied so far, we would need to exercise
+the \texttt{shouldRun} as being true and false. That does not happen
+with path coverage. To satisfy path coverage, we would need to test all
+the possible paths that can happen. The unbounded loop might make this
+program to iterate an infinite number of times. Imagine now a program
+with two unbounded loops together. How many different possible paths
+does this program have?
+
+By aiming at achieving path coverage of our program, testers can indeed
+come up with good tests. However, the main issue is that achieving 100\%
+path coverage might not always be feasible or too costly. The number of
+tests needed for full path coverage will grow exponentially with the
+number of conditions in a decision.
+
+\{\% set video\_id = ``hpE-aZYulmk'' \%\} \{\% include
+``/includes/youtube.md'' \%\}
+
+\hypertarget{lazy-vs-eager-operators-and-how-they-affect-test-case-design}{%
+\subsection{Lazy vs eager operators (and how they affect test case
+design)}\label{lazy-vs-eager-operators-and-how-they-affect-test-case-design}}
+
+Note that we have been avoiding lazy (short-circuit) operators (i.e.,
+\&\& and \textbar\textbar), on purpose, to make sure all conditions of
+the expression are evaluated. This allows us to devise test cases for
+each possible combination we see in the decision table. However, that
+might not be the case if we use lazy operators. Let's take as an example
+the same expression, but now using lazy operators:
+\texttt{(A\ \&\&\ (B\ \textbar{}\textbar{}\ C))}
+
+We make the truth table to find the combinations:
+
+\begin{longtable}[]{@{}lllll@{}}
+\toprule
+Tests & A & B & C & Outcome\tabularnewline
+\midrule
+\endhead
+1 & T & T & dc & T\tabularnewline
+2 & T & F & T & T\tabularnewline
+3 & T & F & F & F\tabularnewline
+4 & F & dc & dc & F\tabularnewline
+\bottomrule
+\end{longtable}
+
+(`dc' represents ``don't care'' values.)
+
+For this particular example, if the A is false, then the rest of the
+expression will be not evaluated anymore, because the result of the
+entire statement will be automatically false. Moreover, for the second
+part of the expression, if B is true, then the entire proposition
+\texttt{(B\ \textbar{}\textbar{}\ C)} is already true, so we ``don't
+care'' about the value of the C.
+
+Generically speaking, it might be not possible to devise test cases for
+all the combinations. As a tester, you just have to take such
+constraints into consideration.
+
+\hypertarget{loop-boundary-adequacy}{%
+\subsection{Loop boundary adequacy}\label{loop-boundary-adequacy}}
+
+The section raised an interesting problem: in terms of coverage
+criteria, what to do when we have loops? When there is a loop, the block
+inside of the loop might be executed many times, making testing more
+complicated.
+
+Think of a \texttt{while(true)} loop which can be non-terminating. If we
+wanted to be rigorous about it, we would have to test the program where
+the loop block is executed one time, two times, three times, etc.
+Imagine a \texttt{for(i\ =\ 0;\ i\ \textless{}\ 10;\ i++)} loop with a
+\texttt{break} inside of the body. We would have to test what happens if
+the loop body executes one time, two times, three times, \ldots, up to
+ten times. It might be impossible to exhaustively test all the
+combinations.
+
+How can we handle long-lasting loops (a loop that runs for many
+iterations), or unbounded loops (where we do not know how many times it
+will be executed)?
+
+Given that exhaustive testing is impossible, testers often rely on the
+\textbf{loop boundary adequacy criterion} to decide when to stop testing
+a loop. A test suite satisfies this criterion if and only if for every
+loop:
+
+\begin{itemize}
+\tightlist
+\item
+  A test case exercises the loop zero times;
+\item
+  A test case exercises the loop once;
+\item
+  A test case exercises the loop multiple times.
+\end{itemize}
+
+The idea behind the criterion is to make sure the program is tested when
+the loop is never executed (does the program behave correctly when the
+loop is simply `skipped'?), when it only iterates once (as we
+empirically know that algorithms may not handle single cases correctly),
+and many times.
+
+Pragmatically speaking, the main challenge comes when devising the test
+case for the loop being executed multiple times. Should the test case
+force the loop to iterate for 2, 5, or 10 times? That requires a good
+understanding of the program/requirement itself. Our suggestion for
+testers is to rely on specification-based techniques. With an optimal
+understanding of the specs, one should be able to devise good tests for
+the particular loop.
+
+\hypertarget{mcdc-modified-conditiondecision-coverage}{%
+\subsection{MC/DC (Modified Condition/Decision
+Coverage)}\label{mcdc-modified-conditiondecision-coverage}}
+
+Modified condition/decision coverage (MC/DC) looks at the combinations
+of conditions like path coverage does. However, instead of aiming at
+testing all the possible combinations, we follow a process in order to
+identify the ``important'' combinations. The goal of focusing on these
+important combinations is to manage the large number of test cases that
+one needs to devise when aiming for 100\% path coverage.
+
+The idea of MC/DC is to \emph{exercise each condition in a way that it
+can, independently of the other conditions, affect the outcome of the
+entire decision}. In short, this means that every possible condition of
+each parameter must have influenced the outcome at least once.
+
+If we take the decision block from path coverage example,
+\texttt{A\ \&\&\ (B\ \textbar{}\textbar{}\ C)}, MC/DC dictates that: *
+For condition A: * There must be one test case where \texttt{A=true}
+(say T1). * There must be one test case where \texttt{A=false} (say T2).
+* T1 and T2 (which we call \emph{independence pairs}) must have
+different outcomes (e.g., T1 makes the entire decision to evaluate to
+true, and T2 makes the entire decision to evaluate to false, or the
+other way around). * In both test cases T1 and T2, variables B and C
+should be the same. * For condition B: * There must be one test case
+where \texttt{B=true} (say T3). * There must be one test case where
+\texttt{B=false} (say T4). * T3 and T4 have different outcomes. * In
+both test cases T3 and T4, variables A and C should be the same. * For
+condition C: * There must be one test case where \texttt{C=true} (say
+T5). * There must be one test case where \texttt{C=false} (say T6). * T3
+and T4 have different outcomes, * In both test cases T3 and T4,
+variables A and B should be the same.
+
+Cost-wise, a relevant characteristic of MC/DC coverage is that,
+supposing that conditions only have binary outcomes (i.e., \texttt{true}
+or \texttt{false}), the number of tests required to achieve 100\% MC/DC
+coverage is, on average, \[N+1\], where \[N\] is the number of
+conditions in the decision. Note that \[N+1\] is definitely smaller than
+all the possible combinations (\[2^N\])!
+
+Again, to devise a test suite that achieves 100\% MC/DC coverage, we
+should devise \[N+1\] test cases that, when combined, exercise all the
+combinations independently from the others.
+
+The question is how to select such test cases. See the example below.
+
+Imagine a program that decides whether an applicant should be admitted
+to the `University of Character':
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DataTypeTok{void} \FunctionTok{admission}\NormalTok{(}\DataTypeTok{boolean}\NormalTok{ degree, }\DataTypeTok{boolean}\NormalTok{ experience, }\DataTypeTok{boolean}\NormalTok{ character) \{}
+    \KeywordTok{if}\NormalTok{ (character \&\& (degree || experience)) \{}
+        \BuiltInTok{System}\NormalTok{.}\FunctionTok{out}\NormalTok{.}\FunctionTok{println}\NormalTok{(}\StringTok{"Admitted"}\NormalTok{);}
+\NormalTok{    \} }\KeywordTok{else}\NormalTok{ \{}
+        \BuiltInTok{System}\NormalTok{.}\FunctionTok{out}\NormalTok{.}\FunctionTok{println}\NormalTok{(}\StringTok{"Rejected"}\NormalTok{);}
+\NormalTok{    \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+The program takes three booleans as input (which, generically speaking,
+is the same as the \texttt{A\ \&\&\ (B\ \textbar{}\textbar{}\ C)} we
+just discussed): * Whether the applicant has a good character
+(\texttt{true} or \texttt{false}), * Whether the applicant has a degree
+(\texttt{true} or \texttt{false}), * Whether the applicant has
+experience in a field of work (\texttt{true} or \texttt{false}).
+
+If the applicant has good character \emph{and} either a degree \emph{or}
+experience in the field, he/she will be admitted. In any other case the
+applicant will be rejected.
+
+To test this program, we first use the truth table for
+\texttt{A\ \&\&\ (B\ \textbar{}\textbar{}\ C)} to see all the
+combinations and their outcomes. In this case, we have 3 decisions and
+\[2^3\] is 8, therefore we have tests that go from 1 to 8:
+
+\begin{longtable}[]{@{}lcccl@{}}
+\toprule
+Tests & Character & Degree & Experience & Decision\tabularnewline
+\midrule
+\endhead
+1 & T & T & T & T\tabularnewline
+2 & T & T & F & T\tabularnewline
+3 & T & F & T & T\tabularnewline
+4 & T & F & F & F\tabularnewline
+5 & F & T & T & F\tabularnewline
+6 & F & T & F & F\tabularnewline
+7 & F & F & T & F\tabularnewline
+8 & F & F & F & F\tabularnewline
+\bottomrule
+\end{longtable}
+
+Our goal will be to apply the MC/DC criterion to these test cases, and
+select \[N+1\], in this case \[3+1=4\], tests. In this case, the 4 four
+tests that satisfy that MC/DC coverage is \{2, 3, 4, 6\}.
+
+How did we find them? We go test by test, condition by condition.
+
+We start with selecting the pairs of combinations (or tests) for the
+\texttt{Character} parameter.
+
+\begin{itemize}
+\item
+  In test 1, we see that \texttt{Character}, \texttt{Degree}, and
+  \texttt{Experience} are all \texttt{true} and the \texttt{Decision}
+  (i.e., the outcome of the entire boolean expression) is also
+  \texttt{true}. We now look for another test in this table, where only
+  the value of \texttt{Character} is the opposite of the value in test
+  1, but the others (\texttt{Degree} and \texttt{Experience}) are still
+  the same. This means we have to look for a test where
+  \texttt{Character\ =\ false}, \texttt{Degree\ =\ true},
+  \texttt{Experience\ =\ true}, and \texttt{Decision\ =\ false}. This
+  combination appears in test 5.
+
+  Thus, we just found a pair of tests (again, called \emph{independence
+  pairs}), \[T_1\] and \[T_5\], where \texttt{Character} is the only
+  parameter which changed and the outcome (\texttt{Decision}) changed as
+  well. In other words, a pair of tests where the \texttt{Character}
+  \textbf{independently} influences the outcome (\texttt{Decision}).
+  Let's keep the pair \[\{T_1, T_5\}\] in our list of test cases.
+\item
+  We could have stopped here and moved to the next variable. After all,
+  we already found an independence pair for \texttt{Character}. However,
+  finding them all might help us in reducing the number of test cases at
+  the end, as you will see. So let us continue and we look at the next
+  test. In test 2, \texttt{Character\ =\ true},
+  \texttt{Degree\ =\ true}, \texttt{Experience\ =\ false}, and
+  \texttt{Decision\ =\ true}. We repeat the process and search for a
+  test where \texttt{Character} is the opposite of the value in test 2,
+  but \texttt{Degree} and \texttt{Experience} remain the same
+  (\texttt{Degree\ =\ true}, \texttt{Experience\ =\ false}). This set
+  appears in test 6.
+
+  This means we just found another pair of tests, \[T_2\] and \[T_6\],
+  where \texttt{Character} is the only parameter which changed and the
+  outcome (\texttt{Decision}) changed as well.
+\item
+  Again, we repeat the process for test 3 (\texttt{Character\ =\ true},
+  \texttt{Degree\ =\ false}, \texttt{Experience\ =\ true}) and find that
+  the \texttt{Character} parameter in test 7
+  (\texttt{Character\ =\ false}, \texttt{Degree\ =\ false},
+  \texttt{Experience\ =\ true}) is the opposite of the value in test 3
+  and changes the outcome (\texttt{Decision}).
+\item
+  For test 4 (\texttt{Character\ =\ true}, \texttt{Degree\ =\ false},
+  \texttt{Experience\ =\ false}). Its pair is test 8
+  (\texttt{Character\ =\ false}, \texttt{Degree\ =\ false},
+  \texttt{Experience\ =\ false}). Now, the outcome of both tests is the
+  same (\texttt{Decision\ =\ false}). This means that the pair
+  \[\{T_4, T_8\}\] does not show how \texttt{Character} can
+  independently affect the overall outcome; after all,
+  \texttt{Character} is the only thing that changes in these two tests,
+  but the outcome is still the same.
+\end{itemize}
+
+As we do not find another suitable pair when repeating the process for
+tests 5, 6, 7 and 8, we move on from the \texttt{Character} parameter to
+the \texttt{Degree} parameter. We repeat the same process, but now we
+search for the opposite value of parameter \texttt{Degree} whilst
+\texttt{Character} and \texttt{Experience} stay the same.
+
+\begin{itemize}
+\item
+  For test 1 (\texttt{Charater\ =\ true}, \texttt{Degree\ =\ true},
+  \texttt{Experience\ =\ true}), we search for a test where
+  (\texttt{Charater\ =\ true}, \texttt{Degree\ =\ false},
+  \texttt{Experience\ =\ true}). This appears to be the case in test 3.
+  However, the outcome for both test cases stay the same. Therefore,
+  \[\{T_1, T_3\}\] does not show how the \texttt{Degree} parameter can
+  independently affect the outcome.
+\item
+  After repeating all the steps for the other tests we find only
+  \[\{T_2, T_4\}\] to have different values for the \texttt{Degree}
+  parameter where the outcome also changes.
+\item
+  Finally we move to the \texttt{Experience} parameter. As with the
+  \texttt{Degree} parameter, there is only one pair of combinations that
+  will work, which is \[\{T_3, T_4\}\].
+\end{itemize}
+
+We highly recommend carrying out the entire process yourself to get a
+feeling of how the process works!
+
+We now have all the pairs for each of the parameters: -
+\texttt{Character}: \{1, 5\}, \{2, 6\}, \{3, 7\} - \texttt{Degree}: \{2,
+4\} - \texttt{Experience}: \{3, 4\}
+
+Having a single independence pair per variable (\texttt{Character},
+\texttt{Degree} and \texttt{Experience}) is enough. After all, we want
+to minimise the total number of tests, and we know that we can achieve
+this with \[N+1\] tests.
+
+We do not have any choices with conditions \texttt{Degree} and
+\texttt{Experience}, as we found only one pair of tests for each
+parameter. This means that we have to test combinations 2, 3 and 4.
+
+Lastly, we need to find the appropriate pair of A. Note that any of them
+would fit. However, we want to reduce the total amount of tests in the
+test suite (and again, we know we only need 4 in this case).
+
+If we were to pick either test 1 or test 5 we would have to include
+either test 5 or test 1 as well, as they are their opposites, but
+therefore unneccesarily increasing our number of tests. In order to keep
+our test cases in accordance to \[N+1\] or in this case \[3+1\], thus 4
+test cases we can either add test 6 or test 7, as their opposites (test
+2 or 3) are already included in our test cases. Randomly, we pick test
+6.
+
+\{\% hint style=`tip' \%\} You can indeed have more than one set of
+tests that achieve 100\% MC/DC. All solutions are equally acceptable.
+\{\% endhint \%\}
+
+Therefore, the tests that we need for 100\% MC/DC coverage are \{2, 3,
+4, 6\}. These are the only 4 tests we need. This is indeed cheaper when
+compare to the 8 tests we would need for path coverage.
+
+Let us now discuss some details about the MC/DC coverage:
+
+\begin{itemize}
+\item
+  We have applied what we call unique-cause MC/DC criteria. We identify
+  an independence pair (T1, T2), where only a single condition changes
+  between T1 and T2, as well as the final outcome. That might not be
+  possible in all cases. For example,
+  \texttt{(A\ and\ B)\ or\ (A\ and\ C)}. Ideally, we would demonstrate
+  the independence of the first A, B, the second A, and C. It is however
+  impossible to change the first A and not change the second A. Thus, we
+  can not demonstrate the independence of each A in the expression. In
+  such cases, we then allow A to vary, but we still fix all other
+  variables (this is what is called masked MC/DC).
+\item
+  It might not be possible to achieve MC/DC coverage in some
+  expressions. See \texttt{(A\ and\ B)\ or\ (A\ and\ not\ B)}. While the
+  independence pairs (TT, FT) would show the independence of A, there
+  are no pairs that show the independence of B. While logically
+  possible, in such cases, we recommend the developer to revisit the
+  (degenerative) expression as it might had been poorly designed. In our
+  example, the expression could be reformulated to simply \texttt{A}.
+\item
+  Mathematically speaking, \[N+1\] is the minimum number of tests
+  required for MC/DC coverage (and \[2 * N\] the theoretical upper
+  bound). However, empirical studies indeed show that \[N+1\] is often
+  the required number of tests.
+\end{itemize}
+
+\{\% set video\_id = ``HzmnCVaICQ4'' \%\} \{\% include
+``/includes/youtube.md'' \%\}
+
+\hypertarget{criteria-subsumption}{%
+\subsection{Criteria subsumption}\label{criteria-subsumption}}
+
+You might have noticed that the criteria we studied became more rigorous
+and demanding throughout this chapter. We started our discussion with
+line coverage. Then we discussed branch coverage, and we noticed that we
+could generate more tests if we focused on branches. Then, we discussed
+branch + condition coverage, and we noticed that we could generate even
+more tests, if we also focused on the conditions.
+
+There is a relationship between these criteria. Some strategies
+\textbf{subsume} other strategies. Formally, a strategy X subsumes
+strategy Y if all elements that Y exercises are also exercised by X. You
+can see in the figure below the relationship between the coverage
+criteria we studied.
+
+\includegraphics{img/structural-testing/subsumption.png}
+
+For example, in the picture, one can see that branch coverage subsumes
+line coverage. This means that 100\% of branch coverage always implies
+100\% line coverage. However, 100\% line coverage does not imply 100\%
+branch coverage. Moreover, 100\% of branch + condition coverage always
+implies 100\% branch coverage and 100\% line coverage.
+
+\hypertarget{the-effectiveness-of-structural-testing}{%
+\subsection{The effectiveness of structural
+testing}\label{the-effectiveness-of-structural-testing}}
+
+A common question among practitioners is whether structural testing or,
+in their words, test coverage, matters.
+
+While researchers have not yet found a magical coverage number that one
+should aim for, they have been finding interesting evidence pointing
+towards the benefits of performing structural testing.
+
+We quote two of these studies:
+
+\begin{itemize}
+\tightlist
+\item
+  Hutchins et al.: ``Within the limited domain of our experiments, test
+  sets achieving coverage levels over 90\% usually showed significantly
+  better fault detection than randomly chosen test sets of the same
+  size. In addition, significant improvements in the effectiveness of
+  coverage-based tests usually occurred as coverage increased from 90\%
+  to 100\%. However, the results also indicate that 100\% code coverage
+  alone is not a reliable indicator of the effectiveness of a test
+  set.''
+\item
+  Namin and Andrews: ``Our experiments indicate that coverage is
+  sometimes correlated with effectiveness when {[}test suite{]} size is
+  controlled for, and that using both size and coverage yields a more
+  accurate prediction of effectiveness than {[}test suite{]} size alone.
+  This in turn suggests that both size and coverage are important to
+  test suite effectiveness.''
+\end{itemize}
+
+For interested readers, an extensive literature review on the topic can
+be found in Zhu, H., Hall, P. A., \& May, J. H. (1997). Software unit
+test coverage and adequacy. ACM computing surveys (csur), 29(4),
+366-427.
+
+\hypertarget{structural-testing-vs-structural-coverage}{%
+\subsection{Structural testing vs structural
+coverage}\label{structural-testing-vs-structural-coverage}}
+
+A common misconception among practitioners to \emph{confuse structural
+testing with structural coverage}.
+
+Structural testing means \emph{leveraging the structure of the source
+code to systematically exercise the system under test}. When compared to
+specification-based testing, we note that structural testing is:
+
+\begin{itemize}
+\item
+  More objective. In other words, it does not depend on the opinions and
+  experience of the tester. While different testers might come up with
+  different specification-based tests, they would come with similar
+  structural tests.
+\item
+  Implementation-aware. Implementations can vary from the
+  specifications. After all, there are so many ways one can implement a
+  program. Structural testing enables testers to explore the precise
+  implementation.
+\end{itemize}
+
+On the other hand, structural testing is a \emph{check and balance} (as
+Chilenski puts it) on the specification-based tests. Structural testing
+confirms and complements the tests that we derived before.
+
+It is common to see developers running their coverage tools and writing
+tests for the outputs they observe. Developers that are mostly focused
+on (simply) achieving high \emph{structural coverage} are missing the
+main point of structural testing.
+
+Again, structural testing should complement your requirements-based
+testing. As Chilenski suggests (see Figure 3 in his paper), the first
+step of a tester should be to derive test cases out of any
+requirements-based technique. Once requirements are fully covered,
+testers then perform structural testing to cover what is missing from
+the structural-point of view. Any divergences should be brought back to
+the requirements-based testing phase: \emph{why did we not find this
+class/partition before?} Once requirements and structure are covered,
+one can consider the testing phase done.
+
+Therefore, do not aim at 100\% coverage. Use structural testing to
+complement your specification-based tests.
+
+\hypertarget{exercises}{%
+\subsection{Exercises}\label{exercises}}
+
+For the first couple of exercises we will use the following code:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{public} \DataTypeTok{boolean} \FunctionTok{remove}\NormalTok{(}\BuiltInTok{Object}\NormalTok{ o) \{}
+\FloatTok{01.}  \KeywordTok{if}\NormalTok{ (o == }\KeywordTok{null}\NormalTok{) \{}
+\FloatTok{02.}    \KeywordTok{for}\NormalTok{ (}\BuiltInTok{Node}\NormalTok{\textless{}E\textgreater{} x = first; x != }\KeywordTok{null}\NormalTok{; x = x.}\FunctionTok{next}\NormalTok{) \{}
+\FloatTok{03.}      \KeywordTok{if}\NormalTok{ (x.}\FunctionTok{item}\NormalTok{ == }\KeywordTok{null}\NormalTok{) \{}
+\FloatTok{04.}        \FunctionTok{unlink}\NormalTok{(x);}
+\FloatTok{05.}        \KeywordTok{return} \KeywordTok{true}\NormalTok{;}
+\NormalTok{         \}}
+\NormalTok{       \}}
+\FloatTok{06.}\NormalTok{  \} }\KeywordTok{else}\NormalTok{ \{}
+\FloatTok{07.}    \KeywordTok{for}\NormalTok{ (}\BuiltInTok{Node}\NormalTok{\textless{}E\textgreater{} x = first; x != }\KeywordTok{null}\NormalTok{; x = x.}\FunctionTok{next}\NormalTok{) \{}
+\FloatTok{08.}      \KeywordTok{if}\NormalTok{ (o.}\FunctionTok{equals}\NormalTok{(x.}\FunctionTok{item}\NormalTok{)) \{}
+\FloatTok{09.}        \FunctionTok{unlink}\NormalTok{(x);}
+\FloatTok{10.}        \KeywordTok{return} \KeywordTok{true}\NormalTok{;}
+\NormalTok{         \}}
+\NormalTok{       \}}
+\NormalTok{     \}}
+\FloatTok{11.}  \KeywordTok{return} \KeywordTok{false}\NormalTok{;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+This is the implementation of JDK8's LinkedList remove method. Source:
+\href{http://hg.openjdk.java.net/jdk8/jdk8/jdk/file/687fd7c7986d/src/share/classes/java/util/LinkedList.java}{OpenJDK}.
+
+\textbf{Exercise 1.} Give a test suite (i.e.~a set of tests) that
+achieves \[100\%\] \textbf{line} coverage on the \texttt{remove} method.
+Use as few tests as possible.
+
+The documentation on Java 8's LinkedList methods, that may be needed in
+the tests, can be found in its
+\href{https://devdocs.io/openjdk~8/java/util/linkedlist}{Javadoc}.
+
+\textbf{Exercise 2.} Create the control-flow graph (CFG) for the
+\texttt{remove} method.
+
+\textbf{Exercise 3.} Look at the CFG you just created. Which of the
+following sentences \textbf{is false}?
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  A minimal test suite that achieves 100\% basic condition coverage has
+  more test cases than a minimal test suite that achieves 100\% branch
+  coverage.
+\item
+  The method \texttt{unlink()} is for now treated as an `atomic'
+  operation, but also deserves specific test cases, as its
+  implementation might also contain decision blocks.
+\item
+  A minimal test suite that achieves 100\% branch coverage has the same
+  number of test cases as a minimal test suite that achieves 100\% full
+  condition coverage.
+\item
+  There exists a single test case that, alone, is able to achieve more
+  than 50\% of line coverage.
+\end{enumerate}
+
+\textbf{Exercise 4.} Give a test suite (i.e.~a set of tests) that
+achieves \[100\%\] \textbf{branch} coverage on the \texttt{remove}
+method. Use as few tests as possible.
+
+The documentation on Java 8's LinkedList methods, that may be needed in
+the tests, can be found in its
+\href{https://devdocs.io/openjdk~8/java/util/linkedlist}{Javadoc}.
+
+\textbf{Exercise 5.} Consider the decision \texttt{(A\ or\ C)\ and\ B}
+with the corresponding decision table:
+
+Decision
+
+A
+
+B
+
+C
+
+(A \textbar{} C) \& B
+
+1
+
+T
+
+T
+
+T
+
+T
+
+2
+
+T
+
+T
+
+F
+
+T
+
+3
+
+T
+
+F
+
+T
+
+F
+
+4
+
+T
+
+F
+
+F
+
+F
+
+5
+
+F
+
+T
+
+T
+
+T
+
+6
+
+F
+
+T
+
+F
+
+F
+
+7
+
+F
+
+F
+
+T
+
+F
+
+8
+
+F
+
+F
+
+F
+
+F
+
+What is the set with the minimum number of tests needed for \[100\%\]
+MC/DC (Modified Condition / Decision Coverage)?
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+For the next three exercises use the code below. This method returns the
+longest substring that appears at both the beginning and end of the
+string without overlapping. For example, \texttt{sameEnds("abXab")}
+returns \texttt{"ab"}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{public} \BuiltInTok{String} \FunctionTok{sameEnds}\NormalTok{(}\BuiltInTok{String}\NormalTok{ string) \{}
+\FloatTok{01.} \DataTypeTok{int}\NormalTok{ length = string.}\FunctionTok{length}\NormalTok{();}
+\FloatTok{02.} \DataTypeTok{int}\NormalTok{ half = length / }\DecValTok{2}\NormalTok{;}
+
+\FloatTok{03.} \BuiltInTok{String}\NormalTok{ left = }\StringTok{""}\NormalTok{;}
+\FloatTok{04.} \BuiltInTok{String}\NormalTok{ right = }\StringTok{""}\NormalTok{;}
+
+\FloatTok{05.} \DataTypeTok{int}\NormalTok{ size = }\DecValTok{0}\NormalTok{;}
+\FloatTok{06.} \KeywordTok{for}\NormalTok{ (}\DataTypeTok{int}\NormalTok{ i = }\DecValTok{0}\NormalTok{; i \textless{} half; i++) \{}
+\FloatTok{07.}\NormalTok{   left = left + string.}\FunctionTok{charAt}\NormalTok{(i);}
+\FloatTok{08.}\NormalTok{   right = string.}\FunctionTok{charAt}\NormalTok{(length {-} }\DecValTok{1}\NormalTok{ {-} i) + right;}
+
+\FloatTok{09.}   \KeywordTok{if}\NormalTok{ (left.}\FunctionTok{equals}\NormalTok{(right)) \{}
+\FloatTok{10.}\NormalTok{     size = left.}\FunctionTok{length}\NormalTok{();}
+\NormalTok{      \}}
+\NormalTok{    \}}
+
+\FloatTok{11.} \KeywordTok{return}\NormalTok{ string.}\FunctionTok{substring}\NormalTok{(}\DecValTok{0}\NormalTok{, size);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+This code is based on the \href{https://codingbat.com/prob/p131516}{same
+ends problem}.
+
+\textbf{Exercise 6.} Draw the control-flow graph (CFG) of the source
+code above.
+
+\textbf{Exercise 7.} Give a test case (by the input string and expected
+output) that achieves 100\% line coverage.
+
+\textbf{Exercise 8.} Given the source code of the \texttt{sameEnds}
+method. Which of the following statements is \textbf{not correct}?
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  It is possible to devise a single test case that achieves 100\% line
+  coverage and 100\% decision coverage.
+\item
+  It is possible to devise a single test case that achieves 100\% line
+  coverage and 100\% (basic) condition coverage.
+\item
+  It is possible to devise a single test case that achieves 100\% line
+  coverage and 100\% decision + condition coverage.
+\item
+  It is possible to devise a single test case that achieves 100\% line
+  coverage and 100\% path coverage.
+\end{enumerate}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+Now consider this piece of code for the FizzBuzz problem. Given an
+integer \texttt{n}, it returns the string form of the number followed by
+\texttt{"!"}. So the integer 8 would yield \texttt{"8!"}. Except if the
+number is divisible by 3 it returns ``Fizz!'' and if it is divisible by
+5 it returns ``Buzz!''. If the number is divisible by both 3 and 5 it
+returns ``FizzBuzz!'' Based on a
+\href{https://codingbat.com/prob/p115243}{CodingBat problem}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{public} \BuiltInTok{String} \FunctionTok{fizzString}\NormalTok{(}\DataTypeTok{int}\NormalTok{ n) \{}
+\FloatTok{1.}  \KeywordTok{if}\NormalTok{ (n \% }\DecValTok{3}\NormalTok{ == }\DecValTok{0}\NormalTok{ \&\& n \% }\DecValTok{5}\NormalTok{ == }\DecValTok{0}\NormalTok{)}
+\FloatTok{2.}       \KeywordTok{return} \StringTok{"FizzBuzz!"}\NormalTok{;}
+\FloatTok{3.}  \KeywordTok{if}\NormalTok{ (n \% }\DecValTok{3}\NormalTok{ == }\DecValTok{0}\NormalTok{)}
+\FloatTok{4.}      \KeywordTok{return} \StringTok{"Fizz!"}\NormalTok{;}
+\FloatTok{5.}  \KeywordTok{if}\NormalTok{ (n \% }\DecValTok{5}\NormalTok{ == }\DecValTok{0}\NormalTok{)}
+\FloatTok{6.}      \KeywordTok{return} \StringTok{"Buzz!"}\NormalTok{;}
+\FloatTok{7.}  \KeywordTok{return}\NormalTok{ n + }\StringTok{"!"}\NormalTok{;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Exercise 9.} Assume we have two test cases with an input
+integer: T1 = 15 and T2 = 8.
+
+What is the branch+condition coverage these test cases give combined?
+
+What is the decision coverage?
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+The next couple of exercises use Java's implementation of the
+LinkedList's \texttt{computeIfPresent()} method.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{public}\NormalTok{ V }\FunctionTok{computeIfPresent}\NormalTok{(K key, BiFunction\textless{}? }\KeywordTok{super}\NormalTok{ K, ? }\KeywordTok{super}\NormalTok{ V, ? }\KeywordTok{extends}\NormalTok{ V\textgreater{} rf) \{}
+\FloatTok{01.} \KeywordTok{if}\NormalTok{ (rf == }\KeywordTok{null}\NormalTok{) \{}
+\FloatTok{02.}   \KeywordTok{throw} \KeywordTok{new} \BuiltInTok{NullPointerException}\NormalTok{();}
+\NormalTok{    \}}
+  
+\FloatTok{03.} \BuiltInTok{Node}\NormalTok{\textless{}K,V\textgreater{} e;}
+\FloatTok{04.}\NormalTok{ V oldValue;}
+\FloatTok{05.} \DataTypeTok{int}\NormalTok{ hash = }\FunctionTok{hash}\NormalTok{(key);}
+\FloatTok{06.}\NormalTok{ e = }\FunctionTok{getNode}\NormalTok{(hash, key);}
+\FloatTok{07.}\NormalTok{ oldValue = e.}\FunctionTok{value}\NormalTok{;}
+  
+\FloatTok{08.} \KeywordTok{if}\NormalTok{ (e != }\KeywordTok{null}\NormalTok{ \&\& oldValue != }\KeywordTok{null}\NormalTok{) \{}
+  
+\FloatTok{09.}\NormalTok{   V v = rf.}\FunctionTok{apply}\NormalTok{(key, oldValue);}
+  
+\FloatTok{10.}   \KeywordTok{if}\NormalTok{ (v != }\KeywordTok{null}\NormalTok{) \{}
+\FloatTok{11.}\NormalTok{     e.}\FunctionTok{value}\NormalTok{ = v;}
+\FloatTok{12.}     \FunctionTok{afterNodeAccess}\NormalTok{(e);}
+\FloatTok{13.}     \KeywordTok{return}\NormalTok{ v;}
+\NormalTok{      \}}
+      \KeywordTok{else}\NormalTok{ \{}
+\FloatTok{14.}     \FunctionTok{removeNode}\NormalTok{(hash, key, }\KeywordTok{null}\NormalTok{, }\KeywordTok{false}\NormalTok{, }\KeywordTok{true}\NormalTok{);}
+\NormalTok{      \}}
+\NormalTok{    \}}
+\FloatTok{15.} \KeywordTok{return} \KeywordTok{null}\NormalTok{;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Exercise 10.} Draw the control-flow graph (CFG) of the method
+above.
+
+\textbf{Exercise 11.} How many tests do we need \textbf{at least} to
+achieve \[100\%\] line coverage?
+
+\textbf{Exercise 12.} How many tests do we need \textbf{at least} to
+achieve \[100\%\] branch coverage?
+
+\textbf{Exercise 13.} Which of the following statements concerning the
+subsumption relations between test adequacy criteria \textbf{is true}:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  MC/DC subsumes statement coverage.
+\item
+  Statement coverage subsumes branch coverage.
+\item
+  Branch coverage subsumes path coverage.
+\item
+  Basic condition coverage subsumes branch coverage.
+\end{enumerate}
+
+\textbf{Exercise 14.} A test suite satisfies the loop boundary adequacy
+criterion if for every loop L:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Test cases iterate L zero times, once, and more than once.
+\item
+  Test cases iterate L once and more than once.
+\item
+  Test cases iterate L zero times and one time.
+\item
+  Test cases iterate L zero times, once, more than once, and N, where N
+  is the maximum number of iterations.
+\end{enumerate}
+
+\textbf{Exercise 15.} Consider the expression
+\texttt{((A\ and\ B)\ or\ C)}. Devise a test suite that achieves
+\[100\%\] \emph{Modified Condition / Decision Coverage} (MC/DC).
+
+\textbf{Exercise 16.} Draw the truth table for expression
+\texttt{A\ and\ (A\ or\ B)}.
+
+Is it possible to achieve MC/DC coverage for this expression? Why (not)?
+
+What feedback should you give to the developer, that used this
+expression, about your finding?
+
+\hypertarget{references}{%
+\subsection{References}\label{references}}
+
+\begin{itemize}
+\item
+  Chapter 4 of the Foundations of software testing: ISTQB certification.
+  Graham, Dorothy, Erik Van Veenendaal, and Isabel Evans, Cengage
+  Learning EMEA, 2008.
+\item
+  Chapter 12 of the Software Testing and Analysis: Process, Principles,
+  and Techniques. Mauro Pezzè, Michal Young, 1st edition, Wiley, 2007.
+\item
+  Zhu, H., Hall, P. A., \& May, J. H. (1997). Software unit test
+  coverage and adequacy. ACM computing surveys (csur), 29(4), 366-427.
+\item
+  Hayhurst, K., Veerhusen, D., Chilenski, J., Rierson, L. A Practical
+  Tutorial on Modified Condition/Decision Coverage, 2001. URL:
+  https://shemesh.larc.nasa.gov/fm/papers/Hayhurst-2001-tm210876-MCDC.pdf.
+  Short version:
+  https://www.cs.odu.edu/\textasciitilde mln/ltrs-pdfs/NASA-2001-20dasc-kjh.pdf.
+\item
+  Chilenski, J. J. (2001). An investigation of three forms of the
+  modified condition decision coverage (MCDC) criterion. Office of
+  Aviation Research.
+  http://www.tc.faa.gov/its/worldpac/techrpt/ar01-18.pdf
+\item
+  Cem Kaner on Code Coverage: http://www.badsoftware.com/coverage.htm
+\item
+  Arie van Deursen on Code Coverage:
+  http://avandeursen.com/2013/11/19/test-coverage-not-for-managers/
+\item
+  Hutchins, M., Foster, H., Goradia, T., \& Ostrand, T. (1994, May).
+  Experiments of the effectiveness of data flow-and control flow-based
+  test adequacy criteria. In~Proceedings of the 16th international
+  conference on Software engineering~(pp.~191-200). IEEE Computer
+  Society Press.
+\item
+  Namin, A. S., \& Andrews, J. H. (2009, July). The influence of size
+  and coverage on test suite effectiveness. In Proceedings of the
+  eighteenth international symposium on Software testing and analysis
+  (pp.~57-68). ACM.
+\end{itemize}

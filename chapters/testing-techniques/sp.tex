@@ -1,0 +1,718 @@
+\hypertarget{specification-based-testing}{%
+\section{Specification-Based
+Testing}\label{specification-based-testing}}
+
+In this chapter, we explore \textbf{specification-based testing}
+techniques. These use the \emph{requirements} of the program (often
+written as text; think of user stories and/or UML use cases) as input
+for testing.
+
+In simple terms, we devise a set of inputs, where each input tackles one
+part (or \emph{partition}) of the program.
+
+Given that specification-based techniques require no knowledge of how
+the software inside the ``box'' is structured. For instance, it does not
+matter if the software was developed in Java or Python, or what
+particular data structures were used in the implementation. Therefore,
+these techniques are also referred to as \textbf{black box testing}.
+
+\hypertarget{partitioning-the-input-space}{%
+\subsection{Partitioning the input
+space}\label{partitioning-the-input-space}}
+
+Programs are usually too complex to be tested with just a single test
+case. There are different cases in which the program is executed and its
+execution often depends on various factors, such as the input to the
+program.
+
+Let's use a small program as an example. The specification below talks
+about a program that decides whether a given year is a leap year or not.
+
+\begin{quote}
+\textbf{Requirement: Leap year}
+
+Given a specific year as an input, the program should return \emph{true}
+if the provided year is a leap year and \emph{false} if it is not.
+
+A year is a leap year if:
+
+\begin{itemize}
+\tightlist
+\item
+  the year is divisible by 4;
+\item
+  and the year is not divisible by 100;
+\item
+  except when the year is divisible by 400 (because then it is a leap
+  year)
+\end{itemize}
+\end{quote}
+
+To find a good set of test cases, often referred to as a \emph{test
+suite}, we split the program into \emph{classes}. In other words, we
+divide the input space of the program in such a way that: 1) Each class
+is different, i.e.~it is unique, where no two partitions
+represent/exercise the same behaviour; 2) We can easily verify whether
+the behaviour for a given input is correct or not.
+
+By looking at the requirements above, we can derive the following
+classes/partitions:
+
+\begin{itemize}
+\tightlist
+\item
+  Year is divisible by 4, but not divisible by 100 =
+  \texttt{leap\ year,\ TRUE}
+\item
+  Year is divisible by 4, divisible by 100, divisible by 400 =
+  \texttt{leap\ year,\ TRUE}
+\item
+  Not divisible by 4 = \texttt{not\ leap\ year,\ FALSE}
+\item
+  Divisible by 4, divisible by 100, but not divisible by 400 =
+  \texttt{not\ leap\ year,\ FALSE}
+\end{itemize}
+
+Note how each class above exercises the program in different ways.
+
+\{\% set video\_id = ``kSLbxmXcPPI'' \%\} \{\% include
+``/includes/youtube.md'' \%\}
+
+\hypertarget{equivalence-partitioning}{%
+\subsection{Equivalence partitioning}\label{equivalence-partitioning}}
+
+The partitions above are not test cases that we can implement directly
+because each partition might be instantiated by an infinite number of
+inputs. For example, for the partition ``year not divisible by 4'',
+there are infinitely many numbers that are not divisible by 4 which we
+could use as concrete inputs to the program. So how do we know which
+concrete input to instantiate for each of the partitions?
+
+As we discussed earlier, each partition exercises the program in a
+certain way. In other words, all input values from one specific
+partition will make the program behave in the same way. Therefore, any
+input we select should give us the same result. We assume that, if the
+program behaves correctly for one given input, it will work correctly
+for all other inputs from that class. This idea of inputs being
+equivalent to each other is called \textbf{equivalence partitioning}.
+Thus, it does not matter which precise input we select and one test case
+per partition will be enough.
+
+Let's now write some JUnit tests for the leap year problem. Remember
+that the name of a test method in JUnit can be anything. It is good to
+name your test method after the partition that the method tests.
+
+\{\% hint style=`tip' \%\} We discuss more about test code quality and
+best practices in writing test code in a future chapter. \{\% endhint
+\%\}
+
+The \emph{Leap Year} specification has been implemented by a developer
+in the following way:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{public} \KeywordTok{class}\NormalTok{ LeapYear \{}
+
+  \KeywordTok{public} \DataTypeTok{boolean} \FunctionTok{isLeapYear}\NormalTok{(}\DataTypeTok{int}\NormalTok{ year) \{}
+    \KeywordTok{if}\NormalTok{ (year \% }\DecValTok{400}\NormalTok{ == }\DecValTok{0}\NormalTok{)}
+      \KeywordTok{return} \KeywordTok{true}\NormalTok{;}
+    \KeywordTok{if}\NormalTok{ (year \% }\DecValTok{100}\NormalTok{ == }\DecValTok{0}\NormalTok{)}
+      \KeywordTok{return} \KeywordTok{false}\NormalTok{;}
+
+    \KeywordTok{return}\NormalTok{ year \% }\DecValTok{4}\NormalTok{ == }\DecValTok{0}\NormalTok{;}
+\NormalTok{  \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+With the classes we devised above, we have 4 test cases in total (i.e.,
+one test case for each class/partition). As any input can be used for a
+given partition, the following inputs will be used for the partitions:
+
+\begin{itemize}
+\tightlist
+\item
+  2016, divisible by 4, not divisible by 100.
+\item
+  2000, divisible by 4, also divisible by 100 and by 400.
+\item
+  39, not divisible by 4.
+\item
+  1900, divisible by 4 and 100, not by 400.
+\end{itemize}
+
+Implementing this using JUnit gives the following code for the tests:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{public} \KeywordTok{class}\NormalTok{ LeapYearTests \{}
+
+  \KeywordTok{private} \DataTypeTok{final}\NormalTok{ LeapYear leapYear = }\KeywordTok{new} \FunctionTok{LeapYear}\NormalTok{();}
+
+  \AttributeTok{@Test}
+  \KeywordTok{public} \DataTypeTok{void} \FunctionTok{divisibleBy4\_notDivisibleBy100}\NormalTok{() \{}
+    \DataTypeTok{boolean}\NormalTok{ leap = leapYear.}\FunctionTok{isLeapYear}\NormalTok{(}\DecValTok{2016}\NormalTok{);}
+    \FunctionTok{assertTrue}\NormalTok{(leap);}
+\NormalTok{  \}}
+
+  \AttributeTok{@Test}
+  \KeywordTok{public} \DataTypeTok{void} \FunctionTok{divisibleBy4\_100\_400}\NormalTok{() \{}
+    \DataTypeTok{boolean}\NormalTok{ leap = leapYear.}\FunctionTok{isLeapYear}\NormalTok{(}\DecValTok{2000}\NormalTok{);}
+    \FunctionTok{assertTrue}\NormalTok{(leap);}
+\NormalTok{  \}}
+
+  \AttributeTok{@Test}
+  \KeywordTok{public} \DataTypeTok{void} \FunctionTok{notDivisibleBy4}\NormalTok{() \{}
+    \DataTypeTok{boolean}\NormalTok{ leap = leapYear.}\FunctionTok{isLeapYear}\NormalTok{(}\DecValTok{39}\NormalTok{);}
+    \FunctionTok{assertFalse}\NormalTok{(leap);}
+\NormalTok{  \}}
+
+  \AttributeTok{@Test}
+  \KeywordTok{public} \DataTypeTok{void} \FunctionTok{divisibleBy4\_and\_100\_not\_400}\NormalTok{() \{}
+    \DataTypeTok{boolean}\NormalTok{ leap = leapYear.}\FunctionTok{isLeapYear}\NormalTok{(}\DecValTok{1900}\NormalTok{);}
+    \FunctionTok{assertFalse}\NormalTok{(leap);}
+\NormalTok{  \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Note that each test method covers one of the partitions and the naming
+of the method refers to the partition it covers.
+
+For those who are learning JUnit: Note that a new instance of the test
+class is created before each test, so each test has a new
+\texttt{LeapYear} object. In this example, the \texttt{LeapYear} object
+has no state, so refreshing the object under test is not significant,
+but this is good practice to observe in general. In each test we first
+determine the result of the method. After the method returns a value, we
+assert that this is the expected value.
+
+\{\% set video\_id = ``mXmFiiifwaE'' \%\} \{\% include
+``/includes/youtube.md'' \%\}
+
+\hypertarget{category-partition-method}{%
+\subsection{Category-Partition Method}\label{category-partition-method}}
+
+So far we have derived partitions by just looking at the specification
+of the program. We basically used our experience and knowledge to derive
+the test cases. In this chapter, we will discuss a more systematic way
+of deriving these partitions: the \textbf{Category-Partition} method.
+
+This method provides us with a systematic way of deriving test cases,
+based on the characteristics of the input parameters. It also reduces
+the number of tests to a practical number.
+
+Here are the steps we follow for this method and then an example to
+illustrate the process.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Identify the parameters, or the input for the program. For example,
+  the parameters your classes and methods receive.
+\item
+  Derive characteristics of each parameter. For example, an
+  \texttt{int\ year} should be a positive integer number between 0 and
+  infinite.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Some of these characteristics can be found directly in the
+    specification of the program.
+  \item
+    Others might not be found from specifications. For example, an input
+    cannot be \texttt{null} if the method does not handle that well.
+  \end{itemize}
+\item
+  Add constraints in order to minimise the test suite.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Identify invalid combinations. For some characteristics it might not
+    be possible to combine them with other characteristics.
+  \item
+    Exceptional behaviour does not always have to be combined with all
+    of the values of the other inputs. For example, trying a single
+    \texttt{null} input might be enough to test that corner case.
+  \end{itemize}
+\item
+  Generate combinations of the input values. These are the test cases.
+\end{enumerate}
+
+Let's apply the technique in the following program:
+
+\begin{quote}
+\textbf{Requirement: Christmas discount}
+
+The system should give a 25\% discount on the cart when it is Christmas.
+The method has two input parameters: the total price of the products in
+the cart, and the date. When it is not Christmas, it just returns the
+original price; otherwise it applies the discount.
+\end{quote}
+
+Following the category-partition method:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  We have two parameters:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    The current date
+  \item
+    The total price
+  \end{itemize}
+\item
+  For each parameter we define the characteristics as:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Based on the requirements, the only important characteristic is that
+    the date can be either Christmas or not.
+  \item
+    The price can be a positive number, or in certain circumstances it
+    may be 0. Technically the price can also be a negative number. This
+    is an exceptional case, as you cannot pay a negative amount.
+  \end{itemize}
+\item
+  The number of characteristics and parameters is not too large in this
+  case. As the negative price is an exceptional case, we can test this
+  with just one combination, instead of with a date that is Christmas
+  and a date that is not Christmas.
+\item
+  We combine the other characteristics to get the following test cases:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Positive price at Christmas
+  \item
+    Positive price not at Christmas
+  \item
+    Price of 0 at Christmas
+  \item
+    Price of 0 not at Christmas
+  \item
+    Negative price at Christmas
+  \end{itemize}
+\end{enumerate}
+
+We now implement these test cases. Each of the test cases corresponds to
+one of the partitions that we want to test.
+
+\{\% set video\_id = ``frzRmafsPBk'' \%\} \{\% include
+``/includes/youtube.md'' \%\}
+
+\hypertarget{walking-example}{%
+\subsection{Walking example}\label{walking-example}}
+
+\begin{quote}
+\textbf{Requirement: Chocolate bars}
+
+A package contains a certain number of chocolate bars in kilos. A
+package is composed of small bars (1 kilo each) and big bars (5 kilos
+each).
+
+Assuming that the package is always filled with the maximum number of
+big bars possible, return the number of small bars required to complete
+the package. Return -1 if it is not possible to fill the package
+completely.
+
+The input of the program is: the number of available small bars, the
+number of available big bars, and the total number of kilos of the
+package.
+\end{quote}
+
+A possible implementation for this program is as follows:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{public} \KeywordTok{class}\NormalTok{ ChocolateBars \{}
+
+    \KeywordTok{public} \DataTypeTok{static} \DataTypeTok{final} \DataTypeTok{int}\NormalTok{ CANNOT\_PACK\_BAG = {-}}\DecValTok{1}\NormalTok{;}
+
+    \KeywordTok{public} \DataTypeTok{int} \FunctionTok{calculate}\NormalTok{(}\DataTypeTok{int}\NormalTok{ small, }\DataTypeTok{int}\NormalTok{ big, }\DataTypeTok{int}\NormalTok{ total) \{}
+        \DataTypeTok{int}\NormalTok{ maxBigBoxes = total / }\DecValTok{5}\NormalTok{;}
+        \DataTypeTok{int}\NormalTok{ bigBoxesWeCanUse = }\BuiltInTok{Math}\NormalTok{.}\FunctionTok{min}\NormalTok{(maxBigBoxes, big);}
+\NormalTok{        total {-}= (bigBoxesWeCanUse * }\DecValTok{5}\NormalTok{);}
+
+        \KeywordTok{if}\NormalTok{(small \textless{}= total)}
+            \KeywordTok{return}\NormalTok{ CANNOT\_PACK\_BAG;}
+        \KeywordTok{return}\NormalTok{ total;}
+
+\NormalTok{    \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+In this requirement, the partitions are less clear and it is essential
+to understand the problem fully in order to derive the partitions.
+
+One way to perform the analysis is to consider how the input variables
+affect the output variables. We observe that:
+
+\begin{itemize}
+\tightlist
+\item
+  There are three input variables: \emph{number of small bars},
+  \emph{number of big bars}, \emph{number of kilos in a package}. They
+  are all integers and values can range from 0 to infinity.
+\item
+  Given a valid \emph{number of kilos in a package}, the outcome is then
+  based on the \emph{number of big bars} and \emph{number of small
+  bars}. This means we can only analyse the variables together, instead
+  of separately.
+\end{itemize}
+
+We derive the following classes / partitions:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Need only small bars}. A solution that only uses small bars
+  (and does not use big bars).
+\item
+  \textbf{Need only big bars}. A solution that only uses the big bars
+  (and does not use small bars).
+\item
+  \textbf{Need small + big bars}. A solution that has to use both small
+  and big bars.
+\item
+  \textbf{Not enough bars}. A case for which there is no solution,
+  because there are not enough bars.
+\end{itemize}
+
+We also derive an invalid class:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Not from the specs}: An exceptional case (e.g., negative
+  numbers in any of the inputs).
+\end{itemize}
+
+For each of these classes, we can devise five concrete test cases:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Need only small bars}. small = 4, big = 2, total = 3
+\item
+  \textbf{Need only big bars}. small = 5, big = 3, total = 10
+\item
+  \textbf{Need small + big bars}. small = 5, big = 3, total = 17
+\item
+  \textbf{Not enough bars}. small = 1, big = 1, total = 10
+\item
+  \textbf{Not from the specs}: small = -1, big = -1, total = -1
+\end{itemize}
+
+In JUnit code:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{public} \KeywordTok{class}\NormalTok{ ChocolateBarsTest \{}
+    \KeywordTok{private} \DataTypeTok{final}\NormalTok{ ChocolateBars bars = }\KeywordTok{new} \FunctionTok{ChocolateBars}\NormalTok{();}
+
+    \AttributeTok{@Test}
+    \DataTypeTok{void} \FunctionTok{notEnoughBars}\NormalTok{() \{}
+        \FunctionTok{assertEquals}\NormalTok{({-}}\DecValTok{1}\NormalTok{, bars.}\FunctionTok{calculate}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{10}\NormalTok{));}
+\NormalTok{    \}}
+
+    \AttributeTok{@Test}
+    \DataTypeTok{void} \FunctionTok{onlyBigBars}\NormalTok{() \{}
+        \FunctionTok{assertEquals}\NormalTok{(}\DecValTok{0}\NormalTok{, bars.}\FunctionTok{calculate}\NormalTok{(}\DecValTok{5}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{10}\NormalTok{));}
+\NormalTok{    \}}
+
+    \AttributeTok{@Test}
+    \DataTypeTok{void} \FunctionTok{bigAndSmallBars}\NormalTok{() \{}
+        \FunctionTok{assertEquals}\NormalTok{(}\DecValTok{2}\NormalTok{, bars.}\FunctionTok{calculate}\NormalTok{(}\DecValTok{5}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{17}\NormalTok{));}
+\NormalTok{    \}}
+
+    \AttributeTok{@Test}
+    \DataTypeTok{void} \FunctionTok{onlySmallBars}\NormalTok{() \{}
+        \FunctionTok{assertEquals}\NormalTok{(}\DecValTok{3}\NormalTok{, bars.}\FunctionTok{calculate}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{));}
+\NormalTok{    \}}
+
+    \AttributeTok{@Test}
+    \DataTypeTok{void} \FunctionTok{invalidValues}\NormalTok{() \{}
+      \FunctionTok{assertEquals}\NormalTok{({-}}\DecValTok{1}\NormalTok{, bars.}\FunctionTok{calculate}\NormalTok{({-}}\DecValTok{1}\NormalTok{, {-}}\DecValTok{1}\NormalTok{, {-}}\DecValTok{1}\NormalTok{));}
+\NormalTok{    \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+This example shows a case where deriving good test cases becomes more
+challenging due to the specifications being complex.
+
+\{\% hint style=`tip' \%\} If you know some advanced features of JUnit,
+you might be wondering why we did not use something like parameterised
+tests. We will refactor this test code in a future chapter. \{\% endhint
+\%\}
+
+\{\% set video\_id = ``T8caAUwgquQ'' \%\} \{\% include
+``/includes/youtube.md'' \%\}
+
+\hypertarget{exercises}{%
+\subsection{Exercises}\label{exercises}}
+
+\textbf{Exercise 1.} What is an Equivalence Partition?
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  A group of results that is produced by one method.
+\item
+  A group of results that is produced by one input passed into different
+  methods.
+\item
+  A group of inputs that all make a method behave in the same way.
+\item
+  A group of inputs that gives exactly the same output in every method.
+\end{enumerate}
+
+\textbf{Exercise 2.} We have a program called FizzBuzz. It does the
+following: \textgreater{} Given an integer \texttt{n}, return the string
+form of the number followed by \texttt{"!"}. \textgreater{} If the
+number is divisible by 3 use \texttt{"Fizz"} instead of the number,
+\textgreater{} and if the number is divisible by 5 use \texttt{"Buzz"}
+instead of the number, \textgreater{} and if the number is divisible by
+both 3 and 5, use \texttt{"FizzBuzz"}
+
+Examples: * The integer 3 yields \texttt{"Fizz!"} * The integer 4 yields
+\texttt{"4!"} * The integer 5 yields \texttt{"Buzz!"} * The integer 15
+yields \texttt{"FizzBuzz"}
+
+A novice tester is trying hard to devise as many tests as she can for
+the FizzBuzz method. She came up with the following tests:
+
+\begin{itemize}
+\tightlist
+\item
+  T1 = 15
+\item
+  T2 = 30
+\item
+  T3 = 8
+\item
+  T4 = 6
+\item
+  T5 = 25
+\end{itemize}
+
+Which of these tests can be removed while keeping a good test suite?
+
+Which concept can we use to determine the tests that can be removed?
+
+\textbf{Exercise 3.} See a slightly modified version of the HashMap's
+\texttt{put} method Javadoc below. (Source code
+\href{http://developer.classpath.org/doc/java/util/HashMap-source.html}{here}).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{/**}
+\CommentTok{*}\NormalTok{ Puts the supplied value into the Map}\CommentTok{,}
+\CommentTok{*}\NormalTok{ mapped by the supplied key}\CommentTok{.}
+\CommentTok{*}\NormalTok{ If the key is already in the map}\CommentTok{,}\NormalTok{ its}
+\CommentTok{*}\NormalTok{ value will be replaced by the new value}\CommentTok{.}
+\CommentTok{*}
+\CommentTok{*} \AlertTok{NOTE}\CommentTok{:}\NormalTok{ Nulls are not accepted as keys}\CommentTok{;}
+\CommentTok{*}\NormalTok{  a RuntimeException is thrown when key is null}\CommentTok{.}
+\CommentTok{*}
+\CommentTok{*} \AnnotationTok{@param key }\NormalTok{the key used to locate the value}
+\CommentTok{*} \AnnotationTok{@param value }\NormalTok{the value to be stored in the HashMap}
+\CommentTok{*} \AnnotationTok{@return }\NormalTok{the prior mapping of the key}\CommentTok{,}\NormalTok{ or null if there was none}\CommentTok{.}
+\CommentTok{*/}
+\KeywordTok{public}\NormalTok{ V }\FunctionTok{put}\NormalTok{(K key, V value) \{}
+  \CommentTok{// implementation here}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Apply the category/partition method. What are the minimal and most
+suitable partitions?
+
+\textbf{Exercise 4.} Zip codes in country X are always composed of 4
+numbers + 2 letters, e.g., \texttt{2628CD}. Numbers are in the range
+\texttt{{[}1000,\ 4000{]}}. Letters are in the range
+\texttt{{[}C,\ M{]}}.
+
+Consider a program that receives two inputs: an integer (for the 4
+numbers) and a string (for the 2 letters), and returns \texttt{true}
+(valid zip code) or \texttt{false} (invalid zip code).
+
+The boundaries for this program appear to be straightforward: - Anything
+below 1000 -\textgreater{} invalid - {[}1000, 4000{]} -\textgreater{}
+valid - Anything above 4000 -\textgreater{} invalid - {[}A, B{]}
+-\textgreater{} invalid - {[}C, M{]} -\textgreater{} valid - {[}N, Z{]}
+-\textgreater{} invalid
+
+Based on what you as a tester \emph{assume} about the program, which
+invalid cases can you come up with? Describe these invalid cases and how
+they might exercise the program based on your assumptions.
+
+\textbf{Exercise 5.} See a slightly modified version of the HashSet's
+\texttt{add()} Javadoc below. Apply the category/partition method. What
+are the \textbf{minimal and most suitable partitions} for the \texttt{e}
+input parameter?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{/**}
+\CommentTok{*}\NormalTok{ Adds the specified element to this set if it }
+ \CommentTok{*}\NormalTok{ is not already present}\CommentTok{.}
+\CommentTok{*}\NormalTok{ If this set already contains the element}\CommentTok{,} 
+ \CommentTok{*}\NormalTok{ the call leaves the set unchanged}
+\CommentTok{*}\NormalTok{ and returns false}\CommentTok{.}
+\CommentTok{*}
+\CommentTok{*}\NormalTok{ If the specified element is NULL}\CommentTok{,}\NormalTok{ the call leaves the}
+\CommentTok{*}\NormalTok{ set unchanged and returns false}\CommentTok{.}
+\CommentTok{*}
+\CommentTok{*} \AnnotationTok{@param e }\NormalTok{element to be added to this set}
+\CommentTok{*} \AnnotationTok{@return }\NormalTok{true if this set did not already contain }
+ \CommentTok{*}\NormalTok{   the specified element}
+\CommentTok{*/}
+\KeywordTok{public} \DataTypeTok{boolean} \FunctionTok{add}\NormalTok{(E e) \{}
+    \CommentTok{// implementation here}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Exercise 6.} Which of the following statements \textbf{is false}
+about applying the category/partition method in the Java method below?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{/**}
+\CommentTok{*}\NormalTok{ Puts the supplied value into the Map}\CommentTok{,} 
+ \CommentTok{*}\NormalTok{ mapped by the supplied key}\CommentTok{.}
+\CommentTok{*}\NormalTok{ If the key is already in the map}\CommentTok{,}\NormalTok{ its}
+\CommentTok{*}\NormalTok{ value will be replaced by the new value}\CommentTok{.}
+\CommentTok{*}
+\CommentTok{*} \AlertTok{NOTE}\CommentTok{:}\NormalTok{ Nulls are not accepted as keys}\CommentTok{;} 
+ \CommentTok{*}\NormalTok{  a RuntimeException is thrown when key is null}\CommentTok{.}
+\CommentTok{*}
+\CommentTok{*} \AnnotationTok{@param key }\NormalTok{the key used to locate the value}
+\CommentTok{*} \AnnotationTok{@param value }\NormalTok{the value to be stored in the HashMap}
+\CommentTok{*} \AnnotationTok{@return }\NormalTok{the prior mapping of the key}\CommentTok{,} 
+ \CommentTok{*}\NormalTok{  or null if there was none}\CommentTok{.}
+\CommentTok{*/}
+\KeywordTok{public}\NormalTok{ V }\FunctionTok{put}\NormalTok{(K key, V value) \{}
+  \CommentTok{// implementation here}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  The specification does not specify any details about the
+  \texttt{value} input parameter, and thus, experience should be used to
+  partition it, e.g., \texttt{value} being null and not null.
+\item
+  The number of tests generated by the category/partition method can
+  grow quickly, as the chosen partitions for each category are later
+  combined one-by-one. This is not a practical problem to the
+  \texttt{put()} method because the number of categories and their
+  partitions is small.
+\item
+  In an object-oriented language, besides using the method's input
+  parameters to explore partitions, we should also consider the internal
+  state of the object (i.e., the class's attributes), as it can also
+  affect the behaviour of the method.
+\item
+  With the available information, it is not possible to perform the
+  category/partition method, as the source code is required for the last
+  step of the category/partition method: adding constraints.
+\end{enumerate}
+
+\textbf{Exercise 7.} Consider a \texttt{find} program that finds
+occurrences of a pattern in a file. The program has the following
+syntax:
+
+\begin{verbatim}
+find <pattern> <file>
+\end{verbatim}
+
+A tester, after reading the specs and following the Category-Partition
+method, devised the following test specification:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Pattern size:} empty, single character, many characters,
+  longer than any line in the file.
+\item
+  \textbf{Quoting:} pattern is quoted, pattern is not quoted, pattern is
+  improperly quoted.
+\item
+  \textbf{File name:} good file name, no file name with this name,
+  omitted.
+\item
+  \textbf{Occurrences in the file:} none, exactly one, more than one.
+\item
+  \textbf{Occurrences in a single line, assuming line contains the
+  pattern:} one, more than one.
+\end{itemize}
+
+However, the number of combinations is too high now. What actions could
+we take to reduce the number of combinations?
+
+\textbf{Exercise 8.} What test cases should be created when taking both
+the partition of the input parameters \emph{and} the internal state of
+the object into account?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{/**}
+\CommentTok{*}\NormalTok{ Adds the specified element to this set if it }
+ \CommentTok{*}\NormalTok{ is not already present}\CommentTok{.}
+\CommentTok{*}\NormalTok{ If this set already contains the element}\CommentTok{,} 
+ \CommentTok{*}\NormalTok{ the call leaves the set unchanged}
+\CommentTok{*}\NormalTok{ and returns false}\CommentTok{.}
+\CommentTok{*}
+\CommentTok{*}\NormalTok{ If the specified element is NULL}\CommentTok{,}\NormalTok{ the call leaves the}
+\CommentTok{*}\NormalTok{ set unchanged and returns false}\CommentTok{.}
+\CommentTok{*}
+\CommentTok{*}\NormalTok{ If the set is full}\CommentTok{,} 
+ \CommentTok{*}\NormalTok{ the call leaves the set unchanged and return false}\CommentTok{.}
+\CommentTok{*}\NormalTok{ Use private method }\CommentTok{\textasciigrave{}}\NormalTok{isFull}\CommentTok{\textasciigrave{}}\NormalTok{ to know whether the set is already full}\CommentTok{.}
+\CommentTok{*}
+\CommentTok{*} \AnnotationTok{@param e }\NormalTok{element to be added to this set}
+\CommentTok{*} \AnnotationTok{@return }\NormalTok{true if this set did not already contain }
+ \CommentTok{*}\NormalTok{   the specified element}
+\CommentTok{*/}
+\KeywordTok{public} \DataTypeTok{boolean} \FunctionTok{add}\NormalTok{(E e) \{}
+    \CommentTok{// implementation here}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{references}{%
+\subsection{References}\label{references}}
+
+\begin{itemize}
+\item
+  Graham, D., Van Veenendaal, E., \& Evans, I. (2008). Foundations of
+  software testing: ISTQB certification. Cengage Learning EMEA. Chapter
+  4.
+\item
+  Pezzè, M., \& Young, M. (2008). Software testing and analysis:
+  process, principles, and techniques. John Wiley \& Sons. Chapter 10.
+\item
+  Ostrand, T. J., \& Balcer, M. J. (1988). The category-partition method
+  for specifying and generating functional tests. Communications of the
+  ACM, 31(6), 676-686.
+\item
+  Pacheco, C., \& Ernst, M. D. (2007, October). Randoop:
+  feedback-directed random testing for Java. In Companion to the 22nd
+  ACM SIGPLAN conference on Object-oriented programming systems and
+  applications companion (pp.~815-816).
+\end{itemize}

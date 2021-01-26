@@ -1,0 +1,3561 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Domain testing examples · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-hints/plugin-hints.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-katex/katex.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+        <link rel="stylesheet" href="../../assets/css/website.css">
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../appendix/2020-midterm-preparation.html" />
+    
+    
+    <link rel="prev" href="../appendix/answers.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../preface/authors.html">
+            
+                <a href="../preface/authors.html">
+            
+                    
+                    Authors and Acknowledgements
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../preface/use.html">
+            
+                <a href="../preface/use.html">
+            
+                    
+                    Using this book
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../preface/contribute.html">
+            
+                <a href="../preface/contribute.html">
+            
+                    
+                    Contribute to this book
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../preface/license.html">
+            
+                <a href="../preface/license.html">
+            
+                    
+                    License
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../preface/structure.html">
+            
+                <a href="../preface/structure.html">
+            
+                    
+                    Structure of the book
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../getting-started/">
+            
+                <a href="../getting-started/">
+            
+                    
+                    Getting started with software testing
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1.1" data-path="../getting-started/why-software-testing.html">
+            
+                <a href="../getting-started/why-software-testing.html">
+            
+                    
+                    Why software testing?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.2" data-path="../getting-started/testing-principles.html">
+            
+                <a href="../getting-started/testing-principles.html">
+            
+                    
+                    Principles of software testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.3" data-path="../getting-started/test-automation.html">
+            
+                <a href="../getting-started/test-automation.html">
+            
+                    
+                    Software testing automation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.4" data-path="../getting-started/testing-vs-writing-tests.html">
+            
+                <a href="../getting-started/testing-vs-writing-tests.html">
+            
+                    
+                    Testing vs writing tests
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.5" data-path="../getting-started/developer-testing-workflow.html">
+            
+                <a href="../getting-started/developer-testing-workflow.html">
+            
+                    
+                    The developer testing workflow
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Testing techniques
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1.1" data-path="specification-based-testing.html">
+            
+                <a href="specification-based-testing.html">
+            
+                    
+                    Specification-based testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.2" data-path="boundary-testing.html">
+            
+                <a href="boundary-testing.html">
+            
+                    
+                    Boundary testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.3" data-path="structural-testing.html">
+            
+                <a href="structural-testing.html">
+            
+                    
+                    Structural testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.4" data-path="model-based-testing.html">
+            
+                <a href="model-based-testing.html">
+            
+                    
+                    Model-based testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.5" data-path="design-by-contracts.html">
+            
+                <a href="design-by-contracts.html">
+            
+                    
+                    Design-by-contracts
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.6" data-path="property-based-testing.html">
+            
+                <a href="property-based-testing.html">
+            
+                    
+                    Property-based testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="5.1" data-path="../pragmatic-testing/">
+            
+                <a href="../pragmatic-testing/">
+            
+                    
+                    Pragmatic software testing
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1.1" data-path="../pragmatic-testing/testing-pyramid.html">
+            
+                <a href="../pragmatic-testing/testing-pyramid.html">
+            
+                    
+                    The testing pyramid
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.2" data-path="../pragmatic-testing/test-doubles.html">
+            
+                <a href="../pragmatic-testing/test-doubles.html">
+            
+                    
+                    Test doubles
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.3" data-path="../pragmatic-testing/design-for-testability.html">
+            
+                <a href="../pragmatic-testing/design-for-testability.html">
+            
+                    
+                    Design for testability
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.4" data-path="../pragmatic-testing/tdd.html">
+            
+                <a href="../pragmatic-testing/tdd.html">
+            
+                    
+                    Test-driven development
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.5" data-path="../pragmatic-testing/test-code-quality.html">
+            
+                <a href="../pragmatic-testing/test-code-quality.html">
+            
+                    
+                    Test code quality and engineering
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="6.1" data-path="../testing-into-context/">
+            
+                <a href="../testing-into-context/">
+            
+                    
+                    Testing in context
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="6.1.1" data-path="../testing-into-context/web-testing.html">
+            
+                <a href="../testing-into-context/web-testing.html">
+            
+                    
+                    Web testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.2" data-path="../testing-into-context/sql-testing.html">
+            
+                <a href="../testing-into-context/sql-testing.html">
+            
+                    
+                    SQL testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.3" >
+            
+                <span>
+            
+                    
+                    Web services testing (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.4" >
+            
+                <span>
+            
+                    
+                    Mobile testing (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="7.1" data-path="../non-functional-testing/">
+            
+                <a href="../non-functional-testing/">
+            
+                    
+                    Non-functional testing
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="7.1.1" data-path="../non-functional-testing/security-testing.html">
+            
+                <a href="../non-functional-testing/security-testing.html">
+            
+                    
+                    Security testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.1.2" >
+            
+                <span>
+            
+                    
+                    Performance testing (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="8.1" data-path="../intelligent-testing/">
+            
+                <a href="../intelligent-testing/">
+            
+                    
+                    Intelligent testing
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.1.1" data-path="../intelligent-testing/static-testing.html">
+            
+                <a href="../intelligent-testing/static-testing.html">
+            
+                    
+                    Static testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.2" data-path="../intelligent-testing/mutation-testing.html">
+            
+                <a href="../intelligent-testing/mutation-testing.html">
+            
+                    
+                    Mutation testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.3" data-path="../intelligent-testing/fuzzing.html">
+            
+                <a href="../intelligent-testing/fuzzing.html">
+            
+                    
+                    Fuzz testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.4" data-path="../intelligent-testing/sbst.html">
+            
+                <a href="../intelligent-testing/sbst.html">
+            
+                    
+                    Search-based testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="9.1" >
+            
+                <span>
+            
+                    
+                    Appendix
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="9.1.1" data-path="../appendix/answers.html">
+            
+                <a href="../appendix/answers.html">
+            
+                    
+                    Answers to the exercises
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="9.1.2" data-path="domain-testing.html">
+            
+                <a href="domain-testing.html">
+            
+                    
+                    Domain testing examples
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.1.3" data-path="../appendix/2020-midterm-preparation.html">
+            
+                <a href="../appendix/2020-midterm-preparation.html">
+            
+                    
+                    2020 midterm mock exam
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.1.4" data-path="../appendix/2020-midterm-preparation-answers.html">
+            
+                <a href="../appendix/2020-midterm-preparation-answers.html">
+            
+                    
+                    2020 midterm mock exam (answers)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.1.5" data-path="../appendix/changelog.html">
+            
+                <a href="../appendix/changelog.html">
+            
+                    
+                    Change log
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >Domain testing examples</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="domain-testing-examples">Domain testing examples</h1>
+<p>This chapter follows a problem-based approach. We first show a program requirement, and then, show how we would apply equivalent class analysis and boundary testing.</p>
+<p>We will follow a common strategy when applying domain testing, highly influenced by how Kaner et al. do:</p>
+<ol>
+<li>We read the requirement</li>
+<li>We identify the input and output variables in play, together with their types, and their ranges.</li>
+<li>We identify the dependencies (or independence) among input variables, and how input variables influence the output variable.</li>
+<li>We perform equivalent class analysis (valid and invalid classes).</li>
+<li>We explore the boundaries of these classes.</li>
+<li>We think of a strategy to derive test cases, focusing on minimizing the costs while maximizing fault detection capability.</li>
+<li>We generate a set of test cases that should be executed against the system under test.</li>
+</ol>
+<p>See the videos for detailed explanations. See also the JUnit test cases we implemented for them in <a href="https://github.com/sttp-book/code-examples/tree/master/src/test/java/tudelft/domain" target="_blank">https://github.com/sttp-book/code-examples/tree/master/src/test/java/tudelft/domain</a>.</p>
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/6-SaTbc61eA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+
+
+<h2 id="exercise-1-the-sum-of-integers">Exercise 1: The Sum Of Integers</h2>
+<p>A program receives two numbers and returns the sum of these two integers. Numbers are between 1 <em>inclusive</em> and 99 <em>inclusive</em>.</p>
+<table>
+<thead>
+<tr>
+<th>Variables</th>
+<th>Types</th>
+<th>Ranges</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>X - First number</td>
+<td>Integer</td>
+<td>[1, 99]</td>
+</tr>
+<tr>
+<td>Y - Second number</td>
+<td>Integer</td>
+<td>[1, 99]</td>
+</tr>
+<tr>
+<td>Sum - Output</td>
+<td>Integer</td>
+<td>[1, inf]</td>
+</tr>
+</tbody>
+</table>
+<h3 id="dependency-among-variables">Dependency among variables:</h3>
+<ul>
+<li>X and Y are independent (X doesn&apos;t influence the range of Y, and vice-versa).</li>
+<li>X and Y are used to calculate Sum.</li>
+</ul>
+<h3 id="equivalence-partitioning--boundary-analysis">Equivalence partitioning / Boundary analysis</h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Equivalence classes</th>
+<th>Invalid classes</th>
+<th style="text-align:center">Boundaries</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>X</td>
+<td>[1, 99]</td>
+<td>&lt; 1</td>
+<td style="text-align:center"><em>valid</em> 1 | 0 <em>invalid</em></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>&gt; 99</td>
+<td style="text-align:center">99 | 100</td>
+</tr>
+<tr>
+<td>Y</td>
+<td>[1, 99]</td>
+<td>&lt; 1</td>
+<td style="text-align:center">1 | 0</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>&gt; 99</td>
+<td style="text-align:center">99 | 100</td>
+</tr>
+</tbody>
+</table>
+<h3 id="strategy">Strategy</h3>
+<ul>
+<li>Variables are independent (X does not affect the range of Y, and vice-versa).</li>
+<li>7 tests for X (3 partitions + 4 boundaries), in point for Y.</li>
+<li>7 tests for Y (3 partitions + 4 boundaries), in points for X.</li>
+<li>Total of 14 tests</li>
+</ul>
+<p><em>In-point X = 50, In-point Y = 50.</em></p>
+<table>
+<thead>
+<tr>
+<th>Test cases</th>
+<th>X</th>
+<th>Y</th>
+<th>Sum</th>
+<th>Remark</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T1</td>
+<td>50</td>
+<td>50</td>
+<td>100</td>
+<td>x &#x2208; [1, 99], 	 <em>y remains fixed for T1-T7</em></td>
+</tr>
+<tr>
+<td>T2</td>
+<td>-100</td>
+<td>50</td>
+<td><em>invalid</em></td>
+<td>x &lt; 1</td>
+</tr>
+<tr>
+<td>T3</td>
+<td>250</td>
+<td>50</td>
+<td><em>invalid</em></td>
+<td>x &gt; 99</td>
+</tr>
+<tr>
+<td>T4</td>
+<td>0</td>
+<td>50</td>
+<td><em>invalid</em></td>
+<td>x = 0</td>
+</tr>
+<tr>
+<td>T5</td>
+<td>1</td>
+<td>50</td>
+<td>51</td>
+<td>x = 1</td>
+</tr>
+<tr>
+<td>T6</td>
+<td>99</td>
+<td>50</td>
+<td>149</td>
+<td>x = 99</td>
+</tr>
+<tr>
+<td>T7</td>
+<td>100</td>
+<td>50</td>
+<td><em>invalid</em></td>
+<td>x = 100</td>
+</tr>
+<tr>
+<td>T8</td>
+<td>50</td>
+<td>50</td>
+<td>100</td>
+<td>y &#x2208; [1, 99], 	 <em>x remains fixed for T8-T14</em></td>
+</tr>
+<tr>
+<td>T9</td>
+<td>50</td>
+<td>-100</td>
+<td><em>invalid</em></td>
+<td>y &lt; 1</td>
+</tr>
+<tr>
+<td>T10</td>
+<td>50</td>
+<td>250</td>
+<td><em>invalid</em></td>
+<td>y &gt; 99</td>
+</tr>
+<tr>
+<td>T11</td>
+<td>50</td>
+<td>0</td>
+<td><em>invalid</em></td>
+<td>y = 0</td>
+</tr>
+<tr>
+<td>T12</td>
+<td>50</td>
+<td>1</td>
+<td>51</td>
+<td>y = 1</td>
+</tr>
+<tr>
+<td>T13</td>
+<td>50</td>
+<td>99</td>
+<td>149</td>
+<td>y = 99</td>
+</tr>
+<tr>
+<td>T14</td>
+<td>50</td>
+<td>100</td>
+<td><em>invalid</em></td>
+<td>y = 100</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Questions:</strong></p>
+<ul>
+<li>Do we need T3 and T7? Or are they testing the same thing (i.e. &gt; 99)? (Same applies to T10 and T14.) If we remove one of them, we end up with 12 tests.</li>
+<li>What would change if the requirement had something like sum &lt; 167 ?</li>
+</ul>
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ElO9sKkG-2w" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+
+
+<h2 id="exercise-2-the-sum-of-integers-part-2">Exercise 2: The Sum Of Integers, part 2</h2>
+<p>A program receives two numbers and returns the sum of these two integers. Numbers are between 1 <em>inclusive</em> and 99 <em>inclusive</em>.
+Final sum should be &lt;= 165.</p>
+<table>
+<thead>
+<tr>
+<th>Variables</th>
+<th>Types</th>
+<th>Ranges</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>X - First number</td>
+<td>Integer</td>
+<td>[1, 99]</td>
+</tr>
+<tr>
+<td>Y - Second number</td>
+<td>Integer</td>
+<td>[1, 99]</td>
+</tr>
+<tr>
+<td>Sum - Output</td>
+<td>Integer</td>
+<td>[0, 165]</td>
+</tr>
+</tbody>
+</table>
+<h3 id="dependency-among-variables">Dependency among variables:</h3>
+<ul>
+<li>X and Y are independent (X doesn&apos;t influence the range of Y, and vice-versa).</li>
+<li>X and Y are used to calculate Sum.</li>
+<li>X + Y &lt;= 165</li>
+</ul>
+<h3 id="equivalence-partitioning--boundary-analysis">Equivalence partitioning / Boundary analysis</h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Equivalence classes</th>
+<th>Invalid classes</th>
+<th style="text-align:center">Boundaries</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>X</td>
+<td>[1, 99]</td>
+<td>&lt; 1</td>
+<td style="text-align:center"><em>valid</em> 1 | 0 <em>invalid</em></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>&gt; 99</td>
+<td style="text-align:center">99 | 100</td>
+</tr>
+<tr>
+<td>Y</td>
+<td>[1, 99]</td>
+<td>&lt; 1</td>
+<td style="text-align:center">1 | 0</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>&gt; 99</td>
+<td style="text-align:center">99 | 100</td>
+</tr>
+<tr>
+<td>Sum</td>
+<td>[0, 165]</td>
+<td>&gt; 165</td>
+<td style="text-align:center">165 | 166</td>
+</tr>
+</tbody>
+</table>
+<h3 id="strategy">Strategy</h3>
+<ul>
+<li>Variables are independent (X does not affect the range of Y, and vice-versa).</li>
+<li>7 tests for X (3 partitions + 4 boundaries), in point for Y,</li>
+<li>7 tests for Y (3 partitions + 4 boundaries), in points for X.</li>
+<li>2 tests for the boundary on Sum.</li>
+<li>Total of 16 tests</li>
+</ul>
+<p><em>In-point X = 50 (taking into consideration that X &lt;= 165 - Y),
+In-point Y = 50 (taking into consideration that Y &lt;= 165 - X).</em></p>
+<table>
+<thead>
+<tr>
+<th>Test cases</th>
+<th>X</th>
+<th>Y</th>
+<th>Sum</th>
+<th>Remark</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T1</td>
+<td>50</td>
+<td>50</td>
+<td>100</td>
+<td>x &#x2208; [1, 99], 	 <em>y remains fixed for T1-T7</em></td>
+</tr>
+<tr>
+<td>T2</td>
+<td>-100</td>
+<td>50</td>
+<td><em>invalid</em></td>
+<td>x &lt; 1</td>
+</tr>
+<tr>
+<td>T3</td>
+<td>250</td>
+<td>50</td>
+<td><em>invalid</em></td>
+<td>x &gt; 99</td>
+</tr>
+<tr>
+<td>T4</td>
+<td>0</td>
+<td>50</td>
+<td><em>invalid</em></td>
+<td>x = 0</td>
+</tr>
+<tr>
+<td>T5</td>
+<td>1</td>
+<td>50</td>
+<td>51</td>
+<td>x = 1</td>
+</tr>
+<tr>
+<td>T6</td>
+<td>99</td>
+<td>50</td>
+<td>149</td>
+<td>x = 99</td>
+</tr>
+<tr>
+<td>T7</td>
+<td>100</td>
+<td>50</td>
+<td><em>invalid</em></td>
+<td>x = 100</td>
+</tr>
+<tr>
+<td>T8</td>
+<td>50</td>
+<td>50</td>
+<td>100</td>
+<td>y &#x2208; [1, 99], 	 <em>x remains fixed for T8-T14</em></td>
+</tr>
+<tr>
+<td>T9</td>
+<td>50</td>
+<td>-100</td>
+<td><em>invalid</em></td>
+<td>y &lt; 1</td>
+</tr>
+<tr>
+<td>T10</td>
+<td>50</td>
+<td>250</td>
+<td><em>invalid</em></td>
+<td>y &gt; 99</td>
+</tr>
+<tr>
+<td>T11</td>
+<td>50</td>
+<td>0</td>
+<td><em>invalid</em></td>
+<td>y = 0</td>
+</tr>
+<tr>
+<td>T12</td>
+<td>50</td>
+<td>1</td>
+<td>51</td>
+<td>y = 1</td>
+</tr>
+<tr>
+<td>T13</td>
+<td>50</td>
+<td>99</td>
+<td>149</td>
+<td>y = 99</td>
+</tr>
+<tr>
+<td>T14</td>
+<td>50</td>
+<td>100</td>
+<td><em>invalid</em></td>
+<td>y = 100</td>
+</tr>
+<tr>
+<td>T15</td>
+<td>82</td>
+<td>83</td>
+<td>165</td>
+<td></td>
+</tr>
+<tr>
+<td>T16</td>
+<td>83</td>
+<td>83</td>
+<td><em>invalid</em></td>
+</tr>
+</tbody>
+</table>
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/w2er-p_tyRc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+
+
+<h2 id="exercise-3-passing-grade">Exercise 3: Passing Grade</h2>
+<p>A student passes an exam if s/he gets a grade &gt;= 5.0. Grades below that are a fail.</p>
+<p>Grades range from [1.0, 10.0]. Assume the system doesn&apos;t allow for invalid grades (e.g., 0.9, 10.5).</p>
+<h3 id="variables">Variables</h3>
+<table>
+<thead>
+<tr>
+<th>Variables</th>
+<th>Types</th>
+<th>Ranges</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>grade</td>
+<td>float</td>
+<td>[1, 10]</td>
+<td>(no one gets a 0...)</td>
+</tr>
+<tr>
+<td>pass</td>
+<td>boolean</td>
+<td>true/false</td>
+<td>output variable</td>
+</tr>
+</tbody>
+</table>
+<h3 id="dependencies-among-variables">Dependencies among variables</h3>
+<ul>
+<li>No dependencies among input variables (grade is the only one).</li>
+<li>Grade is used to decide the pass/fail.</li>
+</ul>
+<h3 id="equivalence-partitioning--boundary-analysis">Equivalence partitioning / Boundary analysis</h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Equivalence Classes</th>
+<th>Invalid Classes</th>
+<th>Boundaries</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>grade</td>
+<td>[1,5[</td>
+<td></td>
+<td>1</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>4.9</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>5</td>
+</tr>
+<tr>
+<td></td>
+<td>[5, 10]</td>
+<td></td>
+<td>4.9</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>5</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>10</td>
+</tr>
+</tbody>
+</table>
+<p>We do not need to test 0.9 and 10.1 because we assume that the system doesn&apos;t allow for them.</p>
+<h3 id="strategy">Strategy</h3>
+<p>Boundaries seem to be enough.</p>
+<table>
+<thead>
+<tr>
+<th>Test Case</th>
+<th>Grade (input)</th>
+<th>Pass (output)</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T1</td>
+<td>1</td>
+<td>false</td>
+<td></td>
+</tr>
+<tr>
+<td>T2</td>
+<td>4.9</td>
+<td>false</td>
+<td></td>
+</tr>
+<tr>
+<td>T3</td>
+<td>5</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>T4</td>
+<td>7.5</td>
+<td>true</td>
+<td>extra in-point</td>
+</tr>
+<tr>
+<td>T5</td>
+<td>10</td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/S_90_sYP7GA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+
+
+
+
+<h2 id="exercise-4-passing-concepts">Exercise 4: Passing Concepts</h2>
+<p>The final grade of a student is calculated as follows:</p>
+<ul>
+<li><code>1 &lt;= grade &lt; 5</code> =&gt; <strong><code>F</code></strong></li>
+<li><code>5 &lt;= grade &lt; 6</code> =&gt; <strong><code>E</code></strong></li>
+<li><code>6 &lt;= grade &lt; 7</code> =&gt; <strong><code>D</code></strong></li>
+<li><code>7 &lt;= grade &lt; 8</code> =&gt; <strong><code>C</code></strong></li>
+<li><code>8 &lt;= grade &lt; 9</code> =&gt; <strong><code>B</code></strong></li>
+<li><code>9 &lt;= grade &lt;= 10</code> =&gt; <strong><code>A</code></strong></li>
+</ul>
+<p>The system does not allow for invalid grades (e.g. 0.9, 10.5)</p>
+<h3 id="variables">Variables</h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>type</th>
+<th>range</th>
+<th>remark</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Grade</td>
+<td>float</td>
+<td>[1, 10]</td>
+<td>no one gets a 0</td>
+</tr>
+<tr>
+<td>Concept</td>
+<td>Enumerate</td>
+<td>[F, E, D, B, C, A]</td>
+<td>output variable</td>
+</tr>
+</tbody>
+</table>
+<h3 id="dependency-among-variables">Dependency among variables</h3>
+<p>*There are no dependencies among the input variables, since we only have one variable.</p>
+<ul>
+<li>The grade is used to decide the concept.</li>
+</ul>
+<h3 id="equivalence-partitioningboundary-analysis">Equivalence Partitioning/Boundary Analysis</h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Equivalence classes</th>
+<th>Invalid classes</th>
+<th>Boundaries</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Grade</td>
+<td>[1,5[</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>1</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>5</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>4.9</td>
+</tr>
+<tr>
+<td></td>
+<td>[5,6[</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>4.9</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>5</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>6</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>5.9</td>
+</tr>
+<tr>
+<td></td>
+<td>[6,7[</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>5.9</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>6</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>7</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>6.9</td>
+</tr>
+<tr>
+<td></td>
+<td>[7,8[</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>6.9</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>7</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>8</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>7.9</td>
+</tr>
+<tr>
+<td></td>
+<td>[8,9[</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>7.9</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>8</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>9</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>8.9</td>
+</tr>
+<tr>
+<td></td>
+<td>[9,10]</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>8.9</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>9</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>10</td>
+</tr>
+</tbody>
+</table>
+<h3 id="strategy">Strategy</h3>
+<p>Test all boundaries, yielding 12 tests.</p>
+<table>
+<thead>
+<tr>
+<th>Test case</th>
+<th>Grade</th>
+<th>Concept (output)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T1</td>
+<td>1</td>
+<td>F</td>
+</tr>
+<tr>
+<td>T2</td>
+<td>4.9</td>
+<td>F</td>
+</tr>
+<tr>
+<td>T3</td>
+<td>5</td>
+<td>E</td>
+</tr>
+<tr>
+<td>T4</td>
+<td>5.9</td>
+<td>E</td>
+</tr>
+<tr>
+<td>T5</td>
+<td>6</td>
+<td>D</td>
+</tr>
+<tr>
+<td>T6</td>
+<td>6.9</td>
+<td>D</td>
+</tr>
+<tr>
+<td>T7</td>
+<td>7</td>
+<td>C</td>
+</tr>
+<tr>
+<td>T8</td>
+<td>7.9</td>
+<td>C</td>
+</tr>
+<tr>
+<td>T9</td>
+<td>8</td>
+<td>B</td>
+</tr>
+<tr>
+<td>T10</td>
+<td>8.9</td>
+<td>B</td>
+</tr>
+<tr>
+<td>T11</td>
+<td>9</td>
+<td>A</td>
+</tr>
+<tr>
+<td>T12</td>
+<td>10</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/YGomnAMt7RA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+
+
+
+<h2 id="exercise-5-the-msc-admission-problem">Exercise 5: The MSc admission problem</h2>
+<p>A student can only join the MSc if :</p>
+<ul>
+<li><code>ACT = 36</code> and <code>GPA &gt;= 3.5</code></li>
+<li><code>ACT &gt;= 35</code> and <code>GPA &gt;= 3.6</code></li>
+<li><code>ACT &gt;= 34</code> and <code>GPA &gt;= 3.7</code></li>
+<li><code>ACT &gt;= 33</code> and <code>GPA &gt;= 3.8</code></li>
+<li><code>ACT &gt;= 32</code> and <code>GPA &gt;= 3.9</code></li>
+<li><code>ACT &gt;= 31</code> and <code>GPA = 4.0</code>
+<em>ACT is an integer between 0 and 36 (inclusive).</em>
+<em>GPA are float variables between 0.0 and 4.0 (single decimal digit) (inclusive).</em></li>
+</ul>
+<h3 id="variables">Variables</h3>
+<table>
+<thead>
+<tr>
+<th>Variables</th>
+<th>Types</th>
+<th>Ranges</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ACT</td>
+<td>integer</td>
+<td>[0, 36]</td>
+</tr>
+<tr>
+<td>GPA</td>
+<td>float</td>
+<td>[0.0, 4.0]</td>
+</tr>
+<tr>
+<td>Decision</td>
+<td>boolean</td>
+<td>true/false</td>
+</tr>
+</tbody>
+</table>
+<h3 id="dependency-among-variables">Dependency among variables</h3>
+<ul>
+<li>ACT and GPA have a joint effect</li>
+<li>ACT and GPA are used to calculate Decision.</li>
+</ul>
+<h3 id="equivalence-partitioning--boundary-analysis">Equivalence partitioning / Boundary Analysis</h3>
+<p>The conditions from the requirements are really close with each other. Because of that, finding values that cross the boundary between partitions is challenging. We also note that the boundary that matters here is from (student being approved) -&gt; (student not being approved). So, for each partition, we should find its boundary that would force the student not being approved.</p>
+<p>These boundary points can found through the following process. We first find the on-point of the boundary, for instance (35, 3.6), then discover the closest inputs that would make the student to fail. In this example, (34, 3.6) and (35, 3.5). Note that there exists one special case (= 36, &gt;= 3.5). Since it contains an equality condition, we have two off-points to explore.</p>
+<p>Also note that we are using in-points that are on-points too. This is less common, but in the case of this problem choosing anohter in-point might make the final outcome to still not change between the boundary tests we devised.
+For example, if we choose a GPA in-point of 3.6, the 35 and 36 ACT will have the same outcome value (as the next rule will intervene).</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Equivalence classes</th>
+<th>Boundaries</th>
+<th>Remark</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(ACT, GPA)</td>
+<td>(= 36, &gt;= 3.5)</td>
+<td>(35, in)</td>
+<td>in-point GPA = 3.5</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(36, in)</td>
+<td>on-point</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(37, in)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(in, 3.5)</td>
+<td>in-point ACT = 36</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(in, 3.4)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>(&gt;= 35, &gt;= 3.6)</td>
+<td>(35, in)</td>
+<td>in-point GPA = 3.6</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(34, in)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(in, 3.6)</td>
+<td>in-point ACT = 35</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(in, 3.5)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>(&gt;= 34, &gt;= 3.7)</td>
+<td>(34, in)</td>
+<td>in-point GPA = 3.7</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(33, in)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(in, 3.7)</td>
+<td>in-point ACT = 34</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(in, 3.6)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>(&gt;= 33, &gt;= 3.8)</td>
+<td>(33, in)</td>
+<td>in-point GPA = 3.8</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(32, in)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(in, 3.8)</td>
+<td>in-point ACT = 33</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(in, 3.7)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>(&gt;= 32, &gt;= 3.9)</td>
+<td>(32, in)</td>
+<td>in-point GPA = 3.9</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(31, in)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(in, 3.9)</td>
+<td>in-point ACT = 32</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(in, 3.8)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>(&gt;= 31, = 4.0)</td>
+<td>(31, in)</td>
+<td>in-point GPA = 4.0</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(30, in)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(in, 4.0)</td>
+<td>in-point ACT = 31</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(in, 3.9)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>(&lt; 0, &lt; 0.0)</td>
+<td>(-1, in)</td>
+<td>in-point GPA = 0.1</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(in, -0.1)</td>
+<td>in-point ACT = 1</td>
+</tr>
+<tr>
+<td></td>
+<td>(&gt; 36, &gt; 4.0)</td>
+<td>(37, in)</td>
+<td>in-point GPA = 4</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(in, 4.1)</td>
+<td>in-point ACT = 36</td>
+</tr>
+</tbody>
+</table>
+<h3 id="strategy">Strategy</h3>
+<ul>
+<li>There are 24 boundaries <em>(for conditions on valid inputs)</em>, but some are repeated. 14 boundary tests.<ul>
+<li>(37, 3.5) is an invalid path, so we can ignore. Therefore 13 test cases.</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Test cases</th>
+<th>ACT</th>
+<th>GPA</th>
+<th>Decision</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T1</td>
+<td>35</td>
+<td>3.5</td>
+<td>False</td>
+</tr>
+<tr>
+<td>T2</td>
+<td>36</td>
+<td>3.5</td>
+<td>True</td>
+</tr>
+<tr>
+<td>T3</td>
+<td>36</td>
+<td>3.4</td>
+<td>False</td>
+</tr>
+<tr>
+<td>T4</td>
+<td>35</td>
+<td>3.6</td>
+<td>True</td>
+</tr>
+<tr>
+<td>T5</td>
+<td>34</td>
+<td>3.7</td>
+<td>True</td>
+</tr>
+<tr>
+<td>T6</td>
+<td>34</td>
+<td>3.6</td>
+<td>False</td>
+</tr>
+<tr>
+<td>T7</td>
+<td>33</td>
+<td>3.8</td>
+<td>True</td>
+</tr>
+<tr>
+<td>T8</td>
+<td>32</td>
+<td>3.8</td>
+<td>False</td>
+</tr>
+<tr>
+<td>T9</td>
+<td>33</td>
+<td>3.7</td>
+<td>False</td>
+</tr>
+<tr>
+<td>T10</td>
+<td>32</td>
+<td>3.9</td>
+<td>True</td>
+</tr>
+<tr>
+<td>T11</td>
+<td>31</td>
+<td>4.0</td>
+<td>True</td>
+</tr>
+<tr>
+<td>T12</td>
+<td>30</td>
+<td>4.0</td>
+<td>False</td>
+</tr>
+<tr>
+<td>T13</td>
+<td>31</td>
+<td>3.9</td>
+<td>False</td>
+</tr>
+<tr>
+<td>T14</td>
+<td>-1</td>
+<td>4.0</td>
+<td><em>Invalid</em></td>
+</tr>
+<tr>
+<td>T15</td>
+<td>37</td>
+<td>3.5</td>
+<td><em>Invalid</em></td>
+</tr>
+<tr>
+<td>T16</td>
+<td>36</td>
+<td>-0.1</td>
+<td><em>Invalid</em></td>
+</tr>
+<tr>
+<td>T17</td>
+<td>36</td>
+<td>4.1</td>
+<td><em>Invalid</em></td>
+</tr>
+</tbody>
+</table>
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/g9pk25_6MrY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+
+
+<h2 id="exercise-6-the-printing-label">Exercise 6: The printing label</h2>
+<p>A printer prints mailing labels.
+The first line is the name of the person.</p>
+<p>The program builds the name from three fields: first name, middle name, and last name.
+Each field can hold up to 30 characters.
+The label can be up to 70 characters wide.</p>
+<h3 id="variables">Variables</h3>
+<table>
+<thead>
+<tr>
+<th>Variables</th>
+<th>Types</th>
+<th>Ranges</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Len. of FN</td>
+<td>integer</td>
+<td>[1, 30]</td>
+</tr>
+<tr>
+<td>Len. of MN</td>
+<td>integer</td>
+<td>[0, 30]</td>
+</tr>
+<tr>
+<td>Len. of LN</td>
+<td>integer</td>
+<td>[0, 30]</td>
+</tr>
+<tr>
+<td>Output length</td>
+<td>integer</td>
+<td>[1, 70]</td>
+</tr>
+</tbody>
+</table>
+<h3 id="dependencies-among-variables">Dependencies among variables</h3>
+<p>FN + MN + LN &lt;= 68</p>
+<p>(The difference of 2 (to 70) happens as the system needs to add an empty space in between names)</p>
+<h3 id="equivalence-partitioning--boundary-analysis">Equivalence partitioning / Boundary analysis</h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Equivalence Classes</th>
+<th>Invalid Classes</th>
+<th>Boundaries</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FN</td>
+<td>[1, 30]</td>
+<td>invalid string</td>
+<td>0</td>
+<td>everybody has a first name</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>30</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>31</td>
+<td>same as &gt;30</td>
+</tr>
+<tr>
+<td>MN</td>
+<td>[0, 30]</td>
+<td>invalid string</td>
+<td>0</td>
+<td>not everybody has a middle name</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>-1</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>30</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>31</td>
+<td></td>
+</tr>
+<tr>
+<td>LN</td>
+<td>[0, 30]</td>
+<td>invalid string</td>
+<td>0</td>
+<td>not everybody has a last name</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>-1</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>30</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>31</td>
+<td></td>
+</tr>
+<tr>
+<td>(FN, MN, LN)</td>
+<td>FM + MN + LN &lt;= 68</td>
+<td></td>
+<td>68</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>69</td>
+</tr>
+</tbody>
+</table>
+<h3 id="strategy">Strategy</h3>
+<ul>
+<li><p>Each variable has 2 partitions, plus a restriction.</p>
+</li>
+<li><p>Let&apos;s not combine &quot;invalid strings&quot; with them all. So: 3 tests for exceptional cases + 5 <em> 5 </em> 5 = 125 + 3 = 128.</p>
+</li>
+<li><p>If we focus on the on-points and off-points, and in-points for others, we&apos;d have 4 + 4 + 4 = 12 tests plus invalid cases: 15 tests.</p>
+</li>
+<li><p>In-points always taking the FN + MN + LN &lt;= 68 restriction into account.</p>
+</li>
+<li><p>Two tests for the extra restriction: 17 tests.</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Test Case</th>
+<th>FN</th>
+<th>MN</th>
+<th>LN</th>
+<th>(length)</th>
+<th>output</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T1</td>
+<td>0</td>
+<td>15</td>
+<td>7</td>
+<td>22</td>
+<td>invalid</td>
+<td>FN boundaries</td>
+</tr>
+<tr>
+<td>T2</td>
+<td>1</td>
+<td>7</td>
+<td>2</td>
+<td>10</td>
+<td>valid</td>
+<td></td>
+</tr>
+<tr>
+<td>T3</td>
+<td>30</td>
+<td>3</td>
+<td>9</td>
+<td>42</td>
+<td>valid</td>
+<td></td>
+</tr>
+<tr>
+<td>T4</td>
+<td>31</td>
+<td>21</td>
+<td>12</td>
+<td>64</td>
+<td>invalid</td>
+<td></td>
+</tr>
+<tr>
+<td>T5</td>
+<td>15</td>
+<td>0</td>
+<td>15</td>
+<td>30</td>
+<td>valid</td>
+<td>MN boundaries</td>
+</tr>
+<tr>
+<td>T6</td>
+<td>20</td>
+<td>-1</td>
+<td>7</td>
+<td>26</td>
+<td>invalid</td>
+<td></td>
+</tr>
+<tr>
+<td>T7</td>
+<td>21</td>
+<td>30</td>
+<td>6</td>
+<td>57</td>
+<td>valid</td>
+<td></td>
+</tr>
+<tr>
+<td>T8</td>
+<td>22</td>
+<td>31</td>
+<td>3</td>
+<td>56</td>
+<td>invalid</td>
+<td></td>
+</tr>
+<tr>
+<td>T9</td>
+<td>7</td>
+<td>3</td>
+<td>0</td>
+<td>10</td>
+<td>valid</td>
+<td>LN boundaries</td>
+</tr>
+<tr>
+<td>T10</td>
+<td>2</td>
+<td>6</td>
+<td>-1</td>
+<td>7</td>
+<td>invalid</td>
+<td></td>
+</tr>
+<tr>
+<td>T11</td>
+<td>9</td>
+<td>18</td>
+<td>30</td>
+<td>57</td>
+<td>valid</td>
+<td></td>
+</tr>
+<tr>
+<td>T12</td>
+<td>12</td>
+<td>27</td>
+<td>31</td>
+<td>70</td>
+<td>invalid</td>
+<td></td>
+</tr>
+<tr>
+<td>T13</td>
+<td>invalid string</td>
+<td>14</td>
+<td>20</td>
+<td></td>
+<td>invalid</td>
+<td>invalid classes</td>
+</tr>
+<tr>
+<td>T14</td>
+<td>11</td>
+<td>invalid string</td>
+<td>23</td>
+<td></td>
+<td>invalid</td>
+<td></td>
+</tr>
+<tr>
+<td>T15</td>
+<td>9</td>
+<td>19</td>
+<td>invalid string</td>
+<td></td>
+<td>invalid</td>
+<td></td>
+</tr>
+<tr>
+<td>T16</td>
+<td>23</td>
+<td>23</td>
+<td>22</td>
+<td>68</td>
+<td>valid</td>
+<td>FN + MN + LN restriction</td>
+</tr>
+<tr>
+<td>T17</td>
+<td>23</td>
+<td>23</td>
+<td>23</td>
+<td>69</td>
+<td>invalid</td>
+</tr>
+</tbody>
+</table>
+<h3 id="notes">Notes:</h3>
+<ul>
+<li>We simplified the output by basically returning &quot;valid&quot; or &quot;invalid&quot;. You might also wanna check the final name that was generated.</li>
+<li>Test cases with strings of length -1 might then not be possible.</li>
+</ul>
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/JoHwLORk0cw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+
+
+<h2 id="exercise-7-tax-income">Exercise 7: Tax Income</h2>
+<p>Your income is taxed as follows:*</p>
+<ul>
+<li><code>0 &lt;= Income &lt; 22100</code> &#x2192; <strong>Tax = <code>0.15 x Income</code></strong></li>
+<li><code>22100 &lt;= Income &lt; 53500</code> &#x2192; <strong>Tax = <code>3315 + 0.28 * (Income - 22100)</code></strong></li>
+<li><code>53500 &lt;= Income &lt; 115000</code> &#x2192; <strong>Tax = <code>12107 + 0.31 * (Income - 53500)</code></strong></li>
+<li><code>115000 &lt;= Income &lt; 250000</code> &#x2192; <strong>Tax = <code>31172 + 0.36 * (Income - 115000)</code></strong></li>
+<li><code>250000 &lt;= Income</code> &#x2192; <strong>Tax = <code>79772 + 0.396 * (Income - 250000)</code></strong></li>
+</ul>
+<h3 id="variables-types-ranges">Variables, Types, Ranges</h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Type</th>
+<th>Range</th>
+<th>Remark</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Income</td>
+<td>double</td>
+<td><code>[0, infinite]</code></td>
+<td>input</td>
+</tr>
+<tr>
+<td>Tax</td>
+<td>double</td>
+<td><code>[0, infinite]</code></td>
+<td>output</td>
+</tr>
+</tbody>
+</table>
+<h3 id="dependency-between-variables">Dependency between variables</h3>
+<ul>
+<li>Income is used to calculate Tax</li>
+</ul>
+<h3 id="equivalence-partitioning--boundary-analysis">Equivalence partitioning / Boundary analysis</h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Equivalence classes</th>
+<th>Invalid classes</th>
+<th>Boundaries</th>
+<th>Remark</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Income</td>
+<td>[0, 22100[</td>
+<td></td>
+<td>-1</td>
+<td>negative number</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>22099</td>
+<td>22099.99 is better!</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>22100</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>[22100,53500[</td>
+<td></td>
+<td>22099</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>22100</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>53499</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>53500</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>[53500,115000[</td>
+<td></td>
+<td>53499</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>53500</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>114999</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>115000</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>[115000,250000[</td>
+<td></td>
+<td>114999</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>115000</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>250000</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>250001</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>[250000, infinite[</td>
+<td></td>
+<td>249999</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>250000</td>
+</tr>
+</tbody>
+</table>
+<h3 id="strategy">Strategy</h3>
+<p>Test the boundaries (removing duplicates) &#x2192; 10 tests</p>
+<h3 id="test-cases">Test cases</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Income</th>
+<th>Tax</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T1</td>
+<td>-1</td>
+<td><em>CANNOT CALC TAX</em></td>
+</tr>
+<tr>
+<td>T2</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>T3</td>
+<td>22099</td>
+<td>3314.85</td>
+</tr>
+<tr>
+<td>T4</td>
+<td>22100</td>
+<td>3315</td>
+</tr>
+<tr>
+<td>T5</td>
+<td>53499</td>
+<td>12106.72</td>
+</tr>
+<tr>
+<td>T6</td>
+<td>53500</td>
+<td>12107</td>
+</tr>
+<tr>
+<td>T7</td>
+<td>114999</td>
+<td>31171.69</td>
+</tr>
+<tr>
+<td>T8</td>
+<td>115000</td>
+<td>31172</td>
+</tr>
+<tr>
+<td>T9</td>
+<td>249999</td>
+<td>79771.64</td>
+</tr>
+<tr>
+<td>T10</td>
+<td>250000</td>
+<td>79772</td>
+</tr>
+</tbody>
+</table>
+<h3 id="question">Question</h3>
+<ul>
+<li>Would you consider 22100 and 22099 a duplicate?</li>
+</ul>
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/IaWioXqM1g4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+
+
+<h3 id="another-approach">Another approach</h3>
+<p>One may argue that this functions is continuous in all of its boundaries, which makes the result the same for all
+(<code>on</code>, <code>off</code>) pairs.</p>
+<p>As, a consequence when looking just at the results at the boundaries we are not exercising them in the most efficient way.
+The whole purpose of boundary testing is to minimize the costs while maximizing fault detection capability.</p>
+<p>What can we do to make our test cases more efficient? We can observe that what is really changing when making
+the transition from one partition to another is not the result of the function itself, but its derivative. Thus, we can
+focus on looking at the derivative for <code>on</code> and <code>off</code> points.</p>
+<p>Let&apos;s recall the definition of the derivative of function <code>f</code> at point <code>a</code>: <code>f&apos;(a) = lim h -&gt; 0 ((f(a+h) - f(a)) / h)</code>
+To determine the derivative numerically we have to substitute <code>h</code> with sufficiently small number. For our case let <code>h = 0.01</code>.</p>
+<p>We can now look at the boundary between first and second partition. <code>off = 22099.99</code> <code>on = 22100</code></p>
+<p>By substituting those values into the definition of the derivative, we can determine the derivative of <code>f</code> at <code>off</code> <code>on</code>:</p>
+<ol>
+<li><code>f&apos;(off) = (f(off+h) - f(off)) / h = (f(22099.99 + 0.01) - f(22099.99)) / 0.01 = (f(22100) - f (22099.99)) / 0.01</code></li>
+<li><code>f&apos;(on) = (f(on+h) - f(a)) / h = (f(22100 + 0.01) - f(22100)) / 0.01 = (f(22100.01) - f (22100)) / 0.01</code></li>
+</ol>
+<p>Now we find the expected derivatives for the corresponding off and on points from the specification:</p>
+<ol>
+<li><code>f(off) = 0.15 * off</code> thus <code>f&apos;(off) = 0.15</code></li>
+<li><code>f(on) = 3315 + 0.28 * (on - 22100)</code> thus <code>f&apos;(a) = 0.28</code></li>
+</ol>
+<p>Now in our tests we can check whether actual derivatives for on and off points are equal to the expectation. What is left
+to do is to repeat the whole process for all other boundaries.</p>
+<p>Note that if we decide to exercise the boundaries in this way, we have to remember to write the tests for the results too, as correct derivative does not imply correct function.
+Maybe the developer, during implementation, instead of <code>3315 + 0.28 * (on - 22100)</code> wrote <code>315 + 0.28 * (on - 22100)</code>,
+which by testing only for derivatives we will not spot.</p>
+<p>This example shows that as a software testers we, not only have to identify the boundaries between partitions, but also
+think about what is really changing when crossing those boundaries, in order to maximize the efficiency of our test cases.</p>
+<h2 id="exercise-8-the-atm">Exercise 8: The ATM</h2>
+<p>An ATM allows you to withdraw 20 to 200 euros (inclusive) in increments of 20.
+For the example purposes, the program returns true or false, depending whether the amount required is valid.</p>
+<h3 id="variables">Variables</h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Type</th>
+<th>Range</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Amount</td>
+<td>integer</td>
+<td>{20, 40, 60, 80, 100, 120, 140, 160, 180, 200}</td>
+</tr>
+<tr>
+<td>Valid</td>
+<td>boolean</td>
+<td><code>true</code>, <code>false</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="dependency-among-variables">Dependency among variables</h3>
+<p>Valid depends on the Amount</p>
+<h3 id="equivalence-partitioningboundary-analysis">Equivalence Partitioning/Boundary Analysis</h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Equivalence classes</th>
+<th>Invalid classes</th>
+<th>Boundaries</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Amount</td>
+<td>20</td>
+<td></td>
+<td>19</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>21</td>
+</tr>
+<tr>
+<td></td>
+<td>40</td>
+<td></td>
+<td>39</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>41</td>
+</tr>
+<tr>
+<td></td>
+<td>60</td>
+<td></td>
+<td>59</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>61</td>
+</tr>
+<tr>
+<td></td>
+<td>80</td>
+<td></td>
+<td>79</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>81</td>
+</tr>
+<tr>
+<td></td>
+<td>100</td>
+<td></td>
+<td>99</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>101</td>
+</tr>
+<tr>
+<td></td>
+<td>120</td>
+<td></td>
+<td>119</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>121</td>
+</tr>
+<tr>
+<td></td>
+<td>140</td>
+<td></td>
+<td>139</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>141</td>
+</tr>
+<tr>
+<td></td>
+<td>160</td>
+<td></td>
+<td>159</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>161</td>
+</tr>
+<tr>
+<td></td>
+<td>180</td>
+<td></td>
+<td>179</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>181</td>
+</tr>
+<tr>
+<td></td>
+<td>200</td>
+<td></td>
+<td>199</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>201</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>-1</td>
+</tr>
+</tbody>
+</table>
+<p>Note that <code>-1</code> may be impossible to test.</p>
+<h3 id="strategy">Strategy</h3>
+<ul>
+<li>Black-box testing: maybe all the on-points, off-points and invalid points.   </li>
+<li>White-box testing: maybe just on-points, few-off points, invalid points.<br>Why? If you know the implementation, you know how hard you need to test it.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Test case</th>
+<th>Amount</th>
+<th>Valid (output)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T1</td>
+<td>20</td>
+<td>true</td>
+</tr>
+<tr>
+<td>T2</td>
+<td>40</td>
+<td>true</td>
+</tr>
+<tr>
+<td>T3</td>
+<td>60</td>
+<td>true</td>
+</tr>
+<tr>
+<td>T4</td>
+<td>80</td>
+<td>true</td>
+</tr>
+<tr>
+<td>T5</td>
+<td>100</td>
+<td>true</td>
+</tr>
+<tr>
+<td>T6</td>
+<td>120</td>
+<td>true</td>
+</tr>
+<tr>
+<td>T7</td>
+<td>140</td>
+<td>true</td>
+</tr>
+<tr>
+<td>T8</td>
+<td>160</td>
+<td>true</td>
+</tr>
+<tr>
+<td>T9</td>
+<td>180</td>
+<td>true</td>
+</tr>
+<tr>
+<td>T10</td>
+<td>200</td>
+<td>true</td>
+</tr>
+<tr>
+<td>T11</td>
+<td>19</td>
+<td>false</td>
+</tr>
+<tr>
+<td>T12</td>
+<td>41</td>
+<td>false</td>
+</tr>
+<tr>
+<td>T13</td>
+<td>61</td>
+<td>false</td>
+</tr>
+<tr>
+<td>T14</td>
+<td>-1</td>
+<td>false</td>
+</tr>
+</tbody>
+</table>
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/A9sjzHGcpiA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+
+
+<h2 id="exercise-9-piecewise">Exercise 9: Piecewise</h2>
+<p>The input domain of a function is a set of all points (x, y) that meet the criteria:</p>
+<ul>
+<li><code>1 &lt; x &lt;= 10</code></li>
+<li><code>1 &lt;= y &lt;= 10</code></li>
+<li><code>y &lt;= 14 - x</code></li>
+</ul>
+<h3 id="variables">Variables</h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Type</th>
+<th>Range</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x</td>
+<td>integer</td>
+<td><code>1 &lt; x &lt;= 10</code></td>
+</tr>
+<tr>
+<td>y</td>
+<td>integer</td>
+<td><code>1 &lt;= y &lt;= 10</code>, <code>y &lt;= 14 - x</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="dependency-among-variables">Dependency among variables</h3>
+<ul>
+<li><code>x</code> and <code>y</code> are dependent, since the range in <code>y</code> varies according to <code>x</code>.</li>
+</ul>
+<h3 id="equivalence-partitioningboundary-analysis">Equivalence Partitioning/Boundary Analysis</h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Equivalence classes</th>
+<th>Invalid classes</th>
+<th>Boundaries</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x</td>
+<td><code>1 &lt; x &lt;= 10</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td><code>(1, in)</code></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td><code>(2, in)</code></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td><code>(10, in)</code></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td><code>(11, in)</code></td>
+</tr>
+<tr>
+<td>y</td>
+<td><code>1 &lt;= y &lt;= 10</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td><code>(in, 1)</code></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td><code>(in, 0)</code></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td><code>(in, 10)</code></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td><code>(in, 11)</code></td>
+</tr>
+<tr>
+<td></td>
+<td><code>y &lt;= 14 - x</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td><code>(4, 10)</code></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td><code>(5, 10)</code></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td><code>(10, 4)</code></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td><code>(11, 4)</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="strategy">Strategy</h3>
+<p>Make tests for all 12 boundaries</p>
+<table>
+<thead>
+<tr>
+<th>Test case</th>
+<th>x</th>
+<th>y</th>
+<th>output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T1</td>
+<td>1</td>
+<td>5</td>
+<td>false</td>
+</tr>
+<tr>
+<td>T2</td>
+<td>2</td>
+<td>5</td>
+<td>true</td>
+</tr>
+<tr>
+<td>T3</td>
+<td>10</td>
+<td>2</td>
+<td>true</td>
+</tr>
+<tr>
+<td>T4</td>
+<td>11</td>
+<td>2</td>
+<td>false</td>
+</tr>
+<tr>
+<td>T5</td>
+<td>3</td>
+<td>1</td>
+<td>true</td>
+</tr>
+<tr>
+<td>T6</td>
+<td>3</td>
+<td>0</td>
+<td>false</td>
+</tr>
+<tr>
+<td>T7</td>
+<td>3</td>
+<td>10</td>
+<td>true</td>
+</tr>
+<tr>
+<td>T8</td>
+<td>3</td>
+<td>11</td>
+<td>false</td>
+</tr>
+<tr>
+<td>T9</td>
+<td>4</td>
+<td>10</td>
+<td>true</td>
+</tr>
+<tr>
+<td>T10</td>
+<td>5</td>
+<td>10</td>
+<td>false</td>
+</tr>
+<tr>
+<td>T11</td>
+<td>10</td>
+<td>4</td>
+<td>true</td>
+</tr>
+<tr>
+<td>T12</td>
+<td>11</td>
+<td>4</td>
+<td>false</td>
+</tr>
+</tbody>
+</table>
+<h3 id="another-approach">Another approach</h3>
+<p>We might look at the plot of the function. In the plot, we identify 5 boundaries (one at each of the extremes of the figure). As a tester, we can exercise these boundaries.</p>
+<p><img src="img/domain-testing/piecewise-boundary-chart.png" alt="Boundary testing chart"></p>
+<table>
+<thead>
+<tr>
+<th>Test case</th>
+<th>x</th>
+<th>y</th>
+<th>output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T1</td>
+<td>1</td>
+<td>1</td>
+<td>false</td>
+</tr>
+<tr>
+<td>T2</td>
+<td>2</td>
+<td>1</td>
+<td>true</td>
+</tr>
+<tr>
+<td>T3</td>
+<td>10</td>
+<td>1</td>
+<td>true</td>
+</tr>
+<tr>
+<td>T4</td>
+<td>11</td>
+<td>1</td>
+<td>false</td>
+</tr>
+<tr>
+<td>T5</td>
+<td>2</td>
+<td>0</td>
+<td>false</td>
+</tr>
+<tr>
+<td>T6</td>
+<td>2</td>
+<td>10</td>
+<td>true</td>
+</tr>
+<tr>
+<td>T7</td>
+<td>2</td>
+<td>11</td>
+<td>false</td>
+</tr>
+<tr>
+<td>T8</td>
+<td>4</td>
+<td>10</td>
+<td>true</td>
+</tr>
+<tr>
+<td>T9</td>
+<td>4</td>
+<td>11</td>
+<td>false</td>
+</tr>
+<tr>
+<td>T10</td>
+<td>10</td>
+<td>4</td>
+<td>true</td>
+</tr>
+<tr>
+<td>T11</td>
+<td>10</td>
+<td>5</td>
+<td>false</td>
+</tr>
+<tr>
+<td>T12</td>
+<td>11</td>
+<td>4</td>
+<td>false</td>
+</tr>
+<tr>
+<td>T13</td>
+<td>1</td>
+<td>10</td>
+<td>false</td>
+</tr>
+<tr>
+<td>T14</td>
+<td>5</td>
+<td>10</td>
+<td>false</td>
+</tr>
+</tbody>
+</table>
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/2c8D_KGqZ-g" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+
+
+<h2 id="exercise-10-chocolate-bars">Exercise 10: Chocolate bars</h2>
+<p>A package should store a total number of kilograms. There are small bars (1 kg each) and big bars (5 kg each).</p>
+<ul>
+<li>The input of the program is the number of small bars and big bars available and the total number of kilos to store.</li>
+<li>We should calculate the number of small bars to use, assuming we always use big bars before small bars. Output -1, if it can&apos;t be done.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Variables</th>
+<th>Types</th>
+<th>Ranges</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Small bars</td>
+<td>integer</td>
+<td>[0, inf]</td>
+</tr>
+<tr>
+<td>Big bars</td>
+<td>integer</td>
+<td>[0, inf]</td>
+</tr>
+<tr>
+<td>Total kilos</td>
+<td>integer</td>
+<td>[0, inf]</td>
+</tr>
+<tr>
+<td>Used small bars (output)</td>
+<td>integer</td>
+<td>[-1, inf]</td>
+</tr>
+</tbody>
+</table>
+<h3 id="dependency-between-variables">Dependency between variables</h3>
+<ul>
+<li>Input variables are independent (they don&apos;t affect each other&apos;s range).</li>
+<li>Output variable depends on the three input values.</li>
+<li><strong>Constraint</strong>: Use big bars before small bars.</li>
+</ul>
+<p><em>Analyse it from the perspective of the output variable: how can the input variables influence the result?</em></p>
+<h3 id="equivalence-partitioning--boundary-analysis">Equivalence partitioning / Boundary analysis</h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Equivalence classes</th>
+<th>Boundaries</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(small, big, total weight)</td>
+<td>only big bars</td>
+<td>only big bars -&gt; small and big bars</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>only big bars -&gt; not enough bars</td>
+</tr>
+<tr>
+<td></td>
+<td>only small bars</td>
+<td>only small bars -&gt; small and big bars</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>only small bars -&gt; not enough bars</td>
+</tr>
+<tr>
+<td></td>
+<td>small and big bars</td>
+<td>small and big bars -&gt; only big bars</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>small and big bars -&gt; only small bars</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>small and big bars -&gt; not enough bars</td>
+</tr>
+<tr>
+<td></td>
+<td>not enough bars</td>
+<td>not enough bars -&gt; only big bars</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>not enough bars -&gt; only small bars</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>not enough bars -&gt; small and big bars</td>
+</tr>
+</tbody>
+</table>
+<p><img src="img/boundary-testing/chocolate-boundaries.png" alt="Boundaries in the chocolate bars problem"></p>
+<h3 id="strategy">Strategy</h3>
+<ul>
+<li>There are 4 equivalence classes and 10 boundaries, but many of these boundaries are actually the same.<ul>
+<li>For example, boundary 1 and 5 are in fact the same boundary. <em>Boundaries are not directional</em></li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Test cases</th>
+<th>(Small bars, Big bars, Total weight)</th>
+<th>Used small bars (output)</th>
+<th>Remark</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T2</td>
+<td>(10, 2, 10)</td>
+<td>0</td>
+<td>small and big bars -&gt;</td>
+</tr>
+<tr>
+<td>T1</td>
+<td>(10, 1, 10)</td>
+<td>5</td>
+<td>only big bars</td>
+</tr>
+<tr>
+<td>T3</td>
+<td>(10, 1, 10)</td>
+<td>5</td>
+<td>small and big bars -&gt;</td>
+</tr>
+<tr>
+<td>T4</td>
+<td>(10, 0, 10)</td>
+<td>10</td>
+<td>only small bars</td>
+</tr>
+<tr>
+<td>T5</td>
+<td>(5, 0, 5)</td>
+<td>5</td>
+<td>only small bars -&gt;</td>
+</tr>
+<tr>
+<td>T6</td>
+<td>(4, 0, 5)</td>
+<td>-1</td>
+<td>not enough bars</td>
+</tr>
+<tr>
+<td>T7</td>
+<td>(4, 2, 10)</td>
+<td>0</td>
+<td>only big bars -&gt;</td>
+</tr>
+<tr>
+<td>T8</td>
+<td>(4, 1, 10)</td>
+<td>-1</td>
+<td>not enough bars</td>
+</tr>
+<tr>
+<td>T9</td>
+<td>(3, 1, 8)</td>
+<td>3</td>
+<td>small and big bars -&gt;</td>
+</tr>
+<tr>
+<td>T10</td>
+<td>(2, 1, 8)</td>
+<td>-1</td>
+<td>not enough bars (needed more small bars)</td>
+</tr>
+<tr>
+<td>T11</td>
+<td>(3, 1, 8)</td>
+<td>3</td>
+<td>small and big bars -&gt;</td>
+</tr>
+<tr>
+<td>T12</td>
+<td>(3, 0, 8)</td>
+<td>-1</td>
+<td>not enough bars (needed more big bars)</td>
+</tr>
+</tbody>
+</table>
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/9ij_kqj78eA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+
+
+
+<h2 id="references">References</h2>
+<ul>
+<li><p>Kaner, Cem, Sowmya Padmanabhan, and Douglas Hoffman. The Domain Testing Workbook. Context Driven Press, 2013.</p>
+</li>
+<li><p>Kaner, Cem. What Is a Good Test Case?, 2003. URL: <a href="http://testingeducation.org/BBST/testdesign/Kaner_GoodTestCase.pdf" target="_blank">http://testingeducation.org/BBST/testdesign/Kaner_GoodTestCase.pdf</a></p>
+</li>
+</ul>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../appendix/answers.html" class="navigation navigation-prev " aria-label="Previous page: Answers to the exercises">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../appendix/2020-midterm-preparation.html" class="navigation navigation-next " aria-label="Next page: 2020 midterm mock exam">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Domain testing examples","level":"9.1.2","depth":2,"next":{"title":"2020 midterm mock exam","level":"9.1.3","depth":2,"path":"chapters/appendix/2020-midterm-preparation.md","ref":"chapters/appendix/2020-midterm-preparation.md","articles":[]},"previous":{"title":"Answers to the exercises","level":"9.1.1","depth":2,"path":"chapters/appendix/answers.md","ref":"chapters/appendix/answers.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/testing-techniques/domain-testing.md","mtime":"2020-06-11T13:23:32.077Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-26T07:11:49.412Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-ga/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

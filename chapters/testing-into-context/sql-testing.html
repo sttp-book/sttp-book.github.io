@@ -1,0 +1,1050 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>SQL testing · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-hints/plugin-hints.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-katex/katex.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+        <link rel="stylesheet" href="../../assets/css/website.css">
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="web-testing.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../preface/authors.html">
+            
+                <a href="../preface/authors.html">
+            
+                    
+                    Authors and Acknowledgements
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../preface/use.html">
+            
+                <a href="../preface/use.html">
+            
+                    
+                    Using this book
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../preface/contribute.html">
+            
+                <a href="../preface/contribute.html">
+            
+                    
+                    Contribute to this book
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../preface/license.html">
+            
+                <a href="../preface/license.html">
+            
+                    
+                    License
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../preface/structure.html">
+            
+                <a href="../preface/structure.html">
+            
+                    
+                    Structure of the book
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../getting-started/">
+            
+                <a href="../getting-started/">
+            
+                    
+                    Getting started with software testing
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1.1" data-path="../getting-started/why-software-testing.html">
+            
+                <a href="../getting-started/why-software-testing.html">
+            
+                    
+                    Why software testing?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.2" data-path="../getting-started/testing-principles.html">
+            
+                <a href="../getting-started/testing-principles.html">
+            
+                    
+                    Principles of software testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.3" data-path="../getting-started/test-automation.html">
+            
+                <a href="../getting-started/test-automation.html">
+            
+                    
+                    Software testing automation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.4" data-path="../getting-started/testing-vs-writing-tests.html">
+            
+                <a href="../getting-started/testing-vs-writing-tests.html">
+            
+                    
+                    Testing vs writing tests
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.5" data-path="../getting-started/developer-testing-workflow.html">
+            
+                <a href="../getting-started/developer-testing-workflow.html">
+            
+                    
+                    The developer testing workflow
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" data-path="../testing-techniques/">
+            
+                <a href="../testing-techniques/">
+            
+                    
+                    Testing techniques
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1.1" data-path="../testing-techniques/specification-based-testing.html">
+            
+                <a href="../testing-techniques/specification-based-testing.html">
+            
+                    
+                    Specification-based testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.2" data-path="../testing-techniques/boundary-testing.html">
+            
+                <a href="../testing-techniques/boundary-testing.html">
+            
+                    
+                    Boundary testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.3" data-path="../testing-techniques/structural-testing.html">
+            
+                <a href="../testing-techniques/structural-testing.html">
+            
+                    
+                    Structural testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.4" data-path="../testing-techniques/model-based-testing.html">
+            
+                <a href="../testing-techniques/model-based-testing.html">
+            
+                    
+                    Model-based testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.5" data-path="../testing-techniques/design-by-contracts.html">
+            
+                <a href="../testing-techniques/design-by-contracts.html">
+            
+                    
+                    Design-by-contracts
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.6" data-path="../testing-techniques/property-based-testing.html">
+            
+                <a href="../testing-techniques/property-based-testing.html">
+            
+                    
+                    Property-based testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="5.1" data-path="../pragmatic-testing/">
+            
+                <a href="../pragmatic-testing/">
+            
+                    
+                    Pragmatic software testing
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1.1" data-path="../pragmatic-testing/testing-pyramid.html">
+            
+                <a href="../pragmatic-testing/testing-pyramid.html">
+            
+                    
+                    The testing pyramid
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.2" data-path="../pragmatic-testing/test-doubles.html">
+            
+                <a href="../pragmatic-testing/test-doubles.html">
+            
+                    
+                    Test doubles
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.3" data-path="../pragmatic-testing/design-for-testability.html">
+            
+                <a href="../pragmatic-testing/design-for-testability.html">
+            
+                    
+                    Design for testability
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.4" data-path="../pragmatic-testing/tdd.html">
+            
+                <a href="../pragmatic-testing/tdd.html">
+            
+                    
+                    Test-driven development
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.5" data-path="../pragmatic-testing/test-code-quality.html">
+            
+                <a href="../pragmatic-testing/test-code-quality.html">
+            
+                    
+                    Test code quality and engineering
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="6.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Testing in context
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="6.1.1" data-path="web-testing.html">
+            
+                <a href="web-testing.html">
+            
+                    
+                    Web testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="6.1.2" data-path="sql-testing.html">
+            
+                <a href="sql-testing.html">
+            
+                    
+                    SQL testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.3" >
+            
+                <span>
+            
+                    
+                    Web services testing (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.4" >
+            
+                <span>
+            
+                    
+                    Mobile testing (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="7.1" data-path="../non-functional-testing/">
+            
+                <a href="../non-functional-testing/">
+            
+                    
+                    Non-functional testing
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="7.1.1" data-path="../non-functional-testing/security-testing.html">
+            
+                <a href="../non-functional-testing/security-testing.html">
+            
+                    
+                    Security testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.1.2" >
+            
+                <span>
+            
+                    
+                    Performance testing (soon)
+            
+                </span>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="8.1" data-path="../intelligent-testing/">
+            
+                <a href="../intelligent-testing/">
+            
+                    
+                    Intelligent testing
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.1.1" data-path="../intelligent-testing/static-testing.html">
+            
+                <a href="../intelligent-testing/static-testing.html">
+            
+                    
+                    Static testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.2" data-path="../intelligent-testing/mutation-testing.html">
+            
+                <a href="../intelligent-testing/mutation-testing.html">
+            
+                    
+                    Mutation testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.3" data-path="../intelligent-testing/fuzzing.html">
+            
+                <a href="../intelligent-testing/fuzzing.html">
+            
+                    
+                    Fuzz testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.4" data-path="../intelligent-testing/sbst.html">
+            
+                <a href="../intelligent-testing/sbst.html">
+            
+                    
+                    Search-based testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="9.1" >
+            
+                <span>
+            
+                    
+                    Appendix
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="9.1.1" data-path="../appendix/answers.html">
+            
+                <a href="../appendix/answers.html">
+            
+                    
+                    Answers to the exercises
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.1.2" data-path="../testing-techniques/domain-testing.html">
+            
+                <a href="../testing-techniques/domain-testing.html">
+            
+                    
+                    Domain testing examples
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.1.3" data-path="../appendix/2020-midterm-preparation.html">
+            
+                <a href="../appendix/2020-midterm-preparation.html">
+            
+                    
+                    2020 midterm mock exam
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.1.4" data-path="../appendix/2020-midterm-preparation-answers.html">
+            
+                <a href="../appendix/2020-midterm-preparation-answers.html">
+            
+                    
+                    2020 midterm mock exam (answers)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.1.5" data-path="../appendix/changelog.html">
+            
+                <a href="../appendix/changelog.html">
+            
+                    
+                    Change log
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >SQL testing</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="sql-testing">SQL Testing</h1>
+<p>As we discussed in the <em>Testing Pyramid</em> chapter, parts of our system only make sense to be tested by means of integration testing. A common case for integration testing are classes that talk to databases. Business applications are often composed of many <a href="https://en.wikipedia.org/wiki/Data_access_object" target="_blank">Data Access Objects</a> (DAOs) that perform complex SQL queries. A lot of business knowledge are encapsulated in these queries, requiring testers to spend some energy in making sure that produce the expected outcomes.</p>
+<p>In this chapter, we discuss:</p>
+<ul>
+<li>What to test in a SQL query?</li>
+<li>How to write automated test cases for such queries</li>
+<li>Challenges and best practices</li>
+</ul>
+<p>This chapter expects the reader to have some basic knowledge on SQL queries.</p>
+<h2 id="what-to-test-in-a-sql-query">What to test in a SQL query?</h2>
+<p>SQL is a robust language and contains a large number of different functions that developers can make use of. Let us simplify and see queries as a composition of predicates. See the following examples:</p>
+<ul>
+<li><code>SELECT * FROM INVOICE WHERE VALUE &lt; 50</code></li>
+<li><code>SELECT * FROM INVOICE I JOIN CUSTOMER C ON I.CUSTOMER_ID = C.ID WHERE C.COUNTRY = &apos;NL&apos;</code></li>
+<li><code>SELECT * FROM INVOICE WHERE VALUE &gt; 50 AND VALUE &lt; 200</code></li>
+</ul>
+<p>In these examples, <code>value &lt; 50</code>, <code>i.customer_id = c.id</code>, <code>c.country = &apos;NL&apos;</code>, and <code>value &gt; 50 and value &lt; 200</code> are the predicates that compose the different queries. As a tester, a possible criteria is to exercise the different predicates and check whether the SQL query returns the expected results when predicates are evaluated to different results. </p>
+<p>Virtually all the testing techniques we have discussed in the <em>Testing Techniques</em> part of this book can be applied here:</p>
+<ul>
+<li>Specification-based testing: These SQL queries emerge out of a requirement. A tester can analyse the requirements and derive equivalent partitions that need to be tested.</li>
+<li>Boundary analysis: Such programs have boundaries. Given that we can also expect boundaries to be places with a high bug probability, exercise them is therefore also important.</li>
+<li>Structural testing: Structurally-speaking, SQL queries contain predicates, and a tester might use the SQL&apos;s structure to derive test cases.</li>
+</ul>
+<p>Let us focus on structural testing. If we look close to the third example, and try to make an analogy with what we discussed in structural testing, we see that the SQL query contains a single branch (<code>value &gt; 50 and value &lt; 200</code>), composed of two predicates (<code>value &gt; 50</code> and <code>value &lt; 200</code>). This means that there are four possible combinations of results in these two predicates: (TT), (TF), (FT), (FF). A tester might aim at: </p>
+<ul>
+<li>Branch coverage: in this case, two tests, one that makes the overall decision to be evaluated to true, and one that makes the overall decision to be evaluated to false would be enough to achieve 100% branch coverage.</li>
+<li>Condition+Branch coverage: in this case, three tests would be enough to achieve 100% condition+branch coverage, e.g., T1=150, T2=40, T3=250.</li>
+</ul>
+<p>In <a href="https://dl.acm.org/doi/pdf/10.1145/1147214.1147221" target="_blank">A practical guide to SQL white-box testing</a>, Tuya and colleague suggests five guidelines for designing SQL tests: </p>
+<ol>
+<li><p><strong>Adopting MC/DC for SQL conditions.</strong> Decisions happen at three places in a SQL query: <em>join</em>, <em>where</em> and <em>having</em> conditions. Testers can make use of a criteria such as MC/DC to fully exercise its predicates.</p>
+</li>
+<li><p><strong>Adapting MC/DC for tackling with nulls</strong>. Given that databases have a special way of handling/returning NULLs, any (coverage) criteria should be adapted to a three-valued logic (i.e., true, false, null). In other words, consider the possibility of values being null in your query.</p>
+</li>
+<li><p><strong>Category partitioning selected data</strong>. SQL can be considered a sort of declarative specification, of which we can define partitions to be tested. Directly from their text:</p>
+<ol>
+<li>Rows that are retrieved: We include a test state to force the query to not select any row.</li>
+<li>Rows that are merged: The presence of unwanted duplicate rows in the output is a common failure in some queries. We include a test state in which identical rows are selected.</li>
+<li>Rows that are grouped: For each of the group-by columns, we design test states to obtain at least two different groups at the output, such that the value used for the grouping is the same, and all the other are different.</li>
+<li>Rows that are selected in a subquery: For each subquery, we include test states that return zero and more rows, with at least one null and two different values in the selected column. </li>
+<li>Values that participate in aggregate functions: For each aggregate function (excluding count), we include at least one test state in which the function computes two equal values and another one that is different. </li>
+<li>Other expressions: We also design test states for expressions involving the like predicate, date management, string management, data type conversions or other functions using category partitioning and boundary checking.</li>
+</ol>
+</li>
+<li><p><strong>Checking the outputs.</strong> We should check not only the input domain, but also the output domain. SQL queries might return NULL in specific columns or empty sets, for example, which might make the rest of the program to break. </p>
+</li>
+<li><p><strong>Checking the database constraints</strong>. Databases have constraints. Testers should make sure these constraints are indeed enforced by the database.</p>
+</li>
+</ol>
+<p>As you can see, many things can go wrong in a SQL query. And it is part of a tester&apos;s job to make sure it does not happen.</p>
+<p><div class="alert alert-success hints-alert"><div class="hints-icon"><i class="fa fa-mortar-board"></i></div><div class="hints-container"><p>For interested readers, in the <a href="https://onlinelibrary.wiley.com/doi/abs/10.1002/stvr.424" target="_blank">Full predicate coverage for testing SQL database queries</a> paper, Tuya et al. propose a MC/DC criteria for SQL queries.</p>
+</div></div></p>
+<h2 id="how-to-write-automated-test-cases-for-sql-queries">How to write automated test cases for SQL queries</h2>
+<p>We can make use of JUnit to write SQL tests. After all, all we need is to (1) establish a connection with the database, (2) make sure the database is in the right initial state, (3) fire a SQL query, (4) check the output.</p>
+<p>Imagine: </p>
+<ul>
+<li>We have an <code>Invoice</code> table that is composed of a <code>name</code> (varchar, length 100) and a <code>value</code> (double).</li>
+<li>We have an <code>InvoiceDao</code> class that makes use of any API to communicate with the database. The precise API does not matter.</li>
+<li>This DAO performs three actions: <code>save()</code> that persists an invoice in a database, <code>all()</code> which returns all invoices in the database, and <code>allWithAtLeast</code> that returns all invoices with at least an specified value.<ul>
+<li><code>all()</code> runs the following SQL query: <code>select * from invoice</code></li>
+<li><code>allWithAtLeast()</code> runs: <code>select * from invoice where value &gt;= ?</code></li>
+<li><code>save()</code> runs <code>insert into invoice (name, value) values (?,?)</code>.</li>
+<li>You may see a JDBC implementation of this <code>InvoiceDao</code> in our <a href="https://github.com/sttp-book/code-examples/blob/master/src/main/java/tudelft/mocks/invoice/InvoiceDao.java" target="_blank">code examples</a> repository.</li>
+</ul>
+</li>
+</ul>
+<p>Take a look at this rather long JUnit test snippet (which you can also see in our <a href="https://github.com/sttp-book/code-examples/blob/master/src/test/java/tudelft/mocks/invoice/InvoiceDaoIntegrationTest.java" target="_blank">code examples</a> repository:</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">InvoiceDaoIntegrationTest</span> </span>{
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> DatabaseConnection connection = <span class="hljs-keyword">new</span> DatabaseConnection();
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> InvoiceDao dao = <span class="hljs-keyword">new</span> InvoiceDao(connection);
+
+    <span class="hljs-meta">@BeforeEach</span>
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">cleanup</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> SQLException </span>{
+        <span class="hljs-comment">/**
+         * Let&apos;s clean up the table before the test runs.
+         * That will avoid possible flaky tests.
+         *
+         * Note that doing a single &apos;truncate&apos; here seems simple and enough for this exercise.
+         * In large systems, you will probably want to encapsulate the &apos;reset database&apos; logic
+         * somewhere else. Or even make use of specific frameworks for that.
+         */</span>
+        connection.getConnection().prepareStatement(<span class="hljs-string">&quot;truncate table invoice&quot;</span>).execute();
+
+        <span class="hljs-comment">/**
+         * Maybe you also want to double check if the cleaning operation
+         * worked!
+         */</span>
+        List&lt;Invoice&gt; invoices = dao.all();
+        assertThat(invoices).isEmpty();
+    }
+
+    <span class="hljs-meta">@AfterEach</span>
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">close</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-comment">/**
+         * Closing up the connection might also be something you do
+         * at the end of each test.
+         * Or maybe only at the end of the entire test suite, just to optimize.
+         * (In practice, you should also use some connection pool, like C3P0,
+         * to handle connections)
+         */</span>
+        connection.close();
+    }
+
+    <span class="hljs-meta">@Test</span>
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">save</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">final</span> var inv1 = <span class="hljs-keyword">new</span> InvoiceBuilder().build();
+        <span class="hljs-keyword">final</span> var inv2 = <span class="hljs-keyword">new</span> InvoiceBuilder().build();
+
+        dao.save(inv1);
+
+        List&lt;Invoice&gt; afterSaving = dao.all();
+        assertThat(afterSaving).containsExactlyInAnyOrder(inv1);
+
+        dao.save(inv2);
+        List&lt;Invoice&gt; afterSavingAgain = dao.all();
+        assertThat(afterSavingAgain).containsExactlyInAnyOrder(inv1, inv2);
+    }
+
+    <span class="hljs-meta">@Test</span>
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">atLeast</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">int</span> value = <span class="hljs-number">50</span>;
+
+        <span class="hljs-comment">/**
+         * Explore the boundary: value &gt;= x
+         * On point = x
+         * Off point = x-1
+         * In point = x + 1 (not really necessary, but it&apos;s cheap, and makes the
+         *   test strategy easier to comprehend)
+         */</span>
+        <span class="hljs-keyword">final</span> var inv1 = <span class="hljs-keyword">new</span> InvoiceBuilder().withValue(value - <span class="hljs-number">1</span>).build();
+        <span class="hljs-keyword">final</span> var inv2 = <span class="hljs-keyword">new</span> InvoiceBuilder().withValue(value).build();
+        <span class="hljs-keyword">final</span> var inv3 = <span class="hljs-keyword">new</span> InvoiceBuilder().withValue(value + <span class="hljs-number">1</span>).build();
+
+        dao.save(inv1);
+        dao.save(inv2);
+        dao.save(inv3);
+
+        List&lt;Invoice&gt; afterSaving = dao.allWithAtLeast(value);
+        assertThat(afterSaving).containsExactlyInAnyOrder(inv2, inv3);
+    }
+}
+</code></pre>
+<p>Let us understand it:</p>
+<ul>
+<li>Before each test, a clean up operation happens. We clean the entire database to make sure our tests will not be flaky. It is easy to imagine that, if a database has unkwnown data, a SQL query will return unexpected results. Note that, in here, we are doing a simple <code>truncate table</code>. In more complex systems, you might want to extract this &quot;reset database&quot; logic to an specialized class (or even to make use of framework).</li>
+<li>After each class, we close the connection, to avoid connection leaks. In this example, a simple <code>Connection#close</code> suffices. In real life, you might want to use some professional connection pool (not only for your test code, but also for your production code!)</li>
+<li>The <code>save()</code> test method exercises both <code>save()</code> and <code>all()</code> methods. It inserts values to the database and ensures they are persisted correctly afterwards.</li>
+<li>The <code>atLeast</code> exercises the <code>allWithAtLeast</code> method. Note how it also exercises the boundaries of the <code>value&gt;?</code> condition. </li>
+<li>Observe how test data builders (in this case, exemplified by the <code>InvoiceBuilder</code> class) helps us in quickly building test data.</li>
+</ul>
+<p>This test suite might be considered good enough for the current <code>InvoiceDao</code> class. Note that, by basically applying all the ideas we have seen before, we were able to write good SQL testing without much costs.</p>
+<h2 id="challenges-and-best-practices">Challenges and best practices</h2>
+<p>The example above was quite simple. Challenges might emerge once your SQL queries are highly complex. Some tips:</p>
+<ul>
+<li><strong>Make use of test data builders.</strong> They will help you to quickly build the data structures you need.</li>
+<li><strong>Make use of good assertions APIs.</strong> Asserting was easy in the example above as AssertJ makes our life easier. </li>
+<li><strong>Minimize the required data</strong>. Make sure the input data is minimized. You do not want to have to load hundreds of thousands of elements to exercise your SQL query (maybe you will want to do this to exercise other features of your database, like speed, but that is not the case here).</li>
+<li><strong>Build good test infrastructure</strong>. In our example, it was simple to open a connection, to reset the database state, and etc, but that might become more complicated (or lenghty) once your database schema gets complicated. Invest on a test infrastructure to facilitate your SQL testing.</li>
+<li><strong>Take into consideration the schema evolution</strong>. In real life, database schemas evolve quite fast. Make sure your test suite is resilient towards these changes (i.e., if an evolution should not break the test suite, it does not; if an evolution should break the test suite, it does break the test suite).</li>
+<li><strong>Consider an in-memory database</strong>. You should decide whether your tests will communicate with a &quot;real&quot; database (i.e., the same database of your production environment) or a simpler database (e.g., an in-memory database). As always, both sides have advantages and disadvantages. Using a the same database as in production makes your tests more realistic, but probably slower than if you use an in-memory database.</li>
+</ul>
+<h2 id="references">References</h2>
+<ul>
+<li>Tuya, Javier, M. Jos&#xE9; Su&#xE1;rez-Cabal, and Claudio De La Riva. &quot;A practical guide to SQL white-box testing.&quot; ACM SIGPLAN Notices 41, no. 4 (2006): 36-41.</li>
+</ul>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="web-testing.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Web testing">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"SQL testing","level":"6.1.2","depth":2,"next":{"title":"Web services testing (soon)","level":"6.1.3","depth":2,"ref":"","articles":[]},"previous":{"title":"Web testing","level":"6.1.1","depth":2,"path":"chapters/testing-into-context/web-testing.md","ref":"chapters/testing-into-context/web-testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","katex","ga"],"pluginsConfig":{"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-154019382-1"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"assets/css/website.css"}},"file":{"path":"chapters/testing-into-context/sql-testing.md","mtime":"2020-05-17T14:34:05.454Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-26T07:11:49.412Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-ga/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
